@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Aliases
+alias ls='ls --color=auto'
+alias la='ls -a --color=auto'
+alias ll='ls -l --color=auto'
+alias lla='ls -la --color=auto'
+alias pingg='ping -c 3 www.duckduckgo.com'
+alias bytes='du -hs'
+alias wm='sudo wifi-menu'
+alias keys='setxkbmap dvorak -option compose:caps'
+
+alias alarm='mplayer ~/Media/audio/siren.wav'
+
+alias shutdown='sudo shutdown now -P'
+alias restart='sudo shutdown now -r'
+
+alias tmux='tmux -2' 
+alias matlabcli='matlab -nodesktop -nojvm -nosplash'
+
+alias network-scan='sudo iwlist wlp58s0 scan | grep ESSID'
+
+alias combine-pdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite \
+    -sOutputFile=$3 $1 $2'
+

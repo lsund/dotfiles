@@ -1,0 +1,53 @@
+xterm*faceName: SourceCodePro:size=10
+xterm*font: 7x13
+xterm*termName: xterm-256color
+XTerm*locale: true
+term*utf8*: 1
+Xcursor.theme: Vanilla-DMZ-AA 
+Xcursor.size: 22
+XTerm*metaSendsEscape: true
+
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.font: xft:Source Code Pro:size=10
+URxvt.scrollBar: false
+
+!--[extension]--!
+!URxvt.perl-ext-common: default,selection,matcher
+URxvt.perl-ext: ""
+URxvt.perl-ext-common: ""
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline Bold fg5
+
+URxvt*urgentOnBell: true
+URxvt*visualBell:   false
+
+!terminal colors ------------------------------------------------------------
+
+*background:         #111111
+*foreground:         #FFFFFF
+!black
+*color0 :            #222222
+*color8 :            #454545
+!red
+*color1 :            #B22222
+*color9 :            #FA8072
+!green
+*color2 :            #556B2F
+*color10:            #9ACD32
+!yellow
+*color3 :            #B8860B
+*color11:            #DAA520
+!blue
+*color4 :            #4682B4
+*color12:            #6495ED
+!magenta
+*color5 :            #9932CC
+*color13:            #DA70D6
+!cyan
+*color6 :            #87CEEB
+*color14:            #B0E0E6
+!white
+*color7 :            #C0C0C0
+*color15:            #FFFFFF
