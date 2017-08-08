@@ -179,6 +179,10 @@ Plugin 'tpope/vim-fireplace'
 " 
 "  Linter (Not clojurescript)
 Plugin 'venantius/vim-eastwood'
+"
+" Runtime files
+Plugin 'guns/vim-clojure-static'
+
 
 "  -----------------------------------------------------------------------------
 "  Rust

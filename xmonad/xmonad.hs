@@ -512,7 +512,7 @@ myBotLeftLogHook h hostname =
   { ppOutput = hPutStrLn h
   , ppOrder = \(_:_:_:x) -> x
   , ppSep = " "
-  , ppExtras = [myUptimeL, myMemL, myWifiL, myCpuL]
+  , ppExtras = [myUptimeL, myMemL, myCpuL, myWifiL]
   }
 
 -- Dzen bottom right bar flags
@@ -552,18 +552,18 @@ myBatL hostname =
     dzenBoxStyleL whiteBoxPP  (batPercent hostname 30 colorRed)
 
 myMemL =
-    dzenBoxStyleL blue2BoxPP (labelL "•") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "▦") ++!
     dzenBoxStyleL whiteBoxPP (memUsage [freeBMemUsage])
         where freeBMemUsage x =
                 let bytes     = _memValues x !! 2
                 in show (div bytes 1000) ++ "M"
 
 myCpuL =
-    dzenBoxStyleL blue2BoxPP (labelL "•") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "▣") ++!
     dzenBoxStyleL whiteBoxPP (cpuUsage "/tmp/haskell-cpu-usage.txt" 70 colorRed)
 
 myWifiL =
-    dzenBoxStyleL blue2BoxPP (labelL "•") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "∿") ++!
     dzenBoxStyleL whiteBoxPP wifiPerc ++!
     dzenBoxStyleL whiteBoxPP wifiStr
 

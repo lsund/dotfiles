@@ -51,7 +51,7 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     -- Suspend
     , ((modMask, xK_End), spawn "systemctl suspend")
     -- Restart
-    , ((modMask, xK_Pause), killAndRestart)
+    , ((modMask, xK_Home), killAndRestart)
     -- Run command
     , ((modMask, xK_r), shellPrompt myXPConfig)
     -- launch terminal

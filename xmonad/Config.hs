@@ -20,14 +20,14 @@ colorRed       = "#f7a16e"
 colorRedAlt    = "#e0105f"
 colorGreen     = "#66ff66"
 colorGreenAlt  = "#558965"
-boxLeftIcon    = "/home/lsund/.icons/xbm_icons/subtle/boxleft.xbm"  --left icon of dzen boxes
-boxLeftIcon2   = "/home/lsund/.icons/xbm_icons/subtle/boxleft2.xbm" --left icon2 of dzen boxes
-boxRightIcon   = "/home/lsund/.icons/xbm_icons/subtle/boxright.xbm" --right icon of dzen boxes
-panelHeight    = 16 :: Int                                                --height of top and bottom panels (16)
-boxHeight      = 14 :: Int                                                 --height of dzen logger box (14)
-topPanelSepPos = 950 :: Int                                                --left-right alignment pos of top panel
-botPanelSepPos = 900 :: Int                                                --left-right alignment pos of bottom panel
+boxLeftIcon    = "/home/lsund/.icons/xbm_icons/subtle/boxleft.xbm"          --left icon of dzen boxes
+boxLeftIcon2   = "/home/lsund/.icons/xbm_icons/subtle/boxleft2.xbm"         --left icon2 of dzen boxes
+boxRightIcon   = "/home/lsund/.icons/xbm_icons/subtle/boxright.xbm"         --right icon of dzen boxes
+panelHeight    = 16 :: Int                                                  --height of top and bottom panels (16)
+boxHeight      = 14 :: Int                                                  --height of dzen logger box (14)
+topPanelSepPos = 950 :: Int                                                 --left-right alignment pos of top panel
+botPanelSepPos = 900 :: Int                                                 --left-right alignment pos of bottom panel
 
 logpath = "/home/lsund/Data/log/"
-automaticScriptPath = "/home/lsund/Scripts/automatic/"
+automaticScriptPath = "/home/lsund/Documents/scripts/automatic/"
 

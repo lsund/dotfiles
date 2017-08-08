@@ -1,0 +1,11 @@
+[user]
+	email = lud.sund@gmail.com
+	name = Ludvig Sundström
+[core]
+	pager = less -
+	editor = /usr/bin/vim
+[alias]
+	co = checkout
+	ci = commit
+	amend = commit --amend
+    a = add -A
