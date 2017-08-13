@@ -14,6 +14,7 @@ import System.Exit
 import Control.Concurrent
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
+import XMonad.Util.Scratchpad
 
 import Config
 
@@ -87,6 +88,7 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     -- Use next window layout
     , ((modMask, xK_space), sendMessage NextLayout)
     -- Screenshot binding
+    , ((modMask, xK_s), scratchpadSpawnActionTerminal myTerminal)
     , (
         (0, xK_Print)
         , spawn

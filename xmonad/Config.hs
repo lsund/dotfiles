@@ -28,6 +28,7 @@ boxHeight      = 14 :: Int                                                  --he
 topPanelSepPos = 950 :: Int                                                 --left-right alignment pos of top panel
 botPanelSepPos = 900 :: Int                                                 --left-right alignment pos of bottom panel
 
+myTerminal = "/usr/bin/urxvt"
 logpath = "/home/lsund/Data/log/"
 automaticScriptPath = "/home/lsund/Documents/scripts/automatic/"
 
