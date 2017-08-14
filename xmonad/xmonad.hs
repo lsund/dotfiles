@@ -39,7 +39,7 @@ import XMonad.Util.Timer
 import XMonad.Util.Cursor
 import XMonad.Util.Loggers
 import XMonad.Util.Run
-import XMonad.Util.NamedScratchpad
+import XMonad.Util.Scratchpad
 import XMonad.Actions.ShowText
 import XMonad.Actions.MouseResize
 import Data.Monoid
@@ -67,8 +67,8 @@ main = do
     botLeftBar  <- dzenSpawnPipe $ dzenBotLeftFlags r
     botRightBar <- dzenSpawnPipe $ dzenBotRightFlags r
     xmonad $ def
-        { terminal           = "/usr/bin/urxvt"                 --default terminal
-        , modMask            = mod4Mask                         --default modMask
+        { terminal           = myTerminal                 
+        , modMask            = mod4Mask                         
         , focusFollowsMouse  = True                             --focus follow config
         , clickJustFocuses   = True                             --focus click config
         , borderWidth        = 1                                --border width
@@ -387,7 +387,15 @@ myManageHook :: String -> ManageHook
 myManageHook hostname =
     manageDocks <+>
     dynamicMasterHook <+>
-    manageWindows hostname
+    manageWindows hostname <+>
+    manageScratchPad
+
+manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
+  where
+    h = 0.2   -- height
+    w = 1     -- width
+    t = 1 - h -- distance from top
+    l = 1 - w -- distance from left edge
 
 -- Manage Windows
 manageWindows :: String -> ManageHook
@@ -507,7 +515,7 @@ dzenBotLeftFlags r = DF
 -- Bottom left bar logHook
 myBotLeftLogHook :: Handle -> String -> X ()
 myBotLeftLogHook h hostname =
-  dynamicLogWithPP . namedScratchpadFilterOutWorkspacePP $
+  dynamicLogWithPP $
   def
   { ppOutput = hPutStrLn h
   , ppOrder = \(_:_:_:x) -> x
