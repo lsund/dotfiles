@@ -174,14 +174,18 @@ Plugin 'neovimhaskell/haskell-vim'
 Plugin 'tpope/vim-fireplace'
 " 
 "  Editing S-expressions
-" Plugin 'guns/vim-sexp'
+Plugin 'guns/vim-sexp'
+Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 " let g:sexpr_insert_after_wrap=false
 " 
 "  Linter (Not clojurescript)
 Plugin 'venantius/vim-eastwood'
 "
-" Runtime files
+"  Runtime files
 Plugin 'guns/vim-clojure-static'
+"
+"  Formatting
+" Plugin 'venantius/vim-cljfmt'
 
 
 "  -----------------------------------------------------------------------------
