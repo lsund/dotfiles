@@ -94,8 +94,8 @@ map <leader>t :TagbarToggle<CR>
 " Other mappings
 " =============================================================================
 
-vmap <leader>ii :I<CR>
-vmap <leader>ia :IA<CR>
+" vmap <leader>ii :I<CR>
+" vmap <leader>ia :IA<CR>
 
 noremap Z! :q!<CR>
 
@@ -135,15 +135,16 @@ map <silent> ,hiv :call HaskellImport('vector')<CR>
 map <silent> ,him :call HaskellImport('map')<CR>
 map <silent> ,hiM :call HaskellImport('matrix')<CR>
 
-nnoremap <leader>gq {V}gq
+" TODO
+nnoremap <leader>gq gggqG''
 
 nnoremap <leader>nh :nohlsearch<CR>:GhcModTypeClear<CR>
 noremap <leader>cr :call clearmatches()<CR>
 
 
-autocmd Filetype clojure map <leader>ii 
-    \ i;; --------------------------------------------------------------------
-    \--------<CR>;; 
+" autocmd Filetype clojure map <leader>ii 
+"     \ i;; --------------------------------------------------------------------
+"     \--------<CR>;; 
 
 autocmd Filetype haskell map <leader>ii 
     \ i--------------------------------------------------------------------
