@@ -28,7 +28,7 @@ set laststatus=2
 "  Autocompletion
 "
 "  Omnicomplete for a bunch of languages
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 let g:ycm_python_binary_path = '/usr/bin/python3'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py' 
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -173,8 +173,9 @@ Plugin 'neovimhaskell/haskell-vim'
 "  Live repl, dynamic expression evaluation
 Plugin 'tpope/vim-fireplace'
 " 
-"  Editing S-expressions
-Plugin 'guns/vim-sexp'
+"  Editing S-expressions (Forked)
+Plugin 'lsund/vim-sexp'
+"
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 " let g:sexpr_insert_after_wrap=false
 " 
