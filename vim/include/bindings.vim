@@ -65,7 +65,6 @@ map <leader>mn <Plug>(easymotion-k)
 map <leader>st :SyntasticToggleMode<CR>
 nnoremap <leader>ch :SyntasticCheck<CR>
 nnoremap <leader>co :lopen<CR>
-autocmd Filetype haskell map <leader>ch :GhcModCheckAndLintAsync<CR>
 
 " tabularize
 vmap a= :Tabularize /=<CR>
@@ -121,34 +120,11 @@ cnoremap <C-F> <Right>
 nmap <silent> --h "=HaskellModuleHeader()<CR>:0put =<CR>
 nmap <silent> --s "=HaskellModuleSection()<CR>gp
 
-"haskell 
-map <silent> ,ht :GhcModType<CR>
-map <silent> ,hl :call ApplyOneSuggestion()<CR>
-map <silent> ,hL :call ApplyAllSuggestion()<CR>
-map <silent> ,hh :Hoogle<CR>
-map ,hH :Hoogle 
-map <silent> ,hc :HoogleClose<CR>
-map <silent> ,hil :call HaskellImport('list')<CR>
-map <silent> ,hip :call HaskellImport('protolude')<CR>
-map <silent> ,his :call HaskellImport('set')<CR>
-map <silent> ,hiv :call HaskellImport('vector')<CR>
-map <silent> ,him :call HaskellImport('map')<CR>
-map <silent> ,hiM :call HaskellImport('matrix')<CR>
-
 " TODO
 nnoremap <leader>gq {V}gqV}==
 
-nnoremap <leader>nh :nohlsearch<CR>:GhcModTypeClear<CR>
 noremap <leader>cr :call clearmatches()<CR>
-
-
-" autocmd Filetype clojure map <leader>ii 
-"     \ i;; --------------------------------------------------------------------
-"     \--------<CR>;; 
-
-autocmd Filetype haskell map <leader>ii 
-    \ i--------------------------------------------------------------------
-    \--------<CR> 
+nnoremap <leader>nh :nohlsearch<CR>
 
 autocmd Filetype vim map <leader>ii 
     \ i"  --------------------------------------------------------------------

@@ -5,7 +5,7 @@ XTerm*metaSendsEscape: true
 
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
-URxvt.font: xft:Source Code Pro:size=12
+URxvt.font: xft:Source\ Code\ Pro\ for\ Powerline:Bold:size=12
 URxvt.scrollBar: false
 
 URxvt.matcher.button: 1
