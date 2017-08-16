@@ -136,7 +136,7 @@ map <silent> ,him :call HaskellImport('map')<CR>
 map <silent> ,hiM :call HaskellImport('matrix')<CR>
 
 " TODO
-nnoremap <leader>gq gggqG''
+nnoremap <leader>gq {V}gqV}==
 
 nnoremap <leader>nh :nohlsearch<CR>:GhcModTypeClear<CR>
 noremap <leader>cr :call clearmatches()<CR>
