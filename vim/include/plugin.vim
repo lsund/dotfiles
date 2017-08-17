@@ -176,7 +176,7 @@ Plugin 'tpope/vim-fireplace'
 "  Editing S-expressions (Forked)
 Plugin 'lsund/vim-sexp'
 "
-Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+" Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 " let g:sexpr_insert_after_wrap=false
 " 
 "  Linter (Not clojurescript)
