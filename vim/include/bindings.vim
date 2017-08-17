@@ -120,9 +120,6 @@ cnoremap <C-F> <Right>
 nmap <silent> --h "=HaskellModuleHeader()<CR>:0put =<CR>
 nmap <silent> --s "=HaskellModuleSection()<CR>gp
 
-" TODO
-nnoremap <leader>gq {V}gqV}==
-
 noremap <leader>cr :call clearmatches()<CR>
 nnoremap <leader>nh :nohlsearch<CR>
 
