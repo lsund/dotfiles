@@ -107,7 +107,6 @@ inoremap <C-f> <C-o>l
 nnoremap <Leader>rc :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>cc y:%s/<C-r>"/<C-r>"
 
-nnoremap <Leader>s :call Savefile()<CR>
 nnoremap <leader>p :w \| :call CompileLatex()<CR>
 
 nmap <silent> <leader>ss :call Toggle('spell')<CR>

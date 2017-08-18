@@ -48,14 +48,6 @@ function! CompileLatex()
     endif
 endfunction
 
-" Call savefile script ========================================================
-
-function Savefile()
-    let file = expand('%:t')
-    let dir = expand('%:p:h')
-    execute '! /home/lsund/Scripts/savefile ' . dir . ' ' . file
-endfunction
-
 " Toggle
 
 function! Toggle(setting)
