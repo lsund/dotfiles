@@ -28,7 +28,7 @@ set nocindent
 " Formatting and Spelling ================================================================
 
 set formatoptions+=tc
-set tw=80
+set tw=79
 set wrap
 set linebreak
 set spelllang=en_us
