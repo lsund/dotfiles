@@ -23,6 +23,7 @@ alias my-ip="curl -s checkip.dyndns.org | \
     sed -e 's/.*Current IP Address: //' -e 's/<.*$//'"
 
 alias sgn-vpn='sudo openvpn ~/.vpn-unibonn/sundstro-openvpn-tcp.ovpn'
+alias connect-chrysaor='xfreerdp /v:chrysaor /d:SGN /u:administrator'
 alias mount-pi='sshfs pi:/mnt/mybook/ ~/Shared'
 
 alias combine-pdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite \
