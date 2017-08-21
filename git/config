@@ -6,7 +6,7 @@
 	editor = /usr/bin/vim
 [alias]
 	co = checkout
-	ci = commit
+	ci = commit -t commit-message
 	am = commit --amend
     a = add -A
     p = add -p
