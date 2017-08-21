@@ -8,6 +8,6 @@
 	co = checkout
 	ci = commit
 	cit = commit -t commit-message
-	am = commit --amend
+	cam = commit --amend
     a = add -A
-    p = add -p
+    p = add --patch
