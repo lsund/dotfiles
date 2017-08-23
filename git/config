@@ -7,6 +7,7 @@
 [alias]
 	co = checkout
 	ci = commit
-	am = commit --amend
+	cit = commit -t commit-message
+	cam = commit --amend
     a = add -A
-    p = add -p
+    p = add --patch
