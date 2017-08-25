@@ -110,11 +110,11 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 "  -----------------------------------------------------------------------------
-"  Utilities 
-"  
+"  Utilities
+"
 "  Automatic commenting
 Plugin 'tpope/vim-commentary'
-" 
+"
 "  Easier character surround
 Plugin 'tpope/vim-surround'
 "
