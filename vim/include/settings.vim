@@ -1,6 +1,6 @@
 
 "  -----------------------------------------------------------------------------
-"  General 
+"  General
 
 filetype plugin indent on
 set nocompatible
@@ -60,6 +60,9 @@ set ttyfast
 " Red highlight for lines longer than 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+" Red highlight for unwaned whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
 
 
 " Search and matching =========================================================

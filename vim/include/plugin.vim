@@ -130,10 +130,18 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "  Align lines according to symbol
 Plugin 'godlygeek/tabular'
 let g:haskell_tabular=1
-
+"
+"  Easy align
+Plugin 'junegunn/vim-easy-align'
+let g:easy_align_delimiters = {
+\ '(': { 'pattern': '[()]',
+\        'left_margin' : 1,
+\        'right_margin' : 0,
+\        'stick_to_left' : 0 }
+\ }
 "  -----------------------------------------------------------------------------
 "  Wrappers
-"  
+"
 "  Git
 Plugin 'tpope/vim-fugitive'
 
@@ -145,7 +153,7 @@ Plugin 'Shougo/vimproc.vim'
 
 "  -----------------------------------------------------------------------------
 "  Haskell
-"  
+"
 "  Type display, error/warning display, split function insert
 Plugin 'eagletmt/ghcmod-vim'
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
@@ -153,7 +161,7 @@ let g:ghcmod_open_quickfix_function = 'GhcModQuickFix'
 function! GhcModQuickFix()
     :botright cw
 endfunction
-"  
+"
 "  Linting
 Plugin 'mpickering/hlint-refactor-vim'
 let g:hlintRefactor#disableDefaultKeybindings = 1
@@ -172,13 +180,13 @@ Plugin 'neovimhaskell/haskell-vim'
 "
 "  Live repl, dynamic expression evaluation
 Plugin 'tpope/vim-fireplace'
-" 
+"
 "  Editing S-expressions (Forked)
 Plugin 'lsund/vim-sexp'
 "
 " Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 " let g:sexpr_insert_after_wrap=false
-" 
+"
 "  Linter (Not clojurescript)
 Plugin 'venantius/vim-eastwood'
 "

@@ -1,8 +1,9 @@
 nmap <leader>r  :Require<CR>
 nmap <leader>x  :Eval<CR>
-nnoremap <leader>gq vap==}vapgq
+nmap <leader>gq <Plug>Csurround()vap==}vapgq
+nmap gq <Plug>Csurround()==
 
-map <leader>ii 
+map <leader>ii
     \ i;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     \;;;;;;;;<CR>;; 
 
