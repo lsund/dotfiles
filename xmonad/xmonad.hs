@@ -55,6 +55,7 @@ import qualified XMonad.Util.ExtensibleState as XS
 
 import KeyBindings (myKeys, myMouseBindings)
 import Config
+import Boxes
 
 -- Main
 main :: IO ()
@@ -101,7 +102,7 @@ myTitleTheme = def
     , activeBorderColor   = colorGrayAlt2
     , activeColor         = colorGrayAlt2
     , activeTextColor     = colorWhiteAlt2
-    , decoHeight          = 14
+    , decoHeight          = 24
     }
 
 -- Prompt theme
@@ -111,117 +112,6 @@ myTextConfig = STC
     { st_font = dzenFont
     , st_bg   = colorBlack
     , st_fg   = colorWhite
-    }
-
--- Dzen logger box pretty printing themes
-gray2BoxPP :: BoxPP
-gray2BoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorGray
-    , boxColorBPP  = colorGrayAlt
-    , leftIconBPP  = boxLeftIcon2
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-blueBoxPP :: BoxPP
-blueBoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorBlue
-    , boxColorBPP  = colorGrayAlt
-    , leftIconBPP  = boxLeftIcon
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-blue2BoxPP :: BoxPP
-blue2BoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorBlue
-    , boxColorBPP  = colorGrayAlt
-    , leftIconBPP  = boxLeftIcon2
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-whiteBoxPP :: BoxPP
-whiteBoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorWhiteAlt
-    , boxColorBPP  = colorGrayAlt
-    , leftIconBPP  = boxLeftIcon
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-grayBoxPP :: BoxPP
-grayBoxPP = BoxPP
-    { bgColorBPP   = colorGray
-    , fgColorBPP   = colorGray
-    , boxColorBPP  = colorGrayAlt
-    , leftIconBPP  = boxLeftIcon
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-blackBoxPP :: BoxPP
-blackBoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorBlack
-    , boxColorBPP  = colorGrayAlt
-    , leftIconBPP  = boxLeftIcon
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-white2BBoxPP :: BoxPP
-white2BBoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorBlack
-    , boxColorBPP  = colorWhiteAlt
-    , leftIconBPP  = boxLeftIcon2
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-red2BBoxPP :: BoxPP
-red2BBoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorBlack
-    , boxColorBPP  = colorRed
-    , leftIconBPP  = boxLeftIcon2
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-blue2BBoxPP :: BoxPP --current workspace
-blue2BBoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorBlack
-    , boxColorBPP  = colorBlue
-    , leftIconBPP  = boxLeftIcon2
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-green2BBoxPP :: BoxPP
-green2BBoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorBlack
-    , boxColorBPP  = colorGreen
-    , leftIconBPP  = boxLeftIcon2
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
-    }
-
-gray2BBoxPP :: BoxPP
-gray2BBoxPP = BoxPP
-    { bgColorBPP   = colorBlack
-    , fgColorBPP   = colorBlack
-    , boxColorBPP  = colorGray
-    , leftIconBPP  = boxLeftIcon2
-    , rightIconBPP = boxRightIcon
-    , boxHeightBPP = boxHeight
     }
 
 layoutCA :: CA
@@ -347,7 +237,7 @@ myFTabU = smartBorders $ named ("Unique " ++ myFTabName) $ tabbedAlways shrinkTe
 myFloaU = named ("Unique " ++ myFloaName) $ mouseResize $ noFrillsDeco shrinkText myTitleTheme simplestFloat
 
 -- Layout hook
-myLayoutHook hostname =
+myLayoutHook hostname = avoidStruts $
   gaps [(U, panelHeight), (D, panelHeight)] $
   configurableNavigation noNavigateBorders $
   minimize $
@@ -457,7 +347,7 @@ myTopLeftLogHook h hostname = dynamicLogWithPP def
   , ppUrgent = dzenBoxStyle red2BBoxPP . dzenClickWorkspace
   , ppVisible = dzenBoxStyle green2BBoxPP . dzenClickWorkspace
   , ppHiddenNoWindows = dzenBoxStyle gray2BBoxPP . dzenClickWorkspace
-  , ppHidden = dzenBoxStyle whiteBoxPP . dzenClickWorkspace
+  , ppHidden = dzenBoxStyle white2BBoxPP . dzenClickWorkspace
   , ppExtras = [ myFocusL ]
   }
   where
@@ -556,51 +446,51 @@ myBotRightLogHook h hostname =
 
 myBatL hostname =
     dzenBoxStyleL blue2BoxPP (labelL "⚡") ++!
-    dzenBoxStyleL whiteBoxPP (batStatus hostname) ++!
-    dzenBoxStyleL whiteBoxPP  (batPercent hostname 30 colorRed)
+    dzenBoxStyleL white2BBoxPP (batStatus hostname) ++!
+    dzenBoxStyleL white2BBoxPP  (batPercent hostname 30 colorRed)
 
 myMemL =
     dzenBoxStyleL blue2BoxPP (labelL "▦") ++!
-    dzenBoxStyleL whiteBoxPP (memUsage [freeBMemUsage])
+    dzenBoxStyleL white2BBoxPP (memUsage [freeBMemUsage])
         where freeBMemUsage x =
                 let bytes     = _memValues x !! 2
                 in show (div bytes 1000) ++ "M"
 
 myCpuL =
     dzenBoxStyleL blue2BoxPP (labelL "▣") ++!
-    dzenBoxStyleL whiteBoxPP (cpuUsage "/tmp/haskell-cpu-usage.txt" 70 colorRed)
+    dzenBoxStyleL white2BBoxPP (cpuUsage "/tmp/haskell-cpu-usage.txt" 70 colorRed)
 
 myWifiL =
     dzenBoxStyleL blue2BoxPP (labelL "∿") ++!
-    dzenBoxStyleL whiteBoxPP wifiPerc ++!
-    dzenBoxStyleL whiteBoxPP wifiStr
+    dzenBoxStyleL white2BBoxPP wifiPerc ++!
+    dzenBoxStyleL white2BBoxPP wifiStr
 
 myBrightL hostname =
     dzenBoxStyleL blue2BoxPP (labelL "☼") ++!
     if hostname == "dennis" then
-        dzenBoxStyleL whiteBoxPP $ brightPerc 4648
+        dzenBoxStyleL white2BBoxPP $ brightPerc 4648
     else if hostname == "keysersoze" then
-        dzenBoxStyleL whiteBoxPP $ brightPerc 937
+        dzenBoxStyleL white2BBoxPP $ brightPerc 937
     else
-        dzenBoxStyleL whiteBoxPP $ brightPerc 1000
+        dzenBoxStyleL white2BBoxPP $ brightPerc 1000
 mySoundL =
     dzenBoxStyleL blue2BoxPP (labelL "♬") ++!
-    dzenBoxStyleL whiteBoxPP soundPerc ++!
-    dzenBoxStyleL whiteBoxPP soundStat
+    dzenBoxStyleL white2BBoxPP soundPerc ++!
+    dzenBoxStyleL white2BBoxPP soundStat
 
 myPacSyncL =
     dzenBoxStyleL blue2BoxPP (labelL "♼") ++!
-    dzenBoxStyleL whiteBoxPP npacSync
+    dzenBoxStyleL white2BBoxPP npacSync
 
 myMailSyncL = do
     logger <- nmailSync colorRed
     case logger of
         Just s ->
             if (read (getRaw s) :: Int) >= 1 then
-                dzenBoxStyleL red2BBoxPP (labelL "✉") ++! dzenBoxStyleL whiteBoxPP (nmailSync colorRed)
+                dzenBoxStyleL red2BBoxPP (labelL "✉") ++! dzenBoxStyleL white2BBoxPP (nmailSync colorRed)
             else
-                dzenBoxStyleL blue2BoxPP (labelL "✉") ++! dzenBoxStyleL whiteBoxPP (nmailSync colorRed)
-        Nothing -> dzenBoxStyleL blue2BoxPP (labelL "✉") ++! dzenBoxStyleL whiteBoxPP (nmailSync colorRed)
+                dzenBoxStyleL blue2BoxPP (labelL "✉") ++! dzenBoxStyleL white2BBoxPP (nmailSync colorRed)
+        Nothing -> dzenBoxStyleL blue2BoxPP (labelL "✉") ++! dzenBoxStyleL white2BBoxPP (nmailSync colorRed)
 
 getRaw [x] = [x]
 getRaw (')' : x : xs) = [x]
@@ -610,13 +500,13 @@ getRaw (x : xs) = getRaw xs
 -- TopRight Loggers
 myDateL =
     dzenBoxStyleL white2BBoxPP (date "%A") ++!
-    dzenBoxStyleL whiteBoxPP   (date $ "%Y^fg(" ++ colorGray ++ ").^fg()%m^fg(" ++ colorGray ++ ").^fg()^fg(" ++ colorBlue ++ ")%d^fg()") ++!
-    dzenBoxStyleL whiteBoxPP   (date $ "%H^fg(" ++ colorGray ++ "):^fg()%M^fg(" ++ colorGray ++ "):^fg()^fg(" ++ colorGreen ++ ")%S^fg()")
+    dzenBoxStyleL white2BBoxPP   (date $ "%Y^fg(" ++ colorGray ++ ").^fg()%m^fg(" ++ colorGray ++ ").^fg()^fg(" ++ colorBlue ++ ")%d^fg()") ++!
+    dzenBoxStyleL white2BBoxPP   (date $ "%H^fg(" ++ colorGray ++ "):^fg()%M^fg(" ++ colorGray ++ "):^fg()^fg(" ++ colorGreen ++ ")%S^fg()")
 myUptimeL =
     dzenBoxStyleL blue2BoxPP   (labelL "◷") ++!
-    dzenBoxStyleL whiteBoxPP uptime
+    dzenBoxStyleL white2BBoxPP uptime
 
-myFocusL = dzenBoxStyleL whiteBoxPP (shortenL 100 logTitle)
+myFocusL = dzenBoxStyleL white2BBoxPP (shortenL 100 logTitle)
 
 --------------------------------------------------------------------------------------------
 -- DZEN UTILS                                                                             --
@@ -634,16 +524,6 @@ data DF = DF
     , fontDF       :: String
     , eventDF      :: String
     , extrasDF     :: String
-    }
-
--- Dzen box pretty config
-data BoxPP = BoxPP
-    { bgColorBPP   :: String
-    , fgColorBPP   :: String
-    , boxColorBPP  :: String
-    , leftIconBPP  :: String
-    , rightIconBPP :: String
-    , boxHeightBPP :: Int
     }
 
 -- Dzen clickable area config
@@ -669,20 +549,6 @@ dzenFlagsToStr df =
     "' -e '" ++ eventDF df ++
     "' " ++ extrasDF df
 
--- Uses dzen format to draw a "box" arround a given text
-dzenBoxStyle :: BoxPP -> String -> String
-dzenBoxStyle bpp t =
-    "^fg(" ++ boxColorBPP bpp ++
-    ")^i(" ++ leftIconBPP bpp  ++
-    ")^ib(1)^r(1920x" ++ show (boxHeightBPP bpp) ++
-    ")^p(-1920)^fg(" ++ fgColorBPP bpp ++
-    ")" ++ t ++
-    "^fg(" ++ boxColorBPP bpp ++
-    ")^i(" ++ rightIconBPP bpp ++
-    ")^fg(" ++ bgColorBPP bpp ++
-    ")^r(1920x" ++ show (boxHeightBPP bpp) ++
-    ")^p(-1920)^fg()^ib(0)"
-
 -- Uses dzen format to make dzen text clickable
 dzenClickStyle :: CA -> String -> String
 dzenClickStyle ca t = "^ca(1," ++ leftClickCA ca ++
@@ -705,9 +571,9 @@ dzenClickStyleL :: CA -> Logger -> Logger
 dzenClickStyleL ca = (fmap . fmap) (dzenClickStyle ca)
 
 
---------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- HARDCODED LOGGERS 
---------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 -- Concat two Loggers
 (++!) :: Logger -> Logger -> Logger
