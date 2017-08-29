@@ -30,7 +30,7 @@ set laststatus=2
 "  Omnicomplete for a bunch of languages
 Plugin 'Valloric/YouCompleteMe'
 let g:ycm_python_binary_path = '/usr/bin/python3'
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py' 
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_use_ultisnips_completer = 0
@@ -117,6 +117,9 @@ Plugin 'tpope/vim-commentary'
 "
 "  Easier character surround
 Plugin 'tpope/vim-surround'
+"
+"  Repeat a mapping eg surround.vim
+Plugin 'tpope/vim-repeat'
 "
 "  Automatic table creation
 Plugin 'dhruvasagar/vim-table-mode'
