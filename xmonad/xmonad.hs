@@ -68,8 +68,8 @@ main = do
     botLeftBar  <- dzenSpawnPipe $ dzenBotLeftFlags r
     botRightBar <- dzenSpawnPipe $ dzenBotRightFlags r
     xmonad $ def
-        { terminal           = myTerminal                 
-        , modMask            = mod4Mask                         
+        { terminal           = myTerminal
+        , modMask            = mod4Mask
         , focusFollowsMouse  = True                             --focus follow config
         , clickJustFocuses   = True                             --focus click config
         , borderWidth        = 1                                --border width
@@ -572,7 +572,7 @@ dzenClickStyleL ca = (fmap . fmap) (dzenClickStyle ca)
 
 
 --------------------------------------------------------------------------------
--- HARDCODED LOGGERS 
+-- HARDCODED LOGGERS
 --------------------------------------------------------------------------------
 
 -- Concat two Loggers

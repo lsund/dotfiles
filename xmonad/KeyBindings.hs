@@ -26,8 +26,8 @@ myXPConfig = def
     , bgHLight          = colorBlue
     , fgHLight          = colorBlack
     , borderColor       = colorGrayAlt
-    , promptBorderWidth = 1
-    , height            = 16
+    , promptBorderWidth = 2
+    , height            = 24
     , position          = Top
     , historySize       = 100
     , historyFilter     = deleteConsecutive
@@ -41,8 +41,8 @@ myTextConfig = STC
     , st_fg   = colorWhite
     }
 
-printScreen = 
-    spawn 
+printScreen =
+    spawn
         "/usr/bin/scrot '%Y-%m-%d_$wx$h.png'" >>
         flashText myTextConfig 1 " Screenshot Saved "
 
@@ -110,7 +110,7 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     , ((modMask                 , xK_F11)       ,   spawn "/usr/bin/xbacklight -dec 10")
     -- Raise backlight
     , ((modMask                 , xK_F12)       ,   spawn "/usr/bin/xbacklight -inc 10")
-    ]  
+    ]
     ++
     [ 
         ((m .|. modMask, k), windows $ f i) | 
