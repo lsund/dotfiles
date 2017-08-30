@@ -57,6 +57,7 @@ set cmdheight=1
 set previewheight=30
 set listchars=tab:▸\ ,eol:¬
 set ttyfast
+set colorcolumn=80
 " Red highlight for lines longer than 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
