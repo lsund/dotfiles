@@ -64,6 +64,10 @@ match OverLength /\%81v.\+/
 " Red highlight for unwaned whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
+" Only when in normal mode
+autocmd! InsertEnter * call clearmatches()
+autocmd! InsertLeave * match ExtraWhitespace /\s\+$/
+
 
 
 " Search and matching =========================================================

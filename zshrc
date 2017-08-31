@@ -5,6 +5,8 @@ export PATH=$PATH:$HOME/Documents/scripts/manual
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
 export DOTFILES=$HOME/Documents/dotfiles
+export AHS=$HOME/Documents/work/wido-qsrkb-ahfserver
+export SQL=$HOME/Documents/work/sqldump-manager
 
 # Path to your oh-my-zsh installation.
   export ZSH=$HOME/.oh-my-zsh
