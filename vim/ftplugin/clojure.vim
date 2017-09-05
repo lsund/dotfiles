@@ -14,3 +14,7 @@ nmap <leader>b <Plug>BreakLine
 nmap <Plug>BreakLineAndIndent <Plug>BreakLine<leader>gq
 \:call repeat#set("\<Plug>BreakLineAndIndent", v:count)<CR>
 nmap <leader>B <Plug>BreakLineAndIndent
+
+autocmd BufWritePost * let saved_pos = getpos('.')
+nmap u u:call setpos('.', saved_pos)<CR>
+nmap <C-R> <C-R>:call setpos('.', saved_pos)<CR>

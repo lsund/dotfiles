@@ -133,10 +133,10 @@ let g:tagbar_type_rust = {
 
 "  -----------------------------------------------------------------------------
 "  Motion
-" 
+"
 "  Move anywhere on the screen
 Plugin 'easymotion/vim-easymotion'
-" 
+"
 "  Easier use of f and F hotkey
 Plugin 'unblevable/quick-scope'
 "
@@ -217,7 +217,7 @@ Plugin 'neovimhaskell/haskell-vim'
 " Plugin 'alx741/vim-hindent'
 
 "  -----------------------------------------------------------------------------
-"  Clojure
+"  Clojure, clojure
 "
 "  Live repl, dynamic expression evaluation
 Plugin 'tpope/vim-fireplace'
@@ -242,7 +242,7 @@ Plugin 'venantius/vim-eastwood'
 Plugin 'guns/vim-clojure-static'
 "
 "  Formatting
-" Plugin 'venantius/vim-cljfmt'
+Plugin 'venantius/vim-cljfmt'
 
 
 "  -----------------------------------------------------------------------------
