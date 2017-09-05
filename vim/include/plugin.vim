@@ -25,7 +25,7 @@ let g:airline_powerline_fonts = 1
 set laststatus=2
 
 "  -----------------------------------------------------------------------------
-"  Autocompletion
+"  Autocompletion, YouCompleteMe, you complete me
 "
 "  Omnicomplete for a bunch of languages
 Plugin 'Valloric/YouCompleteMe'
@@ -38,7 +38,7 @@ let g:ycm_key_list_select_completion = ['<C-t>']
 let g:ycm_key_list_previous_completion = ['<C-n>']
 
 "  -----------------------------------------------------------------------------
-"  Syntax checker
+"  Syntax checker, Syntastic, syntastic
 "
 "  Built in checker for many languages
 Plugin 'scrooloose/syntastic'
@@ -46,11 +46,17 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%#warningmsg#
 set statusline+=%*
 let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=0
-let g:syntastic_check_on_open=0
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 let g:syntastic_rst_checkers=['']
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_clojure_checkers=['eastwood']
+let g:syntastic_mode_map =
+            \{
+            \'mode': 'active',
+            \'active_filetypes': [],
+            \'passive_filetypes': []
+            \}
 
 "  -----------------------------------------------------------------------------
 "  Search and View
@@ -215,6 +221,13 @@ Plugin 'neovimhaskell/haskell-vim'
 "
 "  Live repl, dynamic expression evaluation
 Plugin 'tpope/vim-fireplace'
+"
+"  Static vim support for Leiningen (and boot)
+Plugin 'tpope/vim-salve'
+"
+"  Dependencies of vim-salve
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-projectionist'
 "
 "  Editing S-expressions (Forked)
 Plugin 'lsund/vim-sexp'
