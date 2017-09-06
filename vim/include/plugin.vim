@@ -240,11 +240,11 @@ Plugin 'venantius/vim-eastwood'
 "
 "  Runtime files
 Plugin 'guns/vim-clojure-static'
+Plugin 'guns/vim-clojure-highlight'
 "
 "  Formatting
 Plugin 'venantius/vim-cljfmt'
 let g:clj_fmt_autosave = 0
-
 
 "  -----------------------------------------------------------------------------
 "  Rust
