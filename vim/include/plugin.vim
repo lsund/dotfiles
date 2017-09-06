@@ -243,6 +243,7 @@ Plugin 'guns/vim-clojure-static'
 "
 "  Formatting
 Plugin 'venantius/vim-cljfmt'
+let g:clj_fmt_autosave = 0
 
 
 "  -----------------------------------------------------------------------------

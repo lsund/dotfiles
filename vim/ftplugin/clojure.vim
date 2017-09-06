@@ -22,7 +22,18 @@ nmap <leader>B <Plug>BreakLineAndIndent
 "
 "
 "  Make sure CljFmt does not f**k up cursor position
-autocmd BufReadPre,FileReadPre * let saved_pos = getpos('.')
-autocmd BufWritePost * let saved_pos = getpos('.')
-nmap u u:call setpos('.', saved_pos)<CR>
-nmap <C-R> <C-R>:call setpos('.', saved_pos)<CR>
+autocmd BufWritePost * call ClojureWrite()
+" nnoremap u :call ClojureUndo()<CR>
+nmap <C-R> :call ClojureRedo()<CR>
+
+let g:saved_cursor_pos = getpos('.')
+
+function ClojureWrite()
+    silent! undojoin | :Cljfmt
+    let g:saved_cursor_pos = getpos('.')
+endfunction
+
+function ClojureRedo()
+    redo
+    call setpos('.', g:saved_cursor_pos)
+endfunction
