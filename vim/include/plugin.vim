@@ -55,12 +55,13 @@ let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_
 "  -----------------------------------------------------------------------------
 "  Search and View
 "
-"  File search with fuzzy finder Ctrl-P
+"  File search with fuzzy finder Ctrl-P ctrlp ctrl-p Ctrlp
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_match_window='bottom,order:ttb'
 let g:ctrlp_switch_buffer=0
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_user_command='ag %s -l --nocolor --hidden -g ""'
+let g:ctrlp_open_multiple_files = 'i'
 let g:ctrlp_prompt_mappings = {
 \ 'PrtBS()':              ['<bs>', '<c-d>'],
 \ 'PrtDelete()':          ['<del>'],

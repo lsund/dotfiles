@@ -1,15 +1,18 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
 . $HOME/.aliases
+
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$PATH:$HOME/Documents/scripts/manual
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
+
 export DOTFILES=$HOME/Documents/dotfiles
 export AHS=$HOME/Documents/work/wido-qsrkb-ahfserver
 export SQL=$HOME/Documents/work/sqldump-manager
+export ACC=$HOME/Documents/work/thielgroup/account-web
 
-# Path to your oh-my-zsh installation.
-  export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
+
+cdl() { cd "$@" && ls;}
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.

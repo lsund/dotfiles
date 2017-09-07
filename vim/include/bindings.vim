@@ -42,7 +42,7 @@ nmap <leader>o :args
 nmap <leader>e <C-p>
 nmap <leader>v :e ~/.vimrc<CR>
 nmap <leader>" :BufOnly<CR>
-nmap <leader>r :Rename 
+" nmap <leader>r :Rename
 nmap <leader>bl :e #<CR>
 
 " Splits
@@ -96,8 +96,8 @@ map <leader>t :TagbarToggle<CR>
 " Other mappings
 " =============================================================================
 
-" vmap <leader>ii :I<CR>
-" vmap <leader>ia :IA<CR>
+vmap <leader>icn :I<CR>
+vmap <leader>ica :IA<CR>
 
 noremap Z! :q!<CR>
 
