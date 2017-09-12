@@ -22,6 +22,7 @@
 		    rainbow-delimiters
 		    badwolf-theme
 		    highlight-symbol
+		    markdown-mode
 		    ))
 
 ;; Helm
@@ -30,10 +31,6 @@
 
 ;; Company
 (add-hook 'after-init-hook 'global-company-mode)
-
-;; Auto complete
-
-;; (ac-config-default)
 
 ;; Projectile
 (projectile-global-mode)
@@ -46,7 +43,7 @@
 
 ;; Smartparens
 (require 'smartparens-config)
-(smartparens-global-mode 1)
+(smartparens-mode 1)
 (sp-pair "'" nil :actions :rem)
 
 ;; Aggressive indent
@@ -73,9 +70,10 @@
 
 (setq-default show-trailing-whitespace t)
 (setq compilation-ask-about-save nil)
-(add-hook 'before-save-hoof 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (defalias 'yes-or-no-p 'y-or-n-p)
-
+(add-hook 'text-mode-hook 'auto-fill-mode)
+(setq-default fill-column 80)
 
 ;; Drag stuff
 (drag-stuff-global-mode 1)
@@ -86,5 +84,9 @@
 
 ;; Commentary
 (evil-commentary-mode)
+
+;; Clevreparens
+
+(evil-cleverparens-mode)
 
 (require 'my-keybindings)
