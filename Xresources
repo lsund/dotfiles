@@ -1,11 +1,11 @@
 term*utf8*: 1
-Xcursor.theme: Vanilla-DMZ-AA 
+Xcursor.theme: Vanilla-DMZ-AA
 Xcursor.size: 22
 XTerm*metaSendsEscape: true
 
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
-URxvt.font: xft:Source\ Code\ Pro\ for\ Powerline:Bold:size=16
+URxvt.font: xft:Source\ Code\ Pro\ for\ Powerline:Bold:size=14
 URxvt.scrollBar: false
 
 URxvt.matcher.button: 1
