@@ -1,5 +1,7 @@
 (provide 'my-keybindings)
 
+(require 'my-clojure)
+
 ;; Key bindings
 (defvar my-leader-map (make-sparse-keymap))
 (define-key evil-normal-state-map "\\" my-leader-map)
@@ -50,44 +52,6 @@
   (interactive)
   (highlight-symbol-remove-all)
   (evil-ex-nohighlight))
-
-;; Clojure indent
-
-(defun my-goto-end-of-form-rec (p)
-  (let ((next-pos (paxedit-sexp-move-to-core-start)))
-    (cond ((looking-at ".comment")
-           (progn (message "commment")
-                  (goto-char p)
-                  (paredit-forward)))
-
-          ((numberp next-pos)
-           (my-goto-end-of-form-rec next-pos))
-
-          (t
-           (paredit-forward)))))
-
-(defun my-goto-end-of-form ()
-  (interactive)
-  (my-goto-end-of-form-rec (point)))
-
-
-(defun my-end-of-form ()
-  (save-excursion
-    (my-goto-end-of-form)
-    (point)))
-
-(defun my-beginning-of-form ()
-  (save-excursion
-    (my-goto-end-of-form)
-    (paredit-backward)
-    (point)))
-
-(defun my-clojure-indent-defn ()
-  (interactive)
-  (save-excursion
-    (goto-char (my-beginning-of-form))
-    (indent-sexp)
-    (clojure-align (point) (my-end-of-form))))
 
 ;; Resets
 (define-key my-leader-map "n" nil)
@@ -153,6 +117,7 @@
 (define-key ivy-minibuffer-map (kbd "C-w") #'backward-kill-word)
 (define-key ivy-minibuffer-map (kbd "C-h") #'backward-delete-char)
 (define-key ivy-minibuffer-map (kbd "<tab>") 'ivy-partial)
+(define-key ivy-minibuffer-map (kbd "<backtab>") 'ivy-alt-done)
 
 ;; Projectile
 (define-key my-leader-map "e" 'projectile-find-file)

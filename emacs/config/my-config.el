@@ -2,19 +2,12 @@
 
 (require-packages '(
 
-		    ;; Clojure
-		    clojure-mode
-		    cider
-
 		    ;; Evil mode adaptation plugins
 		    evil-commentary
 
 		    ;; Editing
 		    drag-stuff
-		    paredit
-		    paxedit
 		    evil-cleverparens
-		    smartparens
 
 		    ;; Search
 		    evil-quickscope
@@ -29,7 +22,6 @@
 		    tabbar
 
 		    ;; Visuals
-		    rainbow-delimiters
 		    badwolf-theme
 		    org-bullets
 		    linum-relative
@@ -38,7 +30,6 @@
 		    ;; TODO
 		    org
 		    counsel
-		    company
 
 		    ))
 
@@ -82,10 +73,6 @@
 ;; Company
 (add-hook 'after-init-hook 'global-company-mode)
 
-;; Auto complete
-
-;; (ac-config-default)
-
 ;; Projectile
 (projectile-global-mode)
 (setq projectile-completion-system 'ivy)
@@ -95,21 +82,8 @@
 ;; Tabbar
 (tabbar-mode 0)
 
-;; Smartparens
-(require 'smartparens-config)
-(smartparens-global-mode 1)
-(sp-pair "'" nil :actions :rem)
-
 ;; Cleverparens
-(add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
 (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
-
-;; Aggressive indent
-(global-aggressive-indent-mode -1)
-
-;; Rainbow delimiters
-(rainbow-delimiters-mode 1)
-(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
 
 ;; Quick scope
 (global-evil-quickscope-always-mode 1)
@@ -147,7 +121,6 @@
 
 ;; Font size
 (set-face-attribute 'default nil :height 140)
-
 
 ;; Highlight current line
 (when window-system
