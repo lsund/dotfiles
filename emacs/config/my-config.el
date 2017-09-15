@@ -16,6 +16,8 @@
 		    ;; Project navigation/management
 		    projectile
 		    swiper
+		    counsel
+		    counsel-projectile
 		    magit
 		    evil-magit
 		    neotree
@@ -26,13 +28,18 @@
 		    linum-relative
 		    powerline
 
-		    ;; TODO
+		    ;; Other
 		    org
-		    counsel
 
-		    counsel-projectile
+		    ;; Python
+		    flycheck
 
 		    ))
+
+
+;; Flycheck
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; Unicode
 (prefer-coding-system 'utf-8)

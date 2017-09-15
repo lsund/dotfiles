@@ -117,7 +117,7 @@
 (define-key ivy-minibuffer-map (kbd "C-w") #'backward-kill-word)
 (define-key ivy-minibuffer-map (kbd "C-h") #'backward-delete-char)
 (define-key ivy-minibuffer-map (kbd "<tab>") 'ivy-partial)
-(define-key ivy-minibuffer-map (kbd "<backtab>") 'ivy-alt-done)
+(define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done)
 
 ;; Projectile
 (define-key my-leader-map "e" 'counsel-projectile)
