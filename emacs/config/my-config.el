@@ -1,31 +1,71 @@
 (provide 'my-config)
 
-(require-packages '(swiper
-		    counsel
-		    cider
-		    company
-		    linum-relative
-		    powerline
+(require-packages '(
+
+		    ;; Clojure
 		    clojure-mode
-		    tabbar
-		    smartparens
-		    evil-quickscope
+		    cider
+
+		    ;; Evil mode adaptation plugins
 		    evil-commentary
-		    evil-cleverparens
-		    evil-magit
+
+		    ;; Editing
 		    drag-stuff
 		    paredit
 		    paxedit
+		    evil-cleverparens
+		    smartparens
 
+		    ;; Search
+		    evil-quickscope
+		    highlight-symbol
+
+		    ;; Project navigation/management
 		    projectile
+		    swiper
 		    magit
+		    evil-magit
+		    neotree
+		    tabbar
+
+		    ;; Visuals
 		    rainbow-delimiters
 		    badwolf-theme
-		    highlight-symbol
-		    neotree
+		    org-bullets
+		    linum-relative
+		    powerline
+
+		    ;; TODO
 		    org
+		    counsel
+		    company
+
 		    ))
 
+;; Unicode
+(prefer-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+
+;; Org mode
+
+(setq org-time-stamp-formats
+      '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
+
+(setq org-support-shift-select t)
+
+(setq org-todo-keywords
+      '((sequence "TODO" "WAITING" "DONE")))
+
+(setq org-log-done t)
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (org-bullets-mode t)))
+
+(setq org-ellipsis " ↴")
 
 ;; Ivy
 
@@ -104,6 +144,9 @@
 ;; For copy/paste from X11 to emacs
 (setq  x-select-enable-clipboard t)
 (setq x-select-enable-primary t)
+
+;; Font size
+(set-face-attribute 'default nil :height 140)
 
 
 ;; Highlight current line
