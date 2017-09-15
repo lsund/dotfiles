@@ -55,12 +55,18 @@
 
 ;; Smartparens
 (require 'smartparens-config)
-(smartparens-global-mode 1)
+;; (smartparens-global-mode 1)
 (sp-pair "'" nil :actions :rem)
 
-;; Rainbow delimiters
-(rainbow-delimiters-mode 1)
+;; Cider
+(setq cider-repl-pop-to-buffer-on-connect nil)
+(cider-repl-toggle-pretty-printing)
+(evil-set-initial-state 'cider-repl 'insert)
 
 ;; Hooks
 (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
 (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'clojure-mode-hook #'smartparens-mode)
+
+(add-hook 'clojure-mode-hook
+  (lambda () (define-key my-leader-map "r" #'cider-eval-buffer)))

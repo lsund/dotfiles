@@ -120,8 +120,8 @@
 (define-key ivy-minibuffer-map (kbd "<backtab>") 'ivy-alt-done)
 
 ;; Projectile
-(define-key my-leader-map "e" 'projectile-find-file)
-(define-key my-leader-map "pp" 'projectile-switch-project)
+(define-key my-leader-map "e" 'counsel-projectile)
+(define-key my-leader-map "pp" 'counsel-projectile-switch-project)
 
 ;; Drag stuff
 (define-key evil-normal-state-map (kbd "C-S-j") 'drag-stuff-down)
@@ -152,8 +152,6 @@
 (define-key evil-normal-state-map (kbd "C-c f") 'cider-format-buffer)
 
 ;; Refresh
-
-(define-key my-leader-map "r" 'cider-eval-buffer)
 
 (define-key my-leader-map "R"
   (lambda ()

@@ -19,7 +19,6 @@
 		    magit
 		    evil-magit
 		    neotree
-		    tabbar
 
 		    ;; Visuals
 		    badwolf-theme
@@ -30,6 +29,8 @@
 		    ;; TODO
 		    org
 		    counsel
+
+		    counsel-projectile
 
 		    ))
 
@@ -78,9 +79,6 @@
 (setq projectile-completion-system 'ivy)
 ; (helm-projectile-on)
 (setq projectile-enable-caching t)
-
-;; Tabbar
-(tabbar-mode 0)
 
 ;; Cleverparens
 (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
