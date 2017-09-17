@@ -1,7 +1,13 @@
+;;; package --- Summary
+;;; init file
 (require 'package)
 
+;;; Commentary:
+
+;;; Code:
+
 (defun require-package (pkg)
-  "Installs package if it is not already installed"
+  "Install package if it is not already installed."
   (when (not (package-installed-p pkg))
     (package-install pkg))
   (require pkg))
@@ -22,3 +28,9 @@
 
 (add-to-list 'load-path (concat user-emacs-directory "config"))
 (require 'my-config)
+;;; init.el ends here
+
+
+;; Local Variables
+;; byte-compile-warnings: (not suspicious)
+;; End:

@@ -1,5 +1,3 @@
-(provide 'my-keybindings)
-
 (require 'my-clojure)
 
 ;; Key bindings
@@ -90,6 +88,7 @@
 (define-key my-leader-map ";" 'eval-defun)
 
 (define-key my-leader-map "ii" 'my-clojure-indent-defn)
+;; (define-key evil-visual-state-map (kbd "C-'" 'haskell-indentation-indent-line)
 
 ;; Windows
 (define-key evil-normal-state-map (kbd "C-s -") 'split-window-below)
@@ -179,3 +178,15 @@
 
 (define-key my-leader-map (kbd "gs") 'magit-status)
 
+;; Archive buffer
+
+(defun archive-buffer ()
+  (interactive)
+  (kill-buffer)
+  (if (get-buffer "*Buffer List*")
+      (save-excursion
+        (set-buffer "*Buffer List*")
+        (revert-buffer))))
+
+(provide 'my-keybindings)
+;;; my-keybindings.el ends here

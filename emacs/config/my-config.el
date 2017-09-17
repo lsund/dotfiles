@@ -1,4 +1,9 @@
-(provide 'my-config)
+;;; package --- Summary
+;;; Top level config file
+
+;;; Commentary:
+
+;;; Code:
 
 (require-packages '(
 
@@ -34,12 +39,16 @@
 		    ;; Python
 		    flycheck
 
-		    ))
+		    ;; Haskell
+		    haskell-mode
+		    intero
 
+		    ))
 
 ;; Flycheck
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(save new-line))
 
 ;; Unicode
 (prefer-coding-system 'utf-8)
@@ -121,8 +130,8 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; For copy/paste from X11 to emacs
-(setq  x-select-enable-clipboard t)
-(setq x-select-enable-primary t)
+(setq  select-enable-clipboard t)
+(setq select-enable-primary t)
 
 ;; Font size
 (set-face-attribute 'default nil :height 140)
@@ -147,4 +156,17 @@
 ;; Scroll bars
 (scroll-bar-mode -1)
 
+;; Haskell
+
+(add-hook 'haskell-mode-hook 'intero-mode)
+(flycheck-add-next-checker 'intero '(warning . haskell-hlint))
+
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
+
 (require 'my-keybindings)
+(provide 'my-config)
+;;; my-config.el ends here
+
