@@ -1,3 +1,4 @@
+;;; package --- Summary
 (provide 'my-clojure)
 
 ;; My Emacs config for editing Clojure
@@ -15,6 +16,7 @@
 
 		    ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Indent
 
 (defun my-goto-end-of-form-rec (p)
@@ -53,20 +55,53 @@
     (indent-sexp)
     (clojure-align (point) (my-end-of-form))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Smartparens
+
 (require 'smartparens-config)
 ;; (smartparens-global-mode 1)
 (sp-pair "'" nil :actions :rem)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Cider
+
 (setq cider-repl-pop-to-buffer-on-connect nil)
 (cider-repl-toggle-pretty-printing)
 (evil-set-initial-state 'cider-repl 'insert)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Hooks
+
 (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
 (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'clojure-mode-hook #'smartparens-mode)
 
+(defun insert-comment-separator ()
+  "Insert a comment separator."
+  (interactive)
+  (insert
+   (format "%s%s"
+	   ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
+	   ";;;;;;;;;;;;"))
+  (open-line 1)
+  (evil-next-line)
+  (insert ";; ")
+  (evil-insert 1))
+
+
+;; Keybindings
 (add-hook 'clojure-mode-hook
-  (lambda () (define-key my-leader-map "r" #'cider-eval-buffer)))
+	  (lambda ()
+	    (interactive)
+	    ;; Define clojure local leader map
+	    (defvar clojure-leader-map
+	      (let ((map (make-sparse-keymap)))
+		;; That inherits from my-leader-map
+		(set-keymap-parent map my-leader-map)
+		map))
+	    (define-key evil-normal-state-map "\\" clojure-leader-map)
+
+	    (define-key clojure-leader-map "r" #'cider-eval-buffer)
+	    (define-key clojure-leader-map "ii" 'insert-comment-separator)))
+
+;;; my-clojure.el ends here

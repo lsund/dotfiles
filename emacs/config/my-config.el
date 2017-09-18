@@ -1,6 +1,6 @@
 ;;; package --- Summary
 ;;; Top level config file
-
+ 
 ;;; Commentary:
 
 ;;; Code:
@@ -71,7 +71,7 @@
 
 (add-hook 'org-mode-hook
           (lambda ()
-            (org-bullets-mode t)))
+	    ((org-bullets-mode t))))
 
 (setq org-ellipsis " ↴")
 
@@ -96,14 +96,52 @@
 ; (helm-projectile-on)
 (setq projectile-enable-caching t)
 
-;; Cleverparens
-(add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
-
 ;; Quick scope
 (global-evil-quickscope-always-mode 1)
 
 ;; Powerline
-(powerline-default-theme)
+(defun powerline-my-theme ()
+  "My custom powerline theme."
+  (interactive)
+  (setq-default mode-line-format
+                '("%e"
+                  (:eval
+                   (let* ((active (powerline-selected-window-active))
+                          (mode-line-buffer-id (if active 'mode-line-buffer-id 'mode-line-buffer-id-inactive))
+                          (mode-line (if active 'mode-line 'mode-line-inactive))
+                          (face1 (if active 'powerline-active1 'powerline-inactive1))
+                          (face2 (if active 'powerline-active2 'powerline-inactive2))
+                          (separator-left (intern (format "powerline-%s-%s"
+							  (powerline-current-separator)
+                                                          (car powerline-default-separator-dir))))
+                          (separator-right (intern (format "powerline-%s-%s"
+                                                           (powerline-current-separator)
+                                                           (cdr powerline-default-separator-dir))))
+                          (lhs (list (powerline-raw "%*" mode-line 'l)
+				     ;; Buffer size
+                                     (when powerline-display-buffer-size
+                                       (powerline-buffer-size mode-line 'l))
+				     ;; Module info
+				     (when powerline-display-mule-info
+				       (powerline-raw mode-line-mule-info mode-line 'l))
+				     (powerline-buffer-id mode-line-buffer-id 'l)))
+                          (rhs (list (powerline-raw global-mode-string face2 'r)
+                                     (funcall separator-right face2 face1)
+				     (unless window-system
+				       (powerline-raw (char-to-string #xe0a1) face1 'l))
+				     (powerline-raw "%4l" face1 'l)
+				     (powerline-raw ":" face1 'l)
+				     (powerline-raw "%3c" face1 'r)
+				     (funcall separator-right face1 mode-line)
+				     (powerline-raw " ")
+				     (powerline-raw "%6p" mode-line 'r)
+                                     (when powerline-display-hud
+                                       (powerline-hud face2 face1)))))
+		     (concat (powerline-render lhs)
+			     (powerline-fill face2 (powerline-width rhs))
+			     (powerline-render rhs)))))))
+
+(powerline-my-theme)
 
 ;; Line numbers
 (linum-mode)
@@ -118,12 +156,13 @@
 ;; Do not show tool-bar with icons
 (tool-bar-mode -1)
 
+;; Search
+;; Case sensitive
+(setq evil-ex-search-case 'sensitive)
 ;; Smooth instead of jumpy scrolling
 (setq scroll-step 1
       scroll-conservatively 10000)
 
-;; Show trailing whitespace
-(setq-default show-trailing-whitespace t)
 ;; Delete trailing whitespace on file save
 (add-hook 'before-save-hood 'delete-trailing-whitespace)
 (setq compilation-ask-about-save nil)
@@ -134,7 +173,12 @@
 (setq select-enable-primary t)
 
 ;; Font size
-(set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil
+                    :family "Hack"
+                    ;; :family "Source Code Pro"
+                    :height 140
+                    :weight 'normal
+                    :width 'normal)
 
 ;; Highlight current line
 (when window-system
@@ -158,14 +202,21 @@
 
 ;; Haskell
 
-(add-hook 'haskell-mode-hook 'intero-mode)
-(flycheck-add-next-checker 'intero '(warning . haskell-hlint))
+;; Show trailing whitespace
+(add-hook 'haskell-mode-hook
+	  (lambda ()
+	    (setq-default show-trailing-whitespace t)
+	    (interactive-haskell-mode)))
+;; (add-hook 'haskell-mode-hook 'intero-mode)
+;; (flycheck-add-next-checker 'intero '(warning . haskell-hlint))
 
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
 
+(require 'my-clojure)
+(require 'my-elisp)
 (require 'my-keybindings)
 (provide 'my-config)
 ;;; my-config.el ends here

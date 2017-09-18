@@ -5,7 +5,13 @@ XTerm*metaSendsEscape: true
 
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
-URxvt.font: xft:Source\ Code\ Pro\ for\ Powerline:Bold:size=14
+
+/* Hack */
+URxvt.font: xft:Hack:Regular:Bold:size=14
+
+/* Source code Pro */
+/* URxvt.font: xft:Source\ Code\ Pro\ for\ Powerline:Regular:size=14 */
+
 URxvt.scrollBar: false
 
 URxvt.matcher.button: 1

@@ -13,49 +13,52 @@
 
 (defun scroll-half-page-down ()
   "scroll down half the page"
+  :keep-visual t
   (interactive)
   (scroll-down (/ (window-body-height) 2)))
 
 (defun scroll-half-page-up ()
   "scroll up half the page"
+  :keep-visual t
   (interactive)
   (scroll-up (/ (window-body-height) 2)))
-
-(defun scroll-down-and-center ()
-  "Scrolls 5 lines down and centers the screen"
-  (interactive)
-  (forward-line 5)
-  (recenter))
-
-(defun scroll-up-and-center ()
-  "Scrolls 5 lines up and centers the screen"
-  (interactive)
-  (forward-line -5)
-  (recenter))
 
 (defun push-line-down()
   "Inserts a new line and moves one line down"
   (interactive)
+  (back-to-indentation)
   (open-line 1)
   (forward-line 1))
 
 (defun push-line-up()
   "Inserts a new line and moves one line down"
   (interactive)
-  (kill-whole-line 1)
-  (forward-line -1))
+  (back-to-indentation)
+  (forward-line -1)
+  (kill-whole-line 1))
 
 (defun remove-highlight()
-  "Disable all kinds of code highlightning"
-  (interactive)
-  (highlight-symbol-remove-all)
-  (evil-ex-nohighlight))
-
-;; Resets
+  "Disable all kinds of code highlightning")
 (define-key my-leader-map "n" nil)
 (define-key my-leader-map "N" nil)
 
-;; Insert
+;; Cleverparens
+
+(setq evil-cleverparens-use-additional-bindings nil)
+
+(defvar evil-cp-additional-movement-keys
+  '(("L"   . evil-cp-forward-sexp)
+    ("H"   . evil-cp-backward-sexp)
+    ("M-l" . nil)
+    ("M-h" . nil)
+    ("["   . evil-cp-previous-opening)
+    ("]"   . evil-cp-next-closing)
+    ("{"   . evil-cp-next-opening)
+    ("}"   . evil-cp-previous-closing)
+    ("("   . evil-cp-backward-up-sexp)
+    (")"   . evil-cp-up-sexp)))
+
+; Insert
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
 
 ;; normal
@@ -66,11 +69,42 @@
 (define-key evil-normal-state-map (kbd "C-w k") 'windmove-up)
 (define-key evil-normal-state-map (kbd "C-w j") 'windmove-down)
 
-(define-key evil-normal-state-map (kbd "K") 'scroll-up-and-center)
-(define-key evil-normal-state-map (kbd "J") 'scroll-down-and-center)
+(define-key evil-normal-state-map (kbd "M-h") 'windmove-left)
+(define-key evil-normal-state-map (kbd "M-l") 'windmove-right)
+(define-key evil-normal-state-map (kbd "M-k") 'windmove-up)
+(define-key evil-normal-state-map (kbd "M-j") 'windmove-down)
 
 (define-key evil-normal-state-map (kbd "C-j") 'push-line-down)
 (define-key evil-normal-state-map (kbd "C-k") 'push-line-up)
+
+(evil-define-motion myevil-next-line (count)
+  :type exclusive
+  (evil-line-move (or count 5))
+  (recenter))
+
+(evil-define-motion myevil-prev-line (count)
+  :type exclusive
+  (evil-line-move (or count -5))
+  (recenter))
+
+(evil-define-motion myevil-next-visual-line (count)
+  "Move the cursor COUNT screen lines down, or 5."
+  :type exclusive
+  (let ((line-move-visual t))
+    (evil-line-move (or count 5))
+    (recenter)))
+
+(evil-define-motion myevil-prev-visual-line (count)
+"Move the cursor COUNT screen lines down, or 5."
+:type exclusive
+  (let ((line-move-visual t))
+    (evil-line-move (or count -5))
+    (recenter)))
+
+(define-key evil-visual-state-map (kbd "J") 'myevil-next-visual-line)
+(define-key evil-visual-state-map (kbd "K") 'myevil-prev-visual-line)
+(define-key evil-normal-state-map (kbd "J") 'myevil-next-line)
+(define-key evil-normal-state-map (kbd "K") 'myevil-prev-line)
 
 (define-key evil-normal-state-map (kbd "C-f") 'scroll-up)
 (define-key evil-normal-state-map (kbd "C-b") 'scroll-down)
@@ -87,8 +121,7 @@
 
 (define-key my-leader-map ";" 'eval-defun)
 
-(define-key my-leader-map "ii" 'my-clojure-indent-defn)
-;; (define-key evil-visual-state-map (kbd "C-'" 'haskell-indentation-indent-line)
+;; (define-key my-leader-map "ii" 'my-clojure-indent-defn)
 
 ;; Windows
 (define-key evil-normal-state-map (kbd "C-s -") 'split-window-below)
@@ -113,9 +146,22 @@
 
 ;; Ivy
 
+(defun my-ivy ()
+  (interactive)
+  (if (ivy-partial)
+      nil
+    (ivy-next-line)))
+
+(defun my-ivy-back ()
+  (interactive)
+  (if (ivy-partial)
+      nil
+    (ivy-previous-line)))
+
 (define-key ivy-minibuffer-map (kbd "C-w") #'backward-kill-word)
 (define-key ivy-minibuffer-map (kbd "C-h") #'backward-delete-char)
-(define-key ivy-minibuffer-map (kbd "<tab>") 'ivy-partial)
+(define-key ivy-minibuffer-map (kbd "<tab>") 'my-ivy)
+(define-key ivy-minibuffer-map (kbd "<backtab>") 'my-ivy-back)
 (define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done)
 
 ;; Projectile
@@ -138,11 +184,6 @@
 (define-key my-leader-map "h" 'highlight-symbol)
 (define-key my-leader-map "j" 'highlight-symbol-next)
 (define-key my-leader-map "k" 'highlight-symbol-prev)
-
-;; Cleverparens
-
-(setq evil-cleverparens-use-additional-bindings nil)
-
 
 ;; Cider
 
