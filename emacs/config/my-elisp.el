@@ -35,6 +35,7 @@
 
 
 (add-hook 'emacs-lisp-mode-hook 'evil-cleverparens-mode)
+(add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
 
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()

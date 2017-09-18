@@ -59,7 +59,6 @@
 ;; Smartparens
 
 (require 'smartparens-config)
-;; (smartparens-global-mode 1)
 (sp-pair "'" nil :actions :rem)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

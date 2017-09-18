@@ -1,6 +1,6 @@
 ;;; package --- Summary
 ;;; Top level config file
- 
+
 ;;; Commentary:
 
 ;;; Code:
@@ -45,6 +45,11 @@
 
 		    ))
 
+;; Buffer switching
+(setq ido-ignore-buffers
+      '("^ " "*Completions*" "*Shell Command Output*"
+	"*Messages*" "Async Shell Command"))
+
 ;; Flycheck
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -69,10 +74,7 @@
 
 (setq org-log-done t)
 
-(add-hook 'org-mode-hook
-          (lambda ()
-	    ((org-bullets-mode t))))
-
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (setq org-ellipsis " ↴")
 
 ;; Ivy
@@ -180,6 +182,10 @@
                     :weight 'normal
                     :width 'normal)
 
+
+;; Windows
+(winner-mode 1)
+
 ;; Highlight current line
 (when window-system
   (global-hl-line-mode))
@@ -207,17 +213,21 @@
 	  (lambda ()
 	    (setq-default show-trailing-whitespace t)
 	    (interactive-haskell-mode)))
+
+(load-library "inf-haskell")
+(setq haskell-program-name "stack ghci")
+
 ;; (add-hook 'haskell-mode-hook 'intero-mode)
 ;; (flycheck-add-next-checker 'intero '(warning . haskell-hlint))
-
-
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
 
 (require 'my-clojure)
 (require 'my-elisp)
 (require 'my-keybindings)
 (provide 'my-config)
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
+
 ;;; my-config.el ends here
 

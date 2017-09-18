@@ -1,4 +1,5 @@
 (require 'my-clojure)
+(require 'my-elisp)
 
 ;; Key bindings
 (defvar my-leader-map (make-sparse-keymap))
@@ -38,7 +39,12 @@
   (kill-whole-line 1))
 
 (defun remove-highlight()
-  "Disable all kinds of code highlightning")
+  "Disable all kinds of code highlightning"
+  (interactive)
+  (highlight-symbol-remove-all)
+  (evil-ex-nohighlight))
+
+;; Resets
 (define-key my-leader-map "n" nil)
 (define-key my-leader-map "N" nil)
 
@@ -46,24 +52,10 @@
 
 (setq evil-cleverparens-use-additional-bindings nil)
 
-(defvar evil-cp-additional-movement-keys
-  '(("L"   . evil-cp-forward-sexp)
-    ("H"   . evil-cp-backward-sexp)
-    ("M-l" . nil)
-    ("M-h" . nil)
-    ("["   . evil-cp-previous-opening)
-    ("]"   . evil-cp-next-closing)
-    ("{"   . evil-cp-next-opening)
-    ("}"   . evil-cp-previous-closing)
-    ("("   . evil-cp-backward-up-sexp)
-    (")"   . evil-cp-up-sexp)))
-
 ; Insert
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
 
 ;; normal
-(define-key evil-normal-state-map (kbd "M-l") nil)
-(define-key evil-normal-state-map (kbd "M-h") nil)
 (define-key evil-normal-state-map (kbd "C-w h") 'windmove-left)
 (define-key evil-normal-state-map (kbd "C-w l") 'windmove-right)
 (define-key evil-normal-state-map (kbd "C-w k") 'windmove-up)
@@ -73,6 +65,11 @@
 (define-key evil-normal-state-map (kbd "M-l") 'windmove-right)
 (define-key evil-normal-state-map (kbd "M-k") 'windmove-up)
 (define-key evil-normal-state-map (kbd "M-j") 'windmove-down)
+
+(define-key evil-insert-state-map (kbd "M-h") 'windmove-left)
+(define-key evil-insert-state-map (kbd "M-l") 'windmove-right)
+(define-key evil-insert-state-map (kbd "M-k") 'windmove-up)
+(define-key evil-insert-state-map (kbd "M-j") 'windmove-down)
 
 (define-key evil-normal-state-map (kbd "C-j") 'push-line-down)
 (define-key evil-normal-state-map (kbd "C-k") 'push-line-up)
@@ -101,6 +98,12 @@
     (evil-line-move (or count -5))
     (recenter)))
 
+(defun switch-to-previous-buffer ()
+  "Switch to previously open buffer.
+Repeated invocations toggle between the two most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+
 (define-key evil-visual-state-map (kbd "J") 'myevil-next-visual-line)
 (define-key evil-visual-state-map (kbd "K") 'myevil-prev-visual-line)
 (define-key evil-normal-state-map (kbd "J") 'myevil-next-line)
@@ -116,12 +119,13 @@
 (define-key my-leader-map "'" 'kill-this-buffer)
 (define-key my-leader-map "\"" 'kill-other-buffers)
 (define-key my-leader-map "y" 'switch-to-buffer)
-(define-key my-leader-map "Y" 'switch-to-buffer)
+(define-key my-leader-map "Y" 'switch-to-previous-buffer)
 (define-key my-leader-map "b" nil)
 
-(define-key my-leader-map ";" 'eval-defun)
-
 ;; (define-key my-leader-map "ii" 'my-clojure-indent-defn)
+
+(define-key evil-normal-state-map (kbd "C-s z") 'delete-other-windows)
+(define-key evil-normal-state-map (kbd "C-s Z") 'winner-undo)
 
 ;; Windows
 (define-key evil-normal-state-map (kbd "C-s -") 'split-window-below)
@@ -134,15 +138,16 @@
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 (define-key company-active-map (kbd "C-h") 'delete-backward-char)
+(define-key company-active-map (kbd "C-w") 'backward-kill-word)
+
+(define-key evil-insert-state-map (kbd "<tab>") 'company-complete-common-or-cycle)
+(define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+(define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 
 ;; Counsel
 (define-key my-leader-map "o" 'counsel-find-file)
 (define-key my-leader-map "x" 'counsel-M-x)
-
-;; Swiper swiper
-
-(define-key my-leader-map "a" 'swiper)
-(define-key my-leader-map "A" 'swiper-all)
+(define-key my-leader-map "a" 'counsel-ag)
 
 ;; Ivy
 
@@ -229,5 +234,6 @@
         (set-buffer "*Buffer List*")
         (revert-buffer))))
 
-(provide 'my-keybindings)
 ;;; my-keybindings.el ends here
+
+(provide 'my-keybindings)
