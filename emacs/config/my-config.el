@@ -22,6 +22,7 @@
 
 		    ;; Project navigation/management
 		    projectile
+		    flx-ido
 		    swiper
 		    counsel
 		    counsel-projectile
@@ -78,6 +79,9 @@
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
+(setq ivy-re-builders-alist
+      '((t . ivy--regex-ignore-order)))
+
 
 ;; Magit
 

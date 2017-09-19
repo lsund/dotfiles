@@ -48,9 +48,6 @@
 (define-key my-leader-map "n" nil)
 (define-key my-leader-map "N" nil)
 
-;; Cleverparens
-
-(setq evil-cleverparens-use-additional-bindings nil)
 
 ; Insert
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
@@ -146,7 +143,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; Counsel
 (define-key my-leader-map "o" 'counsel-find-file)
-(define-key my-leader-map "x" 'counsel-M-x)
+(define-key my-leader-map "x" 'execute-extended-command)
 (define-key my-leader-map "a" 'counsel-ag)
 
 ;; Ivy
