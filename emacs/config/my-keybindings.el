@@ -140,7 +140,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key company-active-map (kbd "C-h") 'delete-backward-char)
 (define-key company-active-map (kbd "C-w") 'backward-kill-word)
 
-(define-key evil-insert-state-map (kbd "<tab>") 'company-complete-common-or-cycle)
+(define-key evil-insert-state-map (kbd "<backtab>") 'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 
@@ -189,12 +189,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map "h" 'highlight-symbol)
 (define-key my-leader-map "j" 'highlight-symbol-next)
 (define-key my-leader-map "k" 'highlight-symbol-prev)
-
-;; Cider
-
-(define-key evil-normal-state-map (kbd "C-c r") 'cider-restart)
-(define-key evil-normal-state-map (kbd "C-c j") 'cider-jack-in)
-(define-key evil-normal-state-map (kbd "C-c f") 'cider-format-buffer)
 
 ;; Refresh
 

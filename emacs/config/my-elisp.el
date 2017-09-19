@@ -47,9 +47,12 @@
 		(set-keymap-parent map my-leader-map)
 		map))
 
+	    (setq evil-cleverparens-use-additional-bindings nil)
 	    (define-key evil-normal-state-map "\\" elisp-leader-map)
 
 	    (define-key elisp-leader-map "r" 'eval-defun)
-	    (define-key elisp-leader-map "ii" 'insert-comment-separator)))
+	    (define-key elisp-leader-map "ii" 'insert-comment-separator)
+
+	    ))
 
 ;;; my-elisp ends here

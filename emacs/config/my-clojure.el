@@ -1,5 +1,4 @@
 ;;; package --- Summary
-(provide 'my-clojure)
 
 ;; My Emacs config for editing Clojure
 ;; Some definitions thanks to friemen [https://github.com/friemen]
@@ -8,7 +7,6 @@
 
 		    clojure-mode
 		    cider
-		    company
 		    smartparens
 		    paredit
 		    paxedit
@@ -92,15 +90,21 @@
 (add-hook 'clojure-mode-hook
 	  (lambda ()
 	    (interactive)
-	    ;; Define clojure local leader map
 	    (defvar clojure-leader-map
 	      (let ((map (make-sparse-keymap)))
-		;; That inherits from my-leader-map
 		(set-keymap-parent map my-leader-map)
 		map))
 	    (define-key evil-normal-state-map "\\" clojure-leader-map)
 
 	    (define-key clojure-leader-map "r" #'cider-eval-buffer)
-	    (define-key clojure-leader-map "ii" 'insert-comment-separator)))
+	    (define-key clojure-leader-map "ii" 'insert-comment-separator)
 
+	    (define-key evil-normal-state-map
+	      (kbd "C-c r") 'cider-restart)
+	    (define-key evil-normal-state-map
+	      (kbd "C-c j") 'cider-jack-in)
+	    (define-key evil-normal-state-map
+	      (kbd "C-c f") 'cider-format-buffer)))
+
+(provide 'my-clojure)
 ;;; my-clojure.el ends here
