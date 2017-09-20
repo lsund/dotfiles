@@ -74,6 +74,8 @@
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (setq org-ellipsis " ↴")
 
+(setq org-agenda-files (list "~/Documents/org/todo.org"))
+
 ;; Ivy
 
 (ivy-mode 1)

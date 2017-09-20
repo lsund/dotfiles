@@ -62,6 +62,15 @@
   (open-line 1)
   (my-clojure-indent-defn))
 
+(defun my-join-sexp ()
+  (interactive)
+  (evil-first-non-blank)
+  (evil-insert 1)
+  (evil-cp-delete-backward-word)
+  (evil-delete-backward-char-and-join 1)
+  (insert " ")
+  (evil-normal-state))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Smartparens
 
@@ -106,7 +115,8 @@
 	    (define-key clojure-leader-map "r" #'cider-eval-buffer)
 	    (define-key clojure-leader-map "ii" 'insert-comment-separator)
 	    (define-key clojure-leader-map (kbd "bb") 'my-break-sexp)
-	    (define-key clojure-leader-map (kbd "bi") 'my-clojure-indent-defn)
+	    (define-key clojure-leader-map (kbd "bk") 'my-join-sexp)
+	    (define-key clojure-leader-map (kbd "bd") 'my-clojure-indent-defn)
 
 	    (define-key evil-normal-state-map
 	      (kbd "C-c r") 'cider-restart)
@@ -147,12 +157,7 @@
   		    ("M-[" . evil-cp-wrap-next-square)
   		    ("M-]" . evil-cp-wrap-previous-square)
   		    ("M-{" . evil-cp-wrap-next-curly)
-  		    ("M-}" . evil-cp-wrap-previous-curly))
-  		  "Alist containing additional functionality for
-  evil-cleverparens via a modifier key (using the meta-key by
-  default). Only enabled in evil's normal mode.")
-
-	    )
+  		    ("M-}" . evil-cp-wrap-previous-curly))))
 
 	  (provide 'my-clojure))
 ;;; my-clojure.el ends here
