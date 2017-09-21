@@ -68,6 +68,52 @@
 (define-key evil-insert-state-map (kbd "M-k") 'windmove-up)
 (define-key evil-insert-state-map (kbd "M-j") 'windmove-down)
 
+;; A very hacky solution. I don't even know why it works
+(defun my-resize-window-left ()
+  (interactive)
+  (condition-case ex
+      (if (message "%s" (windmove-left))
+	  (progn
+	    (shrink-window 8 t)
+	    (windmove-right)))
+    ('error
+     (shrink-window 4 t))))
+
+(defun my-resize-window-right ()
+  (interactive)
+  (condition-case ex
+      (if (message "%s" (windmove-right))
+	  (progn
+	    (shrink-window 4 t)
+	    (windmove-left)))
+    ('error
+     (shrink-window 4 t))))
+
+(defun my-resize-window-up ()
+  (interactive)
+  (condition-case ex
+      (if (message "%s" (windmove-up))
+	  (progn
+	    (shrink-window 4)
+	    (windmove-down)))
+    ('error
+     (shrink-window 4))))
+
+(defun my-resize-window-down ()
+  (interactive)
+  (condition-case ex
+      (if (message "%s" (windmove-down))
+	  (progn
+	    (shrink-window 4)
+	    (windmove-up)))
+    ('error
+     (shrink-window 4))))
+
+(define-key evil-normal-state-map (kbd "C-s j") 'my-resize-window-down)
+(define-key evil-normal-state-map (kbd "C-s k") 'my-resize-window-up)
+(define-key evil-normal-state-map (kbd "C-s h") 'my-resize-window-left)
+(define-key evil-normal-state-map (kbd "C-s l") 'my-resize-window-right)
+
 (define-key evil-normal-state-map (kbd "C-j") 'push-line-down)
 (define-key evil-normal-state-map (kbd "C-k") 'push-line-up)
 
@@ -227,34 +273,6 @@ Repeated invocations toggle between the two most recently open buffers."
         (set-buffer "*Buffer List*")
         (revert-buffer))))
 
-;;; my-keybindings.el ends here
-
-(defun my-org-calendar-left ()
-   '#[0 "\300\301!\207" [org-eval-in-calendar (calendar-backward-day 1)] 2 nil nil]
-  )
-
-;; Org
-
-(define-key evil-normal-state-map (kbd "C-c a") 'org-agenda)
-(define-key evil-normal-state-map (kbd "C-c s") 'org-schedule)
-(define-key evil-normal-state-map (kbd "C-c q") 'org-set-tags)
-(define-key minibuffer-local-map (kbd "C-h") (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-day 1))))
-(define-key minibuffer-local-map (kbd "C-l") (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-day 1))))
-(define-key minibuffer-local-map (kbd "C-j") (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-week 1))))
-(define-key minibuffer-local-map (kbd "C-k") (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-week 1))))
-
-(define-key org-mode-map (kbd "C-l") 'org-timestamp-up-day)
-(define-key org-mode-map (kbd "C-h") 'org-timestamp-down-day)
-
-(define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-line)
-(define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-line)
-(define-key org-agenda-mode-map (kbd "l") 'right-char)
-(define-key org-agenda-mode-map (kbd "h") 'left-char)
-(define-key org-agenda-mode-map (kbd "e") 'right-word)
-(define-key org-agenda-mode-map (kbd "b") 'left-word)
-(define-key org-agenda-mode-map (kbd "M-h") 'windmove-left)
-(define-key org-agenda-mode-map (kbd "M-l") 'windmove-right)
-(define-key org-agenda-mode-map (kbd "M-j") 'windmove-down)
-(define-key org-agenda-mode-map (kbd "M-k") 'windmove-up)
-
 (provide 'my-keybindings)
+
+;;; my-keybindings.el ends here

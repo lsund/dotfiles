@@ -32,12 +32,10 @@
 
 		    ;; Visuals
 		    badwolf-theme
-		    org-bullets
 		    linum-relative
 		    powerline
 
 		    ;; Other
-		    org
 		    flycheck
 
 		    ))
@@ -58,23 +56,6 @@
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-
-;; Org mode
-
-(setq org-time-stamp-formats
-      '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
-
-(setq org-support-shift-select t)
-
-(setq org-todo-keywords
-      '((sequence "TODO" "WAITING" "DONE")))
-
-(setq org-log-done t)
-
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-(setq org-ellipsis " ↴")
-
-(setq org-agenda-files (list "~/Documents/org/todo.org"))
 
 ;; Ivy
 
@@ -178,6 +159,8 @@
 (require 'my-elisp)
 (require 'my-haskell)
 (require 'my-keybindings)
+(require 'my-org)
+
 (provide 'my-config)
 
 ;; Local Variables:
