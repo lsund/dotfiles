@@ -102,6 +102,22 @@
   (insert ";; ")
   (evil-insert 1))
 
+(with-eval-after-load "cider-mode"
+    (evil-define-key 'insert
+      cider-repl-mode-map (kbd "C-p") 'cider-repl-previous-input)
+    (evil-define-key 'insert
+      cider-repl-mode-map (kbd "C-n") 'cider-repl-next-input)
+    (evil-define-key 'insert
+      cider-repl-mode-map (kbd "C-u") 'cider-repl-kill-input)
+    (evil-define-key 'insert
+      cider-repl-mode-map (kbd "C-h") 'delete-backward-char)
+    (evil-define-key 'insert
+      cider-repl-mode-map (kbd "C-w") 'backward-kill-word)
+    (evil-define-key 'insert
+      cider-repl-mode-map (kbd "M-f") 'forward-word)
+    (evil-define-key 'insert
+      cider-repl-mode-map (kbd "M-b") 'backward-word))
+
 ;; keybindings
 (add-hook 'clojure-mode-hook
 	  (lambda ()
@@ -126,7 +142,6 @@
 	      (kbd "C-c f") 'cider-format-buffer)
 
 
-	    ;; (lispy-mode 1)
 
 	    (evil-cleverparens-mode)
 

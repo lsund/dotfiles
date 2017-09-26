@@ -32,7 +32,7 @@ FILENAME: The filename."
 (setq org-support-shift-select t)
 
 (setq org-todo-keywords
-      '((sequence "TODO" "WAITING" "DONE")))
+      '((sequence "TODO" "DONE")))
 
 (setq org-log-done t)
 
