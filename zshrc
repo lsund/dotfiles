@@ -12,7 +12,20 @@ export ACC=$HOME/Documents/work/thielgroup/account-web
 
 export ZSH=$HOME/.oh-my-zsh
 
-cdl() { cd "$@" && ls;}
+# cd override
+function cd() {
+    builtin cd "$@" && ls;
+}
+
+# rm override
+function rm() {
+    if [[ $(pwd) == "/home/lsund/.Trash" ]]; then
+        /usr/bin/rm "$@"
+    else
+        trash "$@"
+        echo "Moved to trash"
+    fi
+}
 
 # Start ssh-agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then

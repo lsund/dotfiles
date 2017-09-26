@@ -92,6 +92,7 @@
 ;; Line numbers
 (linum-mode)
 (linum-relative-global-mode)
+(setq linum-relative-current-symbol "")
 
 ;; Show current column
 (setq column-number-mode t)
@@ -153,6 +154,10 @@
 ;; Evil Surround
 
 (global-evil-surround-mode 1)
+
+;; Backup dir
+(setq backup-directory-alist `(("." . "~/.emacs-saves")))
+(setq backup-by-copying t)
 
 (require 'my-powerline)
 (require 'my-clojure)

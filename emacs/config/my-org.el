@@ -13,8 +13,22 @@
 
 		    ))
 
+(setq org-directory "~/Documents/org")
+(setq org-agenda-files (list "~/Documents/org"))
 
+(defun mark-done-and-archive ()
+  "Mark the state of an 'org-mode' item as DONE and archive it."
+  (interactive)
+  (org-todo 'done)
+  (org-archive-subtree))
 
+(defun org-file-path (filename)
+  "Return the absolute address of an org file, given its relative name.
+FILENAME: The filename."
+  (concat (file-name-as-directory org-directory) filename))
+
+(setq org-archive-location
+      (concat (org-file-path "archive/%s_archive") "::* From %s"))
 (setq org-support-shift-select t)
 
 (setq org-todo-keywords
@@ -30,8 +44,7 @@
 
 (setq org-ellipsis " ↴")
 
-(setq org-agenda-files (list "~/Documents/org/todo.org"))
-
+(define-key evil-normal-state-map (kbd "C-c r") 'mark-done-and-archive)
 (define-key evil-normal-state-map (kbd "C-c a") 'org-agenda)
 (define-key evil-normal-state-map (kbd "C-c s") 'org-schedule)
 (define-key evil-normal-state-map (kbd "C-c q") 'org-set-tags)

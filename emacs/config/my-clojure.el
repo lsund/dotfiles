@@ -121,7 +121,7 @@
 	    (define-key evil-normal-state-map
 	      (kbd "C-c r") 'cider-restart)
 	    (define-key evil-normal-state-map
-	      (kbd "C-c j") 'cider-jack-in)
+	      (kbd "C-c C-l") 'cider-jack-in)
 	    (define-key evil-normal-state-map
 	      (kbd "C-c f") 'cider-format-buffer)
 

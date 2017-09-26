@@ -96,6 +96,8 @@ map <leader>t :TagbarToggle<CR>
 " Other mappings
 " =============================================================================
 
+imap <C-g> <Esc>
+
 vmap <leader>icn :I<CR>
 vmap <leader>ica :IA<CR>
 

@@ -51,6 +51,7 @@
 
 ; Insert
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
+(define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
 
 ;; normal
 (define-key evil-normal-state-map (kbd "C-w h") 'windmove-left)
@@ -272,6 +273,10 @@ Repeated invocations toggle between the two most recently open buffers."
       (save-excursion
         (set-buffer "*Buffer List*")
         (revert-buffer))))
+
+;; Align
+
+(define-key evil-visual-state-map (kbd "M-a") 'align-regexp)
 
 (provide 'my-keybindings)
 

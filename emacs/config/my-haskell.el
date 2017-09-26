@@ -9,6 +9,17 @@
 
 ;;; Code:
 
+(defun insert-comment-separator ()
+  "Insert a comment separator."
+  (interactive)
+  (insert
+   (format "%s%s"
+	   "--------------------------------------------------------------------"
+	   "------------"))
+  (open-line 1)
+  (evil-next-line)
+  (insert "-- ")
+  (evil-insert 1))
 
 (add-hook 'haskell-mode-hook
 	  (lambda ()
@@ -28,6 +39,8 @@
 	    (define-key evil-insert-state-map (kbd "C-u")
 	      'haskell-interactive-mode-kill-whole-line)
 
+	    (define-key haskell-leader-map "ii" 'insert-comment-separator)
+
 	    (setq-default show-trailing-whitespace nil)
 	    (interactive-haskell-mode)))
 
@@ -37,6 +50,30 @@
 ;; (add-hook 'haskell-mode-hook 'intero-mode)
 ;; (flycheck-add-next-checker 'intero '(warning . haskell-hlint))
 
+(defun haskell-setup ()
+  "Setup variables for editing Haskell files."
+  (setq whitespace-line-column 70)
+  (make-local-variable 'tab-stop-list)
+  (setq tab-stop-list (number-sequence 2 80 2))
+  (haskell-indentation-mode 0)
+  (setq indent-line-function 'indent-relative))
+
+(add-hook 'haskell-mode-hook 'haskell-setup)
+
+;; keybindings
+(add-hook 'haskell-mode-hook
+	  (lambda ()
+	    (interactive)
+	    (defvar haskell-leader-map
+	      (let ((map (make-sparse-keymap)))
+		(set-keymap-parent map my-leader-map)
+		map))
+	    (define-key evil-normal-state-map "\\" haskell-leader-map)
+
+	    ;; (define-key haskell-leader-map (kbd "bd")
+	    ;;   'haskell-indentation-indent-line)
+
+  		    ))
 (provide 'my-haskell)
 
 ;; Local Variables:
