@@ -10,7 +10,7 @@ URxvt.secondaryScroll: 0
 URxvt.font: xft:Hack:Regular:size=14
 
 /* Source code Pro */
-/* URxvt.font: xft:Source\ Code\ Pro\ for\ Powerline:Regular:size=14 */
+/* URxvt.font: xft:Source\ Code\ Pro\ for\ Powerline:Regular:size=12 */
 
 URxvt.scrollBar: false
 

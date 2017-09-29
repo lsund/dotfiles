@@ -123,7 +123,7 @@
 (set-face-attribute 'default nil
                     :family "Hack"
                     ;; :family "Source Code Pro"
-                    :height 130
+                    :height 110
                     :weight 'normal
                     :width 'normal)
 
@@ -159,11 +159,11 @@
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))
 (setq backup-by-copying t)
 
+(require 'my-keybindings)
 (require 'my-powerline)
 (require 'my-clojure)
 (require 'my-elisp)
 (require 'my-haskell)
-(require 'my-keybindings)
 (require 'my-org)
 
 (provide 'my-config)

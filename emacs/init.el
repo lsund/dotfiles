@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(package-refresh-contents)
+
 (defun require-package (pkg)
   "Install package if it is not already installed."
   (when (not (package-installed-p pkg))

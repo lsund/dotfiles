@@ -1,7 +1,7 @@
 (require-packages '(
 
 		    haskell-mode
-		    intero
+		    ;; intero
 
 		    ))
 
