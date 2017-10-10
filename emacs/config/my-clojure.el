@@ -103,20 +103,24 @@
   (evil-insert 1))
 
 (with-eval-after-load "cider-mode"
-    (evil-define-key 'insert
-      cider-repl-mode-map (kbd "C-p") 'cider-repl-previous-input)
-    (evil-define-key 'insert
-      cider-repl-mode-map (kbd "C-n") 'cider-repl-next-input)
-    (evil-define-key 'insert
-      cider-repl-mode-map (kbd "C-u") 'cider-repl-kill-input)
-    (evil-define-key 'insert
-      cider-repl-mode-map (kbd "C-h") 'delete-backward-char)
-    (evil-define-key 'insert
-      cider-repl-mode-map (kbd "C-w") 'backward-kill-word)
-    (evil-define-key 'insert
-      cider-repl-mode-map (kbd "M-f") 'forward-word)
-    (evil-define-key 'insert
-      cider-repl-mode-map (kbd "M-b") 'backward-word))
+  (evil-define-key 'insert
+    cider-repl-mode-map (kbd "C-a") 'back-to-indentation)
+  (evil-define-key 'insert
+    cider-repl-mode-map (kbd "C-e") 'evil-end-of-line)
+  (evil-define-key 'insert
+    cider-repl-mode-map (kbd "C-p") 'cider-repl-previous-input)
+  (evil-define-key 'insert
+    cider-repl-mode-map (kbd "C-n") 'cider-repl-next-input)
+  (evil-define-key 'insert
+    cider-repl-mode-map (kbd "C-u") 'cider-repl-kill-input)
+  (evil-define-key 'insert
+    cider-repl-mode-map (kbd "C-h") 'delete-backward-char)
+  (evil-define-key 'insert
+    cider-repl-mode-map (kbd "C-w") 'backward-kill-word)
+  (evil-define-key 'insert
+    cider-repl-mode-map (kbd "M-f") 'forward-word)
+  (evil-define-key 'insert
+    cider-repl-mode-map (kbd "M-b") 'backward-word))
 
 ;; keybindings
 (add-hook 'clojure-mode-hook
@@ -126,6 +130,7 @@
 	      (let ((map (make-sparse-keymap)))
 		(set-keymap-parent map my-leader-map)
 		map))
+
 	    (define-key evil-normal-state-map "\\" clojure-leader-map)
 
 	    (define-key clojure-leader-map "r" #'cider-eval-buffer)

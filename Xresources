@@ -7,7 +7,7 @@ URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
 
 /* Hack */
-URxvt.font: xft:Hack:Regular:size=14
+URxvt.font: xft:Hack:Regular:size=12
 
 /* Source code Pro */
 /* URxvt.font: xft:Source\ Code\ Pro\ for\ Powerline:Regular:size=12 */

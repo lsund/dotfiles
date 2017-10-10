@@ -29,6 +29,7 @@
 	      (let ((map (make-sparse-keymap)))
 		(set-keymap-parent map my-leader-map)
 		map))
+
 	    (define-key evil-normal-state-map "\\" haskell-leader-map)
 
 	    ;; Keybindings
@@ -60,20 +61,6 @@
 
 (add-hook 'haskell-mode-hook 'haskell-setup)
 
-;; keybindings
-(add-hook 'haskell-mode-hook
-	  (lambda ()
-	    (interactive)
-	    (defvar haskell-leader-map
-	      (let ((map (make-sparse-keymap)))
-		(set-keymap-parent map my-leader-map)
-		map))
-	    (define-key evil-normal-state-map "\\" haskell-leader-map)
-
-	    ;; (define-key haskell-leader-map (kbd "bd")
-	    ;;   'haskell-indentation-indent-line)
-
-  		    ))
 (provide 'my-haskell)
 
 ;; Local Variables:
