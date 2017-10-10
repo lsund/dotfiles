@@ -19,7 +19,7 @@ function cd() {
 
 # rm override
 function rm() {
-    if [[ $(pwd) == "/home/lsund/.Trash" ]]; then
+    if [[ $(pwd) == "/home/lsund/.Trash" || $1 == "--real" ]]; then
         /usr/bin/rm "$@"
     else
         trash "$@"
