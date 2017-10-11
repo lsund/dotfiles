@@ -155,6 +155,19 @@
 
 (global-evil-surround-mode 1)
 
+(defun my-buffer-change-hook ()
+  "Todo."
+    (if buffer-file-name
+	(let ((ext (file-name-extension buffer-file-name)))
+	  (if ext
+	      (message ext)
+	      (cond
+	       (string= ext "org") (org-mode)
+	       (string= ext "el")  (elisp-mode)
+	       (string= ext "clj") (clojure-mode))))))
+
+(add-hook 'buffer-list-update-hook #'my-buffer-change-hook)
+
 ;; Backup dir
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))
 (setq backup-by-copying t)

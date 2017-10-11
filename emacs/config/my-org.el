@@ -7,14 +7,18 @@
 
 
 (require-packages '(
-
 		    org
 		    org-bullets
-
 		    ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Directory/filenames
 
 (setq org-directory "~/Documents/org")
 (setq org-agenda-files (list "~/Documents/org"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Archiving
 
 (defun mark-done-and-archive ()
   "Mark the state of an 'org-mode' item as DONE and archive it."
@@ -29,11 +33,18 @@ FILENAME: The filename."
 
 (setq org-archive-location
       (concat (org-file-path "archive/%s_archive") "::* From %s"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Misc
+
+(setq org-ellipsis " ↴")
+
 (setq org-support-shift-select t)
 
 (setq org-todo-keywords
       '((sequence "TODO" "DONE")))
 
+;; Log the time something was done
 (setq org-log-done t)
 
 (add-hook 'org-mode-hook
@@ -42,22 +53,12 @@ FILENAME: The filename."
 		  '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
 	    (org-bullets-mode 1)))
 
-(setq org-ellipsis " ↴")
-
-(define-key evil-normal-state-map (kbd "C-c r") 'mark-done-and-archive)
-(define-key evil-normal-state-map (kbd "C-c a") 'org-agenda)
-(define-key evil-normal-state-map (kbd "C-c s") 'org-schedule)
-(define-key evil-normal-state-map (kbd "C-c q") 'org-set-tags)
-(define-key minibuffer-local-map (kbd "C-h") (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-day 1))))
-(define-key minibuffer-local-map (kbd "C-l") (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-day 1))))
-(define-key minibuffer-local-map (kbd "C-j") (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-week 1))))
-(define-key minibuffer-local-map (kbd "C-k") (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-week 1))))
-
-(define-key org-mode-map (kbd "C-l") 'org-timestamp-up-day)
-(define-key org-mode-map (kbd "C-h") 'org-timestamp-down-day)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Keybindings
 
 (add-hook 'org-agenda-mode-hook
           (lambda ()
+	    ;; Navigate agenda
 	    (define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-line)
 	    (define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-line)
 	    (define-key org-agenda-mode-map (kbd "l") 'right-char)
@@ -68,6 +69,32 @@ FILENAME: The filename."
 	    (define-key org-agenda-mode-map (kbd "M-l") 'windmove-right)
 	    (define-key org-agenda-mode-map (kbd "M-j") 'windmove-down)
 	    (define-key org-agenda-mode-map (kbd "M-k") 'windmove-up)))
+
+(add-hook 'org-mode-hook
+	  (lambda ()
+
+	    ;; General
+	    (define-key evil-normal-state-map (kbd "C-c r") 'mark-done-and-archive)
+	    (define-key evil-normal-state-map (kbd "C-c a") 'org-agenda)
+	    (define-key evil-normal-state-map (kbd "C-c s") 'org-schedule)
+	    (define-key evil-normal-state-map (kbd "C-c q") 'org-set-tags)
+
+	    ;; Navigate the calendar
+	    (define-key
+	      minibuffer-local-map
+	      (kbd "C-h")
+	      (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-day 1))))
+	    (define-key
+	      minibuffer-local-map
+	      (kbd "C-l")
+	      (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-day 1))))
+	    (define-key minibuffer-local-map
+	      (kbd "C-j")
+	      (lambda () (interactive) (org-eval-in-calendar '(calendar-forward-week 1))))
+	    (define-key
+	      minibuffer-local-map
+	      (kbd "C-k")
+	      (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-week 1))))))
 
 (provide 'my-org)
 ;; Local Variables:
