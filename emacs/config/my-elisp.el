@@ -21,7 +21,7 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(save new-line))
 
-(defun insert-comment-separator ()
+(defun insert-lisp-comment-separator ()
   "Insert a comment separator."
   (interactive)
   (insert
@@ -47,10 +47,10 @@
 		map))
 
 	    (setq evil-cleverparens-use-additional-bindings nil)
-	    (define-key evil-normal-state-map "\\" elisp-leader-map)
+	    (evil-define-key 'normal emacs-lisp-mode-map "\\" elisp-leader-map)
 
 	    (define-key elisp-leader-map "r" 'eval-defun)
-	    (define-key elisp-leader-map "ii" 'insert-comment-separator)
+	    (define-key elisp-leader-map "ii" 'insert-lisp-comment-separator)
 
 	    ))
 

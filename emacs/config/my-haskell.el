@@ -9,7 +9,7 @@
 
 ;;; Code:
 
-(defun insert-comment-separator ()
+(defun insert-haskell-comment-separator ()
   "Insert a comment separator."
   (interactive)
   (insert
@@ -40,7 +40,7 @@
 	    (define-key evil-insert-state-map (kbd "C-u")
 	      'haskell-interactive-mode-kill-whole-line)
 
-	    (define-key haskell-leader-map "ii" 'insert-comment-separator)
+	    (define-key haskell-leader-map "ii" 'insert-haskell-comment-separator)
 
 	    (setq-default show-trailing-whitespace nil)
 	    (interactive-haskell-mode)))

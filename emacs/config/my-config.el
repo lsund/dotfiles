@@ -29,6 +29,7 @@
 		    magit
 		    evil-magit
 		    neotree
+		    smex
 
 		    ;; Visuals
 		    badwolf-theme
@@ -40,15 +41,42 @@
 
 		    ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Global Minor Modes
+
+(smex-initialize)
+
+;; Winner
+(winner-mode 1)
+
+;; Show Matching Parens
+(show-paren-mode 1)
+
+;; Drag stuff
+(drag-stuff-global-mode 1)
+(drag-stuff-define-keys)
+
+;; Highlight-symbol
+(highlight-symbol-mode)
+
+;; Commentary
+(evil-commentary-mode)
+
+;; Scroll bars
+(scroll-bar-mode -1)
+
+;; Evil Surround (emulating vim-surround)
+(global-evil-surround-mode 1)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Misc
+
+
 ;; Buffer switching
 (setq ido-ignore-buffers
       '("^ " "*Completions*" "*Shell Command Output*"
 	"*Messages*" "Async Shell Command"))
-
-;; Flycheck
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-check-syntax-automatically '(save new-line))
 
 ;; Unicode
 (prefer-coding-system 'utf-8)
@@ -57,6 +85,34 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
+
+;; Line numbers
+(linum-mode)
+(linum-relative-global-mode)
+(setq linum-relative-current-symbol "")
+
+;; Show current column
+(setq column-number-mode t)
+
+;; Show menu
+(menu-bar-mode 1)
+
+;; Do not show tool-bar with icons
+(tool-bar-mode -1)
+
+
+;; Backup dir
+(setq backup-directory-alist `(("." . "~/.emacs-saves")))
+(setq backup-by-copying t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Plugin Configs
+
+;; Flycheck
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(save new-line))
+
 ;; Ivy
 
 (ivy-mode 1)
@@ -64,7 +120,6 @@
 (setq enable-recursive-minibuffers t)
 (setq ivy-re-builders-alist
       '((t . ivy--regex-ignore-order)))
-
 
 ;; Magit
 
@@ -89,21 +144,9 @@
 ;; Quick scope
 (global-evil-quickscope-always-mode 1)
 
-;; Line numbers
-(linum-mode)
-(linum-relative-global-mode)
-(setq linum-relative-current-symbol "")
-
-;; Show current column
-(setq column-number-mode t)
-
-;; Show menu
-(menu-bar-mode 1)
-
-;; Do not show tool-bar with icons
-(tool-bar-mode -1)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Search
+
 ;; Case sensitive
 (setq evil-ex-search-case 'sensitive)
 ;; Smooth instead of jumpy scrolling
@@ -127,50 +170,14 @@
                     :weight 'normal
                     :width 'normal)
 
-
-;; Windows
-(winner-mode 1)
-
 ;; Highlight current line
 (when window-system
   (global-hl-line-mode))
 
-;; Show matching paranthesis
-(show-paren-mode 1)
 
-;; Drag stuff
-(drag-stuff-global-mode 1)
-(drag-stuff-define-keys)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Require
 
-;; Highlight-symbol
-(highlight-symbol-mode)
-
-;; Commentary
-(evil-commentary-mode)
-
-;; Scroll bars
-(scroll-bar-mode -1)
-
-;; Evil Surround
-
-(global-evil-surround-mode 1)
-
-(defun my-buffer-change-hook ()
-  "Todo."
-    (if buffer-file-name
-	(let ((ext (file-name-extension buffer-file-name)))
-	  (if ext
-	      (message ext)
-	      (cond
-	       (string= ext "org") (org-mode)
-	       (string= ext "el")  (elisp-mode)
-	       (string= ext "clj") (clojure-mode))))))
-
-;; (add-hook 'buffer-list-update-hook #'my-buffer-change-hook)
-
-;; Backup dir
-(setq backup-directory-alist `(("." . "~/.emacs-saves")))
-(setq backup-by-copying t)
 
 (require 'my-keybindings)
 (require 'my-powerline)

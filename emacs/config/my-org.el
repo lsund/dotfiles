@@ -75,10 +75,10 @@ FILENAME: The filename."
 
 	    
 	    ;; General
-	    (define-key evil-normal-state-map (kbd "C-c r") 'mark-done-and-archive)
-	    (define-key evil-normal-state-map (kbd "C-c a") 'org-agenda)
-	    (define-key evil-normal-state-map (kbd "C-c s") 'org-schedule)
-	    (define-key evil-normal-state-map (kbd "C-c q") 'org-set-tags)
+	    (evil-define-key 'normal org-mode-map (kbd "C-c r") 'mark-done-and-archive)
+	    (evil-define-key 'normal org-mode-map (kbd "C-c a") 'org-agenda)
+	    (evil-define-key 'normal org-mode-map (kbd "C-c s") 'org-schedule)
+	    (evil-define-key 'normal org-mode-map (kbd "C-c q") 'org-set-tags)
 
 	    ;; Navigate the calendar
 	    (define-key

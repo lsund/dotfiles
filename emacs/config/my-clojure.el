@@ -1,10 +1,13 @@
 ;;; package --- Summary
 
+;;; Commentary:
+
 ;; My Emacs config for editing Clojure
 ;; Some definitions thanks to friemen [https://github.com/friemen]
 
-(require-packages '(
+;;; Code:
 
+(require-packages '(
 		    clojure-mode
 		    cider
 		    smartparens
@@ -12,15 +15,13 @@
 		    paxedit
 		    rainbow-delimiters
 		    evil-cleverparens
-		    ;; lispy
-		    ;; lispyville
-
 		    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Indent
 
 (defun my-goto-end-of-form-rec (p)
+  "Todo (as P)."
   (let ((next-pos (paxedit-sexp-move-to-core-start)))
     (cond ((looking-at ".comment")
            (progn (message "commment")
@@ -34,22 +35,26 @@
            (paredit-forward)))))
 
 (defun my-goto-end-of-form ()
+  "Todo."
   (interactive)
   (my-goto-end-of-form-rec (point)))
 
 
 (defun my-end-of-form ()
+  "Todo."
   (save-excursion
     (my-goto-end-of-form)
     (point)))
 
 (defun my-beginning-of-form ()
+  "Todo."
   (save-excursion
     (my-goto-end-of-form)
     (paredit-backward)
     (point)))
 
 (defun my-clojure-indent-defn ()
+  "Todo."
   (interactive)
   (save-excursion
     (goto-char (my-beginning-of-form))
@@ -57,40 +62,24 @@
     (clojure-align (point) (my-end-of-form))))
 
 (defun my-break-sexp ()
+  "Todo."
   (interactive)
   (evil-cp-forward-sexp)
   (open-line 1)
   (my-clojure-indent-defn))
 
 (defun my-join-sexp ()
+  "Todo."
   (interactive)
   (evil-first-non-blank)
   (evil-insert 1)
   (evil-cp-delete-backward-word)
   (evil-delete-backward-char-and-join 1)
   (insert " ")
-  (evil-normal-state))
+  (evil-normal-state)
+  (delete-horizontal-space))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Smartparens
-
-(require 'smartparens-config)
-(sp-pair "'" nil :actions :rem)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Cider
-
-(setq cider-repl-pop-to-buffer-on-connect nil)
-(cider-repl-toggle-pretty-printing)
-(evil-set-initial-state 'cider-repl 'insert)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Hooks
-
-(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'clojure-mode-hook #'smartparens-mode)
-
-(defun insert-comment-separator ()
+(defun insert-lisp-comment-separator ()
   "Insert a comment separator."
   (interactive)
   (insert
@@ -101,6 +90,13 @@
   (evil-next-line)
   (insert ";; ")
   (evil-insert 1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Cider Mode
+
+(setq cider-repl-pop-to-buffer-on-connect nil)
+(cider-repl-toggle-pretty-printing)
+(evil-set-initial-state 'cider-repl 'insert)
 
 (with-eval-after-load "cider-mode"
   (evil-define-key 'insert
@@ -122,35 +118,36 @@
   (evil-define-key 'insert
     cider-repl-mode-map (kbd "M-b") 'backward-word))
 
-;; keybindings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Clojure Mode
 (add-hook 'clojure-mode-hook
+
 	  (lambda ()
 	    (interactive)
+
+	    ;; Leader map extension
 	    (defvar clojure-leader-map
 	      (let ((map (make-sparse-keymap)))
 		(set-keymap-parent map my-leader-map)
 		map))
 
-	    (define-key evil-normal-state-map "\\" clojure-leader-map)
+	    (evil-define-key 'normal clojure-mode-map "\\" clojure-leader-map)
 
 	    (define-key clojure-leader-map "r" #'cider-eval-buffer)
-	    (define-key clojure-leader-map "ii" 'insert-comment-separator)
+	    (define-key clojure-leader-map "ii" 'insert-lisp-comment-separator)
 	    (define-key clojure-leader-map (kbd "bb") 'my-break-sexp)
 	    (define-key clojure-leader-map (kbd "bk") 'my-join-sexp)
 	    (define-key clojure-leader-map (kbd "bd") 'my-clojure-indent-defn)
 
-	    (define-key evil-normal-state-map
+	    ;; Other extensions
+	    (evil-define-key 'normal clojure-mode-map
 	      (kbd "C-c r") 'cider-restart)
-	    (define-key evil-normal-state-map
+	    (evil-define-key 'normal clojure-mode-map
 	      (kbd "C-c C-l") 'cider-jack-in)
-	    (define-key evil-normal-state-map
+	    (evil-define-key 'normal clojure-mode-map
 	      (kbd "C-c f") 'cider-format-buffer)
 
-
-
-	    (evil-cleverparens-mode)
-
-  	    (setq evil-cp-additional-bindings
+	    (setq evil-cp-additional-bindings
   		  '(("M-t" . sp-transpose-sexp)
   		    ("M-k" . nil)
   		    ("M-j" . nil)
@@ -177,7 +174,26 @@
   		    ("M-[" . evil-cp-wrap-next-square)
   		    ("M-]" . evil-cp-wrap-previous-square)
   		    ("M-{" . evil-cp-wrap-next-curly)
-  		    ("M-}" . evil-cp-wrap-previous-curly))))
+  		    ("M-}" . evil-cp-wrap-previous-curly)))
+
+	    ;; Auto fill
+	    (set-fill-column 80)
+	    (auto-fill-mode)
+
+	    ;; Rainbow delimiters
+	    (rainbow-delimiters-mode)
+	    
+	    ;; Smartparens
+	    (require 'smartparens-config)
+	    (sp-pair "'" nil :actions :rem)
+	    (smartparens-mode)
+
+	    ;; Evil Cleverparens
+	    (evil-cleverparens-mode))
 
 	  (provide 'my-clojure))
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; my-clojure.el ends here

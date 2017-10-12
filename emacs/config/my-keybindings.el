@@ -28,8 +28,7 @@
   "Inserts a new line and moves one line down"
   (interactive)
   (back-to-indentation)
-  (open-line 1)
-  (forward-line 1))
+  (newline))
 
 (defun push-line-up()
   "Inserts a new line and moves one line down"
@@ -183,6 +182,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 (define-key company-active-map (kbd "C-h") 'delete-backward-char)
 (define-key company-active-map (kbd "C-w") 'backward-kill-word)
+(define-key company-active-map (kbd "RET") 'company-abort)
 
 (define-key evil-insert-state-map (kbd "<backtab>") 'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
@@ -190,7 +190,9 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; Counsel
 (define-key my-leader-map "o" 'counsel-find-file)
-(define-key my-leader-map "x" 'execute-extended-command)
+(define-key my-leader-map "x" 'smex)
+(define-key my-leader-map "X" 'smex-major-mode-commands)
+(define-key evil-normal-state-map (kbd "M-X") 'execute-extended-command)
 (define-key my-leader-map "a" 'counsel-ag)
 
 ;; Ivy
