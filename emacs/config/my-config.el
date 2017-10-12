@@ -166,7 +166,7 @@
 	       (string= ext "el")  (elisp-mode)
 	       (string= ext "clj") (clojure-mode))))))
 
-(add-hook 'buffer-list-update-hook #'my-buffer-change-hook)
+;; (add-hook 'buffer-list-update-hook #'my-buffer-change-hook)
 
 ;; Backup dir
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))

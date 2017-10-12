@@ -73,6 +73,7 @@ FILENAME: The filename."
 (add-hook 'org-mode-hook
 	  (lambda ()
 
+	    
 	    ;; General
 	    (define-key evil-normal-state-map (kbd "C-c r") 'mark-done-and-archive)
 	    (define-key evil-normal-state-map (kbd "C-c a") 'org-agenda)
@@ -94,7 +95,11 @@ FILENAME: The filename."
 	    (define-key
 	      minibuffer-local-map
 	      (kbd "C-k")
-	      (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-week 1))))))
+	      (lambda () (interactive) (org-eval-in-calendar '(calendar-backward-week 1))))
+
+	    ;; Navigate timestamps
+	    (define-key org-mode-map (kbd "C-l") 'org-timestamp-up-day)
+	    (define-key org-mode-map (kbd "C-h") 'org-timestamp-down-day)))
 
 (provide 'my-org)
 ;; Local Variables:
