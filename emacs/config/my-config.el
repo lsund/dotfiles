@@ -1,4 +1,4 @@
-;;; package --- Summary
+;; package --- Summary
 ;;; Top level config file
 
 ;;; Commentary:
@@ -44,22 +44,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Global Minor Modes
 
+;; Smex
 (smex-initialize)
 
 ;; Winner
 (winner-mode 1)
 
-;; Show Matching Parens
+;; Show Parens
 (show-paren-mode 1)
 
 ;; Drag stuff
 (drag-stuff-global-mode 1)
 (drag-stuff-define-keys)
 
-;; Highlight-symbol
+;; Highlight Symbol
 (highlight-symbol-mode)
 
-;; Commentary
+;; Evil Commentary (Code comments)
 (evil-commentary-mode)
 
 ;; Scroll bars
@@ -154,7 +155,7 @@
       scroll-conservatively 10000)
 
 ;; Delete trailing whitespace on file save
-(add-hook 'before-save-hood 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq compilation-ask-about-save nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -178,7 +179,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Require
 
-
 (require 'my-keybindings)
 (require 'my-powerline)
 (require 'my-clojure)
@@ -193,4 +193,3 @@
 ;; End:
 
 ;;; my-config.el ends here
-

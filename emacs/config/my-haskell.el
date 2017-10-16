@@ -1,5 +1,7 @@
 (require-packages '(
 
+		    rainbow-delimiters
+
 		    haskell-mode
 		    ;; intero
 
@@ -8,6 +10,16 @@
 ;;; Commentary:
 
 ;;; Code:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Minor Modes
+
+(rainbow-delimiters-mode)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions
+
 
 (defun insert-haskell-comment-separator ()
   "Insert a comment separator."
@@ -25,11 +37,11 @@
 	  (lambda ()
 	    (interactive)
 
+	    ;; Leader map
 	    (defvar haskell-leader-map
 	      (let ((map (make-sparse-keymap)))
 		(set-keymap-parent map my-leader-map)
 		map))
-
 	    (define-key evil-normal-state-map "\\" haskell-leader-map)
 
 	    ;; Keybindings

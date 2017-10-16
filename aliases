@@ -8,13 +8,13 @@ alias lla='ls -la --color=auto'
 alias grep='grep --color'
 alias beep='mplayer /home/lsund/Media/audio/sounds/beep.mp3 1>& /dev/null'
 
-alias wm='sudo wifi-menu'
+alias wm='sudo wifi-menu && pinguntil'
 alias keys='setxkbmap dvorak -option compose:caps'
 
 alias shutdown='sudo shutdown now -P'
 alias restart='sudo shutdown now -r'
 
-alias tmux='tmux -2' 
+alias tmux='tmux -2'
 alias zath='zathura'
 
 alias pingg='ping -c 3 www.duckduckgo.com'

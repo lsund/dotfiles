@@ -114,6 +114,8 @@
 (define-key evil-normal-state-map (kbd "C-s h") 'my-resize-window-left)
 (define-key evil-normal-state-map (kbd "C-s l") 'my-resize-window-right)
 
+(define-key evil-normal-state-map (kbd "C-s <return>") 'new-frame)
+
 (define-key evil-normal-state-map (kbd "C-j") 'push-line-down)
 (define-key evil-normal-state-map (kbd "C-k") 'push-line-up)
 

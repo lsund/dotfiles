@@ -1,17 +1,16 @@
 ;;; package --- Summary
-(provide 'my-elisp)
-
-(require-packages '(
-
-		    evil
-		    evil-cleverparens
-
-		    flycheck
-
-		    ))
 
 ;;; Commentary:
 ;;; My Emacs config for editing Emacs Lisp
+
+(provide 'my-elisp)
+(require 'my-lisp)
+
+(require-packages '(
+		    evil
+		    evil-cleverparens
+		    flycheck
+		    ))
 
 ;;; Code:
 
@@ -20,19 +19,6 @@
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(save new-line))
-
-(defun insert-lisp-comment-separator ()
-  "Insert a comment separator."
-  (interactive)
-  (insert
-   (format "%s%s"
-	   ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
-	   ";;;;;;;;;;;;"))
-  (open-line 1)
-  (evil-next-line)
-  (insert ";; ")
-  (evil-insert 1))
-
 
 (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
 
@@ -51,7 +37,7 @@
 
 	    (define-key elisp-leader-map "r" 'eval-defun)
 	    (define-key elisp-leader-map "ii" 'insert-lisp-comment-separator)
-
-	    ))
+	    (define-key clojure-leader-map (kbd "bd") 'my-clojure-indent-defn)
+	    (define-key elisp-leader-map (kbd "bk") 'my-join-sexp)))
 
 ;;; my-elisp ends here
