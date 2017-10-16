@@ -34,28 +34,32 @@
   (evil-insert 1))
 
 (add-hook 'haskell-mode-hook
-	  (lambda ()
-	    (interactive)
+		  (lambda ()
+			(interactive)
 
-	    ;; Leader map
-	    (defvar haskell-leader-map
-	      (let ((map (make-sparse-keymap)))
-		(set-keymap-parent map my-leader-map)
-		map))
-	    (define-key evil-normal-state-map "\\" haskell-leader-map)
+			;; Leader map
+			(defvar haskell-leader-map
+			  (let ((map (make-sparse-keymap)))
+				(set-keymap-parent map my-leader-map)
+				map))
+			(define-key evil-normal-state-map "\\" haskell-leader-map)
 
-	    ;; Keybindings
-	    (define-key evil-insert-state-map (kbd "C-p")
-	      'haskell-interactive-mode-history-previous)
-	    (define-key evil-insert-state-map (kbd "C-n")
-	      'haskell-interactive-mode-history-next)
-	    (define-key evil-insert-state-map (kbd "C-u")
-	      'haskell-interactive-mode-kill-whole-line)
+			;; Auto fill
+			(set-fill-column 80)
+			(auto-fill-mode)
 
-	    (define-key haskell-leader-map "ii" 'insert-haskell-comment-separator)
+			;; Keybindings
+			(define-key evil-insert-state-map (kbd "C-p")
+			  'haskell-interactive-mode-history-previous)
+			(define-key evil-insert-state-map (kbd "C-n")
+			  'haskell-interactive-mode-history-next)
+			(define-key evil-insert-state-map (kbd "C-u")
+			  'haskell-interactive-mode-kill-whole-line)
 
-	    (setq-default show-trailing-whitespace nil)
-	    (interactive-haskell-mode)))
+			(define-key haskell-leader-map "ii" 'insert-haskell-comment-separator)
+
+			(setq-default show-trailing-whitespace nil)
+			(interactive-haskell-mode)))
 
 (load-library "inf-haskell")
 (setq haskell-program-name "stack ghci")

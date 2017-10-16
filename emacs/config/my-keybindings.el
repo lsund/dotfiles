@@ -47,8 +47,18 @@
 (define-key my-leader-map "n" nil)
 (define-key my-leader-map "N" nil)
 
+(defun my-kill-word ()
+  "Kill a word or a portion of whitespace. If the thing behind the cursor is a
+   letter, kill the whole word. If it's a tab, kill the single tab. If its whitespace, delete 4 spaces or until the next letter."
+  (interactive)
+	(cond
+	 ((string= (string (preceding-char)) "\t") (delete-backward-char 1))
+	 ((string= (string (preceding-char)) " ") (delete-backward-until-letter 4))
+	 (t (backward-kill-word 1))))
+
 
 ; Insert
+(define-key evil-insert-state-map (kbd "C-w") 'backward-kill-word)
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
 (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
 
@@ -149,56 +159,55 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
-(define-key evil-visual-state-map (kbd "J") 'myevil-next-visual-line)
-(define-key evil-visual-state-map (kbd "K") 'myevil-prev-visual-line)
-(define-key evil-normal-state-map (kbd "J") 'myevil-next-line)
-(define-key evil-normal-state-map (kbd "K") 'myevil-prev-line)
+;; Navigation
+(define-key evil-visual-state-map (kbd "J")		'myevil-next-visual-line)
+(define-key evil-visual-state-map (kbd "K")		'myevil-prev-visual-line)
+(define-key evil-normal-state-map (kbd "J")		'myevil-next-line)
+(define-key evil-normal-state-map (kbd "K")		'myevil-prev-line)
+(define-key evil-normal-state-map (kbd "C-f")	'scroll-up)
+(define-key evil-normal-state-map (kbd "C-b")	'scroll-down)
+(define-key evil-normal-state-map (kbd "C-u")	'scroll-half-page-down)
+(define-key evil-normal-state-map (kbd "C-d")	'scroll-half-page-up)
 
-(define-key evil-normal-state-map (kbd "C-f") 'scroll-up)
-(define-key evil-normal-state-map (kbd "C-b") 'scroll-down)
-(define-key evil-normal-state-map (kbd "C-u") 'scroll-half-page-down)
-(define-key evil-normal-state-map (kbd "C-d") 'scroll-half-page-up)
-
-(define-key my-leader-map "," 'save-buffer)
-(define-key my-leader-map "<" (lambda () (interactive) (save-some-buffers t)))
-(define-key my-leader-map "'" 'kill-this-buffer)
+;; Buffer and Window management
+(define-key my-leader-map ","  'save-buffer)
+(define-key my-leader-map "<"  (lambda () (interactive) (save-some-buffers t)))
+(define-key my-leader-map "'"  'kill-this-buffer)
 (define-key my-leader-map "\"" 'kill-other-buffers)
-(define-key my-leader-map "y" 'switch-to-buffer)
-(define-key my-leader-map "Y" 'switch-to-previous-buffer)
-(define-key my-leader-map "b" nil)
-
-;; (define-key my-leader-map "ii" 'my-clojure-indent-defn)
-
-(define-key evil-normal-state-map (kbd "C-s z") 'delete-other-windows)
-(define-key evil-normal-state-map (kbd "C-s Z") 'winner-undo)
-
-;; Windows
+(define-key my-leader-map "y"  'switch-to-buffer)
+(define-key my-leader-map "Y"  'switch-to-previous-buffer)
 (define-key evil-normal-state-map (kbd "C-s -") 'split-window-below)
 (define-key evil-normal-state-map (kbd "C-s |") 'split-window-right)
 (define-key evil-normal-state-map (kbd "C-s w") 'delete-window)
+(define-key evil-normal-state-map (kbd "C-s z") 'delete-other-windows)
+(define-key evil-normal-state-map (kbd "C-s Z") 'winner-undo)
 
+;;(define-key my-leader-map "b" nil)
+
+;; Search
 (define-key my-leader-map "nh" 'remove-highlight)
 
-;; Company company
+;; Company
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 (define-key company-active-map (kbd "C-h") 'delete-backward-char)
 (define-key company-active-map (kbd "C-w") 'backward-kill-word)
 (define-key company-active-map (kbd "RET") 'company-abort)
-
-(define-key evil-insert-state-map (kbd "<backtab>") 'company-complete-common-or-cycle)
+(define-key evil-insert-state-map (kbd "<backtab>")
+  'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 
 ;; Counsel
 (define-key my-leader-map "o" 'counsel-find-file)
+
+;; Smex
 (define-key my-leader-map "x" 'smex)
 (define-key my-leader-map "X" 'smex-major-mode-commands)
 (define-key evil-normal-state-map (kbd "M-X") 'execute-extended-command)
 (define-key my-leader-map "a" 'counsel-ag)
 
 ;; Ivy
-
 (defun my-ivy ()
   (interactive)
   (if (ivy-partial)
@@ -222,8 +231,8 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map "pp" 'counsel-projectile-switch-project)
 
 ;; Drag stuff
-(define-key evil-normal-state-map (kbd "C-S-j") 'drag-stuff-down)
 (define-key evil-normal-state-map (kbd "C-S-k") 'drag-stuff-up)
+(define-key evil-normal-state-map (kbd "C-S-j") 'drag-stuff-down)
 (define-key evil-normal-state-map (kbd "C-S-l") 'drag-stuff-right)
 (define-key evil-normal-state-map (kbd "C-S-h") 'drag-stuff-left)
 

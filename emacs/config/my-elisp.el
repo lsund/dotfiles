@@ -37,7 +37,7 @@
 
 	    (define-key elisp-leader-map "r" 'eval-defun)
 	    (define-key elisp-leader-map "ii" 'insert-lisp-comment-separator)
-	    (define-key clojure-leader-map (kbd "bd") 'my-clojure-indent-defn)
+	    (define-key elisp-leader-map (kbd "bd") 'my-clojure-indent-defn)
 	    (define-key elisp-leader-map (kbd "bk") 'my-join-sexp)))
 
 ;;; my-elisp ends here
