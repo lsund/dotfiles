@@ -270,7 +270,8 @@ Repeated invocations toggle between the two most recently open buffers."
 (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
 (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
 (evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-refresh)
-(evil-define-key 'normal neotree-mode-map (kbd "m") 'mkdir)
+(evil-define-key 'normal neotree-mode-map (kbd "d") 'mkdir)
+(evil-define-key 'normal neotree-mode-map (kbd "f") 'neotree-create-node)
 
 
 ;; Magit magit
