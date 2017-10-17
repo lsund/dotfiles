@@ -39,7 +39,6 @@ function rm() {
         /usr/bin/rm "$@"
     else
         trash "$@"
-        echo "Moved to trash"
     fi
 }
 

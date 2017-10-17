@@ -109,11 +109,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Plugin Configs
 
-;; Flycheck
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-check-syntax-automatically '(save new-line))
-
 ;; Ivy
 
 (ivy-mode 1)
@@ -167,7 +162,7 @@
 (set-face-attribute 'default nil
                     :family "Hack"
                     ;; :family "Source Code Pro"
-                    :height 110
+                    :height 140
                     :weight 'normal
                     :width 'normal)
 
@@ -210,6 +205,7 @@
 (require 'my-elisp)
 (require 'my-haskell)
 (require 'my-org)
+(require 'my-python)
 
 (provide 'my-config)
 
