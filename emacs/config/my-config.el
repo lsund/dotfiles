@@ -38,6 +38,7 @@
 
 		    ;; Other
 		    flycheck
+		    markdown-mode
 
 		    ))
 
@@ -134,8 +135,8 @@
 ;; Projectile
 (projectile-global-mode)
 (setq projectile-completion-system 'ivy)
-; (helm-projectile-on)
-(setq projectile-enable-caching t)
+;; Caching could greatly speed up file navigation on big projects
+(setq projectile-enable-caching nil)
 
 ;; Quick scope
 (global-evil-quickscope-always-mode 1)

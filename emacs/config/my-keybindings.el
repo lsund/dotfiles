@@ -56,7 +56,6 @@
 	 ((string= (string (preceding-char)) " ") (delete-backward-until-letter 4))
 	 (t (backward-kill-word 1))))
 
-
 ; Insert
 (define-key evil-insert-state-map (kbd "C-w") 'backward-kill-word)
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
@@ -173,7 +172,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map ","  'save-buffer)
 (define-key my-leader-map "<"  (lambda () (interactive) (save-some-buffers t)))
 (define-key my-leader-map "'"  'kill-this-buffer)
-(define-key my-leader-map "\"" 'kill-other-buffers)
 (define-key my-leader-map "y"  'switch-to-buffer)
 (define-key my-leader-map "Y"  'switch-to-previous-buffer)
 (define-key evil-normal-state-map (kbd "C-s -") 'split-window-below)
