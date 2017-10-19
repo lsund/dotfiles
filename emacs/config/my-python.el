@@ -13,6 +13,9 @@
           (lambda ()
             (interactive)
 
+	    (add-hook 'after-init-hook #'global-flycheck-mode)
+	    (setq flycheck-check-syntax-automatically '(save new-line))
+
             (add-hook 'after-save-hook
                       (mark-whole-buffer)
                       (untabify))
