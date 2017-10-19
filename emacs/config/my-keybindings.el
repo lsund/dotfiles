@@ -28,7 +28,8 @@
   "Inserts a new line and moves one line down"
   (interactive)
   (back-to-indentation)
-  (newline))
+  (newline)
+  (indent-for-tab-command))
 
 (defun push-line-up()
   "Inserts a new line and moves one line down"
