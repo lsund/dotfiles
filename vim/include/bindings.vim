@@ -1,6 +1,7 @@
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Navigation
-" =============================================================================
 
 nmap <S-j> M4jzz''4j
 nmap <S-k> M4kzz''4k
@@ -12,9 +13,11 @@ nnoremap k gk
 nnoremap <C-j> 0i<CR><ESC>
 nnoremap <C-k> 0i<BS><ESC>
 
-
 inoremap <C-Backspace> <Backspace>
 inoremap <Backspace> <Nop>
+
+inoremap <C-g> <ESC>
+nnoremap <C-g> <ESC>
 
 map <C-w>s <C-w>l
 
@@ -28,22 +31,28 @@ nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 
-" Buffer management
-" =============================================================================
+cnoremap <C-G> <C-C>
+cnoremap <C-A> <Home>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BUffer Management
+
 
 cmap w!! w !sudo tee > /dev/null %
-nmap <leader>y :bnext<CR>
-nmap <leader><S-y> :bprevious<CR>
+nmap <leader>y :Buffers<CR>
+nmap <leader><S-y> :b#<CR>
 nmap <leader>' :bp <BAR> bd #<CR>
 nmap <leader>nn :NERDTree<CR>
 nmap <leader>, :w<CR>
 nmap <leader>< :wall<CR>
-nmap <leader>o :args 
+nmap <leader>o :args
 nmap <leader>e <C-p>
 nmap <leader>v :e ~/.vimrc<CR>
 nmap <leader>" :BufOnly<CR>
 " nmap <leader>r :Rename
 nmap <leader>bl :e #<CR>
+map <leader>c q:
 
 " Splits
 " =============================================================================
@@ -55,7 +64,10 @@ map <leader>- :split<CR>
 " Plugins
 " =============================================================================
 
-map <leader>c q:
+
+" fzf
+map <leader>e :FZF<CR>
+
 " easymotion
 map <leader>mt <Plug>(easymotion-j)
 map <leader>mn <Plug>(easymotion-k)
@@ -127,6 +139,6 @@ nmap <silent> --s "=HaskellModuleSection()<CR>gp
 noremap <leader>cr :call clearmatches()<CR>
 nnoremap <leader>nh :nohlsearch<CR>
 
-autocmd Filetype vim map <leader>ii 
-    \ i"  --------------------------------------------------------------------
-    \---------<CR>
+autocmd Filetype vim map <leader>ii
+    \ i"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    \""""""""""<CR>" 

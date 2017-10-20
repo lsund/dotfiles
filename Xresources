@@ -52,7 +52,8 @@ URxvt.keysym.M-BackSpace: command:\000
 
 ! Badwolf
 !
-*background: #1c1b1a
+*background: #101010
+/* *background: #1c1b1a */
 *foreground: #f8f6f2
 *cursorColor: #aeee00
 *scrollColor: #45413b

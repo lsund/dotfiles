@@ -10,8 +10,9 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
-"  -----------------------------------------------------------------------------
-"  Aesthetics
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Aestetics
 "
 "  Colors
 Plugin 'flazz/vim-colorschemes'
@@ -61,49 +62,52 @@ let g:syntastic_mode_map =
 "  -----------------------------------------------------------------------------
 "  Search and View
 "
+"  File search with fuzzy finder fzf FZF Fzf
+Plugin 'junegunn/fzf.vim'
+"
 "  File search with fuzzy finder Ctrl-P ctrlp ctrl-p Ctrlp
-Plugin 'kien/ctrlp.vim'
-let g:ctrlp_match_window='bottom,order:ttb'
-let g:ctrlp_switch_buffer=0
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_user_command='ag %s -l --nocolor --hidden -g ""'
-let g:ctrlp_open_multiple_files = 'i'
-let g:ctrlp_prompt_mappings = {
-\ 'PrtBS()':              ['<bs>', '<c-d>'],
-\ 'PrtDelete()':          ['<del>'],
-\ 'PrtDeleteWord()':      ['<c-w>'],
-\ 'PrtClear()':           ['<c-u>'],
-\ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
-\ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
-\ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
-\ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
-\ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
-\ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
-\ 'PrtHistory(-1)':       ['<c-R>'],
-\ 'PrtHistory(1)':        ['<c-r>'],
-\ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-\ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
-\ 'AcceptSelection("t")': ['<c-t>'],
-\ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
-\ 'ToggleFocus()':        ['<s-tab>'],
-\ 'ToggleRegex()':        ['<c-r>'],
-\ 'ToggleByFname()':      [],
-\ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
-\ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
-\ 'PrtExpandDir()':       ['<tab>'],
-\ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
-\ 'PrtInsert()':          ['<c-\>'],
-\ 'PrtCurStart()':        ['<c-a>'],
-\ 'PrtCurEnd()':          ['<c-e>'],
-\ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
-\ 'PrtCurRight()':        ['<c-l>', '<right>'],
-\ 'PrtClearCache()':      ['<F5>'],
-\ 'PrtDeleteEnt()':       ['<F7>'],
-\ 'CreateNewFile()':      ['<c-y>'],
-\ 'MarkToOpen()':         ['<c-z>'],
-\ 'OpenMulti()':          ['<c-o>'],
-\ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
-\ }
+" Plugin 'kien/ctrlp.vim'
+" let g:ctrlp_match_window='bottom,order:ttb'
+" let g:ctrlp_switch_buffer=0
+" let g:ctrlp_working_path_mode=0
+" let g:ctrlp_user_command='ag %s -l --nocolor --hidden -g ""'
+" let g:ctrlp_open_multiple_files = 'i'
+" let g:ctrlp_prompt_mappings = {
+" \ 'PrtBS()':              ['<bs>', '<c-d>'],
+" \ 'PrtDelete()':          ['<del>'],
+" \ 'PrtDeleteWord()':      ['<c-w>'],
+" \ 'PrtClear()':           ['<c-u>'],
+" \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
+" \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
+" \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+" \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+" \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+" \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
+" \ 'PrtHistory(-1)':       ['<c-R>'],
+" \ 'PrtHistory(1)':        ['<c-r>'],
+" \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+" \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+" \ 'AcceptSelection("t")': ['<c-t>'],
+" \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+" \ 'ToggleFocus()':        ['<s-tab>'],
+" \ 'ToggleRegex()':        ['<c-r>'],
+" \ 'ToggleByFname()':      [],
+" \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
+" \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
+" \ 'PrtExpandDir()':       ['<tab>'],
+" \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
+" \ 'PrtInsert()':          ['<c-\>'],
+" \ 'PrtCurStart()':        ['<c-a>'],
+" \ 'PrtCurEnd()':          ['<c-e>'],
+" \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
+" \ 'PrtCurRight()':        ['<c-l>', '<right>'],
+" \ 'PrtClearCache()':      ['<F5>'],
+" \ 'PrtDeleteEnt()':       ['<F7>'],
+" \ 'CreateNewFile()':      ['<c-y>'],
+" \ 'MarkToOpen()':         ['<c-z>'],
+" \ 'OpenMulti()':          ['<c-o>'],
+" \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
+" \ }
 "
 "  Keyword search with ag
 Plugin 'mileszs/ack.vim'

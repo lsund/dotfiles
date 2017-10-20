@@ -40,6 +40,11 @@ if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent-thing)"
 fi
 
+# ############################################################################
+# Fuzzy finding
+
+. /usr/share/fzf/key-bindings.zsh
+. /usr/share/fzf/completion.zsh
 
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
