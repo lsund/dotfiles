@@ -203,9 +203,10 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Smex
 (define-key my-leader-map "x" 'smex)
 (define-key my-leader-map "X" 'smex-major-mode-commands)
+
 (define-key evil-normal-state-map (kbd "M-X") 'execute-extended-command)
 (define-key my-leader-map "a" (lambda () (interactive)
-				(counsel-ag "" default-directory)))
+				(counsel-ag "" (vc-root-dir))))
 
 ;; Ivy
 (defun my-ivy ()

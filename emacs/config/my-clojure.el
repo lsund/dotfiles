@@ -68,6 +68,10 @@
 	    (define-key clojure-leader-map (kbd "bb") 'my-break-sexp)
 	    (define-key clojure-leader-map (kbd "bk") 'my-join-sexp)
 	    (define-key clojure-leader-map (kbd "bd") 'my-clojure-indent-defn)
+	    (define-key clojure-leader-map (kbd "a")
+	      (lambda ()
+		(interactive)
+		(counsel-ag "" (concat (vc-root-dir) "src"))))
 
 	    ;; Other extensions
 	    (evil-define-key 'normal clojure-mode-map
