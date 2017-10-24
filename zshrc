@@ -27,20 +27,9 @@ export ZSH=$HOME/.oh-my-zsh
 # ###########################################################################
 # Custom shell functions
 
-
 # cd override
 function cd() {
     builtin cd "$@" && ls;
-}
-
-# rm override
-function rm() {
-    if [[ $(pwd) == "/home/lsund/.Trash" || $1 == "--real" ]]; then
-        /usr/bin/rm "$@"
-    else
-        trash "$@"
-        echo "Moved to trash"
-    fi
 }
 
 # Start ssh-agent
@@ -51,6 +40,11 @@ if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent-thing)"
 fi
 
+# ############################################################################
+# Fuzzy finding
+
+. /usr/share/fzf/key-bindings.zsh
+. /usr/share/fzf/completion.zsh
 
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"

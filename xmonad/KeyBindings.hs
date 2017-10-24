@@ -76,9 +76,7 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     , ((modMask                 , xK_h)         ,   sendMessage Shrink)
     -- Expand master area horizontally
     , ((modMask                 , xK_l)         ,   sendMessage Expand)
-    -- Shrink master area vertically     
-    , ((modMask .|. shiftMask   , xK_h)         ,   sendMessage MirrorShrink)
-    -- Expand master area vertically     
+    -- Expand master area vertically
     , ((modMask .|. shiftMask   , xK_l)         ,   sendMessage MirrorExpand)
     -- Tiled mode
     , ((modMask                 , xK_f)         ,   withFocused $ windows . W.sink)
@@ -112,8 +110,8 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     , ((modMask                 , xK_F12)       ,   spawn "/usr/bin/xbacklight -inc 10")
     ]
     ++
-    [ 
-        ((m .|. modMask, k), windows $ f i) | 
+    [
+        ((m .|. modMask, k), windows $ f i) |
          (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
     ]
@@ -124,10 +122,10 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     ] where
         fullFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery doFullFloat f
         rectFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery (doRectFloat $ W.RationalRect 0.05 0.05 0.9 0.9) f
-        killAndExit =   spawn 
+        killAndExit =   spawn
                             "/usr/bin/killall dzen2 haskell-cpu-usage.out" <+>
                             io exitSuccess
-        killAndRestart = spawn 
+        killAndRestart = spawn
                             "/usr/bin/killall dzen2 haskell-cpu-usage.out" <+>
                             liftIO (threadDelay 2000000) <+>
                             restart "xmonad" True

@@ -28,7 +28,8 @@
   "Inserts a new line and moves one line down"
   (interactive)
   (back-to-indentation)
-  (newline))
+  (newline)
+  (indent-for-tab-command))
 
 (defun push-line-up()
   "Inserts a new line and moves one line down"
@@ -55,7 +56,6 @@
 	 ((string= (string (preceding-char)) "\t") (delete-backward-char 1))
 	 ((string= (string (preceding-char)) " ") (delete-backward-until-letter 4))
 	 (t (backward-kill-word 1))))
-
 
 ; Insert
 (define-key evil-insert-state-map (kbd "C-w") 'backward-kill-word)
@@ -173,7 +173,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map ","  'save-buffer)
 (define-key my-leader-map "<"  (lambda () (interactive) (save-some-buffers t)))
 (define-key my-leader-map "'"  'kill-this-buffer)
-(define-key my-leader-map "\"" 'kill-other-buffers)
 (define-key my-leader-map "y"  'switch-to-buffer)
 (define-key my-leader-map "Y"  'switch-to-previous-buffer)
 (define-key evil-normal-state-map (kbd "C-s -") 'split-window-below)
@@ -271,7 +270,8 @@ Repeated invocations toggle between the two most recently open buffers."
 (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
 (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
 (evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-refresh)
-(evil-define-key 'normal neotree-mode-map (kbd "m") 'mkdir)
+(evil-define-key 'normal neotree-mode-map (kbd "d") 'mkdir)
+(evil-define-key 'normal neotree-mode-map (kbd "f") 'neotree-create-node)
 
 
 ;; Magit magit

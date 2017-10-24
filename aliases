@@ -7,8 +7,8 @@ alias ll='ls -l --color=auto'
 alias lla='ls -la --color=auto'
 alias grep='grep --color'
 alias beep='mplayer /home/lsund/Media/audio/sounds/beep.mp3 1>& /dev/null'
+alias rm='/home/lsund/Documents/scripts/manual/rm'
 
-alias wm='sudo wifi-menu && pinguntil'
 alias keys='setxkbmap dvorak -option compose:caps'
 
 alias shutdown='sudo shutdown now -P'
