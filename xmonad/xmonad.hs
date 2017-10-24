@@ -1,6 +1,6 @@
 
 -- Extensions
-{-# LANGUAGE 
+{-# LANGUAGE
     DeriveDataTypeable
    , FlexibleContexts
    , TypeSynonymInstances
@@ -166,7 +166,7 @@ workspaceNames =
     , "App8"
     ]
 
--- Layout names 
+-- Layout names
 myTileName = "Tiled"
 myMosAName = "Mosaic"
 myCst3Name = "Web"
@@ -174,12 +174,9 @@ myCst3Name = "Web"
 myFTabName = "Full"
 myFloaName = "Float"
 
+----------------------------------------------------------------------------
+-- Startup hook
 
---------------------------------------------------------------------------------------------
--- STARTUP HOOK CONFIG                                                                    --
---------------------------------------------------------------------------------------------
-
--- Startup Hook
 myStartupHook =
     setDefaultCursor xC_left_ptr <+>
     spawn "feh --bg-scale /home/lsund/Media/image/haskell.png &" <+>
@@ -189,10 +186,8 @@ myStartupHook =
     spawn "/home/lsund/.xmonad/apps/haskell-cpu-usage.out 5" <+>
     (startTimer 1 >>= XS.put . TID)
 
-
---------------------------------------------------------------------------------------------
--- HANDLE EVENT HOOK CONFIG                                                               --
---------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------
+-- Handle event hook config
 
 -- Wrapper for the Timer id, so it can be stored as custom mutable state
 newtype TidState = TID TimerId deriving Typeable
@@ -217,10 +212,8 @@ myHandleEventHook =
                 isFloat =
                     isSuffixOf myFloaName <$> gets (description . W.layout . W.workspace . W.current . windowset)
 
-
---------------------------------------------------------------------------------------------
--- LAYOUT CONFIG                                                                          --
---------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------
+-- Layout
 
 -- Tabbed transformer (W+f)
 data TABBED = TABBED deriving (Read, Show, Eq, Typeable)
@@ -268,11 +261,11 @@ myLayoutHook hostname = avoidStruts $
           windowSwitcherDecoration shrinkText myTitleTheme $
           draggingVisualizer l
 
---------------------------------------------------------------------------------------------
--- MANAGE HOOK CONFIG                                                                     --
---------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------
 -- Manage Hook
+
+
 myManageHook :: String -> ManageHook
 myManageHook hostname =
     manageDocks <+>
@@ -300,29 +293,23 @@ manageWindows hostname = composeAll . concat $
     ] where
         name      = stringProperty "WM_NAME"
         myIgnores = ["desktop", "desktop_window"]
-        myWebS    = ["Chromium", "Firefox", "Opera"]
+        myWebS    = ["Firefox"]
         myChatS   = ["Pidgin", "Xchat"]
         {-myGfxS    = ["Gimp", "gimp", "GIMP"]-}
         myAlt3S   = ["Amule", "Transmission-gtk"]
-        myFloatCC = ["MPlayer", "mplayer2", "File-roller", "zsnes", "Gcalctool", "Exo-helper-1"
-                    , "Gksu", "Galculator", "Nvidia-settings", "XFontSel", "XCalc", "XClock"
-                    , "Ossxmix", "Xvidcap", "Main", "Wicd-client.py"]
-        myFloatCN = ["Choose a file", "Open Image", "File Operation Progress", "Firefox Preferences"
-                    , "Preferences", "Search Engines", "Set up sync", "Passwords and Exceptions"
-                    , "Autofill Options", "Rename File", "Copying files", "Moving files"
-                    , "File Properties", "Replace", "Quit GIMP", "Change Foreground Color"
-                    , "Change Background Color", ""]
+        myFloatCC = ["MPlayer", "mplayer2"]
+        myFloatCN = ["Choose a file", "Open Image" "Firefox Preferences"]
         myFloatSN = ["Event Tester"]
         myFocusDC = ["Event Tester", "Notify-osd"]
         keepMaster c = assertSlave <+> assertMaster where
             assertSlave = fmap (/= c) className --> doF W.swapDown
             assertMaster = className =? c --> doF W.swapMaster
 
---------------------------------------------------------------------------------------------
--- DZEN STATUS BARS CONFIG                                                                --
---------------------------------------------------------------------------------------------
 
--- Dzen top left bar flags
+----------------------------------------------------------------------------
+-- Dzen bars
+
+
 dzenTopLeftFlags :: Res -> DF
 dzenTopLeftFlags _ = DF
     { xPosDF       = 0
@@ -440,14 +427,15 @@ myBotRightLogHook h hostname =
         [myPacSyncL, myMailSyncL, myBrightL hostname, mySoundL, myBatL hostname]
     }
 
---------------------------------------------------------------------------------------------
--- LOGGERS CONFIG                                                                         --
---------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------
+-- Logger config
+
 
 myBatL hostname =
     dzenBoxStyleL blue2BoxPP (labelL "⚡") ++!
     dzenBoxStyleL white2BBoxPP (batStatus hostname) ++!
-    dzenBoxStyleL white2BBoxPP  (batPercent hostname 30 colorRed)
+    dzenBoxStyleL white2BBoxPP (batPercent hostname 30 colorRed)
 
 myMemL =
     dzenBoxStyleL blue2BoxPP (labelL "▦") ++!
@@ -508,9 +496,9 @@ myUptimeL =
 
 myFocusL = dzenBoxStyleL white2BBoxPP (shortenL 100 logTitle)
 
---------------------------------------------------------------------------------------------
--- DZEN UTILS                                                                             --
---------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------
+-- Dzen utils
 
 -- Dzen flags
 data DF = DF
@@ -617,6 +605,12 @@ fileToLogger f e p = do
     return $ return str
 
 batPercent :: String -> Int -> String -> Logger
+batPercent "keysersoze" v c =
+    fileToLogger format "N/A" "/sys/class/power_supply/BAT0/capacity"
+batPercent "dennis" v c =
+    fileToLogger format "N/A" "/sys/class/power_supply/BAT1/capacity"
+    where
+        format x = if (read x::Int) <= v then "^fg(" ++ c ++ ")" ++ x ++ "%^fg()" else x ++ "%"
 batPercent hostname v c
     | hostname == "keysersoze" = fileToLogger format "N/A" "/sys/class/power_supply/BAT0/capacity"
     | hostname == "dennis" = fileToLogger format "N/A" "/sys/class/power_supply/BAT1/capacity"
@@ -624,8 +618,12 @@ batPercent hostname v c
         format x = if (read x::Int) <= v then "^fg(" ++ c ++ ")" ++ x ++ "%^fg()" else x ++ "%"
 
 batStatus :: String -> Logger
-batStatus "keysersoze" = fileToLogger id "N/A" "/sys/class/power_supply/BAT0/status"
-batStatus "dennis" = fileToLogger id "N/A" "/sys/class/power_supply/BAT1/status"
+batStatus "keysersoze" = fileToLogger format "N/A" statusfile
+    where
+        statusFile = "/sys/class/power_supply/BAT0/status"
+        -- TODO
+        format "Discharching" = "^fg(" ++ colorRed ++ ")" ++ x ++ "^fg()"
+        format x = x
 
 brightPerc :: Int -> Logger
 brightPerc p = fileToLogger format "N/A" "/sys/class/backlight/intel_backlight/actual_brightness" where

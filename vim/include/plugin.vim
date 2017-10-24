@@ -51,6 +51,7 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 let g:syntastic_rst_checkers=['']
+let g:syntastic_haskell_checkers=['hlint']
 let g:syntastic_clojure_checkers=['eastwood']
 let g:syntastic_mode_map =
             \{
