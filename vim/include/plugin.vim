@@ -6,19 +6,22 @@ source ~/.vim/scripts/Rename.vim
 
 "  -----------------------------------------------------------------------------
 "  Vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" Plug 'VundleVim/Vundle.vim'
+
+" Vim-plug
+call plug#begin('~/.vim/plugged')
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Aestetics
 "
 "  Colors
-Plugin 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 "
 "  Good looking status/tabline
-Plugin 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#fnamenod=':t'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -29,7 +32,7 @@ set laststatus=2
 "  Autocompletion, YouCompleteMe, you complete me
 "
 "  Omnicomplete for a bunch of languages
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 let g:ycm_python_binary_path = '/usr/bin/python3'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -42,7 +45,7 @@ let g:ycm_key_list_previous_completion = ['<C-n>']
 "  Syntax checker, Syntastic, syntastic
 "
 "  Built in checker for many languages
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%#warningmsg#
 set statusline+=%*
@@ -64,65 +67,22 @@ let g:syntastic_mode_map =
 "  Search and View
 "
 "  File search with fuzzy finder fzf FZF Fzf
-Plugin 'junegunn/fzf.vim'
-"
-"  File search with fuzzy finder Ctrl-P ctrlp ctrl-p Ctrlp
-" Plugin 'kien/ctrlp.vim'
-" let g:ctrlp_match_window='bottom,order:ttb'
-" let g:ctrlp_switch_buffer=0
-" let g:ctrlp_working_path_mode=0
-" let g:ctrlp_user_command='ag %s -l --nocolor --hidden -g ""'
-" let g:ctrlp_open_multiple_files = 'i'
-" let g:ctrlp_prompt_mappings = {
-" \ 'PrtBS()':              ['<bs>', '<c-d>'],
-" \ 'PrtDelete()':          ['<del>'],
-" \ 'PrtDeleteWord()':      ['<c-w>'],
-" \ 'PrtClear()':           ['<c-u>'],
-" \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
-" \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
-" \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
-" \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
-" \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
-" \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
-" \ 'PrtHistory(-1)':       ['<c-R>'],
-" \ 'PrtHistory(1)':        ['<c-r>'],
-" \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-" \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
-" \ 'AcceptSelection("t")': ['<c-t>'],
-" \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
-" \ 'ToggleFocus()':        ['<s-tab>'],
-" \ 'ToggleRegex()':        ['<c-r>'],
-" \ 'ToggleByFname()':      [],
-" \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
-" \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
-" \ 'PrtExpandDir()':       ['<tab>'],
-" \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
-" \ 'PrtInsert()':          ['<c-\>'],
-" \ 'PrtCurStart()':        ['<c-a>'],
-" \ 'PrtCurEnd()':          ['<c-e>'],
-" \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
-" \ 'PrtCurRight()':        ['<c-l>', '<right>'],
-" \ 'PrtClearCache()':      ['<F5>'],
-" \ 'PrtDeleteEnt()':       ['<F7>'],
-" \ 'CreateNewFile()':      ['<c-y>'],
-" \ 'MarkToOpen()':         ['<c-z>'],
-" \ 'OpenMulti()':          ['<c-o>'],
-" \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
-" \ }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 "
 "  Keyword search with ag
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 if executable('ag')
 let g:ackprg = 'ag --vimgrep'
 endif
 "
 "  Tree view over directory
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 let g:NERDTreeDirArrows=0
 let NERDTreeMapOpenInTab='\t'
 "
 "  Class outline viewer
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 let g:tagbar_type_rust = {
 \ 'ctagstype' : 'rust',
 \ 'kinds' : [
@@ -141,13 +101,13 @@ let g:tagbar_type_rust = {
 "  Motion
 "
 "  Move anywhere on the screen
-Plugin 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 "
 "  Easier use of f and F hotkey
-Plugin 'unblevable/quick-scope'
+Plug 'unblevable/quick-scope'
 "
 " Rainbow-colored paranthesis
-Plugin 'kien/rainbow_parentheses.vim'
+Plug 'kien/rainbow_parentheses.vim'
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
@@ -157,29 +117,29 @@ au Syntax * RainbowParenthesesLoadBraces
 "  Utilities
 "
 "  Automatic commenting
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 "
 "  Easier character surround
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 "
 "  Repeat a mapping eg surround.vim
-Plugin 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat'
 "
 "  Automatic table creation
-Plugin 'dhruvasagar/vim-table-mode'
+Plug 'dhruvasagar/vim-table-mode'
 "
 "  Snippets
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<C-Space>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "
 "  Align lines according to symbol
-Plugin 'godlygeek/tabular'
+Plug 'godlygeek/tabular'
 let g:haskell_tabular=1
 "
 "  Easy align
-Plugin 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align'
 let g:easy_align_delimiters = {
 \ '(': { 'pattern': '[()]',
 \        'left_margin' : 1,
@@ -190,19 +150,19 @@ let g:easy_align_delimiters = {
 "  Wrappers
 "
 "  Git
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 "  -----------------------------------------------------------------------------
 "  Dependencies
 "
 " Asyncronous execution, used by ghcmod
-Plugin 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim'
 
 "  -----------------------------------------------------------------------------
 "  Haskell
 "
 "  Type display, error/warning display, split function insert
-Plugin 'eagletmt/ghcmod-vim'
+Plug 'eagletmt/ghcmod-vim'
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 let g:ghcmod_open_quickfix_function = 'GhcModQuickFix'
 function! GhcModQuickFix()
@@ -210,67 +170,68 @@ function! GhcModQuickFix()
 endfunction
 "
 "  Linting
-Plugin 'mpickering/hlint-refactor-vim'
+Plug 'mpickering/hlint-refactor-vim'
 let g:hlintRefactor#disableDefaultKeybindings = 1
 "
 "  Direct access to hoogle
-Plugin 'Twinside/vim-hoogle'
+Plug 'Twinside/vim-hoogle'
 "
 "  Syntax highlightning etc
-Plugin 'neovimhaskell/haskell-vim'
+Plug 'neovimhaskell/haskell-vim'
 "
 "  Automatic Indentation
-" Plugin 'alx741/vim-hindent'
+" Plug 'alx741/vim-hindent'
 
 "  -----------------------------------------------------------------------------
 "  Clojure, clojure
 "
 "  Live repl, dynamic expression evaluation
-Plugin 'tpope/vim-fireplace'
+Plug 'tpope/vim-fireplace'
 "
 "  Static vim support for Leiningen (and boot)
-Plugin 'tpope/vim-salve'
+Plug 'tpope/vim-salve'
 "
 "  Dependencies of vim-salve
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-projectionist'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-projectionist'
 "
 "  Editing S-expressions (Forked)
-Plugin 'lsund/vim-sexp'
+Plug 'lsund/vim-sexp'
 "
-" Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+" Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " let g:sexpr_insert_after_wrap=false
 "
 "  Linter (Not clojurescript)
-Plugin 'venantius/vim-eastwood'
+Plug 'venantius/vim-eastwood'
 "
 "  Runtime files
-Plugin 'guns/vim-clojure-static'
-Plugin 'guns/vim-clojure-highlight'
+Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-clojure-highlight'
 "
 "  Formatting
-Plugin 'venantius/vim-cljfmt'
+Plug 'venantius/vim-cljfmt'
 let g:clj_fmt_autosave = 0
 
 "  -----------------------------------------------------------------------------
 "  Rust
 "
 "  Error checking, formatting, integration
-Plugin 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
 
 "  -----------------------------------------------------------------------------
 "  Elm
 "
 "  Syntax highlightning, indentation, completion etc
-Plugin 'ElmCast/elm-vim'
+Plug 'ElmCast/elm-vim'
 "
 "  For compilation, evaluation, repl
-Plugin 'lambdatoast/elm.vim'
+Plug 'lambdatoast/elm.vim'
 
 "  -----------------------------------------------------------------------------
 "  Latex
 "
 "  background compilation, completion, indentation, highlightning...
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
 
-call vundle#end()
+" call vundle#end()
+call plug#end()

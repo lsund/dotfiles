@@ -65,10 +65,12 @@
     (clojure-align (point) (my-end-of-form))))
 
 (defun my-break-sexp ()
-  "Todo."
+  "Break the line after the current sexp and move to the next sexp."
   (interactive)
   (evil-cp-forward-sexp)
   (open-line 1)
+  (evil-cp-forward-sexp)
+  (evil-backward-char)
   (my-clojure-indent-defn))
 
 (defun my-join-sexp ()

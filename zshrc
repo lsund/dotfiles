@@ -126,4 +126,5 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
