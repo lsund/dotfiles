@@ -53,6 +53,9 @@ FILENAME: The filename."
 		  '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
 	    (org-bullets-mode 1)))
 
+(eval-after-load "org"
+  '(require 'ox-md nil t))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keybindings
 
@@ -73,7 +76,7 @@ FILENAME: The filename."
 (add-hook 'org-mode-hook
 	  (lambda ()
 
-	    
+
 	    ;; General
 	    (evil-define-key 'normal org-mode-map (kbd "C-c r") 'mark-done-and-archive)
 	    (evil-define-key 'normal org-mode-map (kbd "C-c a") 'org-agenda)
