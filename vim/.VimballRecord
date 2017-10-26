@@ -1,1 +1,0 @@
-visincr.vba: call delete('/home/lsund/.vim/plugin/visincrPlugin.vim')|call delete('/home/lsund/.vim/autoload/visincr.vim')|call delete('/home/lsund/.vim/doc/visincr.txt')
