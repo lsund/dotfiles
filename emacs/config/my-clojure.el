@@ -45,8 +45,10 @@
     cider-repl-mode-map (kbd "C-w") 'backward-kill-word)
   (evil-define-key 'insert
     cider-repl-mode-map (kbd "M-f") 'forward-word)
-  (evil-define-key 'insert
-    cider-repl-mode-map (kbd "M-b") 'backward-word))
+  (evil-define-key
+    'insert
+    cider-repl-mode-map
+    (kbd "M-b") 'backward-word))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clojure Mode

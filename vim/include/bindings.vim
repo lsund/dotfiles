@@ -46,7 +46,8 @@ nmap <leader>' :bp <BAR> bd #<CR>
 nmap <leader>nn :NERDTree<CR>
 nmap <leader>, :w<CR>
 nmap <leader>< :wall<CR>
-nmap <leader>o :args
+" OBSERVE: Leave the space
+nmap <leader>o :args 
 nmap <leader>e <C-p>
 nmap <leader>v :e ~/.vimrc<CR>
 nmap <leader>" :BufOnly<CR>

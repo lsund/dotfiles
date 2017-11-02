@@ -29,7 +29,8 @@
   (interactive)
   (back-to-indentation)
   (newline)
-  (indent-for-tab-command))
+  ;; (indent-for-tab-command)
+  )
 
 (defun push-line-up()
   "Inserts a new line and moves one line down"
@@ -58,7 +59,7 @@
 	 (t (backward-kill-word 1))))
 
 ; Insert
-(define-key evil-insert-state-map (kbd "C-w") 'backward-kill-word)
+(define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
 (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
 
@@ -292,7 +293,6 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Align
 
 (define-key evil-visual-state-map (kbd "M-a") 'align-regexp)
-
 (provide 'my-keybindings)
 
 ;;; my-keybindings.el ends here

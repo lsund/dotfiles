@@ -74,6 +74,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc
 
+(setq pop-up-windows nil)
+
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
 
 ;; Buffer switching
 (setq ido-ignore-buffers
@@ -141,6 +145,29 @@
 (setq projectile-completion-system 'ivy)
 ;; Caching could greatly speed up file navigation on big projects
 (setq projectile-enable-caching nil)
+(setq projectile-require-project-root nil)
+(setq projectile-globally-ignored-directories
+      (append '(
+        ".git"
+        ".svn"
+        "out"
+        "repl"
+        "target"
+        "venv"
+        )
+          projectile-globally-ignored-directories))
+(setq projectile-globally-ignored-files
+      (append '(
+        ".DS_Store"
+        "*.gz"
+        "*.pyc"
+        "*.jar"
+        "*.tar.gz"
+        "*.tgz"
+        "*.zip"
+        )
+          projectile-globally-ignored-files))
+(projectile-global-mode)
 
 ;; Quick scope
 (global-evil-quickscope-always-mode 1)
@@ -211,6 +238,9 @@
 (require 'my-haskell)
 (require 'my-org)
 (require 'my-python)
+(require 'my-tex)
+(require 'my-markdown)
+
 
 (provide 'my-config)
 
