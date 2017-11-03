@@ -4,7 +4,6 @@
 [core]
 	pager = less -
 	editor = /usr/bin/vim
-	autocrlf = true
 [alias]
 	co = checkout
 	ci = commit
