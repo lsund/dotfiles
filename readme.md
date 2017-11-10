@@ -1,3 +1,3 @@
 # Dotfiles
 
-My personal configuration/dotfiles, intended for personal use.
+My dotfiles for Arch Linux and Ubuntu
