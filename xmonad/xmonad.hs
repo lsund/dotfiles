@@ -52,10 +52,13 @@ import Control.Exception as E
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import qualified XMonad.Util.ExtensibleState as XS
+import Data.Maybe (fromJust)
 
 import KeyBindings (myKeys, myMouseBindings)
 import Config
 import Boxes
+
+data Res = Res { xRes :: Int, yRes :: Int }
 
 -- Main
 main :: IO ()
@@ -298,7 +301,7 @@ manageWindows hostname = composeAll . concat $
         {-myGfxS    = ["Gimp", "gimp", "GIMP"]-}
         myAlt3S   = ["Amule", "Transmission-gtk"]
         myFloatCC = ["MPlayer", "mplayer2"]
-        myFloatCN = ["Choose a file", "Open Image" "Firefox Preferences"]
+        myFloatCN = ["Choose a file", "Open Image", "Firefox Preferences"]
         myFloatSN = ["Event Tester"]
         myFocusDC = ["Event Tester", "Notify-osd"]
         keepMaster c = assertSlave <+> assertMaster where
@@ -434,8 +437,7 @@ myBotRightLogHook h hostname =
 
 myBatL hostname =
     dzenBoxStyleL blue2BoxPP (labelL "⚡") ++!
-    dzenBoxStyleL white2BBoxPP (batStatus hostname) ++!
-    dzenBoxStyleL white2BBoxPP (batPercent hostname 30 colorRed)
+    dzenBoxStyleL white2BBoxPP (batPercent hostname 30)
 
 myMemL =
     dzenBoxStyleL blue2BoxPP (labelL "▦") ++!
@@ -463,8 +465,7 @@ myBrightL hostname =
         dzenBoxStyleL white2BBoxPP $ brightPerc 1000
 mySoundL =
     dzenBoxStyleL blue2BoxPP (labelL "♬") ++!
-    dzenBoxStyleL white2BBoxPP soundPerc ++!
-    dzenBoxStyleL white2BBoxPP soundStat
+    dzenBoxStyleL white2BBoxPP soundPerc
 
 myPacSyncL =
     dzenBoxStyleL blue2BoxPP (labelL "♼") ++!
@@ -571,29 +572,31 @@ l1 ++! l2 = (liftA2 . liftA2) (++) l1 l2
 labelL :: String -> Logger
 labelL = return . return
 
+
 -- Init version for Logger
 initL :: Logger -> Logger
 initL = (fmap . fmap) initNotNull
 
+
 -- Concat a list of loggers
 concatL :: [Logger] -> Logger
 concatL = foldr (++!) (return (return ""))
-{-concatL [] = return $ return ""-}
-{-concatL (x:xs) = x ++! concatL xs-}
+
 
 -- Concat a list of loggers with spaces between them
 concatWithSpaceL :: [Logger] -> Logger
 concatWithSpaceL = foldr (\ x -> (++!) (x ++! labelL " ")) (return (return ""))
-{-concatWithSpaceL [] = return $ return ""-}
-{-concatWithSpaceL (x:xs) = x ++! (labelL " ") ++! concatWithSpaceL xs-}
+
 
 initNotNull :: String -> String
 initNotNull [] = "0\n"
 initNotNull xs = init xs
 
+
 tailNotNull :: [String] -> [String]
 tailNotNull [] = ["0\n"]
 tailNotNull xs = tail xs
+
 
 -- Convert the content of a file into a Logger
 fileToLogger :: (String -> String) -> String -> FilePath -> Logger
@@ -603,46 +606,6 @@ fileToLogger f e p = do
         return $ f1 (initNotNull contents) ) ((\_ -> return e1) :: E.SomeException -> IO String)
     str <- liftIO $ readWithE f e p
     return $ return str
-
-batPercent :: String -> Int -> String -> Logger
-batPercent "keysersoze" v c =
-    fileToLogger format "N/A" "/sys/class/power_supply/BAT0/capacity"
-batPercent "dennis" v c =
-    fileToLogger format "N/A" "/sys/class/power_supply/BAT1/capacity"
-    where
-        format x = if (read x::Int) <= v then "^fg(" ++ c ++ ")" ++ x ++ "%^fg()" else x ++ "%"
-batPercent hostname v c
-    | hostname == "keysersoze" = fileToLogger format "N/A" "/sys/class/power_supply/BAT0/capacity"
-    | hostname == "dennis" = fileToLogger format "N/A" "/sys/class/power_supply/BAT1/capacity"
-    where
-        format x = if (read x::Int) <= v then "^fg(" ++ c ++ ")" ++ x ++ "%^fg()" else x ++ "%"
-
-batStatus :: String -> Logger
-batStatus "keysersoze" = fileToLogger format "N/A" statusfile
-    where
-        statusFile = "/sys/class/power_supply/BAT0/status"
-        -- TODO
-        format "Discharching" = "^fg(" ++ colorRed ++ ")" ++ x ++ "^fg()"
-        format x = x
-
-brightPerc :: Int -> Logger
-brightPerc p = fileToLogger format "N/A" "/sys/class/backlight/intel_backlight/actual_brightness" where
-    format x = show (myround ((read x :: Float) / fromIntegral p) 1 * 100) ++ "%"
-        where myround f n = fromInteger (round $ f * (10 ^ n)) / (10.0 ^^ n)
-
-npacSync :: Logger
-npacSync = fileToLogger id "N/A" $ logpath ++ "pacman/pacsynccount.txt"
-
-nmailSync :: String -> Logger
-nmailSync c = fileToLogger format "N/A" $ logpath ++ "mail/mailsynccount.txt"
-    where
-        format x = if (read x::Int) >= 1 then "^fg(" ++ c ++ ")" ++ x ++ "^fg()" else x
-
-soundPerc :: Logger
-soundPerc = fileToLogger id "0" $ logpath ++ "sound/soundperc.txt"
-
-soundStat :: Logger
-soundStat = fileToLogger id "Status" $ logpath ++ "sound/soundstat.txt"
 
 wifiStr :: Logger
 wifiStr = fileToLogger format "N/A" "/proc/net/wireless" where
@@ -685,13 +648,37 @@ getScreenRes d n = do
         , yRes = fromIntegral $ rect_height $ r !! n
         }
 
--- Screen Resolution
-data Res = Res { xRes :: Int, yRes :: Int }
-
--- Resolution logger
-screenRes :: String -> Int -> Logger
-screenRes d n = do
-    res <- liftIO $ getScreenRes d n
-    return $ return $ show (xRes res) ++ "x" ++ show (yRes res)
+--------------------------------------------------------------------------------
+-- Bot-Right loggers
 
 
+npacSync :: Logger
+npacSync = fileToLogger id "N/A" $ logpath ++ "pacman/pacsynccount.txt"
+
+
+nmailSync :: String -> Logger
+nmailSync c = fileToLogger format "N/A" $ logpath ++ "mail/mailsynccount.txt"
+    where
+        format x = if (read x::Int) >= 1 then "^fg(" ++ c ++ ")" ++ x ++ "^fg()" else x
+
+
+brightPerc :: Int -> Logger
+brightPerc p = fileToLogger format "N/A" "/sys/class/backlight/intel_backlight/actual_brightness" where
+    format x = show (myround ((read x :: Float) / fromIntegral p) 1 * 100) ++ "%"
+        where myround f n = fromInteger (round $ f * (10 ^ n)) / (10.0 ^^ n)
+
+
+soundPerc :: Logger
+soundPerc = do
+    status <- fileToLogger id "N/A" $ logpath ++ "sound/soundstat.txt"
+    let color s = if s == Just "on" then colorBlue else colorRed
+        format x = "^fg(" ++ color status ++ ")" ++ x ++ "^fg()"
+    fileToLogger format "N/A" $ logpath ++ "sound/soundperc.txt"
+
+
+batPercent :: String -> Int -> Logger
+batPercent "keysersoze" v = do
+    status <- fileToLogger id "N/A" "/sys/class/power_supply/BAT0/status"
+    let color s x = if s == Just "Charging" then colorBlue else (if s == (Just "Discharging") && ((read x :: Int) < v) then colorRed else colorWhite)
+        format x = "^fg(" ++ (color status x) ++ ")" ++ x ++ "%^fg()"
+    fileToLogger format "N/A" "/sys/class/power_supply/BAT0/capacity"

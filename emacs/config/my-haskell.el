@@ -20,13 +20,6 @@
 (rainbow-delimiters-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Shakespeare mode
-
-(add-hook 'shakespeare-hamlet-mode
-	  (lambda ()
-	    (setq tab-width 4)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions
 
 (defun insert-haskell-comment-separator ()
@@ -40,6 +33,11 @@
   (evil-next-line)
   (insert "-- ")
   (evil-insert 1))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Haskell Interactive
+
 
 (add-hook 'haskell-interactive-mode-hook
           (lambda ()
@@ -74,6 +72,57 @@
                 (forward-char)))
             ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Cabal mode
+
+
+
+(add-hook 'haskell-cabal-mode-hook
+          (lambda ()
+            (interactive)
+
+            ;; Auto fill
+            (set-fill-column 80)
+            (auto-fill-mode)
+
+            ;; Manual tabs
+            (setq-default indent-tabs-mode nil)
+            (setq-default tab-width 4)
+            (setq indent-line-function 'tab-to-tab-stop)
+            (setq tab-stop-list (number-sequence 4 120 4))
+
+            (setq-default show-trailing-whitespace nil)
+
+            ))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Shakespeare mode
+
+
+(add-hook 'shakespeare-hamlet-mode-hook
+          (lambda ()
+            (interactive)
+
+            ;; Auto fill
+            (set-fill-column 80)
+            (auto-fill-mode)
+
+            ;; Manual tabs
+            (setq-default indent-tabs-mode nil)
+            (setq-default tab-width 4)
+            (setq indent-line-function 'tab-to-tab-stop)
+            (setq tab-stop-list (number-sequence 4 120 4))
+
+            (setq-default show-trailing-whitespace nil)
+
+            ))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Haskell Mode
+
+
 (add-hook 'haskell-mode-hook
           (lambda ()
             (interactive)
@@ -93,8 +142,10 @@
             (define-key haskell-leader-map "ii"
               'insert-haskell-comment-separator)
 
-            (define-key evil-insert-state-map (kbd "TAB")
-              'tab-to-tab-stop)
+            (setq-default indent-tabs-mode nil)
+            (setq-default tab-width 4)
+            (setq indent-line-function 'tab-to-tab-stop)
+            (setq tab-stop-list (number-sequence 4 120 4))
 
             (setq-default show-trailing-whitespace nil)
             (interactive-haskell-mode)))
@@ -104,16 +155,6 @@
 
 ;; (add-hook 'haskell-mode-hook 'intero-mode)
 ;; (flycheck-add-next-checker 'intero '(warning . haskell-hlint))
-
-(defun haskell-setup ()
-  "Setup variables for editing Haskell files."
-  (setq whitespace-line-column 70)
-  (make-local-variable 'tab-stop-list)
-  (setq tab-stop-list (number-sequence 4 80 4))
-  (haskell-indentation-mode 0)
-  (setq indent-line-function 'indent-relative))
-
-(add-hook 'haskell-mode-hook 'haskell-setup)
 
 (provide 'my-haskell)
 
