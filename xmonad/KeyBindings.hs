@@ -43,8 +43,8 @@ myTextConfig = STC
 
 printScreen =
     spawn
-        "/usr/bin/scrot '%Y-%m-%d_$wx$h.png'" >>
-        flashText myTextConfig 1 " Screenshot Saved "
+        "sleep 3s && /usr/bin/scrot '%Y-%m-%d_$wx$h.png'" >>
+        flashText myTextConfig 1 " Screen capture in 3 s "
 
 --------------------------------------------------------------------------------------------
 -- BINDINGS CONFIG                                                                        --
@@ -134,5 +134,3 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
 myMouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
 myMouseBindings XConfig {XMonad.modMask = modMask} = M.fromList
     [ ((modMask, button1), \w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster) ]
-
-

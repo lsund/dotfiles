@@ -59,12 +59,15 @@ import Boxes
 
 data Res = Res { xRes :: Int, yRes :: Int }
 
+myRound :: Double -> Int -> Double
+myRound f n = (fromInteger $ round $ f * (10^n)) / (10.0^^n)
+
 -- Main
 main :: IO ()
 main = do
     hostname' <- readFile "/etc/hostname"
     let hostname = init hostname'
-    r <- getScreenRes ":0" 0  --display ":0", screen 0
+    r <- getScreenRes ":0" 0
     topLeftBar  <- dzenSpawnPipe $ dzenTopLeftFlags r
     topRightBar <- dzenSpawnPipe $ dzenTopRightFlags r
     botLeftBar  <- dzenSpawnPipe $ dzenBotLeftFlags r
@@ -72,25 +75,25 @@ main = do
     xmonad $ def
         { terminal           = myTerminal
         , modMask            = mod4Mask
-        , focusFollowsMouse  = True                             --focus follow config
-        , clickJustFocuses   = True                             --focus click config
-        , borderWidth        = 1                                --border width
-        , normalBorderColor  = colorBlackAlt                    --border color
-        , focusedBorderColor = colorWhite                       --focused border color
-        , workspaces         = myWorkspaces hostname            --workspace names
-        , startupHook        = myStartupHook                    --autostart config
-        , handleEventHook    = myHandleEventHook                --event config
-        , layoutHook         = myLayoutHook hostname            --layout config
-        , manageHook         = myManageHook hostname            --xprop config
-        , logHook            =                                  --status bar config
-            myTopLeftLogHook topLeftBar hostname  <+>                   --top left dzen
-            myTopRightLogHook topRightBar <+>                   --top right dzen
-            myBotLeftLogHook botLeftBar hostname   <+>          --bottom left dzen
-            myBotRightLogHook botRightBar hostname <+>          --bottom right dzen
+        , focusFollowsMouse  = True
+        , clickJustFocuses   = True
+        , borderWidth        = 1
+        , normalBorderColor  = colorBlackAlt
+        , focusedBorderColor = colorWhite
+        , workspaces         = myWorkspaces hostname
+        , startupHook        = myStartupHook
+        , handleEventHook    = myHandleEventHook
+        , layoutHook         = myLayoutHook hostname
+        , manageHook         = myManageHook hostname
+        , logHook            =
+            myTopLeftLogHook topLeftBar hostname  <+>
+            myTopRightLogHook topRightBar <+>
+            myBotLeftLogHook botLeftBar hostname   <+>
+            myBotRightLogHook botRightBar hostname <+>
             ewmhDesktopsLogHook           >>
             setWMName "LG3D"
-        , keys               = myKeys hostname                  --key bindings config
-        , mouseBindings      = myMouseBindings                  --mouse bindings config
+        , keys               = myKeys hostname
+        , mouseBindings      = myMouseBindings
         }
 
 
@@ -147,11 +150,7 @@ every n xs = case drop (n - 1) xs of
               (y : ys) -> y : every n ys
               [] -> []
 
-myWorkspaces hostname =
-    if hostname == "dennis" || hostname == "keysersoze"
-        then map show [1..9]
-        else every 2 ("0" : screenList) ++ every 2 screenList
-    where screenList = withScreens 2 ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+myWorkspaces hostname = map show [1..9]
 
 -- Workspace names
 workspaceNames :: [WorkspaceId]
@@ -183,7 +182,7 @@ myStartupHook =
     setDefaultCursor xC_left_ptr <+>
     spawn "feh --bg-scale /home/lsund/Media/image/haskell.png &" <+>
     spawn "/usr/bin/killall haskell-cpu-usage.out" <+>
-    liftIO (threadDelay 1000000) <+> --needed so that xmonad can be launched on the fly without crashing
+    liftIO (threadDelay 1000000) <+>
     spawn "xrandr --output DVI-I-1 --right-of HDMI-0 --output HDMI-0 --primary" <+>
     spawn "/home/lsund/.xmonad/apps/haskell-cpu-usage.out 5" <+>
     (startTimer 1 >>= XS.put . TID)
@@ -231,7 +230,7 @@ instance Transformer FLOATED Window where
 myFTabU = smartBorders $ named ("Unique " ++ myFTabName) $ tabbedAlways shrinkText myTitleTheme
 myFloaU = named ("Unique " ++ myFloaName) $ mouseResize $ noFrillsDeco shrinkText myTitleTheme simplestFloat
 
--- Layout hook
+
 myLayoutHook hostname = avoidStruts $
   gaps [(U, panelHeight), (D, panelHeight)] $
   configurableNavigation noNavigateBorders $
@@ -244,15 +243,15 @@ myLayoutHook hostname = avoidStruts $
   where
     allLayouts =
       myToggleL myTile myTileName |||
-      myToggleL myMosA myMosAName ||| myToggleL myCst3 myCst3Name
+      myToggleL myMosA myMosAName |||
+      myToggleL myCst3 myCst3Name
         --layouts
-    myTile = ResizableTall 1 0.03 0.5 [] --default xmonad layout
-    myMosA = MosaicAlt M.empty --default mosaicAlt layout
+    myTile = ResizableTall 1 0.03 0.5 []
+    myMosA = MosaicAlt M.empty
     myCst3 =
       layoutN 1 (relBox 0 0 1 0.7) (Just $ relBox 0 0 1 1) myTabb $
         layoutAll (relBox 0 0.7 1 1) myTabb
     myTabb = tabbed shrinkText myTitleTheme
-        --custom draggingVisualizer toggle
     myToggleL l n =
       smartBorders $
       toggleLayouts
@@ -290,14 +289,13 @@ manageWindows hostname = composeAll . concat $
     , [ name      =? n --> doCenterFloat               | n <- myFloatCN ]
     , [ name      =? n --> doSideFloat NW              | n <- myFloatSN ]
     , [ className =? c --> doF W.focusDown             | c <- myFocusDC ]
-    , [ currentWs =? (myWorkspaces hostname !! 1) --> keepMaster "Chromium"      ]
+    , [ currentWs =? (myWorkspaces hostname !! 1) --> keepMaster "Chromium"]
     , [ isFullscreen   --> doFullFloat ]
     ] where
         name      = stringProperty "WM_NAME"
         myIgnores = ["desktop", "desktop_window"]
         myWebS    = ["Firefox"]
         myChatS   = ["Pidgin", "Xchat"]
-        {-myGfxS    = ["Gimp", "gimp", "GIMP"]-}
         myAlt3S   = ["Amule", "Transmission-gtk"]
         myFloatCC = ["MPlayer", "mplayer2"]
         myFloatCN = ["Choose a file", "Open Image", "Firefox Preferences"]
@@ -310,7 +308,6 @@ manageWindows hostname = composeAll . concat $
 
 ----------------------------------------------------------------------------
 -- Dzen bars
-
 
 dzenTopLeftFlags :: Res -> DF
 dzenTopLeftFlags _ = DF
@@ -328,29 +325,18 @@ dzenTopLeftFlags _ = DF
 
 -- Top left bar logHook
 myTopLeftLogHook h hostname = dynamicLogWithPP def
-  { ppOutput = hPutStrLn h
-  , ppOrder = \(ws:_:_:x) -> ws : x
-  , ppSep = " "
-  , ppWsSep = ""
-  , ppCurrent = dzenBoxStyle blue2BBoxPP
-  , ppUrgent = dzenBoxStyle red2BBoxPP . dzenClickWorkspace
-  , ppVisible = dzenBoxStyle green2BBoxPP . dzenClickWorkspace
-  , ppHiddenNoWindows = dzenBoxStyle gray2BBoxPP . dzenClickWorkspace
-  , ppHidden = dzenBoxStyle white2BBoxPP . dzenClickWorkspace
-  , ppExtras = [ myFocusL ]
+  { ppOutput          = hPutStrLn h
+  , ppOrder           = \(ws:_:_:x) -> ws : x
+  , ppSep             = " "
+  , ppWsSep           = ""
+  , ppCurrent         = dzenBoxStyle blue2BBoxPP
+  , ppUrgent          = dzenBoxStyle red2BBoxPP
+  , ppVisible         = dzenBoxStyle green2BBoxPP
+  , ppHiddenNoWindows = dzenBoxStyle gray2BBoxPP
+  , ppHidden          = dzenBoxStyle white2BBoxPP
+  , ppExtras          = [ myFocusL ]
   }
-  where
-    dzenClickWorkspace ws =
-      "^ca(1," ++
-      xdo "w;" ++
-      xdo index ++
-      ")" ++ "^ca(3," ++ xdo "w;" ++ xdo index ++ ")" ++ ws ++ "^ca()^ca()"
-      where
-        wsIdxToString Nothing = "1"
-        wsIdxToString (Just n) =
-          show $ mod (n + 1) (2 * length (myWorkspaces hostname))
-        index = wsIdxToString (elemIndex ws (myWorkspaces hostname))
-        xdo key = "/usr/bin/xdotool key super+" ++ key
+
 
 -- Dzen top right bar flags
 dzenTopRightFlags :: Res -> DF
@@ -442,8 +428,11 @@ myMemL =
     dzenBoxStyleL blue2BoxPP (labelL "▦") ++!
     dzenBoxStyleL white2BBoxPP (memUsage [freeBMemUsage])
         where freeBMemUsage x =
-                let bytes     = _memValues x !! 2
-                in show (div bytes 1000) ++ "M"
+                let free       = fromIntegral $ _memValues x !! 2
+                    tot        = fromIntegral $ _memValues x !! 0
+                    left       = tot - free
+                    percLeft   = (left / tot) * 100
+                in show (myRound percLeft 1) ++ "%"
 
 myCpuL =
     dzenBoxStyleL blue2BoxPP (labelL "▣") ++!
@@ -451,7 +440,6 @@ myCpuL =
 
 myWifiL =
     dzenBoxStyleL blue2BoxPP (labelL "∿") ++!
-    dzenBoxStyleL white2BBoxPP wifiPerc ++!
     dzenBoxStyleL white2BBoxPP wifiStr
 
 myBrightL hostname =
@@ -606,10 +594,12 @@ fileToLogger f e p = do
     str <- liftIO $ readWithE f e p
     return $ return str
 
+-- How strong the signal is
 wifiStr :: Logger
 wifiStr = fileToLogger format "N/A" "/proc/net/wireless" where
     format x = if length (lines x) >= 3 then initNotNull (words (lines x !! 2) !! 3) ++ " dBm" else "Off"
 
+-- How good reception is (percentage of packages successful)
 wifiPerc :: Logger
 wifiPerc = fileToLogger format "N/A" "/proc/net/wireless" where
     format x = if length (lines x) >= 3 then initNotNull (words (lines x !! 2) !! 2) ++ "%" else "Off"
@@ -631,10 +621,7 @@ uptime :: Logger
 uptime = fileToLogger format "0" "/proc/uptime" where
     u x  = read (takeWhile (/='.') x)::Integer
     h x  = div (u x) 3600
-    hr x = mod (u x) 3600
-    m x  = div (hr x) 60
-    s x  = mod (hr x) 60
-    format x = show (h x) ++ "h " ++ show (m x) ++ "m " ++ show (s x) ++ "s"
+    format x = show (h x) ++ "h "
 
 -- Gets the current resolution given a display and a screen
 getScreenRes :: String -> Int -> IO Res
