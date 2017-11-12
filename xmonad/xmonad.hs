@@ -52,7 +52,6 @@ import Control.Exception as E
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import qualified XMonad.Util.ExtensibleState as XS
-import Data.Maybe (fromJust)
 
 import KeyBindings (myKeys, myMouseBindings)
 import Config
@@ -679,6 +678,8 @@ soundPerc = do
 batPercent :: String -> Int -> Logger
 batPercent "keysersoze" v = do
     status <- fileToLogger id "N/A" "/sys/class/power_supply/BAT0/status"
-    let color s x = if s == Just "Charging" then colorBlue else (if s == (Just "Discharging") && ((read x :: Int) < v) then colorRed else colorWhite)
-        format x = "^fg(" ++ (color status x) ++ ")" ++ x ++ "%^fg()"
+    let color (Just "Charging") x                        = colorBlue
+        color (Just "Discharging") x | (read x :: Int) < v = colorRed
+        color _ _                                        = colorWhite
+        format x = "^fg(" ++ color status x ++ ")" ++ x ++ "%^fg()"
     fileToLogger format "N/A" "/sys/class/power_supply/BAT0/capacity"
