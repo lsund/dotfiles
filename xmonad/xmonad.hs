@@ -28,7 +28,6 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Layout.WindowSwitcherDecoration
 import XMonad.Layout.DraggingVisualizer
 import XMonad.Layout.LayoutBuilder
-import XMonad.Layout.IndependentScreens
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.DynamicHooks
 import XMonad.Hooks.ManageDocks
@@ -119,53 +118,13 @@ myTextConfig = STC
     , st_fg   = colorWhite
     }
 
-layoutCA :: CA
-layoutCA = CA
-    { leftClickCA   = "/usr/bin/xdotool key super+space"
-    , middleClickCA = "/usr/bin/xdotool key super+v"
-    , rightClickCA  = "/usr/bin/xdotool key super+shift+space"
-    , wheelUpCA     = "/usr/bin/xdotool key super+f"
-    , wheelDownCA   = "/usr/bin/xdotool key super+control+f"
-    }
-
-workspaceCA :: CA
-workspaceCA = CA
-    { leftClickCA   = "/usr/bin/xdotool key super+1"
-    , middleClickCA = "/usr/bin/xdotool key super+g"
-    , rightClickCA  = "/usr/bin/xdotool key super+0"
-    , wheelUpCA     = "/usr/bin/xdotool key ctrl+alt+Right"
-    , wheelDownCA   = "/usr/bin/xdotool key ctrl+alt+Left"
-    }
-
-focusCA :: CA
-focusCA = CA
-    { leftClickCA   = "/usr/bin/xdotool key super+m"
-    , middleClickCA = "/usr/bin/xdotool key super+c"
-    , rightClickCA  = "/usr/bin/xdotool key super+shift+m"
-    , wheelUpCA     = "/usr/bin/xdotool key super+shift+j"
-    , wheelDownCA   = "/usr/bin/xdotool key super+shift+k"
-    }
-
 every n xs = case drop (n - 1) xs of
               (y : ys) -> y : every n ys
               [] -> []
 
+
 myWorkspaces hostname = map show [1..9]
 
--- Workspace names
-workspaceNames :: [WorkspaceId]
-workspaceNames =
-    [ "Term"
-    , "Browser"
-    , "App1"
-    , "App2"
-    , "App3"
-    , "App4"
-    , "App5"
-    , "App6"
-    , "App7"
-    , "App8"
-    ]
 
 -- Layout names
 myTileName = "Tiled"
@@ -502,15 +461,6 @@ data DF = DF
     , extrasDF     :: String
     }
 
--- Dzen clickable area config
-data CA = CA
-    { leftClickCA   :: String
-    , middleClickCA :: String
-    , rightClickCA  :: String
-    , wheelUpCA     :: String
-    , wheelDownCA   :: String
-    }
-
 -- Create a dzen string with its flags
 dzenFlagsToStr :: DF -> String
 dzenFlagsToStr df =
@@ -525,26 +475,12 @@ dzenFlagsToStr df =
     "' -e '" ++ eventDF df ++
     "' " ++ extrasDF df
 
--- Uses dzen format to make dzen text clickable
-dzenClickStyle :: CA -> String -> String
-dzenClickStyle ca t = "^ca(1," ++ leftClickCA ca ++
-    ")^ca(2," ++ middleClickCA ca ++
-    ")^ca(3," ++ rightClickCA ca ++
-    ")^ca(4," ++ wheelUpCA ca ++
-    ")^ca(5," ++ wheelDownCA ca ++
-    ")" ++ t ++
-    "^ca()^ca()^ca()^ca()^ca()"
-
 -- Launch dzen through the system shell and return a Handle to its standard input
 dzenSpawnPipe df = spawnPipe $ "dzen2" ++ dzenFlagsToStr df
 
 -- Logger version of dzenBoxStyle
 dzenBoxStyleL :: BoxPP -> Logger -> Logger
 dzenBoxStyleL bpp = (fmap . fmap) (dzenBoxStyle bpp)
-
--- Logger version of dzenClickStyle
-dzenClickStyleL :: CA -> Logger -> Logger
-dzenClickStyleL ca = (fmap . fmap) (dzenClickStyle ca)
 
 
 --------------------------------------------------------------------------------

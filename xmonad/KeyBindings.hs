@@ -4,7 +4,6 @@ module KeyBindings where
 import XMonad
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Minimize
-import XMonad.Layout.IndependentScreens
 import XMonad.Hooks.ManageHelpers
 import XMonad.Prompt
 import XMonad.Prompt.Shell
