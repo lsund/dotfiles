@@ -194,7 +194,7 @@
 (set-face-attribute 'default nil
                     :family "Hack"
                     ;; :family "Source Code Pro"
-                    :height 120
+                    :height 110
                     :weight 'normal
                     :width 'normal)
 
