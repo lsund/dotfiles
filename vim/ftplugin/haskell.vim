@@ -16,6 +16,7 @@ map <silent> ,hiM :call HaskellImport('matrix')<CR>
 nnoremap <leader>nh :nohlsearch<CR>:GhcModTypeClear<CR>
 
 map <leader>ii 
-    \ i--------------------------------------------------------------------
-    \--------<CR> 
+\ i--------------------------------------------------------------------
+\--------<CR> 
 
+setl noai nocin nosi inde=

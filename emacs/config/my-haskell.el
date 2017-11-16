@@ -141,6 +141,10 @@
             ;; Keybindings
             (define-key haskell-leader-map "ii"
               'insert-haskell-comment-separator)
+            (define-key haskell-leader-map "it"
+              (lambda ()
+                (interactive)
+                (haskell-process-do-type "")))
 
             (setq-default indent-tabs-mode nil)
             (setq-default tab-width 4)
