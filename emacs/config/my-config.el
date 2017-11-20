@@ -78,6 +78,7 @@
 
 ;; Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
+(custom-set-variables '(indent-tabs-mode nil))
 
 ;; Buffer switching
 (setq ido-ignore-buffers

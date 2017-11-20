@@ -318,7 +318,7 @@ myTopRightLogHook h = dynamicLogWithPP def
     { ppOutput  = hPutStrLn h
     , ppOrder   = \(_:_:_:x) -> x
     , ppSep     = " "
-    , ppExtras  = [ myDateL ]
+    , ppExtras  = [myPacSyncL, myMailSyncL, myUptimeL, myDateL]
     }
 
 -- Dzen bottom left bar flags
@@ -344,7 +344,7 @@ myBotLeftLogHook h hostname =
   { ppOutput = hPutStrLn h
   , ppOrder = \(_:_:_:x) -> x
   , ppSep = " "
-  , ppExtras = [myUptimeL, myMemL, myCpuL, myWifiL]
+    , ppExtras = [myMemL, myRamL, myCpuL, myWifiL, myBrightL , mySoundL]
   }
 
 -- Dzen bottom right bar flags
@@ -371,7 +371,7 @@ myBotRightLogHook h hostname =
     , ppOrder = \(_:_:_:x) -> x
     , ppSep = " "
     , ppExtras =
-        [myPacSyncL, myMailSyncL, myBrightL hostname, mySoundL, myBatL hostname]
+        [myBatL hostname]
     }
 
 
@@ -383,15 +383,20 @@ myBatL hostname =
     dzenBoxStyleL blue2BoxPP (labelL "⚡") ++!
     dzenBoxStyleL white2BBoxPP (batPercent hostname 30)
 
-myMemL =
+myRamL =
     dzenBoxStyleL blue2BoxPP (labelL "▦") ++!
-    dzenBoxStyleL white2BBoxPP (memUsage [freeBMemUsage])
+    dzenBoxStyleL white2BBoxPP (ramUsage [freeBMemUsage])
         where freeBMemUsage x =
                 let free       = fromIntegral $ _memValues x !! 2
                     tot        = fromIntegral $ _memValues x !! 0
                     left       = tot - free
                     percLeft   = (left / tot) * 100
                 in show (myRound percLeft 1) ++ "%"
+
+
+myMemL =
+    dzenBoxStyleL blue2BoxPP (labelL "⛁") ++!
+    dzenBoxStyleL white2BBoxPP memUsage
 
 myCpuL =
     dzenBoxStyleL blue2BoxPP (labelL "▣") ++!
@@ -401,14 +406,10 @@ myWifiL =
     dzenBoxStyleL blue2BoxPP (labelL "∿") ++!
     dzenBoxStyleL white2BBoxPP wifiStr
 
-myBrightL hostname =
+myBrightL =
     dzenBoxStyleL blue2BoxPP (labelL "☼") ++!
-    if hostname == "dennis" then
-        dzenBoxStyleL white2BBoxPP $ brightPerc 4648
-    else if hostname == "keysersoze" then
-        dzenBoxStyleL white2BBoxPP $ brightPerc 937
-    else
-        dzenBoxStyleL white2BBoxPP $ brightPerc 1000
+    (dzenBoxStyleL white2BBoxPP $ brightPerc 937)
+
 mySoundL =
     dzenBoxStyleL blue2BoxPP (labelL "♬") ++!
     dzenBoxStyleL white2BBoxPP soundPerc
@@ -540,12 +541,15 @@ wifiPerc :: Logger
 wifiPerc = fileToLogger format "N/A" "/proc/net/wireless" where
     format x = if length (lines x) >= 3 then initNotNull (words (lines x !! 2) !! 2) ++ "%" else "Off"
 
-memUsage :: [String -> String] -> Logger
-memUsage xs = initL $ concatWithSpaceL $ map funct xs where
+ramUsage :: [String -> String] -> Logger
+ramUsage xs = initL $ concatWithSpaceL $ map funct xs where
     funct x = fileToLogger x "N/A" "/proc/meminfo"
 
 _memValues x = map (getValues x) $ take 4 [0..] where
     getValues x n = read (words (lines x !! n) !! 1) :: Int
+
+memUsage :: Logger
+memUsage = fileToLogger id "N/A" (logpath ++ "store/disk.txt")
 
 cpuUsage :: String -> Int -> String -> Logger
 cpuUsage path v c = fileToLogger format "0" path where
@@ -570,9 +574,6 @@ getScreenRes d n = do
         , yRes = fromIntegral $ rect_height $ r !! n
         }
 
---------------------------------------------------------------------------------
--- Bot-Right loggers
-
 
 npacSync :: Logger
 npacSync = fileToLogger id "N/A" $ logpath ++ "pacman/pacsynccount.txt"
@@ -593,7 +594,7 @@ brightPerc p = fileToLogger format "N/A" "/sys/class/backlight/intel_backlight/a
 soundPerc :: Logger
 soundPerc = do
     status <- fileToLogger id "N/A" $ logpath ++ "sound/soundstat.txt"
-    let color s = if s == Just "on" then colorBlue else colorRed
+    let color s = if s == Just "on" then colorGreen else colorWhite
         format x = "^fg(" ++ color status ++ ")" ++ x ++ "^fg()"
     fileToLogger format "N/A" $ logpath ++ "sound/soundperc.txt"
 
