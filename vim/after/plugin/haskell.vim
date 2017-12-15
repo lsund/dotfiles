@@ -1,13 +1,14 @@
-map <leader>ch :GhcModCheckAndLintAsync<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Haskell Import
 
-map <silent> ,hil :call HaskellImport('list')<CR>
-map <silent> ,hip :call HaskellImport('protolude')<CR>
-map <silent> ,his :call HaskellImport('set')<CR>
-map <silent> ,hiv :call HaskellImport('vector')<CR>
-map <silent> ,him :call HaskellImport('map')<CR>
-map <silent> ,hiM :call HaskellImport('matrix')<CR>
+au FileType haskell map <silent> ,hil :call HaskellImport('list')<CR>
+au FileType haskell map <silent> ,hip :call HaskellImport('protolude')<CR>
+au FileType haskell map <silent> ,his :call HaskellImport('set')<CR>
+au FileType haskell map <silent> ,hiv :call HaskellImport('vector')<CR>
+au FileType haskell map <silent> ,him :call HaskellImport('map')<CR>
+au FileType haskell map <silent> ,hiM :call HaskellImport('matrix')<CR>
 
-nnoremap <leader>nh :nohlsearch<CR>:GhcModTypeClear<CR>
+au FileType haskell nnoremap <leader>nh :nohlsearch<CR>:GhcModTypeClear<CR>
 
 map <leader>ii 
 \ i--------------------------------------------------------------------

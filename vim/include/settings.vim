@@ -28,13 +28,14 @@ set nocindent
 " Formatting and Spelling ================================================================
 
 set formatoptions+=tc
-set tw=79
-set wrap
 set linebreak
 set spelllang=en_us
 set encoding=utf-8
 set fileencoding=utf-8
 set visualbell t_vb=".
+set tw=79
+set wrap
+" set nowrap
 
 " Visuals =====================================================================
 

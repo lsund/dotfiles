@@ -1,8 +1,11 @@
 
-" vimrc for Ludvig Sundström
+source ~/Documents/dotfiles/vim/plugin/plugin.vim
+source ~/Documents/dotfiles/vim/include/bindings.vim
+source ~/Documents/dotfiles/vim/include/functions.vim
+source ~/Documents/dotfiles/vim/include/settings.vim
 
-source ~/.vim/include/settings.vim
-source ~/.vim/include/functions.vim
-source ~/.vim/include/autocommands.vim
-source ~/.vim/include/plugin.vim
-source ~/.vim/include/bindings.vim
+autocmd bufread,bufnewfile *.elm set ft=elm
+autocmd bufread,bufnewfile *.pl set ft=prolog
+au BufRead /tmp/mutt-* set tw=72
+au BufRead /tmp/mutt-* call clearmatches()
+

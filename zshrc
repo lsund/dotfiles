@@ -21,6 +21,7 @@ export AHS=$HOME/Documents/work/wido-qsrkb-ahfserver
 export SQL=$HOME/Documents/work/sqldump-manager
 export ACC=$HOME/Documents/work/thielgroup/account-web
 export ZSH=$HOME/.oh-my-zsh
+export FZF_DEFAULT_COMMAND='fd --type f'
 
 : ${SCRIPTS?"Warning: env SCRIPTS is not set. Everything will break down"}
 
@@ -106,9 +107,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
 else
-  export EDITOR='vim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
