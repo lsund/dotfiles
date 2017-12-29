@@ -1,4 +1,4 @@
 
-map <leader>ii 
+au FileType python map <leader>ii 
     \ i# ###################################################################
     \###########<CR># <ESC>o<ESC>kA

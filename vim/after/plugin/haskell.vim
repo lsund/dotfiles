@@ -10,9 +10,9 @@ au FileType haskell map <silent> ,hiM :call HaskellImport('matrix')<CR>
 
 au FileType haskell nnoremap <leader>nh :nohlsearch<CR>:GhcModTypeClear<CR>
 
-map <leader>ii 
-\ i--------------------------------------------------------------------
-\---------<CR><C-w><C-w>-- 
+au FileType haskell map <leader>ii 
+\ i----------------------------------------------------------------------------
+\---<CR> 
 
 augroup interoMaps
   au!

@@ -85,7 +85,7 @@ Plug 'neomake/neomake'
 " Plug 'Twinside/vim-hoogle'
 "
 "  Syntax highlightning etc
-" Plug 'neovimhaskell/haskell-vim'
+Plug 'neovimhaskell/haskell-vim'
 "
 "  Automatic Indentation
 

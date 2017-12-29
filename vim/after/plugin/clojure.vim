@@ -7,7 +7,7 @@ au FileType clojure nmap <leader>x  :Eval<CR>
 au FileType clojure nmap <leader>gq <Plug>Csurround()vap==}vapgq
 au FileType clojure nmap gq <Plug>Csurround()==
 "
-map <leader>ii
+au FileType clojure map <leader>ii
     \ i;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     \;;;;;;;;<CR>;; "Title goes here
 

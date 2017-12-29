@@ -40,6 +40,6 @@ function cdl {
 
 alias eclipse='SWT_GTK3=0 eclipse > /dev/null'
 
-alias redshift-day='redshift -O 5500'
-alias redshift-night='redshift -O 3700'
+alias redshift-day='redshift 5500'
+alias redshift-night='redshift 3700'
 alias redshift='redshift -l 51.2:6.7 -t 5700:3600 -g 0.8 -m randr &'
