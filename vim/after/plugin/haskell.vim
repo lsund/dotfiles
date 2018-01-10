@@ -12,7 +12,7 @@ au FileType haskell nnoremap <leader>nh :nohlsearch<CR>:GhcModTypeClear<CR>
 
 au FileType haskell map <leader>ii 
 \ i----------------------------------------------------------------------------
-\---<CR> 
+\---<CR><C-w><C-w>-- 
 
 augroup interoMaps
   au!
