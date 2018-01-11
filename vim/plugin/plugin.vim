@@ -3,6 +3,8 @@
 " set rtp+=~/.vim/bundle/Vundle.vim
 " call vundle#begin()
 " Plug 'VundleVim/Vundle.vim'
+"
+filetype off
 
 " Vim-plug
 call plug#begin('~/.vim/plugged')
@@ -60,6 +62,7 @@ Plug 'dhruvasagar/vim-table-mode'
 "
 " Snippets
 Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 "
 " Align lines according to symbol
 Plug 'godlygeek/tabular'
