@@ -5,4 +5,8 @@ Host *
 
 Host pi
     HostName 192.168.0.18
-    user alarm
+    user lsund
+
+host hendrix
+    HostName 192.168.0.12
+    user lsund
