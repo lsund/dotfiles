@@ -57,12 +57,13 @@ nmap <leader>' :bp <BAR> bd #<CR>
 nmap <leader>" :BufOnly<CR>
 
 " Write file
+au BufWrite * silent! :%s/\s\+$//
 nmap <leader>, :w<CR>
 nmap <leader>< :wall<CR>
 
 " OBSERVE: Leave the space
 " Open file
-nmap <leader>o :args 
+nmap <leader>o :args<space>
 nmap <leader>e <C-p>
 
 " Edit history
