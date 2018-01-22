@@ -14,6 +14,7 @@ export PATH=$PATH:$HOME/.cabal/bin
 # ###########################################################################
 # Custom env variables
 
+export THESIS=$HOME/Documents/school/current/thesis
 
 export DOTFILES=$HOME/Documents/dotfiles
 export SCRIPTS=$HOME/Documents/scripts
