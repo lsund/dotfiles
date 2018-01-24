@@ -24,7 +24,6 @@ Plug 'scrooloose/syntastic'
 "
 " Fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"
 Plug 'junegunn/fzf.vim'
 "
 " Keyword search with ag
