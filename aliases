@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 # Aliases
+alias find='fd'
 alias vim='nvim'
 alias ls='ls --color=auto'
 alias la='ls -a --color=auto'
