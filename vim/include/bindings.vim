@@ -55,9 +55,10 @@ nmap <leader>' :bp <BAR> bd #<CR>
 " Kill every buffer except this one
 nmap <leader>" :BufOnly<CR>
 
+" Remove whitespace at end of line on write.
+" (Also remember position and jump back)
+au BufWrite * execute "normal ma" | silent! %s/\s\+$// | execute "normal `a"
 " Write file
-au BufWrite * silent! :%s/\([^\ \\]\)  \([^\ \\]\)/\1 \2/
-au BufWrite * silent! :%s/\s\+$//
 nmap <leader>, :w<CR>
 nmap <leader>< :wall<CR>
 

@@ -11,3 +11,5 @@
 	cam = commit --amend
     a = add -A
     p = add --patch
+[init]
+	templatedir = ~/.git_template
