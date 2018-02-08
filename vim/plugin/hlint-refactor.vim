@@ -1,1 +1,1 @@
-let g:hlintRefactor#disableDefaultKeybindings = 1
+" let g:hlintRefactor#disableDefaultKeybindings = 1

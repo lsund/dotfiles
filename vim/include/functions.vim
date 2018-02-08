@@ -1,4 +1,14 @@
 
+function! FormatParagraph(...)
+    if g:format_paragraph
+        :execute "normal mavapgq`a"
+        :execute "normal ma"
+        :%s/\([^\ \\]\)  \([^\ \\]\)/\1 \2/
+        :execute "normal `a"
+    endif
+endfunction
+
+
 " Prettify JSON
 command JSONprettify %!python -m json.tool
 
@@ -17,9 +27,9 @@ function! HaskellModuleHeader(...)
     let name = 0 < a:0 ? a:1 : inputdialog("Module: ")
     let note = 1 < a:0 ? a:2 : inputdialog("Note: ")
     let description = 2 < a:0 ? a:3 : inputdialog("Describe this module: ")
-    
-    return  repeat('-', s:width) . "\n" 
-    \       . "--   \n" 
+
+    return  repeat('-', s:width) . "\n"
+    \       . "--   \n"
     \       . "-- Module      : " . name . "\n"
     \       . "-- Note        : " . note . "\n"
     \       . "-- \n"

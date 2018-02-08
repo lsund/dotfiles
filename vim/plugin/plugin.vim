@@ -12,6 +12,9 @@ call plug#begin('~/.vim/plugged')
 "  Colors
 Plug 'flazz/vim-colorschemes'
 "
+" Syntax highlightning for shakespeare templates
+Plug 'pbrisbin/vim-syntax-shakespeare'
+"
 " Good looking status/tabline
 "
 Plug 'vim-airline/vim-airline'
@@ -78,10 +81,9 @@ Plug 'Shougo/vimproc.vim'
 " Asyncronous execution, used by neovim-ghci
 Plug 'neomake/neomake'
 
-" Type display, error/warning display, split function insert
 " Plug 'eagletmt/ghcmod-vim'
-"  Linting
-" Plug 'mpickering/hlint-refactor-vim'
+" Bindings for hlint automatic application
+Plug 'mpickering/hlint-refactor-vim'
 "
 "  Direct access to hoogle
 " Plug 'Twinside/vim-hoogle'
