@@ -8,6 +8,9 @@ au FileType haskell map <silent> ,hiv :call HaskellImport('vector')<CR>
 au FileType haskell map <silent> ,him :call HaskellImport('map')<CR>
 au FileType haskell map <silent> ,hiM :call HaskellImport('matrix')<CR>
 
+
+au BufWrite *.hs silent! call StyleHaskell()
+
 au FileType haskell map <leader>ii i-------------------------------------------------------------------------------<CR><space>
 
 " See https://github.com/neovimhaskell/haskell-vim for more details

@@ -1,4 +1,11 @@
 
+function! StyleHaskell(...)
+    :execute "normal ma"
+    :%!stylish-haskell
+    :execute "normal `a"
+endfunction
+
+
 function! FormatParagraph(...)
     if g:format_paragraph
         :execute "normal mavapgq`a"
