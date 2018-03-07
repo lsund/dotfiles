@@ -98,7 +98,7 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'parsonsmatt/intero-neovim'
 
 " Live repl, dynamic expression evaluation
-Plug 'tpope/vim-fireplace'
+" Plug 'tpope/vim-fireplace'
 "
 " Static vim support for Leiningen (and boot)
 Plug 'tpope/vim-salve'

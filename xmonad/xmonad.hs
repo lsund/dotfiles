@@ -59,7 +59,7 @@ import Boxes
 data Res = Res { xRes :: Int, yRes :: Int }
 
 myRound :: Double -> Int -> Double
-myRound f n = (fromInteger $ round $ f * (10^n)) / (10.0^^n)
+myRound f n = fromInteger ( round $ f * (10^n)) / (10.0^^n)
 
 -- Main
 main :: IO ()
@@ -318,7 +318,7 @@ myTopRightLogHook h = dynamicLogWithPP def
     { ppOutput  = hPutStrLn h
     , ppOrder   = \(_:_:_:x) -> x
     , ppSep     = " "
-    , ppExtras  = [myPacSyncL, myMailSyncL, myUptimeL, myDateL]
+    , ppExtras  = [myTimelogL, myPacSyncL, myMailSyncL, myUptimeL, myDateL]
     }
 
 -- Dzen bottom left bar flags
@@ -388,7 +388,7 @@ myRamL =
     dzenBoxStyleL white2BBoxPP (ramUsage [freeBMemUsage])
         where freeBMemUsage x =
                 let free       = fromIntegral $ _memValues x !! 2
-                    tot        = fromIntegral $ _memValues x !! 0
+                    tot        = fromIntegral $ head (_memValues x)
                     left       = tot - free
                     percLeft   = (left / tot) * 100
                 in show (myRound percLeft 1) ++ "%"
@@ -408,7 +408,7 @@ myWifiL =
 
 myBrightL =
     dzenBoxStyleL blue2BoxPP (labelL "☼") ++!
-    (dzenBoxStyleL white2BBoxPP $ brightPerc 937)
+    dzenBoxStyleL white2BBoxPP (brightPerc 937)
 
 mySoundL =
     dzenBoxStyleL blue2BoxPP (labelL "♬") ++!
@@ -417,6 +417,17 @@ mySoundL =
 myPacSyncL =
     dzenBoxStyleL blue2BoxPP (labelL "♼") ++!
     dzenBoxStyleL white2BBoxPP npacSync
+
+myTimelogL = do
+    logger <- timelog colorRed
+    case logger of
+        Just s ->
+            if (read (getRaw s) :: Int) >= 1 then
+                dzenBoxStyleL blue2BBoxPP (labelL "◷")
+            else
+                dzenBoxStyleL white2BBoxPP (labelL "◷")
+        Nothing -> dzenBoxStyleL white2BBoxPP (labelL "◷")
+
 
 myMailSyncL = do
     logger <- nmailSync colorRed
@@ -584,6 +595,10 @@ nmailSync c = fileToLogger format "N/A" $ logpath ++ "mail/mailsynccount.txt"
     where
         format x = if (read x::Int) >= 1 then "^fg(" ++ c ++ ")" ++ x ++ "^fg()" else x
 
+timelog :: String -> Logger
+timelog c = fileToLogger format "N/A" $ logpath ++ "timelog/active.txt"
+    where
+        format x = if (read x::Int) >= 1 then "^fg(" ++ c ++ ")" ++ x ++ "^fg()" else x
 
 brightPerc :: Int -> Logger
 brightPerc p = fileToLogger format "N/A" "/sys/class/backlight/intel_backlight/actual_brightness" where
