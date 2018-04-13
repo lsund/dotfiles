@@ -19,7 +19,7 @@
 
 (dolist (source '(("melpa" . "http://melpa.milkbox.net/packages/")
                   ("marmalade" . "http://marmalade-repo.org/packages/")
-		  ("melpa-stable" . "https://stable.melpa.org/packages")))
+		  ("melpa-stable" . "https://stable.melpa.org/packages/")))
   (add-to-list 'package-archives source t))
 
 (package-initialize)

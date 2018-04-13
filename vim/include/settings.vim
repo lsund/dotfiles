@@ -69,8 +69,6 @@ match ExtraWhitespace /\s\+$/
 autocmd! InsertEnter * call clearmatches()
 autocmd! InsertLeave * match ExtraWhitespace /\s\+$/
 
-
-
 " Search and matching =========================================================
 
 set re=1

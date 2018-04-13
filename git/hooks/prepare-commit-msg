@@ -25,11 +25,11 @@ COMMIT_SOURCE=$2
 SHA1=$3
 
 # ############################################################################
-# Modified by lsund 2018-01-25
-msg=$(cat $COMMIT_MSG_FILE)
-if [[ ${#msg} -gt 50 ]]; then
-    echo "Message size is larger than 50. Could not commit" && exit 1
-fi
+# Inserted by lsund 2018-01-25
+# msg=$(cat $COMMIT_MSG_FILE)
+# if [[ ${#msg} -gt 50 ]]; then
+#     echo "Message size is larger than 50. Could not commit" && exit 1
+# fi
 # ############################################################################
 
 /usr/bin/perl -i.bak -ne 'print unless(m/^. Please enter the commit message/..m/^#$/)' "$COMMIT_MSG_FILE"

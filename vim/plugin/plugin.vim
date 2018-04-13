@@ -88,8 +88,11 @@ Plug 'mpickering/hlint-refactor-vim'
 "  Direct access to hoogle
 " Plug 'Twinside/vim-hoogle'
 "
-"  Syntax highlightning etc
+"  Syntax highlightning for haskell
 Plug 'neovimhaskell/haskell-vim'
+"
+"  Syntax hightlightning for purescript
+Plug 'michaelficarra/purescript-vim'
 "
 "  Automatic Indentation
 
