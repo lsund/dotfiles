@@ -21,7 +21,6 @@ alias restart='sudo shutdown now -r'
 alias tmux='tmux -2'
 alias zath='zathura'
 
-alias pingg='ping -c 3 www.duckduckgo.com'
 alias network-scan='sudo iwlist wlp58s0 scan | grep ESSID'
 alias my-ip="curl -s checkip.dyndns.org | \
     sed -e 's/.*Current IP Address: //' -e 's/<.*$//'"

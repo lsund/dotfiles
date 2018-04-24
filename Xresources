@@ -6,6 +6,8 @@ XTerm*metaSendsEscape: true
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
 
+URxvt.intensityStyles: false
+
 /* Hack */
 URxvt.font: xft:Hack:Regular:size=12
 
@@ -21,39 +23,12 @@ URxvt*urgentOnBell: true
 URxvt*visualBell:   false
 
 URxvt.keysym.M-BackSpace: command:\000
-!terminal colors ------------------------------------------------------------
 
-! *background:         #111111
-! *foreground:         #FFFFFF
-! !black
-! *color0 :            #222222
-! *color8 :            #454545
-! !red
-! *color1 :            #B22222
-! *color9 :            #FA8072
-! !green
-! *color2 :            #556B2F
-! *color10:            #9ACD32
-! !yellow
-! *color3 :            #B8860B
-! *color11:            #DAA520
-! !blue
-! *color4 :            #4682B4
-! *color12:            #6495ED
-! !magenta
-! *color5 :            #9932CC
-! *color13:            #DA70D6
-! !cyan
-! *color6 :            #87CEEB
-! *color14:            #B0E0E6
-! !white
-! *color7 :            #C0C0C0
-! *color15:            #FFFFFF
-
+! Colors:
+!
 ! Badwolf
 !
 *background: #101010
-/* *background: #1c1b1a */
 *foreground: #f8f6f2
 *cursorColor: #aeee00
 *scrollColor: #45413b
@@ -62,7 +37,7 @@ URxvt.keysym.M-BackSpace: command:\000
 
 ! black
 *color0: #141413
-*color8: #000000
+*color8: #666666
 ! red
 *color1: #ff2c4b
 *color9: #ff2c4b
