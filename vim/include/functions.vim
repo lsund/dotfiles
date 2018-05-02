@@ -51,17 +51,14 @@ endfunction
 
 let g:rtd = "unset"
 
-function! SetRootTexDocument(name)
-    let g:rtd = a:name
-endfunction
-
 function! CompileLatex()
     if search("begin{document}", "n")
         execute '! pdflatex %'
     elseif match(g:rtd, "unset") != 0
         execute '! pdflatex' g:rtd
     else
-        echo "This file is probably not the root tex file. Call SetRootTexDocument"
+        echo "This file is probably not the root tex file. I just set it to 'report.tex' for you"
+        let g:rtd = 'report.tex'
     endif
 endfunction
 

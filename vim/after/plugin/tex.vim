@@ -1,6 +1,15 @@
 
-au Filetype tex nnoremap <leader>p :w \| :call CompileLatex()<CR>
-au Filetype plaintex nnoremap <leader>p :w \| :call CompileLatex()<CR>
+au Filetype tex nnoremap <leader>rr :w \| :call CompileLatex()<CR>
+au Filetype plaintex nnoremap <leader>rr :w \| :call CompileLatex()<CR>
+
+" au Filetype tex setlocal g:format_paragraph=1
+" au Filetype palintex setlocal g:format_paragraph=1
+
+autocmd FileType plaintex :let g:format_paragraph=1
+autocmd FileType tex :let g:format_paragraph=1
+
+autocmd FileType plaintex :let g:rtd='report.tex'
+autocmd FileType tex :let g:rtd='report.tex'
 
 au Filetype plaintex setlocal ft=tex
 " Autoformat paragraph
