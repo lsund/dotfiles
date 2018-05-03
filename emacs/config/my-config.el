@@ -21,7 +21,6 @@
 		    highlight-symbol
 
 		    ;; Project navigation/management
-		    projectile
 		    flx-ido
 		    swiper
 		    counsel
@@ -74,6 +73,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc
 
+;; Highlight current line
+(when window-system (global-hl-line-mode))
+
 (setq pop-up-windows nil)
 
 ;; Use spaces instead of tabs
@@ -91,7 +93,6 @@
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-
 
 ;; Line numbers
 (linum-mode)
@@ -128,7 +129,6 @@
       '((t . ivy--regex-ignore-order)))
 
 ;; Magit
-
 (evil-magit-init)
 (setq magit-completing-read-function 'ivy-completing-read)
 (setq evil-magit-state 'normal)
@@ -141,35 +141,6 @@
 (add-to-list 'company-backends 'company-files)
 (add-to-list 'company-backends 'company-elisp)
 
-;; Projectile
-(projectile-global-mode)
-(setq projectile-completion-system 'ivy)
-;; Caching could greatly speed up file navigation on big projects
-(setq projectile-enable-caching nil)
-(setq projectile-require-project-root nil)
-(setq projectile-globally-ignored-directories
-      (append '(
-        ".git"
-        ".svn"
-        "out"
-        "repl"
-        "target"
-        "venv"
-        )
-          projectile-globally-ignored-directories))
-(setq projectile-globally-ignored-files
-      (append '(
-        ".DS_Store"
-        "*.gz"
-        "*.pyc"
-        "*.jar"
-        "*.tar.gz"
-        "*.tgz"
-        "*.zip"
-        )
-          projectile-globally-ignored-files))
-(projectile-global-mode)
-
 ;; Quick scope
 (global-evil-quickscope-always-mode 1)
 
@@ -178,9 +149,6 @@
 
 ;; Case sensitive
 (setq evil-ex-search-case 'sensitive)
-;; Smooth instead of jumpy scrolling
-(setq scroll-step 1
-      scroll-conservatively 10000)
 
 ;; Delete trailing whitespace on file save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -191,30 +159,32 @@
 (setq  select-enable-clipboard t)
 (setq select-enable-primary t)
 
-;; Font size
-(set-face-attribute 'default nil
-                    :family "Hack"
-                    ;; :family "Source Code Pro"
-                    :height 130
-                    :weight 'normal
-                    :width 'normal)
 
-;; Highlight current line
-(when window-system
-  (global-hl-line-mode))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Look & Feel
 
-;; Spell
+;; Font
+(set-face-attribute
+ 'default nil
+ :family "Hack"
+ ;; :family "Source Code Pro"
+ :height 130
+ :weight 'normal
+ :width 'normal)
+
+;; Smooth instead of jumpy scrolling
+(setq scroll-step 1 scroll-conservatively 10000)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Spelling
+;;
+;; try hunspell at first if hunspell does NOT exist, use aspell
 (cond
- ;; try hunspell at first
-  ;; if hunspell does NOT exist, use aspell
  ((executable-find "hunspell")
   (setq ispell-program-name "hunspell")
   (setq ispell-local-dictionary "en_US")
   (setq ispell-local-dictionary-alist
-        ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
-        ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
-        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
-          )))
+        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))))
 
  ((executable-find "aspell")
   (setq ispell-program-name "aspell")
@@ -234,6 +204,8 @@
 (require 'my-tex)
 (require 'my-markdown)
 
+(require 'my-projectile)
+(require 'my-ivy)
 
 (provide 'my-config)
 

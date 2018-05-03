@@ -21,6 +21,7 @@
 	    (set-fill-column 80)
 	    (auto-fill-mode)))
 
+(provide 'my-markdown)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

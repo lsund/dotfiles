@@ -1,5 +1,19 @@
+;;; package --- Summary
+
 (require 'my-clojure)
 (require 'my-elisp)
+
+;;; Commentary:
+;;; This File contains all custom keybindings
+
+;;; Code:
+
+(defun my-zoom-window ()
+  "Zoom in or out."
+  (interactive)
+  (if (= (count-windows) 2)
+      (delete-other-windows)
+    (winner-undo)))
 
 ;; Key bindings
 (defvar my-leader-map (make-sparse-keymap))
@@ -13,13 +27,13 @@
               (remove-if-not 'buffer-file-name (buffer-list)))))
 
 (defun scroll-half-page-down ()
-  "scroll down half the page"
+  "Scroll down half the page."
   :keep-visual t
   (interactive)
   (scroll-down (/ (window-body-height) 2)))
 
 (defun scroll-half-page-up ()
-  "scroll up half the page"
+  "Scroll up half the page."
   :keep-visual t
   (interactive)
   (scroll-up (/ (window-body-height) 2)))
@@ -176,13 +190,10 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map "'"  'kill-this-buffer)
 (define-key my-leader-map "y"  'switch-to-buffer)
 (define-key my-leader-map "Y"  'switch-to-previous-buffer)
-(define-key evil-normal-state-map (kbd "C-s -") 'split-window-below)
-(define-key evil-normal-state-map (kbd "C-s |") 'split-window-right)
+(define-key my-leader-map "-" 'split-window-below)
+(define-key my-leader-map "|" 'split-window-right)
 (define-key evil-normal-state-map (kbd "C-s w") 'delete-window)
-(define-key evil-normal-state-map (kbd "C-s z") 'delete-other-windows)
-(define-key evil-normal-state-map (kbd "C-s Z") 'winner-undo)
-
-;;(define-key my-leader-map "b" nil)
+(define-key evil-normal-state-map (kbd "C-s z") 'my-zoom-window)
 
 ;; Search
 (define-key my-leader-map "nh" 'remove-highlight)
@@ -198,39 +209,11 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 
-;; Counsel
-(define-key my-leader-map "o" 'counsel-find-file)
-
 ;; Smex
 (define-key my-leader-map "x" 'smex)
 (define-key my-leader-map "X" 'smex-major-mode-commands)
 
 (define-key evil-normal-state-map (kbd "M-X") 'execute-extended-command)
-(define-key my-leader-map "a" (lambda () (interactive)
-				(counsel-ag "" (vc-root-dir))))
-
-;; Ivy
-(defun my-ivy ()
-  (interactive)
-  (if (ivy-partial)
-      nil
-    (ivy-next-line)))
-
-(defun my-ivy-back ()
-  (interactive)
-  (if (ivy-partial)
-      nil
-    (ivy-previous-line)))
-
-(define-key ivy-minibuffer-map (kbd "C-w") #'backward-kill-word)
-(define-key ivy-minibuffer-map (kbd "C-h") #'backward-delete-char)
-(define-key ivy-minibuffer-map (kbd "<tab>") 'my-ivy)
-(define-key ivy-minibuffer-map (kbd "<backtab>") 'my-ivy-back)
-(define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done)
-
-;; Projectile
-(define-key my-leader-map "e" 'counsel-projectile)
-(define-key my-leader-map "pp" 'counsel-projectile-switch-project)
 
 ;; Drag stuff
 (define-key evil-normal-state-map (kbd "C-S-k") 'drag-stuff-up)
@@ -293,6 +276,7 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Align
 
 (define-key evil-visual-state-map (kbd "M-a") 'align-regexp)
+
 (provide 'my-keybindings)
 
 ;;; my-keybindings.el ends here
