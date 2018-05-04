@@ -3,7 +3,8 @@
 ;;; Commentary:
 ;;; My Emacs config for editing Emacs Lisp
 
-(provide 'my-elisp)
+;;; Code:
+
 (require 'my-lisp)
 
 (require-packages '(
@@ -12,21 +13,24 @@
 		    flycheck
 		    ))
 
-;;; Code:
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Syntax checker
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(save new-line))
 
-(add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
-
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
 	    (interactive)
 
-	    (defvar elisp-leader-map
+	    (rainbow-delimiters-mode)
+
+            ;; Smartparens
+	    (require 'smartparens-config)
+	    (sp-pair "'" nil :actions :rem)
+	    (smartparens-mode)
+
+            (defvar elisp-leader-map
 	      (let ((map (make-sparse-keymap)))
 
 		(set-keymap-parent map my-leader-map)
@@ -40,4 +44,5 @@
 	    (define-key elisp-leader-map (kbd "bd") 'my-clojure-indent-defn)
 	    (define-key elisp-leader-map (kbd "bk") 'my-join-sexp)))
 
+(provide 'my-elisp)
 ;;; my-elisp ends here

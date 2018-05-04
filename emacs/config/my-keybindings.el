@@ -261,7 +261,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; Magit magit
 
-(define-key my-leader-map (kbd "gs") 'magit-status)
+(define-key evil-normal-state-map (kbd "gs") 'magit-status)
 
 ;; Archive buffer
 

@@ -1,5 +1,4 @@
 ;;; package --- Summary
-(provide 'my-lisp)
 
 ;;; Commentary:
 ;;; My Emacs config for All Lisp
@@ -83,3 +82,6 @@
   (insert " ")
   (evil-normal-state)
   (delete-horizontal-space))
+
+(provide 'my-lisp)
+;;; my-lisp ends here

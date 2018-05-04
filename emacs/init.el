@@ -35,11 +35,12 @@ PKGS: The list of packages."
 
 (add-to-list 'load-path (concat user-emacs-directory "config"))
 (add-to-list 'load-path "/home/lsund/Documents/dotfiles/emacs/config")
+(add-to-list 'load-path "/home/lsund/Documents/dotfiles/emacs")
 
 (require 'my-config)
-
-;;; init.el ends here
 
 ;; Local Variables
 ;; byte-compile-warnings: (not suspicious)
 ;; End:
+
+;;; init.el ends here

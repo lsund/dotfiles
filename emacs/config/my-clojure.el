@@ -72,7 +72,7 @@
 
 	    (evil-define-key 'normal clojure-mode-map "\\" clojure-leader-map)
 
-	    (define-key clojure-leader-map "r" #'cider-eval-buffer)
+	    (define-key clojure-leader-map "rr" #'cider-eval-buffer)
 	    (define-key clojure-leader-map "ii" 'insert-lisp-comment-separator)
 	    (define-key clojure-leader-map (kbd "bb") 'my-break-sexp)
 	    (define-key clojure-leader-map (kbd "bk") 'my-join-sexp)
