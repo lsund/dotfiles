@@ -13,7 +13,8 @@
 
 (require-packages '(
 		    clojure-mode
-		    cider
+                    clj-refactor
+                    cider
 		    smartparens
 		    paredit
 		    paxedit
@@ -73,57 +74,32 @@
 	    (evil-define-key 'normal clojure-mode-map "\\" clojure-leader-map)
 
 	    (define-key clojure-leader-map "rr" #'cider-eval-buffer)
+	    (define-key clojure-leader-map "pp" #'cider-format-buffer)
 	    (define-key clojure-leader-map "ii" 'insert-lisp-comment-separator)
 	    (define-key clojure-leader-map (kbd "bb") 'my-break-sexp)
 	    (define-key clojure-leader-map (kbd "bk") 'my-join-sexp)
 	    (define-key clojure-leader-map (kbd "bd") 'my-clojure-indent-defn)
 	    (define-key clojure-leader-map (kbd "a")
-
 	      (lambda ()
 		(interactive)
 		(counsel-ag "" (concat (vc-root-dir) "src"))))
 
-            (define-key smartparens-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+            ;; (clj-refactor-mode 1)
+            ;; (yas-minor-mode 1) ; for adding require/use/import statements
+            ;; ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+            ;; (cljr-add-keybindings-with-prefix "C-c C-m")
 
 	    ;; Other extensions
 
-	  ;;    (setq evil-cp-additional-bindings
-  	  ;;          '(("M-t" . sp-transpose-sexp)
-  	  ;;            ("M-k" . nil)
-  	  ;;            ("M-j" . nil)
-  	  ;;            ("M-J" . sp-join-sexp)
-  	  ;;            ("M-s" . sp-splice-sexp)
-  	  ;;            ("M-S" . sp-split-sexp)
-  	  ;;            ("M-R" . evil-cp-raise-form)
-  	  ;;            ("M-r" . sp-raise-sexp)
-  	  ;;            ("M-a" . evil-cp-insert-at-end-of-form)
-  	  ;;            ("M-i" . evil-cp-insert-at-beginning-of-form)
-  	  ;;            ("M-w" . evil-cp-copy-paste-form)
-  	  ;;            ("M-y" . evil-cp-yank-sexp)
-  	  ;;            ("M-d" . evil-cp-delete-sexp)
-  	  ;;            ("M-c" . evil-cp-change-sexp)
-  	  ;;            ("M-Y" . evil-cp-yank-enclosing)
-  	  ;;            ("M-D" . evil-cp-delete-enclosing)
-  	  ;;            ("M-C" . evil-cp-change-enclosing)
-  	  ;;            ("M-q" . sp-indent-defun)
-  	  ;;            ("M-o" . evil-cp-open-below-form)
-  	  ;;            ("M-O" . evil-cp-open-above-form)
-  	  ;;            ("M-v" . sp-convolute-sexp)
-  	  ;;            ("M-(" . evil-cp-wrap-next-round)
-  	  ;;            ("M-)" . evil-cp-wrap-previous-round)
-  	  ;;            ("M-[" . evil-cp-wrap-next-square)
-  	  ;;            ("M-]" . evil-cp-wrap-previous-square)
-  	  ;;            ("M-{" . evil-cp-wrap-next-curly)
-          ;;    ("M-}" . evil-cp-wrap-previous-curly)
-          ;;    )
-          ;; )
-
-	    ;; Auto fill
+            ;; Auto fill
 	    (set-fill-column 80)
 	    (auto-fill-mode)
 
 	    ;; Rainbow delimiters
 	    (rainbow-delimiters-mode)
+
+            (define-key smartparens-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+            (define-key smartparens-mode-map (kbd "M-r") 'sp-raise-sexp)
 
 	    ;; Smartparens
 	    (require 'smartparens-config)
@@ -132,6 +108,11 @@
 
 	    ;; Evil Cleverparens
 	    (evil-cleverparens-mode)
+
+            (define-key evil-cleverparens-mode-map (kbd "M-H") 'evil-cp-drag-backward)
+            (define-key evil-cleverparens-mode-map (kbd "M-L") 'evil-cp-drag-forward)
+
+            (setq evil-cleverparens-use-regular-insert)
 
             ))
 

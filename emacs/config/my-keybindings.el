@@ -43,15 +43,15 @@
   (interactive)
   (back-to-indentation)
   (newline)
-  ;; (indent-for-tab-command)
-  )
+  (indent-for-tab-command))
 
 (defun push-line-up()
   "Inserts a new line and moves one line down"
   (interactive)
   (back-to-indentation)
   (forward-line -1)
-  (kill-whole-line 1))
+  (kill-whole-line 1)
+  (evil-forward-word-begin))
 
 (defun remove-highlight()
   "Disable all kinds of code highlightning"

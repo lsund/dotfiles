@@ -23,8 +23,6 @@
 		    ;; Project navigation/management
 		    flx-ido
 		    swiper
-		    counsel
-		    counsel-projectile
 		    magit
 		    evil-magit
 		    neotree
@@ -69,9 +67,18 @@
 ;; Evil Surround (emulating vim-surround)
 (global-evil-surround-mode 1)
 
+;; IDO
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc
+
+;; Dont show welcome screen
+(setq inhibit-startup-screen t)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
 
 ;; Highlight current line
 (when window-system (global-hl-line-mode))

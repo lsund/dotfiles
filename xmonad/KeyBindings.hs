@@ -84,9 +84,9 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     -- Float
     , ((modMask .|. controlMask , xK_f)         ,   rectFloatFocused)
     -- Minimize
-    , ((modMask                 , xK_m)         ,   withFocused minimizeWindow)
+    -- , ((modMask                 , xK_m)         ,   withFocused minimizeWindow)
     -- Maximize
-    , ((modMask .|. shiftMask   , xK_m)         ,   sendMessage RestoreNextMinimizedWin)
+    -- , ((modMask .|. shiftMask   , xK_m)         ,   sendMessage RestoreNextMinimizedWin)
     -- Use next window layout
     , ((modMask                 , xK_space)     ,   sendMessage NextLayout)
     -- Scratchpad terminal

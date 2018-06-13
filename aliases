@@ -1,6 +1,8 @@
 #!/bin/zsh
 
 # Aliases
+alias n='nnn'
+alias df='pydf'
 alias chd='. /home/lsund/Documents/scripts/manual/chd'
 alias find='fd'
 alias vim='nvim'

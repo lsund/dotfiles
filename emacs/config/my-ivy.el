@@ -6,7 +6,7 @@
 ;;; Code:
 
 ;; Counsel
-(define-key my-leader-map "o" 'counsel-find-file)
+(define-key my-leader-map "o" 'ido-find-file)
 (define-key my-leader-map "a" (lambda () (interactive)
 				(counsel-ag "" (vc-root-dir))))
 

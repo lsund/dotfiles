@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(require-packages '(projectile counsel-projectile))
+(require-packages '(projectile))
 
 ;; Projectile
 (projectile-global-mode)
@@ -37,8 +37,8 @@
 (projectile-global-mode)
 
 ;; Projectile
-(define-key my-leader-map "e" 'counsel-projectile)
-(define-key my-leader-map "pp" 'counsel-projectile-switch-project)
+(define-key my-leader-map "e" 'projectile-find-file)
+(define-key my-leader-map "E" 'projectile-switch-project)
 
 (provide 'my-projectile)
 

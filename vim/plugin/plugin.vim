@@ -104,7 +104,7 @@ Plug 'parsonsmatt/intero-neovim'
 Plug 'tpope/vim-fireplace'
 "
 " Static vim support for Leiningen (and boot)
-Plug 'tpope/vim-salve'
+" Plug 'tpope/vim-salve'
 "
 " Needed by vim-salve
 Plug 'tpope/vim-dispatch'
@@ -113,16 +113,16 @@ Plug 'tpope/vim-projectionist'
 "
 " Editing S-expressions (Forked)
 " Plug 'lsund/vim-sexp'
-Plug 'guns/vim-sexp'
+" Plug 'guns/vim-sexp'
 "
 " Linter (Not clojurescript)
 " Plug 'venantius/vim-eastwood'
 "
 " Runtime files
-Plug 'guns/vim-clojure-static'
+" Plug 'guns/vim-clojure-static'
 "
 " Syntax highlighting
-Plug 'guns/vim-clojure-highlight'
+" Plug 'guns/vim-clojure-highlight'
 "
 " Formatting
 " Plug 'venantius/vim-cljfmt'
@@ -138,6 +138,12 @@ Plug 'lambdatoast/elm.vim'
 
 " background compilation, completion, indentation, highlightning...
 Plug 'LaTeX-Box-Team/LaTeX-Box'
+
+" markdown
+Plug 'plasticboy/vim-markdown'
+
+" markdown folding
+" Plug 'nelstrom/vim-markdown-folding'
 
 " call vundle#end()
 call plug#end()
