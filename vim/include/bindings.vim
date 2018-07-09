@@ -14,6 +14,8 @@ inoremap <C-a> <C-o>0
 inoremap <C-b> <C-o>h
 inoremap <C-f> <C-o>l
 
+vnoremap <C-G> <C-C>
+
 " Make Y behave as D, C etc
 noremap Y y$
 
@@ -84,8 +86,8 @@ nnoremap <leader>nh :nohlsearch<CR>
 vmap <leader>icn :I<CR>
 vmap <leader>ica :IA<CR>
 
-nnoremap gr :Ack <cword> <CR>
-nnoremap GR :Ack -l <cword> <CR>
+nnoremap <leader>ag :Ack <cword> <CR>
+nnoremap <leader>Ag :Ack -l <cword> <CR>
 
 autocmd FileType qf nnoremap <buffer> O <Enter> :call DeleteEmptyBuffers()<CR>
 

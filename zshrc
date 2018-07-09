@@ -43,6 +43,12 @@ if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent-thing)"
 fi
 
+# Check if identity not already added. In that case, add the identity
+ssh-add -l > /dev/null
+if [[ $? == "1" ]]; then
+    ssh-add
+fi
+
 # ############################################################################
 # Fuzzy finding
 
@@ -132,3 +138,4 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 export NNN_USE_EDITOR=1
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
