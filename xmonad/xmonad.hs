@@ -144,7 +144,7 @@ myStartupHook =
     liftIO (threadDelay 1000000) <+>
     spawn "xrandr --output DVI-I-1 --right-of HDMI-0 --output HDMI-0 --primary" <+>
     spawn "/home/lsund/.xmonad/apps/haskell-cpu-usage.out 5" <+>
-    (startTimer 1 >>= XS.put . TID)
+        (startTimer 1 >>= XS.put . TID)
 
 ----------------------------------------------------------------------------
 -- Handle event hook config
