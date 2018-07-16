@@ -29,4 +29,4 @@ botPanelSepPos = 900 :: Int
 
 myTerminal = "/usr/bin/urxvt"
 logpath = "/home/lsund/Data/log/"
-automaticScriptPath = "/home/lsund/Documents/scripts/automatic/"
+scriptpath = "/home/lsund/Documents/scripts/"

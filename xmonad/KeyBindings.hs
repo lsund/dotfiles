@@ -94,15 +94,15 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     -- Take screenshot
     , ((0                       , xK_Print)     ,   printScreen)
     -- Toggle volume
-    , ((modMask                 , xK_F1)        ,   spawn $ automaticScriptPath ++ "soundcontrol toggle")
+    , ((modMask                 , xK_F1)        ,   spawn $ scriptpath ++ "soundcontrol toggle")
     -- Lower volume
-    , ((modMask                 , xK_F2)        ,   spawn $ automaticScriptPath ++ "soundcontrol lower")
+    , ((modMask                 , xK_F2)        ,   spawn $ scriptpath ++ "soundcontrol lower")
     -- Raise volume
-    , ((modMask                 , xK_F3)        ,   spawn $ automaticScriptPath ++ "soundcontrol raise")
+    , ((modMask                 , xK_F3)        ,   spawn $ scriptpath ++ "soundcontrol raise")
     -- Toggle active touchpad
-    , ((modMask                 , xK_F8)        ,   spawn $ automaticScriptPath ++ "toggle-touchpad")
+    , ((modMask                 , xK_F8)        ,   spawn $ scriptpath ++ "toggle-touchpad")
     -- Mark mail as read
-    , ((modMask                 , xK_F9)        ,   spawn $ automaticScriptPath ++ "mailsync update")
+    , ((modMask                 , xK_F9)        ,   spawn $ scriptpath ++ "mailsync update")
     -- Decrease backlight
     , ((modMask                 , xK_F11)       ,   spawn "/usr/bin/xbacklight -dec 10")
     -- Raise backlight
