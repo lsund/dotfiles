@@ -139,7 +139,7 @@ myFloaName = "Float"
 
 myStartupHook =
     setDefaultCursor xC_left_ptr <+>
-    spawn "feh --bg-scale /home/lsund/Media/image/haskell.png &" <+>
+    spawn "feh --bg-scale /home/lsund/.xmonad/img/haskell.png &" <+>
     spawn "/usr/bin/killall haskell-cpu-usage.out" <+>
     liftIO (threadDelay 1000000) <+>
     spawn "xrandr --output DVI-I-1 --right-of HDMI-0 --output HDMI-0 --primary" <+>
