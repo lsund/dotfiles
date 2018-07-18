@@ -10,3 +10,8 @@ Host pi
 host hendrix
     HostName 192.168.0.12
     user lsund
+
+host gitserver
+    Hostname https://github.com
+    IdentityFile ~/.ssh/id_rsa_gmail
+    IdentitiesOnly yes
