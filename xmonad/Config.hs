@@ -2,7 +2,7 @@
 module Config where
 
 -- Looks
-dzenFont       = "xft:Source Code Pro:size=14"
+dzenFont       = "xft:Hack:regular:size=14"
 colorBlack     = "#020202"
 colorBlackAlt  = "#1c1c1c"
 colorGray      = "#444444"
@@ -27,6 +27,6 @@ boxHeight      = 22 :: Int
 topPanelSepPos = 950 :: Int
 botPanelSepPos = 900 :: Int
 
-myTerminal = "/usr/bin/urxvt"
+myTerminal = "/usr/bin/gnome-terminal"
 logpath = "/home/lsund/Data/log/"
 scriptpath = "/home/lsund/Documents/scripts/"

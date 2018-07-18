@@ -5,6 +5,8 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
+export LC_ALL=en_US.UTF-8
+
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then

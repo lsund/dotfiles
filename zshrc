@@ -5,7 +5,7 @@
 # Extend path
 
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.bin:/usr/local/bin:$PATH
 export PATH=$PATH:$HOME/Documents/scripts/manual
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
@@ -14,14 +14,13 @@ export PATH=$PATH:$HOME/.cabal/bin
 # ###########################################################################
 # Custom env variables
 
-export THESIS=$HOME/Documents/school/current/thesis
 export MYBLOG=$HOME/Documents/tech/repos/myblog
 
 export DOTFILES=$HOME/Documents/dotfiles
 export SCRIPTS=$HOME/Documents/scripts
-export AHS=$HOME/Documents/work/wido-qsrkb-ahfserver
-export SQL=$HOME/Documents/work/sqldump-manager
-export ACC=$HOME/Documents/work/thielgroup/account-web
+
+export JAVA_HOME=/usr/lib/jvm/default
+
 export ZSH=$HOME/.oh-my-zsh
 export FZF_DEFAULT_COMMAND='fd --type f'
 

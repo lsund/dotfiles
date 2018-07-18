@@ -318,7 +318,7 @@ myTopRightLogHook h = dynamicLogWithPP def
     { ppOutput  = hPutStrLn h
     , ppOrder   = \(_:_:_:x) -> x
     , ppSep     = " "
-    , ppExtras  = [myTimelogL, myPacSyncL, myMailSyncL, myUptimeL, myDateL]
+    , ppExtras  = [myUptimeL, myDateL]
     }
 
 -- Dzen bottom left bar flags
@@ -344,7 +344,10 @@ myBotLeftLogHook h hostname =
   { ppOutput = hPutStrLn h
   , ppOrder = \(_:_:_:x) -> x
   , ppSep = " "
-    , ppExtras = [myMemL, myRamL, myCpuL, myWifiL, myBrightL , mySoundL]
+    , ppExtras =
+        if hostname == "pedro"
+            then [myMemL, myRamL, myCpuL, mySoundL, myPacSyncL]
+            else [myMemL, myRamL, myCpuL, myWifiL, myBrightL , mySoundL, myPacSyncL]
   }
 
 -- Dzen bottom right bar flags
@@ -380,78 +383,70 @@ myBotRightLogHook h hostname =
 
 
 myBatL hostname =
-    dzenBoxStyleL blue2BoxPP (labelL "⚡") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "bat ") ++!
     dzenBoxStyleL white2BBoxPP (batPercent hostname 30)
 
+
+_memValues x = map (getValues x) $ take 4 [0..] where
+    getValues x n = read (words (lines x !! n) !! 1) :: Int
+
+_availMemKb :: String -> Int
+_availMemKb x = read (words x !! 7) :: Int
+
+_totMemKb :: String -> Int
+_totMemKb x = read (words x !! 1) :: Int
+
 myRamL =
-    dzenBoxStyleL blue2BoxPP (labelL "▦") ++!
-    dzenBoxStyleL white2BBoxPP (ramUsage [freeBMemUsage])
+    dzenBoxStyleL blue2BoxPP (labelL "mem ") ++!
+    dzenBoxStyleL white2BBoxPP (ramUsage [freeBMemUsage]) ++!
+    dzenBoxStyleL white2BBoxPP (labelL " |")
         where freeBMemUsage x =
-                let free       = fromIntegral $ _memValues x !! 2
-                    tot        = fromIntegral $ head (_memValues x)
+                let free       = fromIntegral $ _availMemKb x
+                    tot        = fromIntegral $ _totMemKb x
                     left       = tot - free
                     percLeft   = (left / tot) * 100
                 in show (myRound percLeft 1) ++ "%"
 
 
 myMemL =
-    dzenBoxStyleL blue2BoxPP (labelL "⛁") ++!
-    dzenBoxStyleL white2BBoxPP memUsage
+    dzenBoxStyleL white2BBoxPP (labelL " ") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "disk ") ++!
+    dzenBoxStyleL white2BBoxPP memUsage ++!
+    dzenBoxStyleL white2BBoxPP (labelL "| ")
 
 myCpuL =
-    dzenBoxStyleL blue2BoxPP (labelL "▣") ++!
-    dzenBoxStyleL white2BBoxPP (cpuUsage "/tmp/haskell-cpu-usage.txt" 70 colorRed)
+    dzenBoxStyleL blue2BoxPP (labelL "cpu ") ++!
+    dzenBoxStyleL white2BBoxPP (cpuUsage "/tmp/haskell-cpu-usage.txt" 70 colorRed) ++!
+    dzenBoxStyleL white2BBoxPP (labelL " |")
 
 myWifiL =
-    dzenBoxStyleL blue2BoxPP (labelL "∿") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "wifi") ++!
     dzenBoxStyleL white2BBoxPP wifiStr
 
 myBrightL =
-    dzenBoxStyleL blue2BoxPP (labelL "☼") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "bright ") ++!
     dzenBoxStyleL white2BBoxPP (brightPerc 937)
 
 mySoundL =
-    dzenBoxStyleL blue2BoxPP (labelL "♬") ++!
-    dzenBoxStyleL white2BBoxPP soundPerc
+    dzenBoxStyleL blue2BoxPP (labelL "sound ") ++!
+    dzenBoxStyleL white2BBoxPP soundPerc ++!
+    dzenBoxStyleL white2BBoxPP (labelL " |")
 
 myPacSyncL =
-    dzenBoxStyleL blue2BoxPP (labelL "♼") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "sync ") ++!
     dzenBoxStyleL white2BBoxPP npacSync
-
-myTimelogL = do
-    logger <- timelog colorRed
-    case logger of
-        Just s ->
-            if (read (getRaw s) :: Int) >= 1 then
-                dzenBoxStyleL blue2BBoxPP (labelL "◷")
-            else
-                dzenBoxStyleL white2BBoxPP (labelL "◷")
-        Nothing -> dzenBoxStyleL white2BBoxPP (labelL "◷")
-
-
-myMailSyncL = do
-    logger <- nmailSync colorRed
-    case logger of
-        Just s ->
-            if (read (getRaw s) :: Int) >= 1 then
-                dzenBoxStyleL red2BBoxPP (labelL "✉") ++! dzenBoxStyleL white2BBoxPP (nmailSync colorRed)
-            else
-                dzenBoxStyleL blue2BoxPP (labelL "✉") ++! dzenBoxStyleL white2BBoxPP (nmailSync colorRed)
-        Nothing -> dzenBoxStyleL blue2BoxPP (labelL "✉") ++! dzenBoxStyleL white2BBoxPP (nmailSync colorRed)
-
-getRaw [x] = [x]
-getRaw (')' : x : xs) = [x]
-getRaw (x : xs) = getRaw xs
-
 
 -- TopRight Loggers
 myDateL =
     dzenBoxStyleL white2BBoxPP (date "%A") ++!
+    dzenBoxStyleL white2BBoxPP (labelL " ") ++!
     dzenBoxStyleL white2BBoxPP   (date $ "%Y^fg(" ++ colorGray ++ ").^fg()%m^fg(" ++ colorGray ++ ").^fg()^fg(" ++ colorBlue ++ ")%d^fg()") ++!
-    dzenBoxStyleL white2BBoxPP   (date $ "%H^fg(" ++ colorGray ++ "):^fg()%M^fg(" ++ colorGray ++ "):^fg()^fg(" ++ colorGreen ++ ")%S^fg()")
+    dzenBoxStyleL white2BBoxPP (labelL " ") ++!
+    dzenBoxStyleL white2BBoxPP   (date $ "%H^fg(" ++ colorGray ++ "):^fg()%M^fg(" ++ colorGray ++ "):^fg()^fg(" ++ colorGreen ++ ")%S^fg() ")
 myUptimeL =
-    dzenBoxStyleL blue2BoxPP   (labelL "◷") ++!
-    dzenBoxStyleL white2BBoxPP uptime
+    dzenBoxStyleL blue2BoxPP   (labelL "upt ") ++!
+    dzenBoxStyleL white2BBoxPP uptime ++!
+    dzenBoxStyleL white2BBoxPP (labelL "|")
 
 myFocusL = dzenBoxStyleL white2BBoxPP (shortenL 100 logTitle)
 
@@ -555,9 +550,6 @@ wifiPerc = fileToLogger format "N/A" "/proc/net/wireless" where
 ramUsage :: [String -> String] -> Logger
 ramUsage xs = initL $ concatWithSpaceL $ map funct xs where
     funct x = fileToLogger x "N/A" "/proc/meminfo"
-
-_memValues x = map (getValues x) $ take 4 [0..] where
-    getValues x n = read (words (lines x !! n) !! 1) :: Int
 
 memUsage :: Logger
 memUsage = fileToLogger id "N/A" (logpath ++ "store/disk.txt")

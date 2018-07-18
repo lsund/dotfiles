@@ -7,37 +7,37 @@
 
 (require-packages '(
 
-		    company
-		    ;; Evil mode adaptation plugins
-		    evil-commentary
-		    evil-surround
+                    company
+                    ;; Evil mode adaptation plugins
+                    evil-commentary
+                    evil-surround
 
-		    ;; Editing
-		    drag-stuff
-		    evil-cleverparens
+                    ;; Editing
+                    drag-stuff
+                    evil-cleverparens
 
-		    ;; Search
-		    evil-quickscope
-		    highlight-symbol
+                    ;; Search
+                    evil-quickscope
+                    highlight-symbol
 
-		    ;; Project navigation/management
-		    flx-ido
-		    swiper
-		    magit
-		    evil-magit
-		    neotree
-		    smex
+                    ;; Project navigation/management
+                    flx-ido
+                    swiper
+                    magit
+                    evil-magit
+                    neotree
+                    smex
 
-		    ;; Visuals
-		    badwolf-theme
-		    linum-relative
-		    powerline
+                    ;; Visuals
+                    badwolf-theme
+                    linum-relative
+                    powerline
 
-		    ;; Other
-		    flycheck
-		    markdown-mode
+                    ;; Other
+                    flycheck
+                    markdown-mode
 
-		    ))
+                    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Global Minor Modes
@@ -92,7 +92,7 @@
 ;; Buffer switching
 (setq ido-ignore-buffers
       '("^ " "*Completions*" "*Shell Command Output*"
-	"*Messages*" "Async Shell Command"))
+        "*Messages*" "Async Shell Command"))
 
 ;; Unicode
 (prefer-coding-system 'utf-8)
@@ -198,10 +198,63 @@
   ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
   (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Lambdawerk
+
+;; bubak / Dean Allred / Tim Helmstedt, 2010-2015, http://stackoverflow.com/a/4280824
+;; 20160906, mgr: added inhibit-read-only to use in cider-any-uruk
+(defun nxml-pretty-format ()
+    (interactive)
+    (let ((inhibit-read-only t))
+      (save-excursion
+        (shell-command-on-region (point-min) (point-max) "xmllint --format -" (buffer-name) t)
+        (nxml-mode)
+        (indent-region 0 (count-lines (point-min) (point-max))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Keybindings
+
+(defun key-binding-at-point (key)
+  (mapcar (lambda (keymap) (when (keymapp keymap)
+                             (lookup-key keymap key)))
+          (list
+           ;; More likely
+           (get-text-property (point) 'keymap)
+           (mapcar (lambda (overlay)
+                     (overlay-get overlay 'keymap))
+                   (overlays-at (point)))
+           ;; Less likely
+           (get-text-property (point) 'local-map)
+           (mapcar (lambda (overlay)
+                     (overlay-get overlay 'local-map))
+                   (overlays-at (point))))))
+
+(defun locate-key-binding (key)
+  "Determine in which keymap KEY is defined."
+  (interactive "kPress key: ")
+  (let ((ret
+         (list
+          (key-binding-at-point key)
+          (minor-mode-key-binding key)
+          (local-key-binding key)
+          (global-key-binding key))))
+    (when (called-interactively-p 'any)
+      (message "At Point: %s\nMinor-mode: %s\nLocal: %s\nGlobal: %s"
+               (or (nth 0 ret) "")
+               (or (mapconcat (lambda (x) (format "%s: %s" (car x) (cdr x)))
+                              (nth 1 ret) "\n             ")
+                   "")
+               (or (nth 2 ret) "")
+               (or (nth 3 ret) "")))
+    ret))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Require
 
 (require 'my-keybindings)
+
 (require 'my-powerline)
 (require 'my-clojure)
 (require 'my-elisp)
