@@ -398,8 +398,7 @@ _totMemKb x = read (words x !! 1) :: Int
 
 myRamL =
     dzenBoxStyleL blue2BoxPP (labelL "mem ") ++!
-    dzenBoxStyleL white2BBoxPP (ramUsage [freeBMemUsage]) ++!
-    dzenBoxStyleL white2BBoxPP (labelL " |")
+    dzenBoxStyleL white2BBoxPP (ramUsage [freeBMemUsage])
         where freeBMemUsage x =
                 let free       = fromIntegral $ _availMemKb x
                     tot        = fromIntegral $ _totMemKb x
@@ -409,15 +408,12 @@ myRamL =
 
 
 myMemL =
-    dzenBoxStyleL white2BBoxPP (labelL " ") ++!
     dzenBoxStyleL blue2BoxPP (labelL "disk ") ++!
-    dzenBoxStyleL white2BBoxPP memUsage ++!
-    dzenBoxStyleL white2BBoxPP (labelL "| ")
+    dzenBoxStyleL white2BBoxPP memUsage
 
 myCpuL =
     dzenBoxStyleL blue2BoxPP (labelL "cpu ") ++!
-    dzenBoxStyleL white2BBoxPP (cpuUsage "/tmp/haskell-cpu-usage.txt" 70 colorRed) ++!
-    dzenBoxStyleL white2BBoxPP (labelL " |")
+    dzenBoxStyleL white2BBoxPP (cpuUsage "/tmp/haskell-cpu-usage.txt" 70 colorRed)
 
 myWifiL =
     dzenBoxStyleL blue2BoxPP (labelL "wifi") ++!
@@ -429,8 +425,7 @@ myBrightL =
 
 mySoundL =
     dzenBoxStyleL blue2BoxPP (labelL "sound ") ++!
-    dzenBoxStyleL white2BBoxPP soundPerc ++!
-    dzenBoxStyleL white2BBoxPP (labelL " |")
+    dzenBoxStyleL white2BBoxPP soundPerc
 
 myPacSyncL =
     dzenBoxStyleL blue2BoxPP (labelL "sync ") ++!
@@ -439,14 +434,12 @@ myPacSyncL =
 -- TopRight Loggers
 myDateL =
     dzenBoxStyleL white2BBoxPP (date "%A") ++!
-    dzenBoxStyleL white2BBoxPP (labelL " ") ++!
     dzenBoxStyleL white2BBoxPP   (date $ "%Y^fg(" ++ colorGray ++ ").^fg()%m^fg(" ++ colorGray ++ ").^fg()^fg(" ++ colorBlue ++ ")%d^fg()") ++!
-    dzenBoxStyleL white2BBoxPP (labelL " ") ++!
-    dzenBoxStyleL white2BBoxPP   (date $ "%H^fg(" ++ colorGray ++ "):^fg()%M^fg(" ++ colorGray ++ "):^fg()^fg(" ++ colorGreen ++ ")%S^fg() ")
+    dzenBoxStyleL white2BBoxPP   (date $ "%H^fg(" ++ colorGray ++ "):^fg()%M^fg(" ++ colorGray ++ "):^fg()^fg(" ++ colorGreen ++ ")%S^fg()")
+
 myUptimeL =
-    dzenBoxStyleL blue2BoxPP   (labelL "upt ") ++!
-    dzenBoxStyleL white2BBoxPP uptime ++!
-    dzenBoxStyleL white2BBoxPP (labelL "|")
+    dzenBoxStyleL blue2BoxPP   (labelL "upt") ++!
+    dzenBoxStyleL white2BBoxPP uptime
 
 myFocusL = dzenBoxStyleL white2BBoxPP (shortenL 100 logTitle)
 
@@ -564,7 +557,7 @@ uptime :: Logger
 uptime = fileToLogger format "0" "/proc/uptime" where
     u x  = read (takeWhile (/='.') x)::Integer
     h x  = div (u x) 3600
-    format x = show (h x) ++ "h "
+    format x = show (h x) ++ "h"
 
 -- Gets the current resolution given a display and a screen
 getScreenRes :: String -> Int -> IO Res
