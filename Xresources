@@ -9,14 +9,14 @@ URxvt.secondaryScroll: 0
 URxvt.intensityStyles: false
 
 /* Hack */
-URxvt.font: xft:Hack:Regular:pixelsize=12,\
-            xft:Source Code Pro:pixelsize=12:style=medium:antialias=true\
-            xft:Ubuntu Mono:pixelsize=12:antialias=true:hinting=true,\
+URxvt.font: xft:Hack:Regular:pixelsize=16,\
+            xft:Source Code Pro:pixelsize=16:style=medium:antialias=true\
+            xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=true,\
             -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 
-URxvt.boldFont: xft:Hack:Bold:size=12
-URxvt.italicFont: xft:Hack:Italic:size=12
-URxvt.boldItalicFont: xft:Hack:BoldItalic:size=12
+URxvt.boldFont: xft:Hack:Bold:size=16
+URxvt.italicFont: xft:Hack:Italic:size=16
+URxvt.boldItalicFont: xft:Hack:BoldItalic:size=16
 
 URxvt*letterSpace: 1
 

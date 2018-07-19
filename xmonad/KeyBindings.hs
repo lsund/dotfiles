@@ -90,7 +90,7 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     -- Use next window layout
     , ((modMask                 , xK_space)     ,   sendMessage NextLayout)
     -- Scratchpad terminal
-    , ((modMask                 , xK_s)         ,   scratchpadSpawnActionTerminal myTerminal)
+    , ((modMask                 , xK_s)         ,   scratchpadSpawnActionTerminal $ if hostname == "keysersoze" then urxvtTerm else gnomeTerm)
     -- Take screenshot
     , ((0                       , xK_Print)     ,   printScreen)
     -- Toggle volume
