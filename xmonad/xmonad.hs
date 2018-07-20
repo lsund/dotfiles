@@ -72,7 +72,7 @@ main = do
     botLeftBar  <- dzenSpawnPipe $ dzenBotLeftFlags r
     botRightBar <- dzenSpawnPipe $ dzenBotRightFlags r
     xmonad $ def
-        { terminal           = myTerminal
+        { terminal           = if hostname == "keysersoze" then urxvtTerm else gnomeTerm
         , modMask            = mod4Mask
         , focusFollowsMouse  = True
         , clickJustFocuses   = True
