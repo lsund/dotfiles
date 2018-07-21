@@ -344,10 +344,7 @@ myBotLeftLogHook h hostname =
   { ppOutput = hPutStrLn h
   , ppOrder = \(_:_:_:x) -> x
   , ppSep = " "
-    , ppExtras =
-        if hostname == "pedro"
-            then [myMemL, myRamL, myCpuL, mySoundL, myPacSyncL]
-            else [myMemL, myRamL, myCpuL, myWifiL, myBrightL , mySoundL, myPacSyncL]
+    , ppExtras = [myMemL, myRamL, myCpuL, myPacSyncL]
   }
 
 -- Dzen bottom right bar flags
@@ -374,7 +371,9 @@ myBotRightLogHook h hostname =
     , ppOrder = \(_:_:_:x) -> x
     , ppSep = " "
     , ppExtras =
-        [myBatL hostname]
+    if hostname == "pedro"
+        then [mySoundL, myBatL hostname]
+        else [myWifiL, myBrightL , mySoundL, myBatL hostname]
     }
 
 
