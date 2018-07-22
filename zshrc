@@ -6,7 +6,7 @@
 
 
 export PATH=$HOME/.bin:/usr/local/bin:$PATH
-export PATH=$PATH:$HOME/Documents/scripts/manual
+export PATH=$PATH:$HOME/Documents/scripts
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
 
