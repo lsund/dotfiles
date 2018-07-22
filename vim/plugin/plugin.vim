@@ -142,6 +142,9 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 " markdown
 Plug 'plasticboy/vim-markdown'
 
+" XQuery
+Plug 'jeroenp/vim-xquery-syntax'
+
 " markdown folding
 " Plug 'nelstrom/vim-markdown-folding'
 

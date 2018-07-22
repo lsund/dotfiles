@@ -107,6 +107,10 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     , ((modMask                 , xK_F11)       ,   spawn "/usr/bin/xbacklight -dec 10")
     -- Raise backlight
     , ((modMask                 , xK_F12)       ,   spawn "/usr/bin/xbacklight -inc 10")
+
+    -- Change keyboard layout
+    , ((modMask                 , xK_F5)       ,   spawn "/usr/bin/setxkbmap us")
+    , ((modMask                 , xK_F6)       ,   spawn "/usr/bin/setxkbmap dvorak")
     ]
     ++
     [
