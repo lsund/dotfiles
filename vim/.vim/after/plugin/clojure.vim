@@ -1,0 +1,1 @@
+/home/lsund/Documents/dotfiles/vim/after/plugin/clojure.vim

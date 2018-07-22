@@ -15,10 +15,6 @@
       (delete-other-windows)
     (winner-undo)))
 
-;; Key bindings
-(defvar my-leader-map (make-sparse-keymap))
-(define-key evil-normal-state-map "\\" my-leader-map)
-
 (defun kill-other-buffers ()
   "Kill all other buffers."
   (interactive)
@@ -59,10 +55,6 @@
   (highlight-symbol-remove-all)
   (evil-ex-nohighlight))
 
-;; Resets
-(define-key my-leader-map "n" nil)
-(define-key my-leader-map "N" nil)
-
 (defun my-kill-word ()
   "Kill a word or a portion of whitespace. If the thing behind the cursor is a
    letter, kill the whole word. If it's a tab, kill the single tab. If its whitespace, delete 4 spaces or until the next letter."
@@ -71,27 +63,6 @@
 	 ((string= (string (preceding-char)) "\t") (delete-backward-char 1))
 	 ((string= (string (preceding-char)) " ") (delete-backward-until-letter 4))
 	 (t (backward-kill-word 1))))
-
-; Insert
-(define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
-(define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
-(define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-
-;; normal
-(define-key evil-normal-state-map (kbd "C-w h") 'windmove-left)
-(define-key evil-normal-state-map (kbd "C-w l") 'windmove-right)
-(define-key evil-normal-state-map (kbd "C-w k") 'windmove-up)
-(define-key evil-normal-state-map (kbd "C-w j") 'windmove-down)
-
-(define-key evil-normal-state-map (kbd "M-h") 'windmove-left)
-(define-key evil-normal-state-map (kbd "M-l") 'windmove-right)
-(define-key evil-normal-state-map (kbd "M-k") 'windmove-up)
-(define-key evil-normal-state-map (kbd "M-j") 'windmove-down)
-
-(define-key evil-insert-state-map (kbd "M-h") 'windmove-left)
-(define-key evil-insert-state-map (kbd "M-l") 'windmove-right)
-(define-key evil-insert-state-map (kbd "M-k") 'windmove-up)
-(define-key evil-insert-state-map (kbd "M-j") 'windmove-down)
 
 ;; A very hacky solution. I don't even know why it works
 (defun my-resize-window-left ()
@@ -134,16 +105,6 @@
     ('error
      (shrink-window 4))))
 
-(define-key evil-normal-state-map (kbd "C-s j") 'my-resize-window-down)
-(define-key evil-normal-state-map (kbd "C-s k") 'my-resize-window-up)
-(define-key evil-normal-state-map (kbd "C-s h") 'my-resize-window-left)
-(define-key evil-normal-state-map (kbd "C-s l") 'my-resize-window-right)
-
-(define-key evil-normal-state-map (kbd "C-s <return>") 'new-frame)
-
-(define-key evil-normal-state-map (kbd "C-j") 'push-line-down)
-(define-key evil-normal-state-map (kbd "C-k") 'push-line-up)
-
 (evil-define-motion myevil-next-line (count)
   :type exclusive
   (evil-line-move (or count 5))
@@ -173,6 +134,51 @@
 Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Key bindings
+
+(defvar my-leader-map (make-sparse-keymap))
+(define-key evil-normal-state-map "\\" my-leader-map)
+
+;; Resets
+(define-key my-leader-map "n" nil)
+(define-key my-leader-map "N" nil)
+
+;; Misc
+(define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
+(define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
+(define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+(define-key evil-normal-state-map (kbd "C-j") 'push-line-down)
+(define-key evil-normal-state-map (kbd "C-k") 'push-line-up)
+(define-key evil-normal-state-map (kbd "Y")
+  (lambda ()
+    (interactive)
+    (execute-kbd-macro (read-kbd-macro "y $"))))
+
+;; Window  resizing
+(define-key evil-normal-state-map (kbd "C-s j") 'my-resize-window-down)
+(define-key evil-normal-state-map (kbd "C-s k") 'my-resize-window-up)
+(define-key evil-normal-state-map (kbd "C-s h") 'my-resize-window-left)
+(define-key evil-normal-state-map (kbd "C-s l") 'my-resize-window-right)
+
+(define-key evil-normal-state-map (kbd "C-s <return>") 'new-frame)
+
+;; Movement between windows
+(define-key evil-normal-state-map (kbd "C-w h") 'windmove-left)
+(define-key evil-normal-state-map (kbd "C-w l") 'windmove-right)
+(define-key evil-normal-state-map (kbd "C-w k") 'windmove-up)
+(define-key evil-normal-state-map (kbd "C-w j") 'windmove-down)
+
+(define-key evil-normal-state-map (kbd "M-h") 'windmove-left)
+(define-key evil-normal-state-map (kbd "M-l") 'windmove-right)
+(define-key evil-normal-state-map (kbd "M-k") 'windmove-up)
+(define-key evil-normal-state-map (kbd "M-j") 'windmove-down)
+
+(define-key evil-insert-state-map (kbd "M-h") 'windmove-left)
+(define-key evil-insert-state-map (kbd "M-l") 'windmove-right)
+(define-key evil-insert-state-map (kbd "M-k") 'windmove-up)
+(define-key evil-insert-state-map (kbd "M-j") 'windmove-down)
 
 ;; Navigation
 (define-key evil-visual-state-map (kbd "J")		'myevil-next-visual-line)
