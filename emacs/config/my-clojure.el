@@ -88,6 +88,7 @@
 
 ;; Use smartparens in the cider repl
 (add-hook 'cider-repl-mode-hook 'smartparens-mode)
+(add-hook 'cider-repl-mode-hook 'evil-cleverparens-mode)
 
 ;; Dont pop up cider repl on connect
 (setq cider-repl-pop-to-buffer-on-connect nil)

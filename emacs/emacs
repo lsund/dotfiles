@@ -16,7 +16,7 @@
  '(indent-tabs-mode nil)
  '(package-selected-packages
    (quote
-    (org-bullets haskell-mode shakespeare-mode paxedit clj-refactor markdown-mode flycheck smex neotree evil-magit swiper flx-ido evil-surround cider evil-cleverparens lispy company evil-mc auto-complete evil-commentary evil-nerd-commenter multiple-cursors highlight-symbol badwolf-theme centered-cursor-mode helm-config drag-stuff evil-quickscope rainbow-delimiters swiper-helm helm-ag helg-ag magit projectile paredit evil-smartparens smartparens tabbar clojure-mode powerline linum-relative helm))))
+    (blackboard-theme zenburn-theme counsel org-bullets haskell-mode shakespeare-mode paxedit clj-refactor markdown-mode flycheck smex neotree evil-magit swiper flx-ido evil-surround cider evil-cleverparens lispy company evil-mc auto-complete evil-commentary evil-nerd-commenter multiple-cursors highlight-symbol badwolf-theme centered-cursor-mode helm-config drag-stuff evil-quickscope rainbow-delimiters swiper-helm helm-ag helg-ag magit projectile paredit evil-smartparens smartparens tabbar clojure-mode powerline linum-relative helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

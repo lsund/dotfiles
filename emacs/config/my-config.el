@@ -23,13 +23,16 @@
                     ;; Project navigation/management
                     flx-ido
                     swiper
+                    ivy
                     magit
                     evil-magit
                     neotree
                     smex
 
                     ;; Visuals
-                    badwolf-theme
+                    ;; badwolf-theme
+                    ;; zenburn-theme
+                    blackboard-theme
                     linum-relative
                     powerline
 
