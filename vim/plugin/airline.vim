@@ -3,6 +3,7 @@ let g:airline#extensions#tabline#fnamenod        = ':t'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline_powerline_fonts                    = 1
 set laststatus=2
+let g:airline_theme='solarized'
 
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2

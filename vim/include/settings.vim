@@ -1,4 +1,3 @@
-
 "  -----------------------------------------------------------------------------
 "  General
 
@@ -41,11 +40,18 @@ set wrap
 
 syntax enable
 set t_Co=256
+let g:solarized_termcolors=16
 set background=dark
+" set termguicolors           " enable true colors support
 " colorscheme monokain
-colorscheme badwolf
-" colorscheme solarized
+" colorscheme badwolf
+colorscheme solarized
 " colorscheme railscasts
+" colorscheme blackboard
+" let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="dark"   " for dark version of theme
+" colorscheme ayu
 set number
 set list
 set relativenumber
@@ -60,11 +66,13 @@ set listchars=tab:▸\ ,eol:¬
 set ttyfast
 set colorcolumn=80
 " Red highlight for lines longer than 80 chars
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
+
 " Red highlight for unwaned whitespace
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+" highlight ExtraWhitespace ctermbg=red guibg=red
+" match ExtraWhitespace /\s\+$/
+
 " Only when in normal mode
 autocmd! InsertEnter * call clearmatches()
 autocmd! InsertLeave * match ExtraWhitespace /\s\+$/
@@ -82,4 +90,3 @@ set completeopt+=longest
 " Folding =====================================================================
 
 set foldenable
-

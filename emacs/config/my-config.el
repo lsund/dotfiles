@@ -30,9 +30,9 @@
                     smex
 
                     ;; Visuals
-                    ;; badwolf-theme
-                    ;; zenburn-theme
+                    badwolf-theme
                     blackboard-theme
+                    color-theme-solarized
                     linum-relative
                     powerline
 
@@ -44,6 +44,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Global Minor Modes
+
+;; (load-theme 'blackboard t)
+;; (load-theme 'badwolf t)
+(load-theme 'solarized t)
 
 ;; Smex
 (smex-initialize)
@@ -66,6 +70,9 @@
 
 ;; Scroll bars
 (scroll-bar-mode -1)
+
+;; No menu bar
+(menu-bar-mode 0)
 
 ;; Evil Surround (emulating vim-surround)
 (global-evil-surround-mode 1)

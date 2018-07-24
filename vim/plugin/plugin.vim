@@ -11,6 +11,9 @@ call plug#begin('~/.vim/plugged')
 "
 "  Colors
 Plug 'flazz/vim-colorschemes'
+
+Plug 'ayu-theme/ayu-vim'
+Plug 'altercation/vim-colors-solarized'
 "
 " Syntax highlightning for shakespeare templates
 Plug 'pbrisbin/vim-syntax-shakespeare'
@@ -18,6 +21,7 @@ Plug 'pbrisbin/vim-syntax-shakespeare'
 " Good looking status/tabline
 "
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 "
 " Omnicomplete for a bunch of languages
 Plug 'Valloric/YouCompleteMe'
