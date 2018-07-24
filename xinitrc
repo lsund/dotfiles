@@ -52,11 +52,18 @@ xsetroot -solid grey
 
 #Screen lock
 # xautolock -locker slimlock -time 20 &
+#'disable' key repeat
+# xset r rate 5000
+
+# Unset beep
+xset b off
 
 source ~/.bash_profile
 
 ### XMONAD
 exec xmonad
+
+redshift
 
 ### AWESOME
 #exec awesome
