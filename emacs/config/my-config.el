@@ -46,8 +46,8 @@
 ;; Global Minor Modes
 
 ;; (load-theme 'blackboard t)
-;; (load-theme 'badwolf t)
-(load-theme 'solarized t)
+(load-theme 'badwolf t)
+;; (load-theme 'solarized t)
 
 ;; Smex
 (smex-initialize)
