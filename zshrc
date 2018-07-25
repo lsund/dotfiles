@@ -5,7 +5,7 @@
 # Extend path
 
 
-export PATH=$HOME/.bin:/usr/local/bin:$PATH
+export PATH=$PATH:$HOME/.bin:/usr/local/bin
 export PATH=$PATH:$HOME/Documents/scripts
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
