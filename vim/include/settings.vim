@@ -44,8 +44,8 @@ let g:solarized_termcolors=16
 set background=dark
 " set termguicolors           " enable true colors support
 " colorscheme monokain
-" colorscheme badwolf
-colorscheme solarized
+colorscheme badwolf
+" colorscheme solarized
 " colorscheme railscasts
 " colorscheme blackboard
 " let ayucolor="light"  " for light version of theme
