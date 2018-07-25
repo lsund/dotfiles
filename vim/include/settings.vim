@@ -66,12 +66,12 @@ set listchars=tab:▸\ ,eol:¬
 set ttyfast
 set colorcolumn=80
 " Red highlight for lines longer than 80 chars
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%81v.\+/
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
 
 " Red highlight for unwaned whitespace
-" highlight ExtraWhitespace ctermbg=red guibg=red
-" match ExtraWhitespace /\s\+$/
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
 
 " Only when in normal mode
 autocmd! InsertEnter * call clearmatches()
