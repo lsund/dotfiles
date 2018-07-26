@@ -6,15 +6,84 @@
 
 ;;; Code:
 
-(add-hook 'nxml-mode-hook
+(provide 'my-xml)
 
+(defun my-xml-indent ()
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
+
+(defun insert-tag (name)
+  "Insert the tag <NAME></NAME> and move the cursor to the middle of the tag."
+  (interactive "sEnter tag name: ")
+  (insert (format "<%s></%s>" name name))
+  ;; 60 is the '<' character
+  (evil-find-char-backward 1 60)
+  (my-xml-indent))
+
+(defun insert-tag-newline (name)
+  "TODO"
+  (interactive "sEnter tag name: ")
+  (insert-tag name)
+  (open-line 1)
+  (my-xml-indent)
+  (newline)
+  (tab-to-tab-stop))
+
+(defun sgml-delete-tagged-text ()
+  "delete text between the tags that contain the current point"
+  (interactive)
+  (let ((b (point)))
+    (sgml-skip-tag-backward 1)
+    (when (not (eq b (point)))
+      ;; moved somewhere, should be at front of a tag now
+      (save-excursion
+        (forward-sexp 1)
+        (setq b (point)))
+      (sgml-skip-tag-forward 1)
+      (backward-sexp 1)
+      (delete-region b (point)))))
+
+(add-hook 'nxml-mode-hook
           (lambda ()
             (interactive)
+
+	    ;; Leader map extension
+	    (defvar xml-leader-map
+	      (let ((map (make-sparse-keymap)))
+	        (set-keymap-parent map my-leader-map)
+	        map))
+
+            (evil-define-key 'normal nxml-mode-map "\\" xml-leader-map)
+
             (define-key evil-insert-state-map (kbd "TAB") 'completion-at-point)
 
-            (set-fill-column 80)
+            (define-key evil-visual-state-map (kbd "C-c i")
+              (lambda ()
+                (interactive)
+                (wrap-region-with-tag)
+                (evil-force-normal-state)))
 
-            ))
+            (define-key evil-normal-state-map (kbd "C-c i") 'insert-tag)
+            (define-key evil-insert-state-map (kbd "C-c i") 'insert-tag)
+            (define-key evil-normal-state-map (kbd "C-c I") 'insert-tag-newline)
+            (define-key evil-insert-state-map (kbd "C-c I") 'insert-tag-newline)
+            (define-key xml-leader-map (kbd "bd") 'my-xml-indent)
+            (define-key evil-normal-state-map (kbd "M-r") 'sgml-delete-tag)
+            (define-key evil-normal-state-map (kbd "M-d") 'sgml-delete-tagged-text)
+            (define-key evil-normal-state-map (kbd "M-c")
+              (lambda ()
+                (interactive)
+                (sgml-delete-tagged-text)
+                (evil-insert-state)))
+
+            (set-fill-column 80)
+            (auto-fill-mode 1)
+            (wrap-region-mode t)
+
+          )
+    )
 
 
 

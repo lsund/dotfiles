@@ -56,7 +56,9 @@
 (eval-after-load "cider-mode"
   '(progn
     (evil-define-key 'normal clojure-mode-map
-      (kbd "C-c C-l") 'cider-jack-in)
+      (kbd "C-c j") 'cider-jack-in)
+    (evil-define-key 'normal clojure-mode-map
+      (kbd "C-c l") 'sesman-link-with-buffer)
     (evil-define-key 'normal clojure-mode-map
       (kbd "C-c r") 'cider-restart)
     (evil-define-key 'normal clojure-mode-map
