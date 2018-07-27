@@ -2,8 +2,10 @@
 module KeyBindings where
 
 import XMonad
+import XMonad.Actions.OnScreen
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Minimize
+import XMonad.Layout.IndependentScreens
 import XMonad.Hooks.ManageHelpers
 import XMonad.Prompt
 import XMonad.Prompt.Shell
@@ -73,16 +75,16 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     , ((modMask .|. shiftMask   , xK_j)         ,   windows W.swapDown)
     -- Swap windows next
     , ((modMask .|. shiftMask   , xK_k)         ,   windows W.swapUp)
-    -- Swap to next screen
-    , ((modMask .|. controlMask, xK_h)       ,   DO.moveTo Prev NonEmptyWS)
-    -- Swap to next screen
-   , ((modMask .|. controlMask, xK_l)       ,   DO.moveTo Next NonEmptyWS)
+    -- Swap windows down
+    , ((modMask .|. shiftMask   , xK_l)         ,   windows W.swapDown)
+    -- Swap windows next
+    , ((modMask .|. shiftMask   , xK_h)         ,   windows W.swapUp)
     -- Shrink master window horizontally
     , ((modMask                 , xK_h)         ,   sendMessage Shrink)
     -- Expand master area horizontally
     , ((modMask                 , xK_l)         ,   sendMessage Expand)
     -- Expand master area vertically
-    , ((modMask .|. shiftMask   , xK_l)         ,   sendMessage MirrorExpand)
+    -- , ((modMask .|. shiftMask   , xK_l)         ,   sendMessage MirrorExpand)
     -- Tiled mode
     , ((modMask                 , xK_f)         ,   withFocused $ windows . W.sink)
     -- Full screen
@@ -117,16 +119,23 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     -- Change keyboard layout
     , ((modMask                 , xK_F5)       ,   spawn "/usr/bin/setxkbmap us")
     , ((modMask                 , xK_F6)       ,   spawn "/usr/bin/setxkbmap dvorak")
+
+    , ((modMask .|. controlMask , xK_h)       , windows $ viewOnScreen 0 "x")
+    , ((modMask .|. controlMask , xK_l)       , windows $ viewOnScreen 1 "x")
+
     ]
     ++
     [
-        ((m .|. modMask, k), windows $ f i) |
-         (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
+        -- ((m .|. modMask, k), windows $ f i) |
+        --  (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
+        -- , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
+        ((m .|. modMask, k), windows $ onCurrentScreen f i) |
+         (i, k) <- zip (workspaces' conf) ([xK_1 .. xK_9] ++ [xK_0])
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
     ]
     ++
     [ ((m .|. modMask .|. controlMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_j, xK_k, xK_F2] [0..]
+      | (key, sc) <- zip [xK_h, xK_l, xK_F2] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
     ] where
         fullFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery doFullFloat f

@@ -28,6 +28,7 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Layout.WindowSwitcherDecoration
 import XMonad.Layout.DraggingVisualizer
 import XMonad.Layout.LayoutBuilder
+import XMonad.Layout.IndependentScreens
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.DynamicHooks
 import XMonad.Hooks.ManageDocks
@@ -123,7 +124,11 @@ every n xs = case drop (n - 1) xs of
               [] -> []
 
 
-myWorkspaces hostname = map show [1..9]
+-- myWorkspaces hostname = map show [1..9]
+
+myWorkspaces hostname =
+    let ws = withScreens 2 ["1", "2", "3", "4"]
+    in [head ws] ++ (every 2 $ tail ws) ++ (every 2 ws)
 
 
 -- Layout names
