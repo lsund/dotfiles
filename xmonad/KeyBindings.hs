@@ -14,6 +14,8 @@ import Control.Concurrent
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import XMonad.Util.Scratchpad
+import XMonad.Actions.CycleWS
+import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 
 import Config
 
@@ -71,6 +73,10 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     , ((modMask .|. shiftMask   , xK_j)         ,   windows W.swapDown)
     -- Swap windows next
     , ((modMask .|. shiftMask   , xK_k)         ,   windows W.swapUp)
+    -- Swap to next screen
+    , ((modMask .|. controlMask, xK_h)       ,   DO.moveTo Prev NonEmptyWS)
+    -- Swap to next screen
+   , ((modMask .|. controlMask, xK_l)       ,   DO.moveTo Next NonEmptyWS)
     -- Shrink master window horizontally
     , ((modMask                 , xK_h)         ,   sendMessage Shrink)
     -- Expand master area horizontally
