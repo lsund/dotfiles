@@ -377,7 +377,7 @@ myBotRightLogHook h hostname =
     , ppSep = " "
     , ppExtras =
     if hostname == "pedro"
-        then [mySoundL, myBatL hostname]
+        then [mySoundL]
         else [myWifiL, myBrightL , mySoundL, myBatL hostname]
     }
 
@@ -401,7 +401,7 @@ _totMemKb :: String -> Int
 _totMemKb x = read (words x !! 1) :: Int
 
 myRamL =
-    dzenBoxStyleL blue2BoxPP (labelL "mem ") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "mem") ++!
     dzenBoxStyleL white2BBoxPP (ramUsage [freeBMemUsage])
         where freeBMemUsage x =
                 let free       = fromIntegral $ _availMemKb x
@@ -412,11 +412,11 @@ myRamL =
 
 
 myMemL =
-    dzenBoxStyleL blue2BoxPP (labelL "disk ") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "disk") ++!
     dzenBoxStyleL white2BBoxPP memUsage
 
 myCpuL =
-    dzenBoxStyleL blue2BoxPP (labelL "cpu ") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "cpu") ++!
     dzenBoxStyleL white2BBoxPP (cpuUsage "/tmp/haskell-cpu-usage.txt" 70 colorRed)
 
 myWifiL =
@@ -424,11 +424,11 @@ myWifiL =
     dzenBoxStyleL white2BBoxPP wifiStr
 
 myBrightL =
-    dzenBoxStyleL blue2BoxPP (labelL "bright ") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "bright") ++!
     dzenBoxStyleL white2BBoxPP (brightPerc 937)
 
 mySoundL =
-    dzenBoxStyleL blue2BoxPP (labelL "sound ") ++!
+    dzenBoxStyleL blue2BoxPP (labelL "sound") ++!
     dzenBoxStyleL white2BBoxPP soundPerc
 
 myPacSyncL =
