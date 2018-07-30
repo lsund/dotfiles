@@ -47,9 +47,9 @@ ssh-add -l > /dev/null
 if [[ $? == "1" ]]; then
     echo "Adding id_rsa.pub..."
     ssh-add
-    if [[ -e ~/.ssh/id_rsa_gmail.pub ]]; then
-        echo "Adding id_rsa_gmail.pub..."
-        ssh-add ~/.ssh/id_rsa_gmail.pub
+    if [[ -e ~/.ssh/id_rsa_gmail ]]; then
+        echo "Adding id_rsa_gmail..."
+        ssh-add ~/.ssh/id_rsa_gmail
     fi
     echo "Done."
 fi
