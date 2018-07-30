@@ -19,6 +19,9 @@ export MYBLOG=$HOME/Documents/tech/repos/myblog
 export DOTFILES=$HOME/Documents/dotfiles
 export SCRIPTS=$HOME/Documents/scripts
 
+export LW=$HOME/Documents/tech/repos/lambdawerk
+export WIKI=$HOME/Documents/wiki
+
 export JAVA_HOME=/usr/lib/jvm/default
 
 export ZSH=$HOME/.oh-my-zsh
