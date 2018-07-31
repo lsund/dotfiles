@@ -20,10 +20,11 @@
                     ;; Search
                     evil-quickscope
                     highlight-symbol
+                    swiper
+                    counsel
 
                     ;; Project navigation/management
                     flx-ido
-                    swiper
                     ivy
                     magit
                     evil-magit

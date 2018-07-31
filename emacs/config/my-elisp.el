@@ -24,6 +24,7 @@
 	    (interactive)
 
 	    (rainbow-delimiters-mode)
+            (evil-cleverparens-mode)
 
             ;; Smartparens
 	    (require 'smartparens-config)

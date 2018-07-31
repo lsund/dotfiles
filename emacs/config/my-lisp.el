@@ -5,7 +5,9 @@
 
 ;;; Code:
 
-(require-packages '( ))
+(require-packages '(rainbow-delimiters
+                    smartparens
+                    evil-cleverparens))
 
 (defun insert-lisp-comment-separator ()
   "Insert a comment separator."

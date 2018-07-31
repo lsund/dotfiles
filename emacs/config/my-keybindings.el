@@ -203,6 +203,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; Search
 (define-key my-leader-map "nh" 'remove-highlight)
+(define-key evil-normal-state-map (kbd "/") 'swiper)
 
 ;; Company
 (define-key company-active-map (kbd "C-n") 'company-select-next)

@@ -13,15 +13,8 @@
 
 (require-packages '(
 		    clojure-mode
-                    clj-refactor
+                    ; clj-refactor
                     cider
-		    paredit
-		    paxedit
-		    rainbow-delimiters
-		    smartparens
-		    evil-cleverparens
-
-                    lispy
 		    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -48,6 +41,15 @@
 	(define-clojure-indent
 		(defui '(1 nil nil (1)))
 		(with 'defun)))
+
+
+(defun wrap-macroexpand ()
+  (interactive)
+  (evil-cp-beginning-of-defun)
+  (evil-cp-wrap-next-round 1)
+  (insert "macroexpand-1 '")
+  (evil-cp-end-of-defun)
+  (evil-insert nil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Cider Mode
@@ -157,7 +159,7 @@
 
             (local-unset-key (kbd "M-l"))
 
-            (setq evil-cleverparens-use-regular-insert)
+            ;; (setq evil-cleverparens-use-regular-insert)
 
             ;; Lambdawerk
 
