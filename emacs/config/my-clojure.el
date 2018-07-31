@@ -12,6 +12,8 @@
 (require 'my-lisp)
 
 (require-packages '(
+                    paredit
+                    paxedit
 		    clojure-mode
                     ; clj-refactor
                     cider
