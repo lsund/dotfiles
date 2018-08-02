@@ -139,7 +139,7 @@
 	    ;; Other extensions
 
             ;; Auto fill
-	    (set-fill-column 80)
+	    (set-fill-column 100)
 	    (auto-fill-mode)
 
 	    ;; Rainbow delimiters
