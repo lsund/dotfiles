@@ -8,32 +8,6 @@
 
 ;;; Code:
 
-(defun my-zoom-window ()
-  "Zoom in or out."
-  (interactive)
-  (if (= (count-windows) 2)
-      (delete-other-windows)
-    (winner-undo)))
-
-(defun kill-other-buffers ()
-  "Kill all other buffers."
-  (interactive)
-  (mapc 'kill-buffer
-        (delq (current-buffer)
-              (remove-if-not 'buffer-file-name (buffer-list)))))
-
-(defun scroll-half-page-down ()
-  "Scroll down half the page."
-  :keep-visual t
-  (interactive)
-  (scroll-down (/ (window-body-height) 2)))
-
-(defun scroll-half-page-up ()
-  "Scroll up half the page."
-  :keep-visual t
-  (interactive)
-  (scroll-up (/ (window-body-height) 2)))
-
 (defun push-line-down()
   "Inserts a new line and moves one line down"
   (interactive)
@@ -64,46 +38,12 @@
 	 ((string= (string (preceding-char)) " ") (delete-backward-until-letter 4))
 	 (t (backward-kill-word 1))))
 
-;; A very hacky solution. I don't even know why it works
-(defun my-resize-window-left ()
+(defun iwb ()
+  "indent whole buffer"
   (interactive)
-  (condition-case ex
-      (if (message "%s" (windmove-left))
-	  (progn
-	    (shrink-window 8 t)
-	    (windmove-right)))
-    ('error
-     (shrink-window 4 t))))
-
-(defun my-resize-window-right ()
-  (interactive)
-  (condition-case ex
-      (if (message "%s" (windmove-right))
-	  (progn
-	    (shrink-window 4 t)
-	    (windmove-left)))
-    ('error
-     (shrink-window 4 t))))
-
-(defun my-resize-window-up ()
-  (interactive)
-  (condition-case ex
-      (if (message "%s" (windmove-up))
-	  (progn
-	    (shrink-window 4)
-	    (windmove-down)))
-    ('error
-     (shrink-window 4))))
-
-(defun my-resize-window-down ()
-  (interactive)
-  (condition-case ex
-      (if (message "%s" (windmove-down))
-	  (progn
-	    (shrink-window 4)
-	    (windmove-up)))
-    ('error
-     (shrink-window 4))))
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
 
 (evil-define-motion myevil-next-line (count)
   :type exclusive
@@ -129,18 +69,17 @@
     (evil-line-move (or count -5))
     (recenter)))
 
-(defun switch-to-previous-buffer ()
-  "Switch to previously open buffer.
-Repeated invocations toggle between the two most recently open buffers."
+(defun scroll-half-page-down ()
+  "Scroll down half the page."
+  :keep-visual t
   (interactive)
-  (switch-to-buffer (other-buffer (current-buffer) 1)))
+  (scroll-down (/ (window-body-height) 2)))
 
-(defun iwb ()
-  "indent whole buffer"
+(defun scroll-half-page-up ()
+  "Scroll up half the page."
+  :keep-visual t
   (interactive)
-  (delete-trailing-whitespace)
-  (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max)))
+  (scroll-up (/ (window-body-height) 2)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Key bindings
@@ -152,6 +91,16 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map "n" nil)
 (define-key my-leader-map "N" nil)
 
+;; Navigation
+(define-key evil-visual-state-map (kbd "J") 'myevil-next-visual-line)
+(define-key evil-visual-state-map (kbd "K") 'myevil-prev-visual-line)
+(define-key evil-normal-state-map (kbd "J") 'myevil-next-line)
+(define-key evil-normal-state-map (kbd "K") 'myevil-prev-line)
+(define-key evil-normal-state-map (kbd "C-f") 'scroll-up)
+(define-key evil-normal-state-map (kbd "C-b") 'scroll-down)
+(define-key evil-normal-state-map (kbd "C-u") 'scroll-half-page-down)
+(define-key evil-normal-state-map (kbd "C-d") 'scroll-half-page-up)
+
 ;; Misc
 (define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
@@ -162,51 +111,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (lambda ()
     (interactive)
     (execute-kbd-macro (read-kbd-macro "y $"))))
-
-;; Window  resizing
-(define-key evil-normal-state-map (kbd "C-s j") 'my-resize-window-down)
-(define-key evil-normal-state-map (kbd "C-s k") 'my-resize-window-up)
-(define-key evil-normal-state-map (kbd "C-s h") 'my-resize-window-left)
-(define-key evil-normal-state-map (kbd "C-s l") 'my-resize-window-right)
-
-(define-key evil-normal-state-map (kbd "C-s <return>") 'new-frame)
-
-;; Movement between windows
-(define-key evil-normal-state-map (kbd "C-w h") 'windmove-left)
-(define-key evil-normal-state-map (kbd "C-w l") 'windmove-right)
-(define-key evil-normal-state-map (kbd "C-w k") 'windmove-up)
-(define-key evil-normal-state-map (kbd "C-w j") 'windmove-down)
-
-(define-key evil-normal-state-map (kbd "M-h") 'windmove-left)
-(define-key evil-normal-state-map (kbd "M-l") 'windmove-right)
-(define-key evil-normal-state-map (kbd "M-k") 'windmove-up)
-(define-key evil-normal-state-map (kbd "M-j") 'windmove-down)
-
-(define-key evil-insert-state-map (kbd "M-h") 'windmove-left)
-(define-key evil-insert-state-map (kbd "M-l") 'windmove-right)
-(define-key evil-insert-state-map (kbd "M-k") 'windmove-up)
-(define-key evil-insert-state-map (kbd "M-j") 'windmove-down)
-
-;; Navigation
-(define-key evil-visual-state-map (kbd "J")		'myevil-next-visual-line)
-(define-key evil-visual-state-map (kbd "K")		'myevil-prev-visual-line)
-(define-key evil-normal-state-map (kbd "J")		'myevil-next-line)
-(define-key evil-normal-state-map (kbd "K")		'myevil-prev-line)
-(define-key evil-normal-state-map (kbd "C-f")	'scroll-up)
-(define-key evil-normal-state-map (kbd "C-b")	'scroll-down)
-(define-key evil-normal-state-map (kbd "C-u")	'scroll-half-page-down)
-(define-key evil-normal-state-map (kbd "C-d")	'scroll-half-page-up)
-
-;; Buffer and Window management
-(define-key my-leader-map ","  'save-buffer)
-(define-key my-leader-map "<"  (lambda () (interactive) (save-some-buffers t)))
-(define-key my-leader-map "'"  'kill-this-buffer)
-(define-key my-leader-map "y"  'switch-to-buffer)
-(define-key my-leader-map "Y"  'switch-to-previous-buffer)
-(define-key my-leader-map "-" 'split-window-below)
-(define-key my-leader-map "|" 'split-window-right)
-(define-key evil-normal-state-map (kbd "C-s w") 'delete-window)
-(define-key evil-normal-state-map (kbd "C-s z") 'my-zoom-window)
 
 ;; Indentation
 
@@ -238,7 +142,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key evil-normal-state-map (kbd "C-S-j") 'drag-stuff-down)
 (define-key evil-normal-state-map (kbd "C-S-l") 'drag-stuff-right)
 (define-key evil-normal-state-map (kbd "C-S-h") 'drag-stuff-left)
-
 (define-key evil-visual-state-map (kbd "C-S-j") 'drag-stuff-down)
 (define-key evil-visual-state-map (kbd "C-S-k") 'drag-stuff-up)
 (define-key evil-visual-state-map (kbd "C-S-l") 'drag-stuff-right)
@@ -250,32 +153,9 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map "j" 'highlight-symbol-next)
 (define-key my-leader-map "k" 'highlight-symbol-prev)
 
-;; Neotree
-
-(define-key my-leader-map "nn" 'neotree-toggle)
-(define-key my-leader-map "NN" 'neotree-find)
-(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
-(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
-(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
-(evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-refresh)
-(evil-define-key 'normal neotree-mode-map (kbd "d") 'mkdir)
-(evil-define-key 'normal neotree-mode-map (kbd "f") 'neotree-create-node)
-
-
 ;; Magit magit
 
 (define-key evil-normal-state-map (kbd "gs") 'magit-status)
-
-;; Archive buffer
-
-(defun archive-buffer ()
-  (interactive)
-  (kill-buffer)
-  (if (get-buffer "*Buffer List*")
-      (save-excursion
-        (set-buffer "*Buffer List*")
-        (revert-buffer))))
 
 ;; Align
 

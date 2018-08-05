@@ -1,0 +1,11 @@
+(define-key my-leader-map "nn" 'neotree-toggle)
+(define-key my-leader-map "NN" 'neotree-find)
+(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-refresh)
+(evil-define-key 'normal neotree-mode-map (kbd "d") 'mkdir)
+(evil-define-key 'normal neotree-mode-map (kbd "f") 'neotree-create-node)
+
+(provide 'my-neotree)

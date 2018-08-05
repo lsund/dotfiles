@@ -280,6 +280,8 @@
 
 (require 'my-projectile)
 (require 'my-ivy)
+(require 'my-neotree)
+(require 'my-bufferman)
 
 (provide 'my-config)
 
