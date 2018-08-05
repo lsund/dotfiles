@@ -53,8 +53,10 @@
   (evil-cp-end-of-defun)
   (evil-insert nil))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Cider Mode
+
 
 ;; Keybindings
 (eval-after-load "cider-mode"
@@ -88,9 +90,7 @@
     (evil-define-key 'insert cider-repl-mode-map
       (kbd "M-f") 'forward-word)
     (evil-define-key 'insert cider-repl-mode-map
-      (kbd "M-b") 'backward-word)
-    )
-  )
+      (kbd "M-b") 'backward-word)))
 
 ;; Use smartparens in the cider repl
 (add-hook 'cider-repl-mode-hook 'smartparens-mode)
@@ -125,7 +125,6 @@
 	    (define-key clojure-leader-map "ii" 'insert-lisp-comment-separator)
 	    (define-key clojure-leader-map (kbd "bb") 'my-break-sexp)
 	    (define-key clojure-leader-map (kbd "bk") 'my-join-sexp)
-	    (define-key clojure-leader-map (kbd "bd") 'my-clojure-indent-defn)
 	    (define-key clojure-leader-map (kbd "a")
 	      (lambda ()
 		(interactive)
@@ -167,6 +166,22 @@
 
             (lambdawerk-indent)
             (add-hook 'before-save-hook 'lambdawerk-cleanup-buffer t t)
+
+
+            ;; Refresh
+
+            (define-key my-leader-map "R"
+              (lambda ()
+                (interactive)
+                (cider-interactive-eval
+                 "(user/system-restart!)")))
+
+            (define-key my-leader-map "v"
+              (lambda ()
+                (interactive)
+                (cider-interactive-eval
+                 "(do (require 'clojure.tools.namespace.repl) (clojure.tools.namespace.repl/refresh-all))")))
+
 
             )
           )

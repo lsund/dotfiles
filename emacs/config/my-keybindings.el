@@ -135,6 +135,13 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
+(defun iwb ()
+  "indent whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Key bindings
 
@@ -201,6 +208,10 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key evil-normal-state-map (kbd "C-s w") 'delete-window)
 (define-key evil-normal-state-map (kbd "C-s z") 'my-zoom-window)
 
+;; Indentation
+
+(define-key my-leader-map "bd" 'iwb)
+
 ;; Search
 (define-key my-leader-map "nh" 'remove-highlight)
 (define-key evil-normal-state-map (kbd "/") 'swiper)
@@ -238,20 +249,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map "h" 'highlight-symbol)
 (define-key my-leader-map "j" 'highlight-symbol-next)
 (define-key my-leader-map "k" 'highlight-symbol-prev)
-
-;; Refresh
-
-(define-key my-leader-map "R"
-  (lambda ()
-    (interactive)
-    (cider-interactive-eval
-     "(user/system-restart!)")))
-
-(define-key my-leader-map "v"
-  (lambda ()
-    (interactive)
-    (cider-interactive-eval
-     "(do (require 'clojure.tools.namespace.repl) (clojure.tools.namespace.repl/refresh-all))")))
 
 ;; Neotree
 
