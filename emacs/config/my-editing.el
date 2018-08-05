@@ -1,13 +1,3 @@
-;;; package --- Summary
-
-(require 'my-clojure)
-(require 'my-elisp)
-
-;;; Commentary:
-;;; This File contains all custom keybindings
-
-;;; Code:
-
 (defun push-line-down()
   "Inserts a new line and moves one line down"
   (interactive)
@@ -81,16 +71,6 @@
   (interactive)
   (scroll-up (/ (window-body-height) 2)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Key bindings
-
-(defvar my-leader-map (make-sparse-keymap))
-(define-key evil-normal-state-map "\\" my-leader-map)
-
-;; Resets
-(define-key my-leader-map "n" nil)
-(define-key my-leader-map "N" nil)
-
 ;; Navigation
 (define-key evil-visual-state-map (kbd "J") 'myevil-next-visual-line)
 (define-key evil-visual-state-map (kbd "K") 'myevil-prev-visual-line)
@@ -101,7 +81,7 @@
 (define-key evil-normal-state-map (kbd "C-u") 'scroll-half-page-down)
 (define-key evil-normal-state-map (kbd "C-d") 'scroll-half-page-up)
 
-;; Misc
+;; Editing
 (define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
 (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
@@ -120,22 +100,11 @@
 (define-key my-leader-map "nh" 'remove-highlight)
 (define-key evil-normal-state-map (kbd "/") 'swiper)
 
-;; Company
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "C-h") 'delete-backward-char)
-(define-key company-active-map (kbd "C-w") 'backward-kill-word)
-(define-key company-active-map (kbd "RET") 'company-abort)
-(define-key evil-insert-state-map (kbd "<backtab>")
-  'company-complete-common-or-cycle)
-(define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
-(define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+;; Highlight Symbol
 
-;; Smex
-(define-key my-leader-map "x" 'smex)
-(define-key my-leader-map "X" 'smex-major-mode-commands)
-
-(define-key evil-normal-state-map (kbd "M-X") 'execute-extended-command)
+(define-key my-leader-map "h" 'highlight-symbol)
+(define-key my-leader-map "j" 'highlight-symbol-next)
+(define-key my-leader-map "k" 'highlight-symbol-prev)
 
 ;; Drag stuff
 (define-key evil-normal-state-map (kbd "C-S-k") 'drag-stuff-up)
@@ -147,20 +116,15 @@
 (define-key evil-visual-state-map (kbd "C-S-l") 'drag-stuff-right)
 (define-key evil-visual-state-map (kbd "C-S-h") 'drag-stuff-left)
 
-;; Highlight Symbol
+;; Company
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "C-h") 'delete-backward-char)
+(define-key company-active-map (kbd "C-w") 'backward-kill-word)
+(define-key company-active-map (kbd "RET") 'company-abort)
+(define-key evil-insert-state-map (kbd "<backtab>")
+  'company-complete-common-or-cycle)
+(define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+(define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 
-(define-key my-leader-map "h" 'highlight-symbol)
-(define-key my-leader-map "j" 'highlight-symbol-next)
-(define-key my-leader-map "k" 'highlight-symbol-prev)
-
-;; Magit magit
-
-(define-key evil-normal-state-map (kbd "gs") 'magit-status)
-
-;; Align
-
-(define-key evil-visual-state-map (kbd "M-a") 'align-regexp)
-
-(provide 'my-keybindings)
-
-;;; my-keybindings.el ends here
+(provide 'my-editing)

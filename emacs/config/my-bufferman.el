@@ -102,4 +102,9 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key evil-normal-state-map (kbd "C-s w") 'delete-window)
 (define-key evil-normal-state-map (kbd "C-s z") 'my-zoom-window)
 
+;; Smex
+(define-key my-leader-map "x" 'smex)
+(define-key my-leader-map "X" 'smex-major-mode-commands)
+(define-key evil-normal-state-map (kbd "M-X") 'execute-extended-command)
+
 (provide 'my-bufferman)

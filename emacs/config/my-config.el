@@ -228,6 +228,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keybindings
 
+;; New Leader map
+(defvar my-leader-map (make-sparse-keymap))
+(define-key evil-normal-state-map "\\" my-leader-map)
+;; Resets
+(define-key my-leader-map "n" nil)
+(define-key my-leader-map "N" nil)
+
 (defun key-binding-at-point (key)
   (mapcar (lambda (keymap) (when (keymapp keymap)
                              (lookup-key keymap key)))
@@ -263,11 +270,19 @@
     ret))
 
 
+;; Magit magit
+
+(define-key evil-normal-state-map (kbd "gs") 'magit-status)
+
+;; Align
+
+(define-key evil-visual-state-map (kbd "M-a") 'align-regexp)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Require
 
-(require 'my-keybindings)
-
+(require 'my-bufferman)
+(require 'my-editing)
 (require 'my-powerline)
 (require 'my-clojure)
 (require 'my-xml)
@@ -281,7 +296,6 @@
 (require 'my-projectile)
 (require 'my-ivy)
 (require 'my-neotree)
-(require 'my-bufferman)
 
 (provide 'my-config)
 
