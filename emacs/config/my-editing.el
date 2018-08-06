@@ -23,10 +23,10 @@
   "Kill a word or a portion of whitespace. If the thing behind the cursor is a
    letter, kill the whole word. If it's a tab, kill the single tab. If its whitespace, delete 4 spaces or until the next letter."
   (interactive)
-	(cond
-	 ((string= (string (preceding-char)) "\t") (delete-backward-char 1))
-	 ((string= (string (preceding-char)) " ") (delete-backward-until-letter 4))
-	 (t (backward-kill-word 1))))
+  (cond
+   ((string= (string (preceding-char)) "\t") (delete-backward-char 1))
+   ((string= (string (preceding-char)) " ") (delete-backward-until-letter 4))
+   (t (backward-kill-word 1))))
 
 (defun iwb ()
   "indent whole buffer"
@@ -53,8 +53,8 @@
     (recenter)))
 
 (evil-define-motion myevil-prev-visual-line (count)
-"Move the cursor COUNT screen lines down, or 5."
-:type exclusive
+  "Move the cursor COUNT screen lines down, or 5."
+  :type exclusive
   (let ((line-move-visual t))
     (evil-line-move (or count -5))
     (recenter)))
