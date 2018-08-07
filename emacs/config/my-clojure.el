@@ -182,7 +182,6 @@
                 (cider-interactive-eval
                  "(do (require 'clojure.tools.namespace.repl) (clojure.tools.namespace.repl/refresh-all))")))
 
-
             )
           )
 

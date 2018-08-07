@@ -37,15 +37,32 @@
                     color-theme-solarized
                     linum-relative
                     powerline
+                    airline-themes
 
                     ;; Other
                     flycheck
                     markdown-mode
 
+                    diminish
+
                     ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Global Minor Modes
+
+;; Hide minor modes in mode line
+(diminish 'projectile-mode)
+(diminish 'flycheck-mode)
+(diminish 'ivy-mode)
+(diminish 'smartparens-mode)
+(diminish 'company-mode)
+(diminish 'drag-stuff-mode)
+(diminish 'undo-tree-mode)
+(diminish 'auto-revert-mode)
+(diminish 'linum-relative-mode)
+(diminish 'evil-cleverparens-mode)
+(diminish 'eldoc-mode)
+(diminish 'evil-commentary-mode)
 
 ;; (load-theme 'blackboard t)
 (load-theme 'badwolf t)
@@ -73,9 +90,6 @@
 ;; Scroll bars
 (scroll-bar-mode -1)
 
-;; No menu bar
-(menu-bar-mode 0)
-
 ;; Evil Surround (emulating vim-surround)
 (global-evil-surround-mode 1)
 
@@ -89,7 +103,6 @@
 
 ;; Dont show welcome screen
 (setq inhibit-startup-screen t)
-(menu-bar-mode 0)
 (tool-bar-mode 0)
 
 ;; Highlight current line
@@ -121,12 +134,11 @@
 ;; Show current column
 (setq column-number-mode t)
 
-;; Show menu
-(menu-bar-mode 1)
-
 ;; Do not show tool-bar with icons
 (tool-bar-mode -1)
 
+;; No menu bar
+(menu-bar-mode 0)
 
 ;; Backup dir
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))
@@ -193,6 +205,11 @@
 
 ;; Smooth instead of jumpy scrolling
 (setq scroll-step 1 scroll-conservatively 10000)
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse)
+(setq inhibit-default-init t)
+(setq-default frame-title-format "%b (%f)")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Spelling
