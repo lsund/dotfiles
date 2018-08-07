@@ -67,7 +67,7 @@ Plug 'tpope/vim-repeat'
 Plug 'dhruvasagar/vim-table-mode'
 "
 " Snippets
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 "
 " Align lines according to symbol

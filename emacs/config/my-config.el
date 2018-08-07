@@ -187,7 +187,7 @@
  'default nil
  :family "Hack"
  ;; :family "Source Code Pro"
- :height 120
+ :height 115
  :weight 'normal
  :width 'normal)
 
