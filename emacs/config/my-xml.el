@@ -8,6 +8,24 @@
 
 (provide 'my-xml)
 
+(defun delete-tag ()
+  (interactive)
+  (save-excursion
+    (sgml-skip-tag-backward 1)
+    (delete-region (point)
+                   (progn
+                     (sgml-skip-tag-forward 1)
+                     (point)))))
+
+(defun copy-tag ()
+  (interactive)
+  (save-excursion
+    (sgml-skip-tag-backward 1)
+    (copy-region-as-kill (point)
+                         (progn
+                           (sgml-skip-tag-forward 1)
+                           (point)))))
+
 (defun insert-tag (name)
   "Insert the tag <NAME></NAME> and move the cursor to the middle of the tag."
   (interactive "sEnter tag name: ")
@@ -42,20 +60,22 @@
 (defun my-xml-format ()
   "Format an XML buffer with `xmllint'."
   (interactive)
+  (setq tmp-point (point))
   (shell-command-on-region (point-min) (point-max)
                            "xmllint -format -"
                            (current-buffer) t
-                           "*Xmllint Error Buffer*" t))
+                           "*Xmllint Error Buffer*" t)
+  (goto-char tmp-point))
 
 (add-hook 'nxml-mode-hook
           (lambda ()
             (interactive)
 
-	    ;; Leader map extension
-	    (defvar xml-leader-map
-	      (let ((map (make-sparse-keymap)))
-	        (set-keymap-parent map my-leader-map)
-	        map))
+            ;; Leader map extension
+            (defvar xml-leader-map
+              (let ((map (make-sparse-keymap)))
+                (set-keymap-parent map my-leader-map)
+                map))
 
             (evil-define-key 'normal nxml-mode-map "\\" xml-leader-map)
 
@@ -67,8 +87,10 @@
                 (wrap-region-with-tag)
                 (evil-force-normal-state)))
 
-            (define-key evil-normal-state-map (kbd "C-c i") 'insert-tag)
-            (define-key evil-insert-state-map (kbd "C-c i") 'insert-tag)
+            (define-key evil-normal-state-map (kbd "C-c c") 'copy-tag)
+            (define-key evil-normal-state-map (kbd "C-c d") 'delete-tag)
+            (define-key evil-normal-state-map (kbd "C-c i") 'sgml-tag)
+            (define-key evil-insert-state-map (kbd "C-c i") 'sgml-tag)
             (define-key evil-normal-state-map (kbd "C-c I") 'insert-tag-newline)
             (define-key evil-insert-state-map (kbd "C-c I") 'insert-tag-newline)
             (define-key evil-normal-state-map (kbd "M-r") 'sgml-delete-tag)
@@ -78,13 +100,17 @@
                 (interactive)
                 (sgml-delete-tagged-text)
                 (evil-insert-state)))
-            (define-key xml-leader-map "bd" 'my-xml-format)
+            (define-key xml-leader-map "bd"
+              (lambda ()
+                (interactive)
+                (my-xml-format)
+                (iwb)))
 
-            (set-fill-column 80)
+            (set-fill-column 110)
             (auto-fill-mode 1)
             (wrap-region-mode t)
             )
-    )
+          )
 
 
 

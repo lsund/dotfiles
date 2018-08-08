@@ -26,6 +26,9 @@
 	    (rainbow-delimiters-mode)
             (evil-cleverparens-mode)
 
+            (define-key evil-cleverparens-mode-map (kbd "M-H") 'evil-cp-drag-backward)
+            (define-key evil-cleverparens-mode-map (kbd "M-L") 'evil-cp-drag-forward)
+
             ;; Smartparens
 	    (require 'smartparens-config)
 	    (sp-pair "'" nil :actions :rem)
