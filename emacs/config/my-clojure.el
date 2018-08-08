@@ -125,10 +125,6 @@
 	    (define-key clojure-leader-map "ii" 'insert-lisp-comment-separator)
 	    (define-key clojure-leader-map (kbd "bb") 'my-break-sexp)
 	    (define-key clojure-leader-map (kbd "bk") 'my-join-sexp)
-	    (define-key clojure-leader-map (kbd "a")
-	      (lambda ()
-		(interactive)
-		(counsel-ag "" (concat (vc-root-dir) "src"))))
 
             ;; (clj-refactor-mode 1)
             ;; (yas-minor-mode 1) ; for adding require/use/import statements
