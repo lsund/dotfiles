@@ -8,11 +8,23 @@
 
 (provide 'my-xml)
 
-(defun my-xml-indent ()
+(defun delete-tag ()
   (interactive)
-  (delete-trailing-whitespace)
-  (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max)))
+  (save-excursion
+    (sgml-skip-tag-backward 1)
+    (delete-region (point)
+                   (progn
+                     (sgml-skip-tag-forward 1)
+                     (point)))))
+
+(defun copy-tag ()
+  (interactive)
+  (save-excursion
+    (sgml-skip-tag-backward 1)
+    (copy-region-as-kill (point)
+                         (progn
+                           (sgml-skip-tag-forward 1)
+                           (point)))))
 
 (defun insert-tag (name)
   "Insert the tag <NAME></NAME> and move the cursor to the middle of the tag."
@@ -20,14 +32,14 @@
   (insert (format "<%s></%s>" name name))
   ;; 60 is the '<' character
   (evil-find-char-backward 1 60)
-  (my-xml-indent))
+  (iwb))
 
 (defun insert-tag-newline (name)
   "TODO"
   (interactive "sEnter tag name: ")
   (insert-tag name)
   (open-line 1)
-  (my-xml-indent)
+  (iwb)
   (newline)
   (tab-to-tab-stop))
 
@@ -45,15 +57,25 @@
       (backward-sexp 1)
       (delete-region b (point)))))
 
+(defun my-xml-format ()
+  "Format an XML buffer with `xmllint'."
+  (interactive)
+  (setq tmp-point (point))
+  (shell-command-on-region (point-min) (point-max)
+                           "xmllint -format -"
+                           (current-buffer) t
+                           "*Xmllint Error Buffer*" t)
+  (goto-char tmp-point))
+
 (add-hook 'nxml-mode-hook
           (lambda ()
             (interactive)
 
-	    ;; Leader map extension
-	    (defvar xml-leader-map
-	      (let ((map (make-sparse-keymap)))
-	        (set-keymap-parent map my-leader-map)
-	        map))
+            ;; Leader map extension
+            (defvar xml-leader-map
+              (let ((map (make-sparse-keymap)))
+                (set-keymap-parent map my-leader-map)
+                map))
 
             (evil-define-key 'normal nxml-mode-map "\\" xml-leader-map)
 
@@ -65,11 +87,12 @@
                 (wrap-region-with-tag)
                 (evil-force-normal-state)))
 
+            (define-key evil-normal-state-map (kbd "C-c c") 'copy-tag)
+            (define-key evil-normal-state-map (kbd "C-c d") 'delete-tag)
             (define-key evil-normal-state-map (kbd "C-c i") 'insert-tag)
-            (define-key evil-insert-state-map (kbd "C-c i") 'insert-tag)
+            (define-key evil-insert-state-map (kbd "C-c i") 'insertt-ag)
             (define-key evil-normal-state-map (kbd "C-c I") 'insert-tag-newline)
             (define-key evil-insert-state-map (kbd "C-c I") 'insert-tag-newline)
-            (define-key xml-leader-map (kbd "bd") 'my-xml-indent)
             (define-key evil-normal-state-map (kbd "M-r") 'sgml-delete-tag)
             (define-key evil-normal-state-map (kbd "M-d") 'sgml-delete-tagged-text)
             (define-key evil-normal-state-map (kbd "M-c")
@@ -77,13 +100,17 @@
                 (interactive)
                 (sgml-delete-tagged-text)
                 (evil-insert-state)))
+            (define-key xml-leader-map "bd"
+              (lambda ()
+                (interactive)
+                (my-xml-format)
+                (iwb)))
 
-            (set-fill-column 80)
+            (set-fill-column 110)
             (auto-fill-mode 1)
             (wrap-region-mode t)
-
+            )
           )
-    )
 
 
 

@@ -309,7 +309,6 @@
 (require 'my-python)
 (require 'my-tex)
 (require 'my-markdown)
-
 (require 'my-projectile)
 (require 'my-ivy)
 (require 'my-neotree)

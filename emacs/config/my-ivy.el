@@ -10,8 +10,9 @@
 (define-key ido-file-completion-map (kbd "C-w") 'backward-kill-word)
 (define-key ido-file-completion-map (kbd "C-n") 'ido-next-match)
 (define-key ido-file-completion-map (kbd "C-p") 'ido-prev-match)
-(define-key my-leader-map "a" (lambda () (interactive)
-				(counsel-ag "" (vc-root-dir))))
+(define-key my-leader-map "a" (lambda ()
+                                (interactive)
+				(counsel-ag "" (locate-dominating-file default-directory "core/src"))))
 
 ;; Ivy
 (defun my-ivy ()
