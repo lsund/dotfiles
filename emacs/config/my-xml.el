@@ -32,14 +32,14 @@
   (insert (format "<%s></%s>" name name))
   ;; 60 is the '<' character
   (evil-find-char-backward 1 60)
-  (my-xml-indent))
+  (iwb))
 
 (defun insert-tag-newline (name)
   "TODO"
   (interactive "sEnter tag name: ")
   (insert-tag name)
   (open-line 1)
-  (my-xml-indent)
+  (iwb)
   (newline)
   (tab-to-tab-stop))
 
@@ -89,8 +89,8 @@
 
             (define-key evil-normal-state-map (kbd "C-c c") 'copy-tag)
             (define-key evil-normal-state-map (kbd "C-c d") 'delete-tag)
-            (define-key evil-normal-state-map (kbd "C-c i") 'sgml-tag)
-            (define-key evil-insert-state-map (kbd "C-c i") 'sgml-tag)
+            (define-key evil-normal-state-map (kbd "C-c i") 'insert-tag)
+            (define-key evil-insert-state-map (kbd "C-c i") 'insertt-ag)
             (define-key evil-normal-state-map (kbd "C-c I") 'insert-tag-newline)
             (define-key evil-insert-state-map (kbd "C-c I") 'insert-tag-newline)
             (define-key evil-normal-state-map (kbd "M-r") 'sgml-delete-tag)
