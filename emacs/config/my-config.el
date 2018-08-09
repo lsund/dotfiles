@@ -37,13 +37,13 @@
                     color-theme-solarized
                     linum-relative
                     powerline
-                    airline-themes
+                    ; airline-themes
 
                     ;; Other
                     flycheck
                     markdown-mode
 
-                    diminish
+                    ; diminish
 
                     ))
 
