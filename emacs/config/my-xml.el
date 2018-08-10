@@ -90,7 +90,7 @@
             (define-key evil-normal-state-map (kbd "C-c c") 'copy-tag)
             (define-key evil-normal-state-map (kbd "C-c d") 'delete-tag)
             (define-key evil-normal-state-map (kbd "C-c i") 'insert-tag)
-            (define-key evil-insert-state-map (kbd "C-c i") 'insertt-ag)
+            (define-key evil-insert-state-map (kbd "C-c i") 'insert-tag)
             (define-key evil-normal-state-map (kbd "C-c I") 'insert-tag-newline)
             (define-key evil-insert-state-map (kbd "C-c I") 'insert-tag-newline)
             (define-key evil-normal-state-map (kbd "M-r") 'sgml-delete-tag)
