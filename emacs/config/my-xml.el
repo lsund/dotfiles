@@ -67,6 +67,20 @@
                            "*Xmllint Error Buffer*" t)
   (goto-char tmp-point))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Lambdawerk
+
+;; bubak / Dean Allred / Tim Helmstedt, 2010-2015, http://stackoverflow.com/a/4280824
+;; 20160906, mgr: added inhibit-read-only to use in cider-any-uruk
+(defun nxml-pretty-format ()
+    (interactive)
+    (let ((inhibit-read-only t))
+      (save-excursion
+        (shell-command-on-region (point-min) (point-max) "xmllint --format -" (buffer-name) t)
+        (nxml-mode)
+        (indent-region 0 (count-lines (point-min) (point-max))))))
+
+
 (add-hook 'nxml-mode-hook
           (lambda ()
             (interactive)
@@ -103,7 +117,7 @@
             (define-key xml-leader-map "bd"
               (lambda ()
                 (interactive)
-                (my-xml-format)
+                (nxml-pretty-format)
                 (iwb)))
 
             (set-fill-column 110)

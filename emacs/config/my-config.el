@@ -37,13 +37,13 @@
                     color-theme-solarized
                     linum-relative
                     powerline
-                    ; airline-themes
+                    airline-themes
 
                     ;; Other
                     flycheck
                     markdown-mode
 
-                    ; diminish
+                    diminish
 
                     ))
 
@@ -211,6 +211,11 @@
 (setq inhibit-default-init t)
 (setq-default frame-title-format "%b (%f)")
 
+(define-key evil-normal-state-map (kbd "C-+") 'text-scale-increase)
+(define-key evil-normal-state-map (kbd "C--") 'text-scale-decrease)
+(define-key evil-normal-state-map (kbd "C-0")
+  (lambda () (interactive) (text-scale-increase 0)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Spelling
 ;;
@@ -227,20 +232,6 @@
   (setq ispell-local-dictionary-alist
         '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))))
  )
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Lambdawerk
-
-;; bubak / Dean Allred / Tim Helmstedt, 2010-2015, http://stackoverflow.com/a/4280824
-;; 20160906, mgr: added inhibit-read-only to use in cider-any-uruk
-(defun nxml-pretty-format ()
-    (interactive)
-    (let ((inhibit-read-only t))
-      (save-excursion
-        (shell-command-on-region (point-min) (point-max) "xmllint --format -" (buffer-name) t)
-        (nxml-mode)
-        (indent-region 0 (count-lines (point-min) (point-max))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keybindings
