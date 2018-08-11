@@ -61,6 +61,8 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     , ((modMask                 , xK_End)       ,   spawn "systemctl suspend")
     -- Restart
     , ((modMask                 , xK_Home)      ,   killAndRestart)
+    -- Restart
+    , ((modMask                 , xK_Page_Up)    ,   spawn "xscreensaver-command -lock")
     -- Run command
     , ((modMask                 , xK_r)         ,   shellPrompt myXPConfig)
     -- launch terminal
