@@ -101,6 +101,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc
 
+
 ;; Dont show welcome screen
 (setq inhibit-startup-screen t)
 (tool-bar-mode 0)
@@ -193,6 +194,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Look & Feel
+
+;; Show newline characters etc
+(whitespace-mode 1)
 
 ;; Font
 (set-face-attribute

@@ -40,12 +40,8 @@ fi
 # cursor
 xsetroot -cursor_name left_ptr
 
-# compose key
-if [ "$HOSTNAME" = dennis ]; then
-    setxkbmap dvorak -option compose:caps
-else
-    setxkbmap -option compose:caps
-fi
+# DVORAK and compose key
+setxkbmap dvorak -option compose:caps
 
 # color
 xsetroot -solid grey

@@ -133,6 +133,8 @@
 
 	    ;; Other extensions
 
+            (whitespace-mode 1)
+
             ;; Auto fill
 	    (set-fill-column 100)
 	    (auto-fill-mode)
