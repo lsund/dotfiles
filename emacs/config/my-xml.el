@@ -8,6 +8,16 @@
 
 (provide 'my-xml)
 
+(defun copy-tag-content ()
+  (interactive)
+  (search-backward ">")
+  (evil-forward-char 1 1)
+  (copy-region-as-kill (point)
+                       (progn
+                         (search-forward "<")
+                         (evil-backward-char 1)
+                         (point))))
+
 (defun delete-tag ()
   (interactive)
   (save-excursion
@@ -109,6 +119,7 @@
             (define-key evil-insert-state-map (kbd "C-c I") 'insert-tag-newline)
             (define-key evil-normal-state-map (kbd "M-r") 'sgml-delete-tag)
             (define-key evil-normal-state-map (kbd "M-d") 'sgml-delete-tagged-text)
+            (define-key evil-normal-state-map (kbd "M-y") 'copy-tag-content)
             (define-key evil-normal-state-map (kbd "M-c")
               (lambda ()
                 (interactive)
