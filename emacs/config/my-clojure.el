@@ -15,7 +15,7 @@
                     paredit
                     paxedit
 		    clojure-mode
-                    ; clj-refactor
+                    clj-refactor
                     cider
 		    ))
 
@@ -165,6 +165,10 @@
             (lambdawerk-indent)
             (add-hook 'before-save-hook 'lambdawerk-cleanup-buffer t t)
 
+            ;; Debug
+
+            (define-key clojure-leader-map "d" 'cider-debug-defun-at-point)
+
 
             ;; Refresh
 
@@ -179,6 +183,7 @@
                 (interactive)
                 (cider-interactive-eval
                  "(do (require 'clojure.tools.namespace.repl) (clojure.tools.namespace.repl/refresh-all))")))
+
 
             )
           )

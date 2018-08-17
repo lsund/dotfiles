@@ -8,16 +8,6 @@
 
 (provide 'my-xml)
 
-(defun copy-tag-content ()
-  (interactive)
-  (search-backward ">")
-  (evil-forward-char 1 1)
-  (copy-region-as-kill (point)
-                       (progn
-                         (search-forward "<")
-                         (evil-backward-char 1)
-                         (point))))
-
 (defun delete-tag ()
   (interactive)
   (save-excursion
@@ -41,21 +31,31 @@
   (interactive "sEnter tag name: ")
   (insert (format "<%s></%s>" name name))
   ;; 60 is the '<' character
-  (evil-find-char-backward 1 60)
-  (iwb))
+  (evil-find-char-backward 1 60))
 
 (defun insert-tag-newline (name)
   "TODO"
   (interactive "sEnter tag name: ")
   (insert-tag name)
   (open-line 1)
-  (iwb)
   (newline)
   (tab-to-tab-stop))
+
+(defun sgml-copy-tagged-text ()
+  (interactive)
+  (save-excursion
+    (search-backward ">")
+    (evil-forward-char 1 1)
+    (copy-region-as-kill (point)
+                         (progn
+                           (search-forward "<")
+                           (evil-backward-char 1)
+                           (point)))))
 
 (defun sgml-delete-tagged-text ()
   "delete text between the tags that contain the current point"
   (interactive)
+  (sgml-copy-tagged-text)
   (let ((b (point)))
     (sgml-skip-tag-backward 1)
     (when (not (eq b (point)))
@@ -66,6 +66,16 @@
       (sgml-skip-tag-forward 1)
       (backward-sexp 1)
       (delete-region b (point)))))
+
+
+(defun sgml-wrap-tagged-text ()
+  (interactive)
+  (search-backward ">")
+  (evil-forward-char 1 1)
+  (evil-visual-char (point))
+  (search-forward "<")
+  (evil-backward-char 1)
+  (wrap-region-with-tag))
 
 (defun my-xml-format ()
   "Format an XML buffer with `xmllint'."
@@ -110,7 +120,6 @@
                 (interactive)
                 (wrap-region-with-tag)
                 (evil-force-normal-state)))
-
             (define-key evil-normal-state-map (kbd "C-c c") 'copy-tag)
             (define-key evil-normal-state-map (kbd "C-c d") 'delete-tag)
             (define-key evil-normal-state-map (kbd "C-c i") 'insert-tag)
@@ -119,7 +128,8 @@
             (define-key evil-insert-state-map (kbd "C-c I") 'insert-tag-newline)
             (define-key evil-normal-state-map (kbd "M-r") 'sgml-delete-tag)
             (define-key evil-normal-state-map (kbd "M-d") 'sgml-delete-tagged-text)
-            (define-key evil-normal-state-map (kbd "M-y") 'copy-tag-content)
+            (define-key evil-normal-state-map (kbd "M-y") 'sgml-copy-tagged-text)
+            (define-key evil-normal-state-map (kbd "M-w") 'sgml-wrap-tagged-text)
             (define-key evil-normal-state-map (kbd "M-c")
               (lambda ()
                 (interactive)

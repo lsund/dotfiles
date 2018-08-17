@@ -183,7 +183,6 @@
 (setq evil-ex-search-case 'sensitive)
 
 ;; Delete trailing whitespace on file save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq compilation-ask-about-save nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -195,8 +194,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Look & Feel
 
-;; Show newline characters etc
+;; Whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (whitespace-mode 1)
+(setq whitespace-line-column 100)
+(setq whitespace-display-mappings
+      '((newline-mark ?\n [?¬ ?\n])
+        (space-mark ?\ [?. ])
+        (space-mark ?\xA0 [?. ])
+        (tab-mark ?\t [?\▸ ?\t])))
+
 
 ;; Font
 (set-face-attribute
