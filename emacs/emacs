@@ -4,6 +4,7 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(setq backup-directory-alist `(("." . "~/.emacs-backup-files")))
 (add-to-list 'load-path "~/.emacs.d/evil")
 (require 'evil)
 (evil-mode 1)
@@ -15,6 +16,7 @@
  '(custom-safe-themes
    (quote
     ("d21135150e22e58f8c656ec04530872831baebf5a1c3688030d119c114233c24" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" default)))
+ '(evil-cleverparens-use-additional-movement-keys nil)
  '(evil-search-module (quote evil-search))
  '(indent-tabs-mode nil)
  '(package-selected-packages

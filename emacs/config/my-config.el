@@ -197,7 +197,7 @@
 ;; Whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (whitespace-mode 1)
-(setq whitespace-line-column 100)
+(setq whitespace-line-column 120)
 (setq whitespace-display-mappings
       '((newline-mark ?\n [?¬ ?\n])
         (space-mark ?\ [?. ])
