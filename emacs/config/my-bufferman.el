@@ -93,9 +93,9 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; Buffer and Window management
 (define-key my-leader-map "," 'save-buffer)
-(define-key my-leader-map "<"  (lambda () (interactive) (save-some-buffers t)))
+(define-key my-leader-map "<"  'save-some-buffers)
 (define-key my-leader-map "'" 'kill-this-buffer)
-(define-key my-leader-map "y" 'switch-to-buffer)
+(define-key my-leader-map "y" 'ido-switch-buffer)
 (define-key my-leader-map "Y" 'switch-to-previous-buffer)
 (define-key my-leader-map "-" 'split-window-below)
 (define-key my-leader-map "|" 'split-window-right)
@@ -106,5 +106,8 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map "x" 'smex)
 (define-key my-leader-map "X" 'smex-major-mode-commands)
 (define-key evil-normal-state-map (kbd "M-X") 'execute-extended-command)
+
+(define-key minibuffer-local-map (kbd "C-p") 'previous-complete-history-element)
+(define-key minibuffer-local-map (kbd "C-n") 'next-complete-history-element)
 
 (provide 'my-bufferman)

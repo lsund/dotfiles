@@ -63,6 +63,8 @@
 (diminish 'evil-cleverparens-mode)
 (diminish 'eldoc-mode)
 (diminish 'evil-commentary-mode)
+(diminish 'cider-mode)
+(diminish 'projectile-mode)
 
 ;; (load-theme 'blackboard t)
 (load-theme 'badwolf t)
@@ -210,7 +212,7 @@
  'default nil
  :family "Hack"
  ;; :family "Source Code Pro"
- :height 115
+ :height 110
  :weight 'normal
  :width 'normal)
 
