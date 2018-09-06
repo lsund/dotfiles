@@ -48,11 +48,17 @@ fi
 # Check if identity not already added. In that case, add the identity
 ssh-add -l > /dev/null
 if [[ $? == "1" ]]; then
-    echo "Adding id_rsa.pub..."
-    ssh-add
+    if [[ -e ~/.ssh/id_rsa ]]; then
+        echo "Adding id_rsa..."
+        ssh-add ~/.ssh/id_rsa
+    fi
     if [[ -e ~/.ssh/id_rsa_gmail ]]; then
         echo "Adding id_rsa_gmail..."
         ssh-add ~/.ssh/id_rsa_gmail
+    fi
+    if [[ -e ~/.ssh/id_rsa_lw ]]; then
+        echo "Adding id_rsa_lw..."
+        ssh-add ~/.ssh/id_rsa_lw
     fi
     echo "Done."
 fi

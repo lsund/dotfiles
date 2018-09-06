@@ -17,6 +17,7 @@ host github.com
     IdentitiesOnly yes
 
 host *.lambdawerk.com
+    IdentityFile ~/.ssh/id_rsa_lw
     user ludvig
 
 host poliwag

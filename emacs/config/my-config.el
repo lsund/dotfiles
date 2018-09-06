@@ -144,8 +144,12 @@
 (menu-bar-mode 0)
 
 ;; Backup dir
-(setq backup-directory-alist `(("." . "~/.emacs-saves")))
 (setq backup-by-copying t)
+
+(setq backup-directory-alist
+      `((".*" . , "/home/lsund/.emacs-backup-files")))
+(setq auto-save-file-name-transforms
+      `((".*" , "/home/lsund/.emacs-backup-files" t)))
 
 ;; Do not create .#fname lockfiles
 
