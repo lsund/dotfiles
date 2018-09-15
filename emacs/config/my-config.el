@@ -51,6 +51,9 @@
 ;; Global Minor Modes
 
 ;; Hide minor modes in mode line
+(diminish 'autospace-mode)
+(diminish 'whitespace-mode)
+(diminish 'cider-mode)
 (diminish 'projectile-mode)
 (diminish 'flycheck-mode)
 (diminish 'ivy-mode)
