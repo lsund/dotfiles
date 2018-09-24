@@ -3,8 +3,6 @@ module KeyBindings where
 
 import XMonad
 import XMonad.Actions.OnScreen
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Minimize
 import XMonad.Layout.IndependentScreens
 import XMonad.Hooks.ManageHelpers
 import XMonad.Prompt
@@ -16,8 +14,6 @@ import Control.Concurrent
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import XMonad.Util.Scratchpad
-import XMonad.Actions.CycleWS
-import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 
 import Config
 
@@ -127,14 +123,19 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
 
     ]
     ++
-    [
-        -- ((m .|. modMask, k), windows $ f i) |
-        --  (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
-        -- , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
-        ((m .|. modMask, k), windows $ onCurrentScreen f i) |
-         (i, k) <- zip (workspaces' conf) ([xK_1 .. xK_9] ++ [xK_0])
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
-    ]
+    if hostname == "pedro"
+    then
+        [
+            ((m .|. modMask, k), windows $ onCurrentScreen f i) |
+            (i, k) <- zip (workspaces' conf) ([xK_1 .. xK_9] ++ [xK_0])
+            , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
+        ]
+    else
+        [
+            ((m .|. modMask, k), windows $ f i) |
+            (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
+            , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
+        ]
     ++
     [ ((m .|. modMask .|. controlMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
       | (key, sc) <- zip [xK_h, xK_l, xK_F2] [0..]
