@@ -66,6 +66,8 @@
 (diminish 'evil-cleverparens-mode)
 (diminish 'eldoc-mode)
 (diminish 'evil-commentary-mode)
+(diminish 'cider-mode)
+(diminish 'projectile-mode)
 
 ;; (load-theme 'blackboard t)
 (load-theme 'badwolf t)
@@ -145,8 +147,12 @@
 (menu-bar-mode 0)
 
 ;; Backup dir
-(setq backup-directory-alist `(("." . "~/.emacs-saves")))
 (setq backup-by-copying t)
+
+(setq backup-directory-alist
+      `((".*" . , "/home/lsund/.emacs-backup-files")))
+(setq auto-save-file-name-transforms
+      `((".*" , "/home/lsund/.emacs-backup-files" t)))
 
 ;; Do not create .#fname lockfiles
 
@@ -213,7 +219,7 @@
  'default nil
  :family "Hack"
  ;; :family "Source Code Pro"
- :height 115
+ :height 110
  :weight 'normal
  :width 'normal)
 
