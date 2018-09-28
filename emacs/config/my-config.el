@@ -65,6 +65,8 @@
 (diminish 'evil-commentary-mode)
 (diminish 'cider-mode)
 (diminish 'projectile-mode)
+(diminish 'auto-fill-mode)
+(diminish 'whitespace-mode)
 
 ;; (load-theme 'blackboard t)
 (load-theme 'badwolf t)

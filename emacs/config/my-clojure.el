@@ -112,6 +112,10 @@
 	  (lambda ()
 	    (interactive)
 
+            (diminish 'projectile-mode)
+            (diminish 'auto-fill-mode)
+            (diminish 'whitespace-mode)
+
 	    ;; Leader map extension
 	    (defvar clojure-leader-map
 	      (let ((map (make-sparse-keymap)))
