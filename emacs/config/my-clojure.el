@@ -114,7 +114,21 @@
 
             (diminish 'projectile-mode)
             (diminish 'auto-fill-mode)
+            (diminish 'autospace-mode)
             (diminish 'whitespace-mode)
+            (diminish 'cider-mode)
+            (diminish 'projectile-mode)
+            (diminish 'flycheck-mode)
+            (diminish 'ivy-mode)
+            (diminish 'smartparens-mode)
+            (diminish 'company-mode)
+            (diminish 'drag-stuff-mode)
+            (diminish 'undo-tree-mode)
+            (diminish 'auto-revert-mode)
+            (diminish 'linum-relative-mode)
+            (diminish 'evil-cleverparens-mode)
+            (diminish 'eldoc-mode)
+            (diminish 'evil-commentary-mode)
 
 	    ;; Leader map extension
 	    (defvar clojure-leader-map

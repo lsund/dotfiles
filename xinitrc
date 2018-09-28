@@ -59,8 +59,6 @@ source ~/.bash_profile
 ### XMONAD
 exec xmonad
 
-redshift
-
 ### AWESOME
 #exec awesome
 

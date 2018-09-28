@@ -4,6 +4,7 @@
 alias n='nnn'
 alias df='pydf'
 alias chd='. /home/lsund/Documents/scripts/chd'
+alias qcd='. /home/lsund/Documents/scripts/quick-cd'
 alias find='fd -H'
 alias vim='nvim'
 alias mplayer='/home/lsund/Documents/scripts/mplayer-log-time'
@@ -15,6 +16,7 @@ alias siren='mplayer /home/lsund/Media/audio/sounds/siren.wav 1>& /dev/null'
 alias rm='$HOME/Documents/scripts/rm'
 alias untargz='tar -xvzf'
 alias pob='git-push-origin-branch'
+alias un7z='7z e'
 
 alias keys='setxkbmap dvorak -option compose:caps'
 
@@ -27,10 +29,6 @@ alias zath='zathura'
 alias network-scan='sudo iwlist wlp58s0 scan | grep ESSID'
 alias my-ip="curl -s checkip.dyndns.org | \
     sed -e 's/.*Current IP Address: //' -e 's/<.*$//'"
-
-alias sgn-vpn='sudo openvpn ~/.vpn-unibonn/sundstro-openvpn-tcp.ovpn'
-alias connect-chrysaor='xfreerdp /v:chrysaor /d:SGN /u:administrator'
-alias mount-pi='sshfs pi:/mnt/mybook/ ~/Shared'
 
 alias combine-pdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite \
     -sOutputFile=$3 $1 $2'
