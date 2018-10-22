@@ -173,6 +173,8 @@
 
             (define-key evil-cleverparens-mode-map (kbd "M-H") 'evil-cp-drag-backward)
             (define-key evil-cleverparens-mode-map (kbd "M-L") 'evil-cp-drag-forward)
+            (define-key evil-normal-state-map (kbd "L") 'evil-cp-forward-sexp)
+            (define-key evil-normal-state-map (kbd "H") 'evil-cp-backward-sexp)
 
             (local-unset-key (kbd "M-l"))
 
