@@ -154,7 +154,7 @@
             (whitespace-mode 1)
 
             ;; Auto fill
-	    (set-fill-column 100)
+	    (set-fill-column 120)
 	    (auto-fill-mode)
 
 	    ;; Rainbow delimiters
@@ -185,12 +185,12 @@
             (lambdawerk-indent)
             (add-hook 'before-save-hook 'lambdawerk-cleanup-buffer t t)
 
-            ;; Debug
+            ;; CIDER
 
             (define-key clojure-leader-map "d" 'cider-debug-defun-at-point)
-
-
-            ;; Refresh
+            (define-key clojure-leader-map "ce" 'cider-eval-last-sexp)
+            (define-key clojure-leader-map "cr" 'cider-eval-last-sexp-to-repl)
+            (define-key evil-normal-state-map (kbd "C-]") 'cider-find-var)
 
             (define-key my-leader-map "R"
               (lambda ()

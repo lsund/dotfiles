@@ -72,7 +72,7 @@
   (open-line 1)
   (evil-cp-forward-sexp)
   (evil-backward-char)
-  (my-clojure-indent-defn))
+  (iwb))
 
 (defun my-join-sexp ()
   "Todo."
