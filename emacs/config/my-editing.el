@@ -71,6 +71,10 @@
   (interactive)
   (scroll-up (/ (window-body-height) 2)))
 
+(defun noop ()
+  "do Nothing"
+  (interactive))
+
 ;; Navigation
 (define-key evil-visual-state-map (kbd "J") 'myevil-next-visual-line)
 (define-key evil-visual-state-map (kbd "K") 'myevil-prev-visual-line)
@@ -91,6 +95,7 @@
   (lambda ()
     (interactive)
     (execute-kbd-macro (read-kbd-macro "y $"))))
+(define-key evil-insert-state-map (kbd "<backspace>") #'noop)
 
 ;; Indentation
 
@@ -101,7 +106,6 @@
 (define-key evil-normal-state-map (kbd "/") 'swiper)
 
 ;; Highlight Symbol
-
 (define-key my-leader-map "h" 'highlight-symbol)
 (define-key my-leader-map "j" 'highlight-symbol-next)
 (define-key my-leader-map "k" 'highlight-symbol-prev)
