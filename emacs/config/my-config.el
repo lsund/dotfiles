@@ -42,6 +42,7 @@
                     ;; Other
                     flycheck
                     markdown-mode
+                    xquery-mode
 
                     diminish
 
