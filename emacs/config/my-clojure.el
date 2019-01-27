@@ -178,8 +178,6 @@
 
             (local-unset-key (kbd "M-l"))
 
-            ;; (setq evil-cleverparens-use-regular-insert)
-
             ;; Lambdawerk
 
             (lambdawerk-indent)
