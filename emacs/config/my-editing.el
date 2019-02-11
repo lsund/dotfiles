@@ -31,9 +31,10 @@
 (defun iwb ()
   "indent whole buffer"
   (interactive)
-  (delete-trailing-whitespace)
-  (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max)))
+  (save-excursion
+    (delete-trailing-whitespace)
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))))
 
 (evil-define-motion myevil-next-line (count)
   :type exclusive
@@ -104,11 +105,12 @@
 ;; Search
 (define-key my-leader-map "nh" 'remove-highlight)
 (define-key evil-normal-state-map (kbd "/") 'swiper)
-
-;; Highlight Symbol
-(define-key my-leader-map "h" 'highlight-symbol)
-(define-key my-leader-map "j" 'highlight-symbol-next)
-(define-key my-leader-map "k" 'highlight-symbol-prev)
+(define-key evil-normal-state-map (kbd "M-n" ) 'highlight-symbol-next)
+(define-key evil-normal-state-map (kbd "M-p" ) 'highlight-symbol-prev)
+(define-key evil-normal-state-map (kbd "*") (lambda ()
+                                              (interactive)
+                                              (remove-highlight)
+                                              (highlight-symbol)))
 
 ;; Drag stuff
 (define-key evil-normal-state-map (kbd "C-S-k") 'drag-stuff-up)

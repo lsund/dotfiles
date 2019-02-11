@@ -138,14 +138,12 @@
             (define-key xml-leader-map "bd"
               (lambda ()
                 (interactive)
-                (nxml-pretty-format)
-                (iwb)))
+                (save-excursion
+                  (iwb))))
 
             (set-fill-column 110)
             (auto-fill-mode 1)
-            (wrap-region-mode t)
-            )
-          )
+            (wrap-region-mode t)))
 
 
 

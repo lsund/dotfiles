@@ -9,12 +9,12 @@ export PATH=$PATH:$HOME/.bin:/usr/local/bin
 export PATH=$PATH:$HOME/Documents/scripts
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
+export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/bin
+export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/share/perl6/site/bin
 
 
 # ###########################################################################
 # Custom env variables
-
-export MYBLOG=$HOME/Documents/tech/repos/myblog
 
 export DOTFILES=$HOME/Documents/dotfiles
 export SCRIPTS=$HOME/Documents/scripts
@@ -27,7 +27,8 @@ export JAVA_HOME=/usr/lib/jvm/default
 export ZSH=$HOME/.oh-my-zsh
 export FZF_DEFAULT_COMMAND='fd --type f'
 
-: ${SCRIPTS?"Warning: env SCRIPTS is not set. Everything will break down"}
+# cljdoc
+export CLJDOC_CONFIG_EDN="/etc/lambdawerk/lambdawerk-cljdoc.edn"
 
 # ###########################################################################
 # Custom shell functions

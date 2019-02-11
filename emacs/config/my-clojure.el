@@ -110,6 +110,7 @@
 ;; Clojure Mode
 (add-hook 'clojure-mode-hook
 	  (lambda ()
+
 	    (interactive)
 
             (diminish 'projectile-mode)
