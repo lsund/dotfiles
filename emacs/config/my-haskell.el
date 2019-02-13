@@ -9,7 +9,7 @@
                     flycheck
 		            ))
 
-(require 'ghcid)
+; (require 'ghcid)
 
 ;;; Commentary:
 
