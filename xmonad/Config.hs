@@ -27,7 +27,8 @@ boxHeight      = 22 :: Int
 topPanelSepPos = 950 :: Int
 botPanelSepPos = 900 :: Int
 
-gnomeTerm = "/usr/bin/gnome-terminal"
+gnomeTerm = "/usr/bin/alacritty"
+-- gnomeTerm = "/usr/bin/gnome-terminal"
 urxvtTerm = "/usr/bin/urxvt"
 logpath = "/home/lsund/Data/log/"
 scriptpath = "/home/lsund/Documents/scripts/"

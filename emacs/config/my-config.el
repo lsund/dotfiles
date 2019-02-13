@@ -309,6 +309,8 @@
 
 (define-key evil-visual-state-map (kbd "M-a") 'align-regexp)
 
+(setq case-fold-search nil)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Require
 
