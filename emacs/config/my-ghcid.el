@@ -3,7 +3,8 @@
 ;; Set ghcid-target to change the stack target
 (setq ghcid-target "")
 
-(setq ghcid-height 15)
+(setq ghcid-height 100)
+
 (defun ghcid-stack-cmd (target)
       (format "stack ghci %s --test --bench --ghci-options=-fno-code" target))
 
@@ -40,14 +41,14 @@
      '((display-buffer-at-bottom
         display-buffer-pop-up-window
         display-buffer-reuse-window)
-       (window-height . 18)))
+       (window-height . 15)))
     (select-window (get-buffer-window ghcid-buf))
     (make-term "ghcid" "/bin/zsh")
     (term-mode)
     ;; (term-char-mode)
     ;; (term-set-escape-char ?\C-x)
     (setq-local term-buffer-maximum-size ghcid-height)
-    (setq-local scroll-up-aggressively 1)
+    (setq-local scroll-up-ggressively 1)
     (ghcid-mode)))
 
 (defun kill-ghcid ()
@@ -85,4 +86,4 @@
         (select-window ghcid-window)
         (kill-buffer-and-window)))))
 
-(provide 'ghcid)
+(provide 'my-ghcid)

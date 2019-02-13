@@ -133,4 +133,7 @@
 (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 
+(define-key evil-insert-state-map (kbd "<tab>") 'tab-to-tab-stop)
+(setq tab-stop-list (number-sequence 4 120 4))
+
 (provide 'my-editing)
