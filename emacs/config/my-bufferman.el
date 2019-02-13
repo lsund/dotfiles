@@ -91,8 +91,14 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key evil-insert-state-map (kbd "M-k") 'windmove-up)
 (define-key evil-insert-state-map (kbd "M-j") 'windmove-down)
 
+(defun save-buffer-always ()
+  "Save the buffer even if it is not modified."
+  (interactive)
+  (set-buffer-modified-p t)
+  (save-buffer))
+
 ;; Buffer and Window management
-(define-key my-leader-map "," 'save-buffer)
+(define-key my-leader-map "," 'save-buffer-always)
 (define-key my-leader-map "<"  'save-some-buffers)
 (define-key my-leader-map "'" 'kill-this-buffer)
 (define-key my-leader-map "y" 'ido-switch-buffer)

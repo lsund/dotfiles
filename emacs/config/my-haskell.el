@@ -9,7 +9,7 @@
                     flycheck
 		            ))
 
-(require 'ghcid)
+(require 'my-ghcid)
 
 ;;; Commentary:
 
@@ -56,8 +56,8 @@
             (setq flymake-start-syntax-check-on-newline nil)
             (setq flycheck-check-syntax-automatically '(save mode-enabled))
             ;; Save buffer after idle time
-            (auto-save-visited-mode 1)
-            (setq auto-save-visited-interval 1)
+            ;; (auto-save-visited-mode 1)
+            ;; (setq auto-save-visited-interval 1)
 
             ;; Leader map
             (defvar haskell-leader-map
@@ -70,6 +70,8 @@
             ;; Keybindings
             (define-key haskell-leader-map "ii"
               'insert-haskell-comment-separator)
+
+            (define-key haskell-leader-map "p" 'haskell-mode-stylish-buffer)
 
             ))
 
