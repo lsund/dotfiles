@@ -14,7 +14,7 @@ alias beep='mplayer /home/lsund/Media/audio/sounds/beep.mp3 1>& /dev/null'
 alias siren='mplayer /home/lsund/Media/audio/sounds/siren.wav 1>& /dev/null'
 alias rm='$HOME/Documents/scripts/rm'
 alias untargz='tar -xvzf'
-alias pob='git-push-origin-branch'
+alias gpob='git-push-origin-branch'
 alias un7z='7z e'
 
 alias keys='setxkbmap dvorak -option compose:caps'
