@@ -16,6 +16,8 @@ export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/share/perl6/site/b
 # ###########################################################################
 # Custom env variables
 
+export XML_CATALOG_FILES="${HOME}/Data/xml/catalog /etc/xml/catalog"
+
 export DOTFILES=$HOME/Documents/dotfiles
 export SCRIPTS=$HOME/Documents/scripts
 
