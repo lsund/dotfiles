@@ -20,6 +20,8 @@ export PATH=$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_HOME/tools
 # ###########################################################################
 # Custom env variables
 
+export XML_CATALOG_FILES="${HOME}/Data/xml/catalog /etc/xml/catalog"
+
 export DOTFILES=$HOME/Documents/dotfiles
 export SCRIPTS=$HOME/Documents/scripts
 

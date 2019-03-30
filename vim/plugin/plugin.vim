@@ -149,6 +149,9 @@ Plug 'plasticboy/vim-markdown'
 " XQuery
 Plug 'jeroenp/vim-xquery-syntax'
 
+" XML editing
+Plug 'sukima/xmledit'
+
 " markdown folding
 " Plug 'nelstrom/vim-markdown-folding'
 
