@@ -1,9 +1,12 @@
 . $HOME/.aliases
 
-
 # ###########################################################################
 # Extend path
 
+export ANDROID_HOME="/opt/android-sdk"
+export ANDROID_SKD_ROOT="/opt/android-sdk"
+export ANDROID_SDK_HOME="/opt/android-sdk"
+export ANDROID_AVD_HOME="/home/lsund/.android/avd"
 
 export PATH=$PATH:$HOME/.bin:/usr/local/bin
 export PATH=$PATH:$HOME/Documents/scripts
@@ -11,6 +14,7 @@ export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/bin
 export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/share/perl6/site/bin
+export PATH=$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_HOME/tools
 
 
 # ###########################################################################

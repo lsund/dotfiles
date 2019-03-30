@@ -21,6 +21,8 @@
             (define-key term-mode-map (kbd "C-u") 'term-kill-input)
             (define-key term-mode-map (kbd "C-b") 'left-char)
             (define-key term-mode-map (kbd "C-f") 'right-char)
+            (define-key term-mode-map (kbd "C-d") 'term-send-eof)
+            (define-key evil-insert-state-map (kbd "C-d") 'term-send-eof)
             (define-key evil-insert-state-map (kbd "C-a") 'term-send-left)
             (define-key evil-insert-state-map (kbd "C-e") 'evil-end-of-line)
             ))
