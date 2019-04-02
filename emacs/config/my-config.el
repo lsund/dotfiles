@@ -16,6 +16,7 @@
                     drag-stuff
                     evil-cleverparens
                     wrap-region
+                    web-mode
 
                     ;; Search
                     evil-quickscope
