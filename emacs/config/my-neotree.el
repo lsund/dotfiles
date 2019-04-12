@@ -5,7 +5,12 @@
 (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
 (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
 (evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-refresh)
-(evil-define-key 'normal neotree-mode-map (kbd "d") 'mkdir)
+(evil-define-key 'normal neotree-mode-map (kbd "R") 'neotree-change-root)
+(evil-define-key 'normal neotree-mode-map (kbd "F") 'mkdir)
+(evil-define-key 'normal neotree-mode-map (kbd "d") 'neotree-delete-node)
 (evil-define-key 'normal neotree-mode-map (kbd "f") 'neotree-create-node)
+(evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
+(evil-define-key 'normal neotree-mode-map (kbd "v") 'neotree-quick-look)
+(evil-define-key 'normal neotree-mode-map (kbd "u") 'neotree-select-up-node)
 
 (provide 'my-neotree)

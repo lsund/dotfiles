@@ -145,7 +145,27 @@
             (auto-fill-mode 1)
             (wrap-region-mode t)))
 
+(defun my-sgml-insert-gt ()
+  "Inserts a `>' character and calls
+`my-sgml-close-tag-if-necessary', leaving point where it is."
+  (interactive)
+  (insert ">")
+  (save-excursion (my-sgml-close-tag-if-necessary)))
 
+(defun my-sgml-close-tag-if-necessary ()
+  "Calls sgml-close-tag if the tag immediately before point is
+an opening tag that is not followed by a matching closing tag."
+  (when (looking-back "<\\s-*\\([^</> \t\r\n]+\\)[^</>]*>")
+    (let ((tag (match-string 1)))
+      (unless (and (not (sgml-unclosed-tag-p tag))
+                   (looking-at (concat "\\s-*<\\s-*/\\s-*" tag "\\s-*>")))
+        (sgml-close-tag)))))
+
+(eval-after-load "sgml-mode"
+  '(define-key sgml-mode-map ">" 'my-sgml-insert-gt))
+
+(eval-after-load "web-mode"
+  '(setq web-mode-tag-auto-close-style 2))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
