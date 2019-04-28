@@ -14,9 +14,9 @@ URxvt.font: xft:Hack:Regular:pixelsize=10,\
             xft:Ubuntu Mono:pixelsize=10:antialias=true:hinting=true,\
             -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 
-URxvt.boldFont: xft:Hack:Bold:size=14
-URxvt.italicFont: xft:Hack:Italic:size=14
-URxvt.boldItalicFont: xft:Hack:BoldItalic:size=14
+URxvt.boldFont: xft:Hack:Bold:size=10
+URxvt.italicFont: xft:Hack:Italic:size=10
+URxvt.boldItalicFont: xft:Hack:BoldItalic:size=10
 
 URxvt*letterSpace: 1
 
