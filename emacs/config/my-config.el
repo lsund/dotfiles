@@ -17,6 +17,7 @@
                     evil-cleverparens
                     wrap-region
                     web-mode
+                    xquery-mode
 
                     ;; Search
                     evil-quickscope
@@ -43,7 +44,6 @@
                     ;; Other
                     flycheck
                     markdown-mode
-                    xquery-mode
 
                     diminish
 

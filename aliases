@@ -15,6 +15,7 @@ alias siren='mplayer /home/lsund/Media/audio/sounds/siren.wav 1>& /dev/null'
 alias rm='$HOME/Documents/scripts/rm'
 alias untargz='tar -xvzf'
 alias gpb='git-push-origin-branch'
+alias gsb='git-sync-base'
 alias un7z='7z e'
 
 alias keys='setxkbmap dvorak -option compose:caps'
