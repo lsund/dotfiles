@@ -1,13 +1,14 @@
 ;;; Package --- Summary: My emacs haskell config
 
 (require-packages '(
-		            rainbow-delimiters
-		            ;; shakespeare-mode
-		            ;; haskell-mode
-		            ;; intero
+                    rainbow-delimiters
+                    ;; shakespeare-mode
+                    ;; haskell-mode
+                    ;; intero
+                    yaml-mode
                     dante
                     flycheck
-		            ))
+                    ))
 
 (require 'my-ghcid)
 
