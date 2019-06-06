@@ -160,3 +160,5 @@ export NNN_USE_EDITOR=1
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+prompt paradox
