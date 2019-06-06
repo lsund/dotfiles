@@ -3,7 +3,7 @@
 (require-packages '(
                     rainbow-delimiters
                     ;; shakespeare-mode
-                    ;; haskell-mode
+                    haskell-mode
                     ;; intero
                     yaml-mode
                     dante
@@ -11,6 +11,9 @@
                     ))
 
 (require 'my-ghcid)
+
+(require 'haskell-interactive-mode)
+(require 'haskell-process)
 
 ;;; Commentary:
 
@@ -43,6 +46,17 @@
           '(lambda () (flycheck-add-next-checker 'haskell-dante
                                                  '(warning . haskell-hlint))))
 
+(eval-after-load "haskell-interactive-mode"
+  '(progn
+     ;; Step back in history
+     (evil-define-key 'insert haskell-interactive-mode-map
+       (kbd "C-p") 'haskell-interactive-mode-history-previous)
+     ;; Step forward in history
+     (evil-define-key 'insert haskell-interactive-mode-map
+       (kbd "C-n") 'haskell-interactive-mode-history-next)
+     ))
+
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook
           (lambda ()
             (interactive)
@@ -50,15 +64,13 @@
             (set-fill-column 80)
             (auto-fill-mode)
 
+            ;; Spell checking
             (dante-mode)
             (flycheck-mode)
 
             (setq flymake-no-changes-timeout nil)
             (setq flymake-start-syntax-check-on-newline nil)
             (setq flycheck-check-syntax-automatically '(save mode-enabled))
-            ;; Save buffer after idle time
-            ;; (auto-save-visited-mode 1)
-            ;; (setq auto-save-visited-interval 1)
 
             ;; Leader map
             (defvar haskell-leader-map
@@ -72,7 +84,25 @@
             (define-key haskell-leader-map "ii"
               'insert-haskell-comment-separator)
 
+            ;; Go to import list
+            (define-key haskell-leader-map "^" 'haskell-navigate-imports)
+
+            ;; Format impor list
             (define-key haskell-leader-map "p" 'haskell-mode-stylish-buffer)
+
+            ;; Type under cursor
+            (define-key haskell-leader-map "t" 'haskell-process-do-type)
+
+            ;; Information under cursor
+            (define-key haskell-leader-map "d" 'haskell-process-do-info)
+
+            ;; Load file into ghci
+            (define-key haskell-leader-map "rr" 'haskell-process-load-file)
+
+            ;; Launch repl
+            (evil-define-key 'normal haskell-mode-map
+              (kbd "C-c j") 'haskell-process-load-or-reload)
+
 
             ))
 
