@@ -159,6 +159,3 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 export NNN_USE_EDITOR=1
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-prompt paradox
