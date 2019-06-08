@@ -153,13 +153,13 @@
 ;; Backup dir
 (setq backup-by-copying t)
 
+;; Backup to the below directory
 (setq backup-directory-alist
-      `((".*" . , "/home/lsund/.emacs-backup-files")))
+      `(("." . , "/home/lsund/.emacs-backup-files/")))
 (setq auto-save-file-name-transforms
-      `((".*" , "/home/lsund/.emacs-backup-files" t)))
+      `((".*" , "/home/lsund/.emacs-backup-files/" t)))
 
 ;; Do not create .#fname lockfiles
-
 (setq create-lockfiles nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

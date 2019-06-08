@@ -8,6 +8,7 @@
                     yaml-mode
                     dante
                     flycheck
+                    hindent
                     ))
 
 (require 'my-ghcid)
@@ -19,9 +20,7 @@
 
 ;;; Code:
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Minor Modes
-
+;; rainbow parenthesis
 (rainbow-delimiters-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -42,47 +41,53 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Haskell Mode
 
-(add-hook 'dante-mode-hook
-          '(lambda () (flycheck-add-next-checker 'haskell-dante
-                                                 '(warning . haskell-hlint))))
+(with-eval-after-load 'dante-mode
+  (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))
+)
+
 
 (eval-after-load "haskell-interactive-mode"
   '(progn
+     ;; End of prompt
+     (evil-define-key 'insert haskell-interactive-mode-map
+       (kbd "C-e") 'end-of-line)
+     ;; Beginning of prompt
+     (evil-define-key 'insert haskell-interactive-mode-map
+       (kbd "C-a") (lambda ()
+                     (interactive)
+                     (beginning-of-line)
+                     (evil-forward-WORD-begin)))
+     ;; Delete prompt
+     (evil-define-key 'insert haskell-interactive-mode-map
+       (kbd "C-u") (lambda ()
+                     (interactive)
+                     (beginning-of-line)
+                     (evil-forward-WORD-begin)
+                     (kill-line)))
      ;; Step back in history
      (evil-define-key 'insert haskell-interactive-mode-map
        (kbd "C-p") 'haskell-interactive-mode-history-previous)
      ;; Step forward in history
      (evil-define-key 'insert haskell-interactive-mode-map
-       (kbd "C-n") 'haskell-interactive-mode-history-next)
-     ))
+       (kbd "C-n") 'haskell-interactive-mode-history-next)))
 
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'haskell-mode-hook #'hindent-mode)
 (add-hook 'haskell-mode-hook
           (lambda ()
             (interactive)
 
-            (set-fill-column 80)
-            (auto-fill-mode)
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; Keybindings
 
-            ;; Spell checking
-            (dante-mode)
-            (flycheck-mode)
-
-            (setq flymake-no-changes-timeout nil)
-            (setq flymake-start-syntax-check-on-newline nil)
-            (setq flycheck-check-syntax-automatically '(save mode-enabled))
-
-            ;; Leader map
             (defvar haskell-leader-map
               (let ((map (make-sparse-keymap)))
                 (set-keymap-parent map my-leader-map)
                 map))
             (define-key evil-normal-state-map "\\" haskell-leader-map)
 
-
-            ;; Keybindings
-            (define-key haskell-leader-map "ii"
-              'insert-haskell-comment-separator)
+            ;; Insert separator
+            (define-key haskell-leader-map "ii" 'insert-haskell-comment-separator)
 
             ;; Go to import list
             (define-key haskell-leader-map "^" 'haskell-navigate-imports)
@@ -99,11 +104,24 @@
             ;; Load file into ghci
             (define-key haskell-leader-map "rr" 'haskell-process-load-file)
 
+            (define-key my-leader-map "bd" 'hindent-reformat-buffer)
+
             ;; Launch repl
-            (evil-define-key 'normal haskell-mode-map
-              (kbd "C-c j") 'haskell-process-load-or-reload)
+            (evil-define-key 'normal haskell-mode-map (kbd "C-c j") 'haskell-process-load-or-reload)
 
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; Configuration
 
+            ;; Text width
+            (set-fill-column 80)
+            (auto-fill-mode)
+
+            ;; Spell checking
+            (dante-mode)
+            (flycheck-mode)
+            (setq flymake-no-changes-timeout nil)
+            (setq flymake-start-syntax-check-on-newline nil)
+            (setq flycheck-check-syntax-automatically '(save mode-enabled))
             ))
 
 (provide 'my-haskell)
