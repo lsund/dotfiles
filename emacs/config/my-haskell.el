@@ -11,8 +11,6 @@
                     hindent
                     ))
 
-(require 'my-ghcid)
-
 (require 'haskell-interactive-mode)
 (require 'haskell-process)
 
@@ -39,12 +37,7 @@
   (evil-insert 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Haskell Mode
-
-(with-eval-after-load 'dante-mode
-  (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))
-)
-
+;; Haskell Repl
 
 (eval-after-load "haskell-interactive-mode"
   '(progn
@@ -71,7 +64,13 @@
      (evil-define-key 'insert haskell-interactive-mode-map
        (kbd "C-n") 'haskell-interactive-mode-history-next)))
 
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Haskell Editing
+
+(with-eval-after-load 'dante-mode
+  (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))
+
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook #'hindent-mode)
 (add-hook 'haskell-mode-hook
           (lambda ()
@@ -121,8 +120,7 @@
             (flycheck-mode)
             (setq flymake-no-changes-timeout nil)
             (setq flymake-start-syntax-check-on-newline nil)
-            (setq flycheck-check-syntax-automatically '(save mode-enabled))
-            ))
+            (setq flycheck-check-syntax-automatically '(save mode-enabled))))
 
 (provide 'my-haskell)
 
