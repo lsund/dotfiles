@@ -72,6 +72,11 @@
 (diminish 'projectile-mode)
 (diminish 'auto-fill-mode)
 (diminish 'whitespace-mode)
+(diminish 'dante-mode)
+(diminish 'haskell-indent-mode)
+(diminish 'projectile-mode)
+(diminish 'haskell-mode)
+(diminish 'interactive-haskell-mode)
 
 ;; (load-theme 'blackboard t)
 (load-theme 'badwolf t)

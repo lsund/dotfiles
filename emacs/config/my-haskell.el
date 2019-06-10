@@ -6,7 +6,6 @@
                     haskell-mode
                     ;; intero
                     yaml-mode
-                    dante
                     flycheck
                     hindent
                     ))
@@ -67,16 +66,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Haskell Editing
 
-(with-eval-after-load 'dante-mode
-  (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint))
+;; (with-eval-after-load 'dante-mode
+;;   (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint)))
 
-  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook #'hindent-mode)
 (add-hook 'haskell-mode-hook
           (lambda ()
             (interactive)
 
-            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             ;; Keybindings
 
             (defvar haskell-leader-map
@@ -108,7 +107,7 @@
             ;; Launch repl
             (evil-define-key 'normal haskell-mode-map (kbd "C-c j") 'haskell-process-load-or-reload)
 
-            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             ;; Configuration
 
             ;; Text width
@@ -116,8 +115,8 @@
             (auto-fill-mode)
 
             ;; Spell checking
-            (dante-mode)
             (flycheck-mode)
+            ;; (dante-mode)
             (setq flymake-no-changes-timeout nil)
             (setq flymake-start-syntax-check-on-newline nil)
             (setq flycheck-check-syntax-automatically '(save mode-enabled))))
