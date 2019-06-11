@@ -12,7 +12,6 @@ p() {
 alias duh="du -h -d 1"
 alias n='nnn'
 alias df='pydf'
-# alias chd='. /home/lsund/Documents/scripts/chd'
 alias qcd='. /home/lsund/Documents/scripts/quick-cd'
 alias find='fd -H'
 alias vim='nvim'
