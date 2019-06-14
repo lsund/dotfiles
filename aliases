@@ -9,12 +9,13 @@ p() {
 }
 
 # Aliases
+alias ports="sudo lsof -Pnl +M -i4"
 alias duh="du -h -d 1"
 alias n='nnn'
 alias df='pydf'
 alias qcd='. /home/lsund/Documents/scripts/quick-cd'
 alias find='fd -H'
-alias vim='nvim'
+alias vim='safe-vim'
 alias ls='ls --color=auto'
 alias ll='ls -lah --color=auto'
 alias lsf='ls-full'
