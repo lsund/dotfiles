@@ -2,10 +2,20 @@
 
 p() {
     if [[ $1 == "cd" ]]; then
-        . /home/lsund/Documents/scripts/prog-cd $@
+        temp_file=$(mktemp)
+        echo '#!/bin/zsh\ncd $($HOME/.local/bin/piggy-exe $@)' > $temp_file
+        . $temp_file $@
+        /usr/bin/rm $temp_file
+    elif [[ $1 == "r" ]]; then
+        $($HOME/.local/bin/piggy-exe $@)
     else
-		/home/lsund/.local/bin/piggy-exe $@
+        $HOME/.local/bin/piggy-exe $@
     fi
+}
+
+# cd override
+function cd() {
+    builtin cd "$@" && ls --color=auto -lrth;
 }
 
 # Aliases
@@ -13,11 +23,9 @@ alias ports="sudo lsof -Pnl +M -i4"
 alias duh="du -h -d 1"
 alias n='nnn'
 alias df='pydf'
-alias qcd='. /home/lsund/Documents/scripts/quick-cd'
-alias find='fd -H'
 alias vim='safe-vim'
-alias ls='ls --color=auto'
-alias ll='ls -lah --color=auto'
+alias ls='ls -lrth --color=auto'
+alias ll='ls -larth --color=auto'
 alias lsf='ls-full'
 alias grep='grep --color'
 alias beep='mplayer /home/lsund/Media/audio/sounds/beep.mp3 1>& /dev/null'

@@ -3,11 +3,6 @@
 # ###########################################################################
 # Extend path
 
-export ANDROID_HOME="/opt/android-sdk"
-export ANDROID_SKD_ROOT="/opt/android-sdk"
-export ANDROID_SDK_HOME="/opt/android-sdk"
-export ANDROID_AVD_HOME="/home/lsund/.android/avd"
-
 export PATH=$PATH:$HOME/.bin:/usr/local/bin
 export PATH=$PATH:$HOME/Documents/scripts
 export PATH=$PATH:$HOME/.local/bin
@@ -20,29 +15,20 @@ export PATH=$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_HOME/tools
 # ###########################################################################
 # Custom env variables
 
+export ANDROID_HOME="/opt/android-sdk"
+export ANDROID_SKD_ROOT="/opt/android-sdk"
+export ANDROID_SDK_HOME="/opt/android-sdk"
+export ANDROID_AVD_HOME="/home/lsund/.android/avd"
+
 export XML_CATALOG_FILES="${HOME}/Data/xml/catalog /etc/xml/catalog"
 
 export DOTFILES=$HOME/Documents/dotfiles
 export SCRIPTS=$HOME/Documents/scripts
 
-export LW=$HOME/Documents/tech/repos/lambdawerk
-export WIKI=$HOME/Documents/wiki
-
 export JAVA_HOME=/usr/lib/jvm/default
 
 export ZSH=$HOME/.oh-my-zsh
 export FZF_DEFAULT_COMMAND='fd --type f'
-
-# cljdoc
-export CLJDOC_CONFIG_EDN="/etc/lambdawerk/lambdawerk-cljdoc.edn"
-
-# ###########################################################################
-# Custom shell functions
-
-# cd override
-function cd() {
-    builtin cd "$@" && ls;
-}
 
 # Start ssh-agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
