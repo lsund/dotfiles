@@ -1,17 +1,29 @@
 #!/bin/zsh
 
-p() {
-    if [[ $1 == "cd" ]]; then
+function p() {
+    if [[ $1 == "cd" && $# == "1" ]]; then
         temp_file=$(mktemp)
-        echo '#!/bin/zsh\ncd $($HOME/.local/bin/piggy-exe $@)' > $temp_file
+        piggy_dirs=$($HOME/.local/bin/piggy-exe "dlt")
+        dir=$(echo $piggy_dirs | fzf)
+        echo "#!/bin/zsh\ncd $($HOME/.local/bin/piggy-exe cd $dir)" > $temp_file
+        . $temp_file
+        /usr/bin/rm $temp_file
+    elif [[ $1 == "cd" ]]; then
+        temp_file=$(mktemp)
+        echo "#!/bin/zsh\ncd $($HOME/.local/bin/piggy-exe $@)" > $temp_file
         . $temp_file $@
         /usr/bin/rm $temp_file
+    elif [[ $1 == "r" && $# == "1" ]]; then
+        piggy_cmds=$($HOME/.local/bin/piggy-exe "rlt")
+        cmd=$(echo $piggy_cmds | fzf)
+        $($HOME/.local/bin/piggy-exe r $cmd)
     elif [[ $1 == "r" ]]; then
         $($HOME/.local/bin/piggy-exe $@)
     else
         $HOME/.local/bin/piggy-exe $@
     fi
 }
+
 
 # cd override
 function cd() {
