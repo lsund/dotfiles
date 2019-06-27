@@ -40,7 +40,7 @@ fi
 
 # Check if identity not already added. In that case, add the identity
 ssh-add -l > /dev/null
-if [[ $? == "1" ]]; then
+if [[ $? != "0" ]]; then
     if [[ -e ~/.ssh/id_rsa ]]; then
         echo "Adding id_rsa..."
         ssh-add ~/.ssh/id_rsa
