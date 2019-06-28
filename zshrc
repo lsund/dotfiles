@@ -147,3 +147,5 @@ export NNN_USE_EDITOR=1
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 . ~/.aliases
+
+. ~/.piggy/scripts/functions
