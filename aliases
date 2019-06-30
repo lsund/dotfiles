@@ -13,7 +13,7 @@ alias ports="sudo lsof -Pnl +M -i4"
 alias duh="du -h -d 1"
 alias n='nnn'
 alias df='pydf'
-alias vim='safe-vim'
+alias vim='fuzzy-vim'
 alias ls='ls -lrth --color=auto'
 alias ll='ls -larth --color=auto'
 alias lsf='ls-full'
