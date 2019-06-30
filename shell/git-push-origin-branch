@@ -81,8 +81,12 @@ else
         vared -p "> $commit_tag" -c msg
     fi
     commit_message=$commit_tag$msg
-    echo Committing with message: $commit_message
-    git commit -m $commit_message
-    echo  "git push -u origin $branch_name"
-    git push -u origin $branch_name
+    if [[ $msg == "" ]]; then
+        git diff origin/master
+    else
+        echo Committing with message: $commit_message
+        git commit -m $commit_message
+        echo  "git push -u origin $branch_name"
+        git push -u origin $branch_name
+    fi
 fi
