@@ -16,7 +16,7 @@ function check_size () {
         is_large_mb=true;
     fi
     if [[ $is_large_mb || $is_gb ]]; then
-        vared -p "File $1 is larger than 10M. Open with less? [Y/n] " -c choice
+        vared -p "File $1 is large: ($size $suffix). Open with less? [Y/n] " -c choice
         if [[ $choice != "n" ]]; then
             open_with_less=true
         fi
