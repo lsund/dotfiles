@@ -2,8 +2,7 @@
 
 try-connect
 
-declare -a syncdirs=("$HOME/Documents/scripts"
-                     "$HOME/Documents/dotfiles"
+declare -a syncdirs=("$HOME/Documents/dotfiles"
                      "$HOME/.password-store")
 
 function PrintSeparator() {

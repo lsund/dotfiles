@@ -2,7 +2,7 @@
 
 # Script for facilitating the pacman -Syu and related commands
 
-scriptdir=/home/lsund/Documents/scripts/
+scriptdir=/home/lsund/Documents/dotfiles/shell
 
 if [[ -e "/etc/pacman.d/mirrorlist" && -e "/etc/pacman.d/mirrorlist.pacnew" ]];
 then
