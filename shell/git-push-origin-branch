@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 [[ ! $(git status 2> /dev/null) ]] && echo "Error: Not a git repository" && exit
 
 branch_name=$(git branch | grep \* | cut -d ' ' -f2)
@@ -80,10 +82,6 @@ else
     fi
     echo Committing with message: "$commit_tag$msg"
     git commit -m "$commit_tag$msg"
-    if [[ $? == "0" ]]; then
-        echo  "git push -u origin $branch_name"
-        git push -u origin $branch_name
-    else
-        echo "Commit unsuccessful"
-    fi
+    echo  "git push -u origin $branch_name"
+    git push -u origin $branch_name
 fi
