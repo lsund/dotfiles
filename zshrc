@@ -3,6 +3,7 @@
 # ###########################################################################
 # Extend path
 
+export PATH="$PATH:$HOME/.skim/bin"
 export PATH=$PATH:$HOME/.bin:/usr/local/bin
 export PATH=$PATH:$HOME/Documents/scripts
 export PATH=$PATH:$HOME/.local/bin
