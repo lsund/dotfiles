@@ -145,6 +145,12 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 export NNN_USE_EDITOR=1
 
+
+function precmd() {
+    # Log the time of each executed command
+    export ZSH_ELAPSED_TIME=$(date '+%s')
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 . ~/.aliases
