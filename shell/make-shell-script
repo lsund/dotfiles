@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+if [[ "$#" -ne "1" ]]; then
+    echo "Must supply one argument to scriptedit"
+    echo "Hint: the name of the file to be created"
+    exit
+fi
+
+[[ -e "$1" ]] && echo "File already exist" && exit
+
+printf "#!" > $1
+echo "/bin/zsh\n\n" >> $1
+chmod +x $1
+
+nvim $1

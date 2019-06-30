@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+for var in "$@"
+do
+    lc=$(echo "$var" | sed -e 's/\(.*\)/\L\1/')
+    mv "$var" "$lc"
+    echo "$var" "->" "$lc"
+done

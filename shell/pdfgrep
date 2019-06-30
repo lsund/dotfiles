@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+# Searches each pdf-file in the given directory for the given pattern
+
+[[ "$#" != "2" ]] && echo "usage: pdfgrep DIRECTORY PATTERN" && exit 1
+
+for f in `ls $1 | grep pdf`; do
+    echo $f; pdftotext $1/$f - | grep --color=auto -i $2;
+done

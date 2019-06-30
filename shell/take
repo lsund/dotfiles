@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function usage() {
+    echo Removes the last n characters from a string
+    echo "Usage: ./take STRING N"
+    exit 0
+}
+
+if [[ $1 == "help" ]]; then
+    usage
+fi
+
+if [[ $# == 2 ]]; then
+    string=$2
+    index=$1
+else
+    usage
+fi
+
+len=${#string}
+
+echo ${string:0:$index}

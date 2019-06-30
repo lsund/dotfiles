@@ -1,0 +1,45 @@
+#!/bin/zsh
+
+function usage() {
+    echo "Bump or release a clojure project. Optionally also git push"
+    echo "Usage: ./clojure-tools release|bump [--push]"
+}
+
+if [[ $# != 1 && $# != 2 ]]; then
+    usage
+    exit 1
+fi
+
+
+if [[ ! -e project.clj ]]; then
+    echo "This does not seem to be a clojure project. Need a project.clj file"
+    exit 1
+fi
+
+if [[ $1 == "release" ]]; then
+    sed -r 's/^\(defproject (.*) "([0-9]+.[0-9]+.[0-9]+)-SNAPSHOT"$/(defproject \1 "\2"/' -i project.clj
+
+    version=$(cat project.clj | head -1 | cut -d' ' -f3 | sed "s/^\([\"']\)\(.*\)\1\$/\2/g")
+
+    if [[ $2 == "--push" ]]; then
+        git add project.clj
+        git-push-origin-branch "Release version $version"
+    fi
+elif [[ $1 == "bump" ]]; then
+    # Increment minor number
+    sed -r 's/^\(defproject (.*) "([0-9]+).([0-9]+).([0-9]+)"$/echo "(defproject \1 \2.$((\3+1)).\4"/ge' -i project.clj
+
+    version=$(cat project.clj | head -1 | cut -d' ' -f3)-SNAPSHOT
+
+    # Add quotes around incremented version and add SNAPSHOT
+    sed -r 's/^\(defproject (.*) ([0-9]+.[0-9]+.[0-9]+)$/(defproject \1 "\2-SNAPSHOT"/' -i project.clj
+
+    # Automatically push to git
+
+    if [[ $2 == "--push" ]]; then
+        git add project.clj
+        git-push-origin-branch "Bump to $version"
+    fi
+else
+    usage
+fi

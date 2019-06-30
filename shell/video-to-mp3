@@ -1,0 +1,96 @@
+#!/bin/zsh
+
+# Convert a webm/mp4/mkv to mp3 using ffmpeg. Can also specify a youtube-url,
+# which will be attempted to be downloaded using youtube-dl, and then
+# converted.
+
+
+# ############################################################################
+# Initial Settings
+
+youtube=false
+outfile=false
+inffile=false
+
+
+# ############################################################################
+# Functions
+
+
+function usage() {
+cat << EOF
+USAGE:
+
+   video-to-mp3 [ -hiou ]
+
+OPTIONS:
+
+   -h : display this help
+   -i : specify input file
+   -o : specify output file
+   -u : specify youtube-url to download and convert
+
+EOF
+}
+
+
+# ############################################################################
+# Get flag options
+
+nflags=0
+while getopts "hu:o:i:" opt; do
+    nflags=$(( $nflags + 1 ))
+    case "$opt" in
+        u)
+            url="$OPTARG"
+            youtube=true
+            ;;
+        o)
+            outfile_name="$OPTARG"
+            outfile=true
+            ;;
+        i)
+            infile_name="$OPTARG"
+            infile=true
+            ;;
+        h)
+            usage && exit 0
+            ;;
+        *) echo "Invalid flag." && exit 1
+    esac
+done 2>/dev/null
+
+[[ $nflags == "0" ]] && usage && exit
+
+# ############################################################################
+# Main script
+
+
+if [[ $youtube == true && $outfile == true ]]; then
+
+    youtube-dl $url -o $outfile_name
+    noext_name=$(without-extension $outfile_name)
+    videofile=$(ls $outfile_name*)
+    ffmpeg -i $outfile_name* -vn -ar 44100 -ac 2 -ab 192k -f mp3 $noext_name.mp3
+    trash $videofile
+
+elif [[ $youtube == true && $outfile == false ]]; then
+
+    youtube-dl $url
+    echo "I do not know the name of the generated file."
+    echo "Run script again and specify the downloaded filename."
+    exit 0
+
+elif [[ $youtube == false && $outfile == true ]]; then
+
+    [[ $infile == false ]] && echo "Must provide an infile with -i" && exit 1
+    ffmpeg -i $infile_name -vn -ar 44100 -ac 2 -ab 192k -f mp3 $noext_name.mp3
+
+elif [[ $youtube == false && $outfile == false ]]; then
+
+    [[ $infile == false ]] && echo "Must provide an infile with -i" && exit 1
+    noext_name=$(without-extension $infile_name)
+    ffmpeg -i $infile_name -vn -ar 44100 -ac 2 -ab 192k -f mp3 $noext_name.mp3
+fi
+
+exit 0

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [[ $# != 0 && $# != 1 ]]; then
+    echo "usage ./git-sync-base"
+    echo "usage ./git-sync-base NAME"
+    exit
+fi
+
+base="integration"
+head=$(git rev-parse --abbrev-ref HEAD)
+
+echo ">> git checkout $base <<"
+git checkout $base
+echo ">> git pull <<"
+git pull
+
+if [[ $# == 1 ]]; then
+    echo ">> git checkout -b $1 <<"
+    git checkout -b $1
+else
+    echo ">> git checkout $head <<"
+    git checkout $head
+    echo ">> git merge $base <<"
+    git merge $base
+fi

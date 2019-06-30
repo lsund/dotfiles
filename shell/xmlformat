@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+tempfile=$(mktemp)
+xmllint --format $1 > $tempfile
+mv $tempfile $1

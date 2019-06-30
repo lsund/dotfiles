@@ -1,0 +1,19 @@
+#!/bin/bash
+
+audiopath=/home/lsund/Media/audio/sounds/
+
+if [[ $# == 2 ]]; then
+    countdown $2
+fi
+
+if [[ $1 == "beep" ]]; then
+    file=beep.mp3
+elif [[ $1 == "siren" ]]; then
+    file=siren.wav
+elif [[ $1 == "bell" ]]; then
+    file=temple-bell.mp3
+else
+    file=beep.mp3
+fi
+
+mplayer $audiopath/$file -endpos 00:00:04 &>/dev/null

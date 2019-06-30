@@ -1,0 +1,134 @@
+#!/bin/zsh
+
+# For gui programs intended to be run in shell background
+
+# ############################################################################
+# Find out which program to use
+
+# imgprogram=mirage
+# imgprogram=feh
+imgprogram=ristretto
+
+case $1 in
+    "eclipse")
+        which eclipse > /dev/null
+        [[ $? == "1" ]] && echo "eclipse is not installed" && exit 1
+        program="$(SWT_GTK3=0 /usr/bin/eclipse >/dev/null 2>&1 &)"
+        ;;
+    "emacs")
+        program=/usr/local/bin/emacs
+        [[ $? == "1" ]] && echo "emacs is not installed" && exit 1
+        ;;
+    "gimp")
+        program=$(which gimp)
+        [[ $? == "1" ]] && echo "gimp is not installed" && exit 1
+        ;;
+esac
+
+# ############################################################################
+# Get Extension
+if [[ "$#" == "0" ]]; then
+    file=$(ls | head -1)
+else
+    file=$1
+fi
+
+ext=$(extension $file)
+
+# Check if the file has no extension
+if [[ $ext == $file ]]; then
+    vared -p "No Extension. Open with vim [Y/n]? " -c yn
+    case $yn in
+        [Nn]*)
+            exit
+            ;;
+        *) vim $file
+            ;;
+    esac
+fi
+
+
+# Count arguments and expect wildcards. Check so all files exist
+for file in "$@"
+do
+    if [[ ! -e $file ]]; then
+        echo "File does not exist: $file" && exit 1
+    fi
+    files="$files $file"
+
+
+done
+
+case $ext in
+    "pdf")
+        program=$(which zathura)
+        [[ $? == "1" ]] && echo "zathura is not installed" && exit 1
+        ;;
+    "PDF")
+        program=$(which zathura)
+        [[ $? == "1" ]] && echo "zathura is not installed" && exit 1
+        ;;
+    "png")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "svg")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "SVG")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "jpg")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "JPG")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "jpeg")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    *)
+        echo "Unknown extension: $ext" && exit 1
+esac
+
+# ############################################################################
+# Launch program with arguments
+
+# exit
+files=$(echo $files | xargs)
+words=$(echo $files | wc -w)
+
+case $words in
+    0)
+        $program $file > /dev/null 2>&1 &
+        ;;
+    1)
+        $program $files > /dev/null 2>&1 &
+        ;;
+    *)
+        # Opening many files can cause some gui programs to spawn multiple
+        # times. Thus, query user here.
+        msg1="You've chosen to spawn $(basename $program) "
+        msg2="on $(( $words )) files. Proceed? [y/n] "
+        vared -p "$msg1$msg2" -c yn
+        case $yn in
+            [Yy]*)
+                for file in $(echo $files); do
+                    if [[ -f $file ]]; then
+                        $program $file  > /dev/null 2>&1 &
+                    else
+                        echo "Can't open file: $file " && exit 1
+                    fi
+                done
+                ;;
+            [Nn]*)
+                echo "O-kay"
+                ;;
+            *) echo "yes or no mate"
+        esac
+esac

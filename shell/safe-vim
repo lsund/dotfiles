@@ -1,0 +1,70 @@
+#!/bin/zsh
+
+# Fuzzy finds the way to a file if the input argument(s) is either a directory
+# or empty.
+
+fuzzy_prog=fzf
+open_with_less=false
+
+function check_size () {
+    size=$(du -h $1 | xargs | cut -d' ' -f1)
+    value="${size:0:${#size}-1}"
+    suffix="${size: -1}"
+    if [[ $open_with_less == false && $suffix == "G" ]]; then
+        is_gb=true;
+    elif [[ $open_with_less == false && $suffix == "M" && $value -gt 10 ]]; then
+        is_large_mb=true;
+    fi
+    if [[ $is_large_mb || $is_gb ]]; then
+        vared -p "File $1 is larger than 10M. Open with less? [Y/n] " -c choice
+        if [[ $choice != "n" ]]; then
+            open_with_less=true
+        fi
+    fi
+}
+
+function recurse_into_dir () {
+    search_path="."
+    dir=$1
+    while [[ -d $search_path/$dir ]]; do
+        search_path=$search_path/$dir
+        dir=$(/usr/bin/ls $search_path | $fuzzy_prog)
+        [[ $dir == "" ]] && exit
+    done
+
+    all="$all $search_path/$dir "
+}
+
+all=""
+if [[ $# == 0 ]]; then
+    file=$(/usr/bin/ls | $fuzzy_prog)
+    if [[ -d $file ]]; then
+        recurse_into_dir $file
+    else
+        all="$all $file"
+    fi
+else
+    for file in $@; do
+        if [[ ! -e $file ]]; then
+            continue
+        elif [[ -d $file ]]; then
+            recurse_into_dir $file
+        else
+            all="$all $file"
+        fi
+    done
+fi
+
+for file in $(echo $all | xargs); do;
+    check_size $file
+done
+
+
+if [[ $open_with_less == true ]]; then
+    less $(echo $all | xargs)
+else
+    nvim $(echo $all | xargs)
+fi
+
+
+

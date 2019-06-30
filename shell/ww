@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+if [[ $# -lt "2" ]]; then
+    echo "Need at least two arguments: ww PATTERN FILE" && exit
+fi
+
+destfile="${@: -1}"
+array=($@)
+len=${#array[@]}
+
+patterns="${array[@]:0:$len-1}"
+destfile=${array[len]}
+
+for pattern in "${array[@]:0:$len-1}"
+do
+    echo $pattern >> $destfile
+done
+
+cat $destfile

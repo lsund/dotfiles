@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+field_3=$(ip link show wlp58s0 | head -1 | cut -d' ' -f3 | cut -d',' -f3)
+field_4=$(ip link show wlp58s0 | head -1 | cut -d' ' -f3 | cut -d',' -f4)
+
+[[ $field_3 != "UP" || $field_4 == "UP>" ]] && echo "Warning: wlp58s0 is not up"
+
+sudo wifi-menu
+if [[ "$?" == "0" ]]; then
+    try-connect
+else
+    echo "Something didnt check out. Exiting..."
+    vared -p "Try fix by set link down [Y/n]? " -c choice
+
+    [[ "$choice" == "n" ]] && exit 0
+
+    sudo ip link set wlp58s0 down
+    sudo wifi-menu
+fi
+
+
+

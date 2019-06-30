@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+
+if [[ "$#" == 0 ]]; then
+    host="www.google.com"
+else
+    host="$1"
+fi
+
+echo -n "Checking connection..."
+while true
+do
+    echo -n "."
+    ping -c 1 $host > /dev/null 2>&1
+    if [[ "$?" == "0" ]]; then
+        echo "Connected" && exit
+    fi
+    sleep 1
+done

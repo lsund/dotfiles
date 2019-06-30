@@ -1,0 +1,228 @@
+#!/bin/zsh
+#
+# This script replaces trash to make it safer. It moves files to ~/.Trash, and
+# sorts them.
+
+
+# ############################################################################
+# Config
+
+
+base_trashdir="$HOME/.trash"
+
+
+# ############################################################################
+# Preconditions
+
+
+if [[ -e "/usr/bin/rm" ]]; then
+    real_remove=/usr/bin/rm
+elif [[ -e "/bin/rm" ]]; then
+    real_remove=/bin/rm
+else
+    echo "Don't know which rm to use" && exit
+fi
+
+mkdir -p $base_trashdir/{1K,1M,100M,200M,1G}
+
+# ############################################################################
+# Functions
+
+
+# Sets the destination trashdir depending on the size of $1
+function SetTrashdir () {
+
+    size=$(sudo du -hs $1 | xargs | cut -d' ' -f1)
+    value="${size:0:${#size}-1}"
+    suffix="${size: -1}"
+
+    if [[ $suffix == "M" ]]; then
+        if [[ $value -gt 200 ]]; then
+            trashdir=$base_trashdir/200M
+        elif [[ $value -gt 100 ]]; then
+            trashdir=$base_trashdir/100M
+        else
+            trashdir=$base_trashdir/1M
+        fi
+    elif [[ $suffix == "G" ]]; then
+        trashdir=$base_trashdir/1G
+    else
+        trashdir=$base_trashdir/1K
+    fi
+}
+
+
+# lists $1 and counts how many files/directories have the same name
+# as $2
+function CountIdentical () {
+    for existing in  $(ls $1 | grep $basevar-trashed)
+    do
+        num=${existing##*-}
+        if [[  $num -gt max ]]; then
+            max=$num
+        fi
+    done
+}
+
+function RemoveFiles () {
+    all_files=$(fd -H -t f -d 2 . $base_trashdir)
+    files=$(echo $all_files | head -7)
+    n=$(echo $all_files | wc -l)
+    while read -r line; do
+        echo $line
+    done <<< "$files"
+    echo
+    if [[ $files == "" ]]; then
+        echo "No more files to remove."
+        echo
+        echo
+        return
+    fi
+    echo
+    vared -p "Remove the above files? [Y/n] " -c choice
+    if [[ "$choice" != "n" ]]; then
+        while read -r line; do
+            sudo /usr/bin/rm -rf $line
+        done <<< "$files"
+    fi
+    echo
+    echo
+    left=$(( n - 7 ))
+    if [[ $left -lt 0 ]]; then
+        left=0
+    fi
+    echo "Done. $left files left"
+    echo
+    echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "
+    echo
+    echo
+    RemoveFiles
+}
+
+function RemoveDirs () {
+    all_files=$(fd -H -d 3 . $base_trashdir \
+        | sed '/^\/home\/lsund\/.trash\/200M$/d' \
+        | sed '/^\/home\/lsund\/.trash\/100M$/d' \
+        | sed '/^\/home\/lsund\/.trash\/1G$/d' \
+        | sed '/^\/home\/lsund\/.trash\/1M$/d' \
+        | sed '/^\/home\/lsund\/.trash\/1K$/d' \
+    )
+    files=$(echo $all_files | head -7)
+    n=$(echo $all_files | wc -l)
+    while read -r line; do
+        echo $line
+    done <<< "$files"
+    echo
+    if [[ $files == "" ]]; then
+        echo "No more files to remove."
+        echo
+        echo
+        return
+    fi
+    echo
+    vared -p "Remove the above files? [Y/n] " -c choice
+    if [[ "$choice" != "n" ]]; then
+        while read -r line; do
+            sudo /usr/bin/rm -rf $line
+        done <<< "$files"
+    fi
+    echo
+    echo
+    left=$(( n - 7 ))
+    if [[ $left -lt 0 ]]; then
+        left=0
+    fi
+    echo "Done. $left files left"
+    echo
+    echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "
+    echo
+    echo
+    RemoveDirs
+}
+
+
+function PrintStats {
+    warning_kilo_bytes=5000
+
+    bytes=$(sudo du -s $base_trashdir)
+    number=$(echo $bytes | cut -d'/' -f1 | xargs)
+
+    if [[ "$number" -gt warning_kilo_bytes ]]; then
+
+        unit="KB"
+        if [[ "$number" -gt "1000" ]]; then
+            unit="MB"
+            number=$(expr $number / 1000)
+        fi
+        if [[ "$number" -gt "1000" ]]; then
+            unit="GB"
+            number=$(expr $number / 1000)
+        fi
+
+        echo "Consider emptying trash directory"
+        echo "It currently more than $(echo $number | xargs) $unit"
+    fi
+
+    n_files=$(fd -H -t f -d 2 . $base_trashdir | wc -l)
+    echo "Trash bin currently contains $n_files files"
+}
+
+# ############################################################################
+# Main Loop
+
+
+
+if [[ $1 == "--remove" ]]; then
+    RemoveFiles
+    RemoveDirs
+    exit 0
+elif [[ $1 == "--help" || $1 == "-h" ]]; then
+    echo "Usage: ./trash [FILES]"
+    echo "Usage: ./trash --remove"
+    exit 0
+fi
+
+
+removed=true
+for var in "$@"
+    do
+        basevar=$(basename "$var")
+        if [[ ${basevar:0:1} == "." ]]; then
+            len=${#basevar}
+            basevar=${basevar:1:$len}
+        fi
+        removed=true
+        if [[ -e "$var" ]]; then
+
+            SetTrashdir $var
+
+            # Counts the already existing copies of files/directories named
+            # $var in the below directories
+            max=0
+            CountIdentical $trashdir $var
+
+            sudo mv $var $trashdir/$basevar-trashed-$(( $max + 1 ))
+
+            if [[ $? == 1 ]]; then
+                echo "Error. Please fix it"
+                exit 1
+            fi
+            echo "Moved $var to trash."
+        elif
+            [[ -L "$var" ]]; then
+            $real_remove $var
+            echo "Removed symbolic link."
+        else
+            removed=false
+            echo "trash: no such file or directory: $var"
+        fi
+done
+
+[[ $removed == false ]] && exit 0;
+
+echo
+
+
+PrintStats
+
+

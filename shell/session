@@ -1,0 +1,28 @@
+#!/bin/zsh
+
+session_file="$HOME/.${USER}_session"
+before_ts=$(date '+%s')
+logged=$(cat $session_file)
+
+if [[ $1 == "reset" ]]; then
+    echo "Resetting session. Current time: $(show-time 0)."
+    echo 0 > $session_file
+    exit 0
+fi
+
+function control_c() {
+    after_ts=$(date '+%s')
+    new_logged=$((logged + after_ts - before_ts))
+    echo $new_logged  > $session_file
+    echo "\nPausing session. Current time: $(show-time $new_logged)."
+    exit 0
+}
+
+trap control_c SIGINT
+
+[[ ! -e $session_file ]] && echo 0 > $session_file
+
+echo "Continuing session. Current time: $(show-time $logged)."
+
+stopwatch
+

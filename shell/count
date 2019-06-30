@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+# if $1 is a file, count the lines in that file
+# if $1 is a directory, count the number of items in the toplevel of that
+# directory
+
+if [[ ! $1 ]]; then
+    target=.
+else
+    target=$1
+fi
+
+if [[ -f $target ]]; then
+    cat $target | wc -l
+elif [[ -d $target ]]; then
+    /usr/bin/ls $target | wc -l
+else
+    echo $target: No suche file or directory
+fi
+

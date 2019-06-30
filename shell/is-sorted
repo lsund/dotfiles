@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+tmp_file=mktemp
+sort $1 > tmp_file
+cmp tmp_file $1 > /dev/null

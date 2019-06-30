@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+# Replaces all spaces in all filenames in the current directory by dashes
+
+for file in "$@"
+do
+    if [[ ! -e $file ]]; then
+        echo "File does not exist: $file" && exit 1
+    fi
+    newname="$(echo $file | sed 's/ /_/g')"
+    mv $file $newname
+done
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Automatically mount some device with some options
+
+if [[ "$#" == 0 || "$1" == "mybook" ]]; then
+    path="/mnt/mybook"
+elif [[ "$1" == "usb" ]]; then
+    path="/mnt/usb"
+else
+    echo "unknown media"
+fi
+
+sudo umount $path
+
+if [[ "$?" == 0 ]]; then
+    echo "Unmounted $path"
+else
+    echo "Something went wrong..." && exit
+fi

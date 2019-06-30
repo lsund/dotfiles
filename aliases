@@ -7,6 +7,7 @@ function cd() {
 }
 
 # Aliases
+alias gco='git-fuzzy-checkout'
 alias watch-file='watch -n 1 -d cat'
 alias ports="sudo lsof -Pnl +M -i4"
 alias duh="du -h -d 1"

@@ -1,0 +1,111 @@
+#!/bin/bash
+
+pi=false
+
+backup_dest_dir=/mnt/mybook/Backup/
+ip=192.168.0.18
+backup_dirs=(Data Documents Mail Media Library Desktop Downloads)
+
+if [[ "$1" == "-h" ]]; then
+    echo
+    echo "\$1 (optional): destination directory relative to backup directory "
+    echo "default \$1: \"random\" number"
+    echo
+    exit
+fi
+
+verbose=false
+
+if [[ "$1" == "-v" ]]; then
+    verbose=true
+fi
+
+if $pi ; then
+    if ping -c 1 ${ip} &> /dev/null
+    then
+        if $verbose ; then
+            echo "Established connection with remote server"
+        fi
+    else
+        echo "Cannot establish connection with ip ${ip}"
+        exit
+    fi
+
+    if ! ssh pi "test -d '$backup_dest_dir'"; then
+        echo "$backup_dest_dir does not exist on remote server"
+        exit
+    else
+        echo "The files will be backed up under ${backup_dest_dir} on ${ip}"
+    fi
+fi
+
+logfile=/home/lsund/Data/log/backup/backup.log
+if [[ ! -e "$logfile" ]]; then
+    echo "Logfile: $logfile does not exist"
+    exit
+fi
+
+dirs_string=""
+
+timestamp="$(date +%s)/"
+if [[ "$#" == "2" ]]; then
+    dest_dir=$backup_dest_dir$2
+else
+    dest_dir=$backup_dest_dir$timestamp
+fi
+
+homepath=/home/lsund/
+for dir in ${backup_dirs[*]}
+do
+    if [[ ! -e ${homepath}${dir} ]]; then
+        echo "Dir to be backed up: ${homepath}$dir does not exist"
+        exit
+    fi
+done
+
+for dir in ${backup_dirs[*]}
+do
+    dirs_string="$dirs_string $homepath$dir"
+done
+
+if [[ "$1" == "-v" ]]; then
+    echo
+    echo "The directories on this machine that will be backed up are:"
+    echo
+    echo $dirs_string | tr ' ' \\n
+    echo
+    echo "destination: $dest_dir"
+    echo
+    echo "will log to: $logfile"
+    echo
+    read -p "Accept? [Y/n] " yn
+    case $yn in
+        [Nn]* )
+            echo "Not backup up..."
+            ;;
+        * )
+            echo "starting backup"
+            if $pi; then
+                sudo rsync -chavzP --stats $dirs_string lsund@${ip}:$dest_dir | tee $logfile
+            else
+                sudo rsync -chavzP --stats $dirs_string $dest_dir | tee $logfile
+            fi
+            failed=$(cat $logfile | grep failed)
+            echo "backup done."
+            if [[ ! -z $failed ]]; then
+                echo "failed files:"
+                echo $failed
+            else
+                echo "All files successfullly backed up."
+            fi
+            ;;
+    esac
+else
+    if $pi; then
+        sudo rsync -chavzP --stats $dirs_string lsund@${ip}:$dest_dir > $logfile
+    else
+        sudo rsync -chavzP --stats $dirs_string $dest_dir | tee $logfile
+    fi
+fi
+
+

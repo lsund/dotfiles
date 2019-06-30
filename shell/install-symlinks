@@ -1,0 +1,298 @@
+#!/bin/zsh
+
+vimrc=$HOME/.vimrc
+vim=$HOME/.vim
+VIM=$HOME/.vim
+al=$HOME/.aliases
+git=$HOME/.config/git/config
+emacsd=$HOME/.emacs.d
+
+# Make some directories
+mkdir -p $vim/{after/plugin,colors,plugin}
+mkdir -p $emacsd/config
+mkdir -p $HOME/.config/git
+mkdir -p $HOME/.git_template/hooks
+mkdir -p $HOME/.xmonad/lib
+mkdir -p $HOME/.xmonad/apps
+mkdir -p $HOME/.xmonad/img
+mkdir -p $HOME/.icons/xbm_icons/subtle
+
+## Sources
+
+# Vim
+vim_dir=$DOTFILES/vim
+
+
+# Emacs
+emacs_file=$DOTFILES/emacs/emacs
+emacs_init=$DOTFILES/emacs/init.el
+emacs_config=$DOTFILES/emacs/config/my-config.el
+emacs_clojure=$DOTFILES/emacs/config/my-clojure.el
+emacs_elisp=$DOTFILES/emacs/config/my-elisp.el
+emacs_powerline=$DOTFILES/emacs/config/my-powerline.el
+emacs_haskell=$DOTFILES/emacs/config/my-haskell.el
+emacs_org=$DOTFILES/emacs/config/my-org.el
+emacs_lisp=$DOTFILES/emacs/config/my-lisp.el
+emacs_python=$DOTFILES/emacs/config/my-python.el
+emacs_tex=$DOTFILES/emacs/config/my-tex.el
+emacs_md=$DOTFILES/emacs/config/my-markdown.el
+emacs_neotree=$DOTFILES/emacs/config/my-neotree.el
+emacs_bufferman=$DOTFILES/emacs/config/my-bufferman.el
+emacs_editing=$DOTFILES/emacs/config/my-editing.el
+emacs_ghcid=$DOTFILES/emacs/config/my-ghcid.el
+
+
+# Git
+git_config=$DOTFILES/git/config
+git_hook=$DOTFILES/git/hooks/prepare-commit-msg
+
+# SSH
+if [[ $(< /etc/hostname) == "keysersoze" ]]; then
+    ssh_config=$DOTFILES/ssh/keysersoze_config
+else
+    ssh_config=$DOTFILES/ssh/pedro_config
+fi
+
+# Shell
+zsh_rc=$DOTFILES/zshrc
+_aliases="$DOTFILES/aliases"
+tmux=$DOTFILES/tmux.conf
+xinitrc=$DOTFILES/xinitrc
+xresources=$DOTFILES/Xresources
+
+# XMonad
+xmonadrc=$DOTFILES/xmonad/xmonad.hs
+xm_boxes=$DOTFILES/xmonad/Boxes.hs
+xm_config=$DOTFILES/xmonad/Config.hs
+xm_keys=$DOTFILES/xmonad/KeyBindings.hs
+xm_cpu=$DOTFILES/xmonad/haskell-cpu-usage.out
+xm_img=$DOTFILES/xmonad/haskell.png
+
+xm_icon1=$DOTFILES/icons/boxleft2-big.xbm
+xm_icon2=$DOTFILES/icons/boxleft2.xbm
+xm_icon3=$DOTFILES/icons/boxleft.xbm
+xm_icon4=$DOTFILES/icons/boxright.xbm
+
+# Misc
+lesskey=$DOTFILES/lesskey
+xinitrc=$DOTFILES/xinitrc
+htoprc=$DOTFILES/htoprc
+
+## Destinations
+
+# Vim
+loc_vim_dir=$HOME/.vim
+
+# Emacs
+loc_emacs_file=$HOME/.emacs
+loc_emacs_init=$emacsd/init.el
+loc_emacs_config=$emacsd/config/my-config.el
+loc_emacs_clojure=$emacsd/config/my-clojure.el
+loc_emacs_elisp=$emacsd/config/my-elisp.el
+loc_emacs_powerline=$emacsd/config/my-powerline.el
+loc_emacs_haskell=$emacsd/config/my-haskell.el
+loc_emacs_org=$emacsd/config/my-org.el
+loc_emacs_lisp=$emacsd/config/my-lisp.el
+loc_emacs_python=$emacsd/config/my-python.el
+loc_emacs_tex=$emacsd/config/my-tex.el
+loc_emacs_md=$emacsd/config/my-markdown.el
+loc_emacs_neotree=$emacsd/config/my-neotree.el
+loc_emacs_bufferman=$emacsd/config/my-bufferman.el
+loc_emacs_editing=$emacsd/config/my-editing.el
+loc_emacs_ghcid=$emacsd/config/my-ghcid.el
+
+# Git
+loc_git_config=$HOME/.config/git/config
+loc_git_hook=$HOME/.git_template/hooks/prepare-commit-msg
+
+# SSH
+loc_ssh_config=$HOME/.ssh/config
+
+# Shell
+loc_zsh_rc=$HOME/.zshrc
+loc_aliases="$HOME/.aliases"
+loc_tmux=$HOME/.tmux.conf
+loc_xinitrc=$HOME/.xinitrc
+loc_xresources=$HOME/.Xresources
+
+# XMonad
+loc_xmonadrc=$HOME/.xmonad/xmonad.hs
+loc_xm_boxes=$HOME/.xmonad/lib/Boxes.hs
+loc_xm_config=$HOME/.xmonad/lib/Config.hs
+loc_xm_keys=$HOME/.xmonad/lib/KeyBindings.hs
+loc_xm_cpu=$HOME/.xmonad/apps/haskell-cpu-usage.out
+loc_xm_img=$HOME/.xmonad/img/haskell.png
+
+loc_xm_icon1=$HOME/.icons/xbm_icons/subtle/boxleft2-big.xbm
+loc_xm_icon2=$HOME/.icons/xbm_icons/subtle/boxleft2.xbm
+loc_xm_icon3=$HOME/.icons/xbm_icons/subtle/boxleft.xbm
+loc_xm_icon4=$HOME/.icons/xbm_icons/subtle/boxright.xbm
+
+# Misc
+loc_lesskey=$HOME/.lesskey
+loc_xinitrc=$HOME/.xinitrc
+loc_htoprc=$HOME/.config/htop/htoprc
+
+## Insertions
+
+function Link()
+{
+    [[ -e $1 ]] || ln -s $2 $1
+}
+
+# Vim
+Link $loc_vim_dir               $vim_dir
+
+# Emacs
+Link $loc_emacs_file            $emacs_file
+Link $loc_emacs_init            $emacs_init
+Link $loc_emacs_config          $emacs_config
+Link $loc_emacs_clojure         $emacs_clojure
+Link $loc_emacs_elisp           $emacs_elisp
+Link $loc_emacs_powerline       $emacs_powerline
+Link $loc_emacs_haskell         $emacs_haskell
+Link $loc_emacs_org             $emacs_org
+Link $loc_emacs_lisp            $emacs_lisp
+Link $loc_emacs_python          $emacs_python
+Link $loc_emacs_tex             $emacs_tex
+Link $loc_emacs_md              $emacs_md
+Link $loc_emacs_neotree         $emacs_neotree
+Link $loc_emacs_bufferman       $emacs_bufferman
+Link $loc_emacs_editing         $emacs_editing
+Link $loc_emacs_ghcid           $emacs_ghcid
+
+# Git
+Link $loc_git_config            $git_config
+Link $loc_git_hook              $git_hook
+
+# SSH
+Link $loc_ssh_config            $ssh_config
+
+# Shell
+Link $loc_zsh_rc                $zsh_rc
+Link $loc_aliases               $_aliases
+Link $loc_tmux                  $tmux
+Link $loc_xinitrc               $xinitrc
+Link $loc_xresources            $xresources
+
+# XMonad
+Link $loc_xmonadrc              $xmonadrc
+Link $loc_xm_boxes              $xm_boxes
+Link $loc_xm_config             $xm_config
+Link $loc_xm_keys               $xm_keys
+Link $loc_xm_cpu                $xm_cpu
+Link $loc_xm_img                $xm_img
+
+Link $loc_xm_icon1              $xm_icon1
+Link $loc_xm_icon2              $xm_icon2
+Link $loc_xm_icon3              $xm_icon3
+Link $loc_xm_icon4              $xm_icon4
+
+# Misc
+
+Link $loc_lesskey               $lesskey
+Link $loc_xinitrc               $xinitrc
+Link $loc_htoprc                $htoprc
+
+echo "Done"
+echo "You might need to source $loc_aliases"
+
+
+# loc_zsh_plugin=$VIM/after/plugin/zsh.vim
+# loc_haskell_plugin=$VIM/after/plugin/haskell.vim
+# loc_python_plugin=$VIM/after/plugin/python.vim
+# loc_clojure_plugin=$VIM/after/plugin/clojure.vim
+
+# loc_vim_rc=$HOME/.vimrc
+# loc_vim_badwolf=$HOME/.vim/colors/badwolf.vim
+
+# loc_vim_ack=$HOME/.vim/plugin/ack.vim
+# loc_vim_airline=$HOME/.vim/plugin/airline.vim
+# loc_vim_bufonly=$HOME/.vim/plugin/BufOnly.vim
+# loc_vim_easymotion=$HOME/.vim/plugin/easymotion.vim
+# loc_vim_fugitive=$HOME/.vim/plugin/fugitive.vim
+# loc_vim_fzf=$HOME/.vim/plugin/fzf.vim
+# loc_vim_himport=$HOME/.vim/plugin/HaskellImport.vim
+# loc_vim_hlint_refactor=$HOME/.vim/plugin/hlint-refactor.vim
+# loc_vim_intero=$HOME/.vim/plugin/intero.vim
+# loc_vim_nerdtree=$HOME/.vim/plugin/nerdtree.vim
+# loc_vim_plugin=$HOME/.vim/plugin/plugin.vim
+# loc_vim_rainbow=$HOME/.vim/plugin/rainbow-parentheses.vim
+# loc_vim_rename=$HOME/.vim/plugin/Rename.vim
+# loc_vim_syntastic=$HOME/.vim/plugin/syntastic.vim
+# loc_vim_tabular=$HOME/.vim/plugin/tabular.vim
+# loc_vim_tagbar=$HOME/.vim/plugin/tagbar.vim
+# loc_vim_tmuxnav=$HOME/.vim/plugin/tmuxnavigate.vim
+# loc_vim_ultisnips=$HOME/.vim/plugin/ultisnips.vim
+# loc_vim_easy_align=$HOME/.vim/plugin/vim-easy-align.vim
+# loc_vim_incr=$HOME/.vim/plugin/visincrPlugin.vim
+# loc_vim_ycm=$HOME/.vim/plugin/ycm.vim
+# loc_vim_commentary=$HOME/.vim/plugin/vim-commentary.vim
+# loc_vim_markdown=$HOME/.vim/plugin/vim-markdown.vim
+
+# zsh_plugin=$DOTFILES/vim/after/plugin/zsh.vim
+# haskell_plugin=$DOTFILES/vim/after/plugin/haskell.vim
+# python_plugin=$DOTFILES/vim/after/plugin/python.vim
+# clojure_plugin=$DOTFILES/vim/after/plugin/clojure.vim
+
+# vim_rc=$DOTFILES/vimrc
+# vim_badwolf=$DOTFILES/vim/colors/badwolf.vim
+
+# vim_ack=$DOTFILES/vim/plugin/ack.vim
+# vim_airline=$DOTFILES/vim/plugin/airline.vim
+# vim_bufonly=$DOTFILES/vim/plugin/BufOnly.vim
+# vim_easymotion=$DOTFILES/vim/plugin/easymotion.vim
+# vim_fugitive=$DOTFILES/vim/plugin/fugitive.vim
+# vim_fzf=$DOTFILES/vim/plugin/fzf.vim
+# vim_himport=$DOTFILES/vim/plugin/HaskellImport.vim
+# vim_hlint_refactor=$DOTFILES/vim/plugin/hlint-refactor.vim
+# vim_intero=$DOTFILES/vim/plugin/intero.vim
+# vim_nerdtree=$DOTFILES/vim/plugin/nerdtree.vim
+# vim_plugin=$DOTFILES/vim/plugin/plugin.vim
+# vim_rainbow=$DOTFILES/vim/plugin/rainbow-parentheses.vim
+# vim_rename=$DOTFILES/vim/plugin/Rename.vim
+# vim_syntastic=$DOTFILES/vim/plugin/syntastic.vim
+# vim_tabular=$DOTFILES/vim/plugin/tabular.vim
+# vim_tagbar=$DOTFILES/vim/plugin/tagbar.vim
+# vim_tmuxnav=$DOTFILES/vim/plugin/tmuxnavigate.vim
+# vim_ultisnips=$DOTFILES/vim/plugin/ultisnips.vim
+# vim_easy_align=$DOTFILES/vim/plugin/vim-easy-align.vim
+# vim_incr=$DOTFILES/vim/plugin/visincrPlugin.vim
+# vim_ycm=$DOTFILES/vim/plugin/ycm.vim
+# vim_commentary=$DOTFILES/vim/plugin/vim-commentary.vim
+# vim_markdown=$DOTFILES/vim/plugin/vim-markdown.vim
+
+# Link $loc_zsh_plugin            $zsh_plugin
+# Link $loc_haskell_plugin        $haskell_plugin
+# Link $loc_python_plugin         $python_plugin
+# Link $loc_clojure_plugin        $clojure_plugin
+
+# Link $loc_vim_rc                $vim_rc
+# Link $loc_vim_badwolf           $vim_badwolf
+
+# Link $loc_vim_tmuxnav           $vim_tmuxnav
+
+# Link $loc_vim_ack               $vim_ack
+# Link $loc_vim_airline           $vim_airline
+# Link $loc_vim_bufonly           $vim_bufonly
+# Link $loc_vim_easymotion        $vim_easymotion
+# Link $loc_vim_fugitive          $vim_fugitive
+# Link $loc_vim_fzf               $vim_fzf
+# Link $loc_vim_himport           $vim_himport
+# Link $loc_vim_hlint_refactor    $vim_hlint_refactor
+# Link $loc_vim_intero            $vim_intero
+# Link $loc_vim_nerdtree          $vim_nerdtree
+# Link $loc_vim_plugin            $vim_plugin
+# Link $loc_vim_rainbow           $vim_rainbow
+# Link $loc_vim_rename            $vim_rename
+# Link $loc_vim_syntastic         $vim_syntastic
+# Link $loc_vim_tabular           $vim_tabular
+# Link $loc_vim_tagbar            $vim_tagbar
+# Link $loc_vim_tmuxnav           $vim_tmuxnav
+# Link $loc_vim_ultisnips         $vim_ultisnips
+# Link $loc_vim_easy_align        $vim_easy_align
+# Link $loc_vim_incr              $vim_incr
+# Link $loc_vim_ycm               $vim_ycm
+# Link $loc_vim_commentary        $vim_commentary
+# Link $loc_vim_markdown          $vim_markdown
+

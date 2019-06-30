@@ -1,0 +1,176 @@
+#!/bin/zsh
+
+# A specific list of packages is specified for both ubuntu and arch linux.
+# This script goes through each of these, checks if they exist in the
+# official repositories, if they exist on the local computer and installs
+# accordingly.
+
+[[ -z $1 ]] && echo "Need first argument: distro" && exit
+
+# ############################################################################
+# UBUNTU
+
+if [[ $1 == "arch" ]]; then
+
+    sudo pacman -Suy
+
+    declare -a packages=("htop"
+                         "texlive-core"
+                         "fzf"
+                         "pulseaudio"
+                         "pulseaudio-alsa"
+                         "pavucontrol"
+                         "alsa-utils"
+                         "mplayer"
+                         "pdfpc"
+                         "cabal-install"
+                         "jdk8-openjdk"
+                         "ruby"
+                         "wget"
+                         "rxvt-unicode"
+                         "rxvt-unicode-terminfo"
+                         "firefox"
+                         "unzip"
+                         "tmux"
+                         "ghc"
+                         "openssh"
+                         "scrot"
+                         "feh"
+                         "git"
+                         "vim"
+                         "neovim"
+                         "graphviz"
+                         "the_silver_searcher"
+                         "pwgen"
+                         "fd"
+                         "cmake"
+                         "python2"
+                         "python-virtualenv"
+                         "python-requests"
+                         "python-regex"
+                         "python-dateutil"
+                         "pyalpm"
+                         "python-feedparser"
+                         "pydf"
+                         "python-pip"
+                         "python2-pip"
+                         "expac"
+                         "redshift"
+                         "gimp"
+                         "ristretto"
+                         "scrot"
+                         "pass"
+                         "zsh"
+                         "curl"
+                         "emacs"
+                         "screenfetch"
+                         "cronie"
+                         "zathura"
+                         "zathura-pdf-poppler")
+
+
+    for package in "${packages[@]}"
+    do
+        echo "*** Installing $package"
+        pacman -Ss ^$package$ > /dev/null 2>&1
+
+        if [[ $? == "1" ]]; then
+        echo "Package $package does not exist" && exit
+        fi
+
+        pacman -Qi $package > /dev/null 2>&1
+        if [[ $? == "1" ]]; then
+            sudo pacman -S $package
+        fi
+
+    done
+# ############################################################################
+# ARCH LINUX
+
+elif [[ $1 == "ubuntu" ]]; then
+
+    ## PPA's
+    sudo add-apt-repository ppa:neovim-ppa/stable
+
+    sudo apt-get update && sudo apt-get upgrade
+
+    declare -a packages=("htop"
+                         "texlive-full"
+                         "cabal-install"
+                         "openjdk-8-jdk"
+                         "ruby"
+                         "git"
+                         "vim"
+                         "ghc"
+                         "pass"
+                         "graphviz"
+                         "pdf-presenter-console"
+                         "silversearcher-ag"
+                         "pwgen"
+                         "build-essential"
+                         "cmake"
+                         "python-dev"
+                         "python-pip"
+                         "python3-venv"
+                         "python3-dev"
+                         "python3-pip"
+                         "zsh"
+                         "g++"
+                         "redshift"
+                         "gimp"
+                         "scrot"
+                         "curl"
+                         "software-properties-common"
+                         "neovim")
+
+    for package in "${packages[@]}"
+    do
+
+        out=$(apt-cache search ^$package$)
+
+        if [[ out == "" ]]; then
+        echo "Package $package does not exist" && exit
+        fi
+
+        dpkg -s $package > /dev/null 2>&1
+        if [[ $? == "1" ]]; then
+            sudo apt-get install $package
+        fi
+
+        #fd
+        # TODO change this to most recent version
+        fd_link="https://github.com/sharkdp/fd/releases/download/v6.2.0/fd-musl_6.2.0_amd64.deb"
+        fd_file="fd-musl_6.2.0_amd64.deb"
+        wget $fd_link
+        sudo dpkg -i $fd_file
+        mv $fd_file ~/.trash/trash-files
+    done
+
+fi
+
+# Neovim
+if [[ ! -f "$HOME/.config/nvim/init.vim" ]]; then
+    echo "Hello!"
+    mkdir -p $HOME/.config/nvim
+    nvim=$HOME/.config/nvim/init.vim
+    touch $nvim
+    echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > $nvim
+    echo "let &packpath = &runtimepath" >> $nvim
+    echo "source ~/.vimrc" >> $nvim
+fi
+
+# trans
+which trans > /dev/null 2>&1
+if [[ $? == "1" ]]; then
+    wget git.io/trans
+    chmod +x ./trans
+    mv trans $HOME/.bin
+fi
+
+# lein
+which lein > /dev/null 2>&1
+if [[ $? == "1" ]]; then
+    wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    chmod +x ./lein
+    mv lein $HOME/.bin
+fi
