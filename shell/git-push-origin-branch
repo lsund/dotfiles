@@ -4,10 +4,10 @@ set -e
 
 [[ ! $(git status 2> /dev/null) ]] && echo "Error: Not a git repository" && exit
 
-branch_name=$(git branch | grep \* | cut -d ' ' -f2)
+current_branch_name=$(git branch | grep \* | cut -d ' ' -f2)
 
-project_name=$(echo $branch_name | cut -d '-' -f1)
-issue_number=$(echo $branch_name | cut -d '-' -f2)
+project_name=$(echo $current_branch_name | cut -d '-' -f1)
+issue_number=$(echo $current_branch_name | cut -d '-' -f2)
 
 if [[ $1 == "-n" ]]; then
     nocommit=true
@@ -74,19 +74,20 @@ else
 fi
 
 if [[ $1 == "--nocommit" || $1 == "-n" ]]; then
-    echo  "git push -u origin $branch_name"
-    git push -u origin $branch_name
+    echo  "git push -u origin $current_branch_name"
+    git push -u origin $current_branch_name
 else
     if [[ ! $msg ]]; then
         vared -p "> $commit_tag" -c msg
     fi
     commit_message=$commit_tag$msg
-    if [[ $msg == "" ]]; then
-        git diff origin/master
+    if [[ $msg == "" &&  $(git diff origin/master) != "" ]]; then
+        echo  "git push -u origin $current_branch_name"
+        git push -u origin $current_branch_name
     else
-        echo Committing with message: $commit_message
+        echo "git commit -m $commit_message"
         git commit -m $commit_message
-        echo  "git push -u origin $branch_name"
-        git push -u origin $branch_name
+        echo  "git push -u origin $current_branch_name"
+        git push -u origin $current_branch_name
     fi
 fi
