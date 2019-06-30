@@ -1,5 +1,3 @@
-. $HOME/.aliases
-
 # ###########################################################################
 # Extend path
 
@@ -24,7 +22,7 @@ export ANDROID_AVD_HOME="/home/lsund/.android/avd"
 export XML_CATALOG_FILES="${HOME}/Data/xml/catalog /etc/xml/catalog"
 
 export DOTFILES=$HOME/Documents/dotfiles
-export SCRIPTS=$HOME/Documents/scripts
+export SCRIPTS=$HOME/Documents/dotfiles/shell
 
 export JAVA_HOME=/usr/lib/jvm/default
 
@@ -153,6 +151,6 @@ function precmd() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-. ~/.aliases
+. $HOME/.aliases
+. $HOME/.piggy/scripts/functions
 
-. ~/.piggy/scripts/functions
