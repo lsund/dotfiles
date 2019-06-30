@@ -84,10 +84,12 @@ else
     commit_message=$commit_tag$msg
     if [[ $msg == ""  ]]; then
         if [[ $(git diff origin/master) != "" ]]; then
-            echo "Empty commit message but already commited. Pushing."
+            echo "Empty commit message but a commit is yet to be pushed."
+            echo "Pushing now."
             echo  "git push -u origin $current_branch_name"
             git push -u origin $current_branch_name
         else
+            echo "Empty commit message and no commit to be pushed. Exiting."
             echo "Exiting due to empty commit message"
             exit 1
         fi
@@ -98,3 +100,5 @@ else
         git push -u origin $current_branch_name
     fi
 fi
+
+exit 0
