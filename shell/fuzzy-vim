@@ -35,35 +35,37 @@ function recurse_into_dir () {
     all="$all $search_path/$dir "
 }
 
-all=""
+# Assemble arguments
+all_arguments=""
 if [[ $# == 0 ]]; then
     file=$(/usr/bin/ls | $fuzzy_prog)
     if [[ -d $file ]]; then
         recurse_into_dir $file
     else
-        all="$all $file"
+        all_arguments="$all_arguments $file"
     fi
 else
     for file in $@; do
-        if [[ ! -e $file ]]; then
-            continue
-        elif [[ -d $file ]]; then
+        if [[ -d $file ]]; then
             recurse_into_dir $file
         else
-            all="$all $file"
+            all_arguments="$all_arguments $file"
         fi
     done
 fi
 
-for file in $(echo $all | xargs); do;
+for file in $(echo $all_arguments | xargs); do;
+    if [[ ! -e $file ]]; then
+        continue
+    fi
     check_size $file
 done
 
 
 if [[ $open_with_less == true ]]; then
-    less $(echo $all | xargs)
+    less $(echo $all_arguments | xargs)
 else
-    nvim $(echo $all | xargs)
+    nvim $(echo $all_arguments | xargs)
 fi
 
 
