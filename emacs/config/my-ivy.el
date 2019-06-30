@@ -10,10 +10,10 @@
 (define-key ido-file-completion-map (kbd "C-w") 'backward-kill-word)
 (define-key ido-file-completion-map (kbd "C-n") 'ido-next-match)
 (define-key ido-file-completion-map (kbd "C-p") 'ido-prev-match)
-(define-key my-leader-map "ir" (lambda ()
+(define-key my-leader-map "ar" (lambda ()
                                  (interactive)
 				 (ivy-resume)))
-(define-key my-leader-map "a" (lambda ()
+(define-key my-leader-map "aa" (lambda ()
                                 (interactive)
 				(counsel-ag "" (locate-dominating-file default-directory "core/src"))))
 
