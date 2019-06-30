@@ -81,9 +81,15 @@ else
         vared -p "> $commit_tag" -c msg
     fi
     commit_message=$commit_tag$msg
-    if [[ $msg == "" &&  $(git diff origin/master) != "" ]]; then
-        echo  "git push -u origin $current_branch_name"
-        git push -u origin $current_branch_name
+    if [[ $msg == ""  ]]; then
+        if [[ $(git diff origin/master) != "" ]]; then
+            echo "Empty commit message but already commited. Pushing."
+            echo  "git push -u origin $current_branch_name"
+            git push -u origin $current_branch_name
+        else
+            echo "Exiting due to empty commit message"
+            exit 1
+        fi
     else
         echo "git commit -m $commit_message"
         git commit -m $commit_message
