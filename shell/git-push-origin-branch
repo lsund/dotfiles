@@ -2,6 +2,8 @@
 
 set -e
 
+diffbranch=integration
+
 [[ ! $(git status 2> /dev/null) ]] && echo "Error: Not a git repository" && exit
 
 current_branch_name=$(git branch | grep \* | cut -d ' ' -f2)
@@ -83,7 +85,7 @@ else
     fi
     commit_message=$commit_tag$msg
     if [[ $msg == ""  ]]; then
-        if [[ $(git diff origin/master) != "" ]]; then
+        if [[ $(git diff origin/$diffbranch) != "" ]]; then
             echo "Empty commit message but a commit is yet to be pushed."
             echo "Pushing now."
             echo  "git push -u origin $current_branch_name"

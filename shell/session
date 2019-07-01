@@ -1,8 +1,12 @@
 #!/bin/zsh
 
+music_path=$HOME/Media/audio/music
 session_file="$HOME/.${USER}_session"
 before_ts=$(date '+%s')
 logged=$(cat $session_file)
+
+rand_file="$music_path/$(/usr/bin/ls -1 $music_path | shuf | head -1)"
+pid=""
 
 if [[ $1 == "reset" ]]; then
     echo "Resetting session. Current time: $(show-time 0)."
@@ -11,6 +15,7 @@ if [[ $1 == "reset" ]]; then
 fi
 
 function control_c() {
+    kill $pid > /dev/null
     after_ts=$(date '+%s')
     new_logged=$((logged + after_ts - before_ts))
     echo $new_logged  > $session_file
@@ -21,6 +26,9 @@ function control_c() {
 trap control_c SIGINT
 
 [[ ! -e $session_file ]] && echo 0 > $session_file
+
+mplayer $rand_file > /dev/null &
+pid=$(echo $!)
 
 echo "Continuing session. Current time: $(show-time $logged)."
 
