@@ -36,6 +36,7 @@ for file in $(echo $files | xargs); do
     fi
 done
 
+echo "Playing $play_file"
 mplayer $play_file > /dev/null &
 pid=$(echo $!)
 
