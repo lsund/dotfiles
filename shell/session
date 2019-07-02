@@ -2,45 +2,58 @@
 
 music_path=$HOME/Media/audio/music
 session_file="$HOME/.${USER}_session"
-before_ts=$(date '+%s')
-logged=$(cat $session_file)
 
-rand_file="$music_path/$(/usr/bin/ls -1 $music_path | shuf | head -1)"
-pid=""
-
-if [[ $1 == "reset" ]]; then
-    echo "Resetting session. Current time: $(show-time 0)."
-    echo 0 > $session_file
-    exit 0
-fi
-
-function control_c() {
-    kill $pid > /dev/null
-    after_ts=$(date '+%s')
-    new_logged=$((logged + after_ts - before_ts))
-    echo $new_logged  > $session_file
-    echo "\nPausing session. Current time: $(show-time $new_logged)."
-    exit 0
-}
-
-trap control_c SIGINT
+start_ts=$(cat $session_file | head -1)
+state=$(cat $session_file | tail -2 | head -1)
+logged=$(cat $session_file | tail -1 | head -1)
 
 [[ ! -e $session_file ]] && echo 0 > $session_file
 
-files=$(/usr/bin/ls -1 $music_path)
+rand_file="$music_path/$(/usr/bin/ls -1 $music_path | shuf | head -1)"
 
-play_file=$rand_file
-for file in $(echo $files | xargs); do
-    if [[ $file == "$1.mp3" ]]; then
-        play_file=$music_path/$file
+is_mplayer_active=$(pgrep -u lsund mplayer)
+
+if [[ $1 == "reset" ]]; then
+    echo "Resetting session. Current time: $(show-time 0)."
+    echo "0\npaused\n0" > $session_file
+    if [[ $is_mplayer_active ]]; then
+        echo "quit" > ~/.mplayer/fifo
     fi
-done
+    exit 0
+elif [[ $1 == "time" ]]; then
+    after_ts=$(date '+%s')
+    new_logged=$((logged + after_ts - start_ts))
+    echo "$new_logged"
+elif [[ $# == 0 || $1 == "toggle" ]]; then
+    files=$(/usr/bin/ls -1 $music_path)
+    play_file=$rand_file
+    for file in $(echo $files | xargs); do
+        if [[ $file == "$1.mp3" ]]; then
+            play_file=$music_path/$file
+        fi
+    done
+    if [[ $state == "paused" ]]; then
+        if [[ $logged == "0" ]]; then
+            echo "$(date '+%s')\nstarted\n0" > $session_file
+        else
+            echo "$start_ts\nstarted\n$logged" > $session_file
+        fi
+        echo "Continuing session. Current time: $(show-time $logged)."
+        if [[ $is_mplayer_active ]]; then
+            # Resume the active instance
+            echo "pause" > ~/.mplayer/fifo
+        else
+            echo "Starting $play_file"
+            mplayer -quiet -slave $play_file &
+        fi
+    else
+        after_ts=$(date '+%s')
+        new_logged=$((logged + after_ts - start_ts))
+        echo "$start_ts\npaused\n$new_logged"  > $session_file
+        echo "\nPausing session. Current time: $(show-time $new_logged)."
+        # Pause the active instance
+        echo "pause" > ~/.mplayer/fifo
+    fi
 
-echo "Playing $play_file"
-mplayer -quiet $play_file > /dev/null &
-pid=$(echo $!)
-
-echo "Continuing session. Current time: $(show-time $logged)."
-
-stopwatch
+fi
 
