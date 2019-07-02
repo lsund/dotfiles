@@ -5,6 +5,7 @@
 
 fuzzy_prog=fzf
 open_with_less=false
+all_arguments=""
 
 function check_size () {
     size=$(du -h $1 | xargs | cut -d' ' -f1)
@@ -32,11 +33,10 @@ function recurse_into_dir () {
         [[ $dir == "" ]] && exit
     done
 
-    all="$all $search_path/$dir "
+    all_arguments="$all_arguments $search_path/$dir "
 }
 
 # Assemble arguments
-all_arguments=""
 if [[ $# == 0 ]]; then
     file=$(/usr/bin/ls | $fuzzy_prog)
     if [[ -d $file ]]; then
