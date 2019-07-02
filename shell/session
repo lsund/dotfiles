@@ -37,7 +37,7 @@ for file in $(echo $files | xargs); do
 done
 
 echo "Playing $play_file"
-mplayer $play_file > /dev/null &
+mplayer -quiet $play_file > /dev/null &
 pid=$(echo $!)
 
 echo "Continuing session. Current time: $(show-time $logged)."
