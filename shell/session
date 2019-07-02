@@ -27,7 +27,16 @@ trap control_c SIGINT
 
 [[ ! -e $session_file ]] && echo 0 > $session_file
 
-mplayer $rand_file > /dev/null &
+files=$(/usr/bin/ls -1 $music_path)
+
+play_file=$rand_file
+for file in $(echo $files | xargs); do
+    if [[ $file == "$1.mp3" ]]; then
+        play_file=$music_path/$file
+    fi
+done
+
+mplayer $play_file > /dev/null &
 pid=$(echo $!)
 
 echo "Continuing session. Current time: $(show-time $logged)."
