@@ -12,16 +12,18 @@ if [[ ! -e $fifofile ]] ; then
 fi
 
 session_file="$HOME/.${USER}_session"
-[[ ! -e $session_file ]] && echo 0 > $session_file
+[[ ! -e $session_file ]] && echo "0\n0\n0\npaused\n0" > $session_file
 
 # ############################################################################
 # Script
 
 music_path=$HOME/Media/audio/music
 
-start_ts=$(cat $session_file | head -1)
-state=$(cat $session_file | tail -2 | head -1)
-logged=$(cat $session_file | tail -1 | head -1)
+init_ts=$(cat $session_file | head -1)
+pause_ts=$(cat $session_file | head -2 | tail -1)
+continue_ts=$(cat $session_file | head -3 | tail -1)
+state=$(cat $session_file | head -4 | tail -1)
+logged=$(cat $session_file | tail -5 | tail -1)
 
 rand_file="$music_path/$(/usr/bin/ls -1 $music_path | shuf | head -1)"
 
@@ -31,14 +33,14 @@ is_mplayer_active=$(pgrep -u lsund mplayer)
 
 if [[ $1 == "reset" ]]; then
     echo "Resetting session. Current time: $(show-time 0)."
-    echo "0\npaused\n0" > $session_file
+    echo "0\n0\n0\npaused\n0" > $session_file
     if [[ $is_mplayer_active ]]; then
         echo "quit" > $fifofile
     fi
     exit 0
 elif [[ $1 == "time" ]]; then
-    after_ts=$(date '+%s')
-    new_logged=$((logged + after_ts - start_ts))
+    ts=$(date '+%s')
+    new_logged=$((logged + ts - init_ts))
     echo "Current time: $(show-time "$new_logged")"
 elif [[ $# == 0 || $1 == "toggle" ]]; then
     files=$(/usr/bin/ls -1 $music_path)
@@ -49,11 +51,12 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
         fi
     done
     if [[ $state == "paused" ]]; then
+        continue_ts=$(date '+%s')
         if [[ $logged == "0" ]]; then
-            echo "$(date '+%s')\nstarted\n0" > $session_file
+            echo "$continue_ts\n0\n$continue_ts\nstarted\n0" > $session_file
             echo "Starting session. Current time: $(show-time $logged)."
         else
-            echo "$start_ts\nstarted\n$logged" > $session_file
+            echo "$init_ts\n$pause_ts\n$continue_ts\nstarted\n$logged" > $session_file
             echo "Continuing session. Current time: $(show-time $logged)."
         fi
         if [[ $is_mplayer_active ]]; then
@@ -64,9 +67,9 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
             mplayer -quiet -slave $play_file > /dev/null &
         fi
     else
-        after_ts=$(date '+%s')
-        new_logged=$((logged + after_ts - start_ts))
-        echo "$start_ts\npaused\n$new_logged"  > $session_file
+        pause_ts=$(date '+%s')
+        new_logged=$((logged + pause_ts - continue_ts))
+        echo "$init_ts\n$pause_ts\n$continue_ts\npaused\n$new_logged"  > $session_file
         echo "\nPausing session. Current time: $(show-time $new_logged)."
         # Pause the active instance
         echo "pause" > $fifofile
