@@ -23,7 +23,7 @@ init_ts=$(cat $session_file | head -1)
 pause_ts=$(cat $session_file | head -2 | tail -1)
 continue_ts=$(cat $session_file | head -3 | tail -1)
 state=$(cat $session_file | head -4 | tail -1)
-logged=$(cat $session_file | tail -5 | tail -1)
+seconds=$(cat $session_file | tail -5 | tail -1)
 
 rand_file="$music_path/$(/usr/bin/ls -1 $music_path | shuf | head -1)"
 
@@ -38,10 +38,12 @@ if [[ $1 == "reset" ]]; then
         echo "quit" > $fifofile
     fi
     exit 0
-elif [[ $1 == "time" ]]; then
-    ts=$(date '+%s')
-    new_logged=$((logged + ts - init_ts))
-    echo "Current time: $(show-time "$new_logged")"
+elif [[ $1 == "time" && $state == "started" ]]; then
+    current_ts=$(date '+%s')
+    current_seconds=$((seconds + $current_ts - $pause_ts))
+    echo "Current time: $(show-time "$current_seconds")"
+elif [[ $1 == "time" && $state == "paused" ]]; then
+    echo "Current time: $(show-time "$seconds")"
 elif [[ $# == 0 || $1 == "toggle" ]]; then
     files=$(/usr/bin/ls -1 $music_path)
     play_file=$rand_file
@@ -52,12 +54,12 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
     done
     if [[ $state == "paused" ]]; then
         continue_ts=$(date '+%s')
-        if [[ $logged == "0" ]]; then
+        if [[ $seconds == "0" ]]; then
             echo "$continue_ts\n0\n$continue_ts\nstarted\n0" > $session_file
-            echo "Starting session. Current time: $(show-time $logged)."
+            echo "Starting session. Current time: $(show-time $seconds)."
         else
-            echo "$init_ts\n$pause_ts\n$continue_ts\nstarted\n$logged" > $session_file
-            echo "Continuing session. Current time: $(show-time $logged)."
+            echo "$init_ts\n$pause_ts\n$continue_ts\nstarted\n$seconds" > $session_file
+            echo "Continuing session. Current time: $(show-time $seconds)."
         fi
         if [[ $is_mplayer_active ]]; then
             # Resume the active instance
@@ -68,9 +70,9 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
         fi
     else
         pause_ts=$(date '+%s')
-        new_logged=$((logged + pause_ts - continue_ts))
-        echo "$init_ts\n$pause_ts\n$continue_ts\npaused\n$new_logged"  > $session_file
-        echo "\nPausing session. Current time: $(show-time $new_logged)."
+        new_seconds=$((seconds + pause_ts - continue_ts))
+        echo "$init_ts\n$pause_ts\n$continue_ts\npaused\n$new_seconds"  > $session_file
+        echo "\nPausing session. Current time: $(show-time $new_seconds)."
         # Pause the active instance
         echo "pause" > $fifofile
     fi
