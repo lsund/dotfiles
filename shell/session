@@ -34,6 +34,21 @@ function write_state() {
     echo "$1\n$2\n$3\n$4\n$5" > $session_file
 }
 
+function calculate_seconds() {
+    seconds=$1
+    current_ts=$2
+    init_ts=$3
+    echo $((seconds + $current_ts - $init_ts))
+}
+
+function log_time() {
+    echo "Current time: $(show-time "$1")"
+}
+
+function toggle_mplayer() {
+    echo "pause" > $fifofile
+}
+
 # ############################################################################
 # Script
 
@@ -47,11 +62,9 @@ if [[ $1 == "reset" ]]; then
     fi
     exit 0
 elif [[ $1 == "time" && $state == "started" ]]; then
-    current_ts=$(date '+%s')
-    current_seconds=$((seconds + $current_ts - $continue_ts))
-    echo "Current time: $(show-time "$current_seconds")"
+    log_time $(calculate_seconds $seconds $(date '+%s') $continue_ts)
 elif [[ $1 == "time" && $state == "paused" ]]; then
-    echo "Current time: $(show-time "$seconds")"
+    log_time $seconds
 elif [[ $# == 0 || $1 == "toggle" ]]; then
     files=$(/usr/bin/ls -1 $music_path)
     play_file=$rand_file
@@ -64,25 +77,26 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
         continue_ts=$(date '+%s')
         if [[ $seconds == "0" ]]; then
             write_state $continue_ts 0 $continue_ts started 0
-            echo "Starting session. Current time: $(show-time $seconds)."
+            log_time 0
+            echo "Starting session"
         else
             write_state $init_ts $pause_ts $continue_ts started $seconds
-            echo "Continuing session. Current time: $(show-time $seconds)."
+            log_time $seconds
+            echo "Continuing session"
         fi
         if [[ $is_mplayer_active ]]; then
-            # Resume the active instance
-            echo "pause" > $fifofile
+            toggle_mplayer
         else
-            echo "Starting $play_file"
+            echo "Playing file $play_file"
             mplayer -quiet -slave $play_file > /dev/null &
         fi
     else
         pause_ts=$(date '+%s')
-        new_seconds=$((seconds + pause_ts - continue_ts))
-        write_state $init_ts $pause_ts $continue_ts paused $new_seconds
-        echo "\nPausing session. Current time: $(show-time $new_seconds)."
-        # Pause the active instance
-        echo "pause" > $fifofile
+        seconds=$(calculate_seconds $seconds $pause_ts $continue_ts)
+        write_state $init_ts $pause_ts $continue_ts paused $seconds
+        log_time $seconds
+        toggle_mplayer
+        echo "Pausing session"
     fi
 fi
 
