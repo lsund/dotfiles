@@ -108,7 +108,9 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
         seconds=$(calculate_seconds $seconds $pause_ts $continue_ts)
         write_state $init_ts $pause_ts $continue_ts paused $seconds
         log_time $seconds
-        toggle_mplayer
+        if [[ $is_mplayer_active ]]; then
+            toggle_mplayer
+        fi
         echo "Pausing session"
     fi
 fi
