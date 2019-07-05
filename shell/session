@@ -39,6 +39,16 @@ function write_state() {
     echo "$1\n$2\n$3\n$4\n$5\n$6" > $session_file
 }
 
+function write_add() {
+    write_state \
+        $init_ts \
+        $pause_ts \
+        $continue_ts \
+        started \
+        $(($1 + $seconds)) \
+        $play_music
+}
+
 function write_add_total() {
     echo $(($1 + $total)) > $total_session_file
 }
@@ -89,6 +99,8 @@ if [[ $1 == "reset" ]]; then
     write_add_total $seconds
     write_state 0 0 0 paused 0 $play_music
     exit 0
+elif [[ $1 == "add-time" && $# == 2 ]]; then
+    write_add $2
 elif [[ $1 == "total" ]]; then
     echo "Total session: $(show-time $total)"
 elif [[ $1 == "time" && $state == "started" ]]; then
