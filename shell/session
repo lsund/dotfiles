@@ -4,30 +4,16 @@
 # Setup
 
 fifofile=/home/lsund/.mplayer/fifo
-
-if [[ ! -e $fifofile ]] ; then
-    echo "Creating fifo..."
-    mkfifo $fifofile
-    echo "input=file=$fifofile" >> "/home/lsund/.mplayer/config"
-fi
-
 session_file="$HOME/.${USER}_session"
 total_session_file="$HOME/.${USER}_session_total"
-
 music_path=$HOME/Media/audio/music
-
-init_ts=$(cat $session_file | head -1)
-pause_ts=$(cat $session_file | head -2 | tail -1)
-continue_ts=$(cat $session_file | head -3 | tail -1)
-state=$(cat $session_file | head -4 | tail -1)
-seconds=$(cat $session_file | head -5 | tail -1)
-play_music=$(cat $session_file | head -6 | tail -1)
-total=$(cat $total_session_file)
-
-is_mplayer_active=$(pgrep -u lsund mplayer)
 
 # ############################################################################
 # Helpers
+
+function log_time() {
+    echo "Current time: $(show-time "$1")"
+}
 
 # $1 = init_ts
 # $2 = pause_ts
@@ -47,6 +33,7 @@ function write_add() {
         started \
         $(($1 + $seconds)) \
         $play_music
+    log_time $(($1 + $seconds))
 }
 
 function write_add_total() {
@@ -58,10 +45,6 @@ function calculate_seconds() {
     current_ts=$2
     init_ts=$3
     echo $((seconds + $current_ts - $init_ts))
-}
-
-function log_time() {
-    echo "Current time: $(show-time "$1")"
 }
 
 function toggle_mplayer() {
@@ -93,6 +76,22 @@ function play_file() {
 [[ ! -e $session_file ]] && write_state 0 0 0 paused 0 yes
 [[ ! -e $total_session_file ]] && echo "0" > $total_session_file
 
+init_ts=$(cat $session_file | head -1)
+pause_ts=$(cat $session_file | head -2 | tail -1)
+continue_ts=$(cat $session_file | head -3 | tail -1)
+state=$(cat $session_file | head -4 | tail -1)
+seconds=$(cat $session_file | head -5 | tail -1)
+play_music=$(cat $session_file | head -6 | tail -1)
+total=$(cat $total_session_file)
+is_mplayer_active=$(pgrep -u lsund mplayer)
+
+if [[ ! -e $fifofile ]] ; then
+    echo "Creating fifo..."
+    mkfifo $fifofile
+    echo "input=file=$fifofile" >> "/home/lsund/.mplayer/config"
+fi
+
+
 if [[ $1 == "reset" ]]; then
     kill_mplayer
     echo "Resetting session. Current time: $(show-time 0)."
@@ -100,7 +99,7 @@ if [[ $1 == "reset" ]]; then
     write_state 0 0 0 paused 0 $play_music
     exit 0
 elif [[ $1 == "add-time" && $# == 2 ]]; then
-    write_add $2
+    write_add $(serialize-time $2)
 elif [[ $1 == "total" ]]; then
     echo "Total session: $(show-time $total)"
 elif [[ $1 == "time" && $state == "started" ]]; then
@@ -169,4 +168,3 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
         echo "Pausing session"
     fi
 fi
-
