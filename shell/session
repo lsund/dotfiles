@@ -58,7 +58,7 @@ function random_file() {
 }
 
 function kill_mplayer() {
-    if [[ $is_mplayer_active ]]; then
+    if [[ $mplayer_active == "yes" ]]; then
         echo "quit" > $fifofile
     fi
 }
@@ -83,7 +83,13 @@ state=$(cat $session_file | head -4 | tail -1)
 seconds=$(cat $session_file | head -5 | tail -1)
 play_music=$(cat $session_file | head -6 | tail -1)
 total=$(cat $total_session_file)
-is_mplayer_active=$(pgrep -u lsund mplayer)
+mplayer_pid=$(pgrep -u lsund mplayer)
+
+if [[ ! $mplayer_pid ]]; then
+    mplayer_active="no"
+else
+    mplayer_active="yes"
+fi
 
 if [[ ! -e $fifofile ]] ; then
     echo "Creating fifo..."
@@ -98,6 +104,11 @@ if [[ $1 == "reset" ]]; then
     write_add_total $seconds
     write_state 0 0 0 paused 0 $play_music
     exit 0
+elif [[ $1 == "status" ]]; then
+    log_time $seconds
+    echo "Session: $state"
+    echo "Mplayer active: $mplayer_active"
+    echo "Currently playing music: $play_music"
 elif [[ $1 == "add-time" && $# == 2 ]]; then
     write_add $(serialize-time $2)
 elif [[ $1 == "total" ]]; then
@@ -139,7 +150,7 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
             log_time $seconds
             echo "Continuing session"
         fi
-        if [[ $is_mplayer_active ]]; then
+        if [[ $mplayer_active == "yes" ]]; then
             toggle_mplayer
         else
             file_to_play=$(random_file)
@@ -162,7 +173,7 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
             $seconds \
             $play_music
         log_time $seconds
-        if [[ $is_mplayer_active ]]; then
+        if [[ $mplayer_active == "yes" ]]; then
             toggle_mplayer
         fi
         echo "Pausing session"
