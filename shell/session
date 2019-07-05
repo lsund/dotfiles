@@ -98,7 +98,8 @@ elif [[ $1 == "time" && $state == "paused" ]]; then
 elif [[ $1 == "new-music" ]]; then
     kill_mplayer
     if [[ $play_music == "no" ]]; then
-        echo "Not playing music. call ./session toggle-music to play"
+        echo "Not playing music. call './session toggle-music' first"
+        echo "if you want music to play."
     else
         play_file $(random_file)
     fi
@@ -137,11 +138,7 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
                     file_to_play=$music_path/$file
                 fi
             done
-            if [[ $play_music == "no" ]]; then
-                echo "Not playing music. call ./session toggle-music to play"
-            else
-                play_file $file_to_play
-            fi
+            play_file $file_to_play
         fi
     else
         pause_ts=$(date '+%s')
