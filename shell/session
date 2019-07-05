@@ -20,7 +20,8 @@ init_ts=$(cat $session_file | head -1)
 pause_ts=$(cat $session_file | head -2 | tail -1)
 continue_ts=$(cat $session_file | head -3 | tail -1)
 state=$(cat $session_file | head -4 | tail -1)
-seconds=$(cat $session_file | tail -5 | tail -1)
+seconds=$(cat $session_file | head -5 | tail -1)
+play_music=$(cat $session_file | head -6 | tail -1)
 total=$(cat $total_session_file)
 
 is_mplayer_active=$(pgrep -u lsund mplayer)
@@ -28,8 +29,14 @@ is_mplayer_active=$(pgrep -u lsund mplayer)
 # ############################################################################
 # Helpers
 
+# $1 = init_ts
+# $2 = pause_ts
+# $3 = continue_ts
+# $4 = state
+# $5 = seconds
+# $6 = music
 function write_state() {
-    echo "$1\n$2\n$3\n$4\n$5" > $session_file
+    echo "$1\n$2\n$3\n$4\n$5\n$6" > $session_file
 }
 
 function write_add_total() {
@@ -64,23 +71,23 @@ function kill_mplayer() {
 }
 
 function play_file() {
-    echo "Playing file $1"
-    mplayer -quiet -slave $1 > /dev/null &
+    if [[ $play_music == "yes" ]]; then
+        echo "Playing file $1"
+        mplayer -quiet -slave $1 > /dev/null &
+    fi
 }
 
 # ############################################################################
 # Script
 
-[[ ! -e $session_file ]] && write_state 0 0 0 paused 0
+[[ ! -e $session_file ]] && write_state 0 0 0 paused 0 yes
 [[ ! -e $total_session_file ]] && echo "0" > $total_session_file
 
 if [[ $1 == "reset" ]]; then
-    if [[ $is_mplayer_active ]]; then
-        kill_mplayer
-    fi
+    kill_mplayer
     echo "Resetting session. Current time: $(show-time 0)."
     write_add_total $seconds
-    write_state 0 0 0 paused 0
+    write_state 0 0 0 paused 0 $play_music
     exit 0
 elif [[ $1 == "total" ]]; then
     echo "Total session: $(show-time $total)"
@@ -90,16 +97,33 @@ elif [[ $1 == "time" && $state == "paused" ]]; then
     log_time $seconds
 elif [[ $1 == "new-music" ]]; then
     kill_mplayer
-    play_file $(random_file)
+    if [[ $play_music == "no" ]]; then
+        echo "Not playing music. call ./session toggle-music to play"
+    else
+        play_file $(random_file)
+    fi
+elif [[ $1 == "toggle-music" ]]; then
+    if [[ $play_music == "yes" ]]; then
+        play_music="no"
+    else
+        play_music="yes"
+    fi
+    write_state $init_ts $pause_ts $continue_ts $state $seconds $play_music
 elif [[ $# == 0 || $1 == "toggle" ]]; then
     if [[ $state == "paused" ]]; then
         continue_ts=$(date '+%s')
         if [[ $seconds == "0" ]]; then
-            write_state $continue_ts 0 $continue_ts started 0
+            write_state $continue_ts 0 $continue_ts started 0 $play_music
             log_time 0
             echo "Starting session"
         else
-            write_state $init_ts $pause_ts $continue_ts started $seconds
+            write_state \
+                $init_ts \
+                $pause_ts \
+                $continue_ts \
+                started \
+                $seconds \
+                $play_music
             log_time $seconds
             echo "Continuing session"
         fi
@@ -113,12 +137,22 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
                     file_to_play=$music_path/$file
                 fi
             done
-            play_file $file_to_play
+            if [[ $play_music == "no" ]]; then
+                echo "Not playing music. call ./session toggle-music to play"
+            else
+                play_file $file_to_play
+            fi
         fi
     else
         pause_ts=$(date '+%s')
         seconds=$(calculate_seconds $seconds $pause_ts $continue_ts)
-        write_state $init_ts $pause_ts $continue_ts paused $seconds
+        write_state \
+            $init_ts \
+            $pause_ts \
+            $continue_ts \
+            paused \
+            $seconds \
+            $play_music
         log_time $seconds
         if [[ $is_mplayer_active ]]; then
             toggle_mplayer

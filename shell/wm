@@ -7,16 +7,32 @@ field_4=$(ip link show wlp58s0 | head -1 | cut -d' ' -f3 | cut -d',' -f4)
 
 sudo wifi-menu
 if [[ "$?" == "0" ]]; then
-    try-connect
+    try-connect && exit 0
 else
-    echo "Something didnt check out. Exiting..."
+    echo "Could not connect"
     vared -p "Try fix by set link down [Y/n]? " -c choice
-
     [[ "$choice" == "n" ]] && exit 0
-
     sudo ip link set wlp58s0 down
-    sudo wifi-menu
 fi
 
+sudo wifi-menu
+if [[ "$?" == "0" ]]; then
+    try-connect && exit 0
+else
+    echo "Could still not connect"
+    vared -p "Try fix by sudo dhcpd [Y/n]? " -c choice
+    [[ "$choice" == "n" ]] && exit 0
+    sudo dhcpcd
+fi
 
+sudo wifi-menu
+if [[ "$?" == "0" ]]; then
+    try-connect && exit 0
+else
+    echo "Could still not connect"
+    vared -p "Try fix by set link up [Y/n]? " -c choice
+    [[ "$choice" == "n" ]] && exit 0
+    sudo ip link set wlp58s0 up
+    sudo wifi-menu
+fi
 
