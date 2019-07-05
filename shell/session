@@ -12,6 +12,7 @@ if [[ ! -e $fifofile ]] ; then
 fi
 
 session_file="$HOME/.${USER}_session"
+total_session_file="$HOME/.${USER}_session_total"
 
 music_path=$HOME/Media/audio/music
 
@@ -20,6 +21,7 @@ pause_ts=$(cat $session_file | head -2 | tail -1)
 continue_ts=$(cat $session_file | head -3 | tail -1)
 state=$(cat $session_file | head -4 | tail -1)
 seconds=$(cat $session_file | tail -5 | tail -1)
+total=$(cat $total_session_file)
 
 is_mplayer_active=$(pgrep -u lsund mplayer)
 
@@ -28,6 +30,10 @@ is_mplayer_active=$(pgrep -u lsund mplayer)
 
 function write_state() {
     echo "$1\n$2\n$3\n$4\n$5" > $session_file
+}
+
+function write_add_total() {
+    echo $(($1 + $total)) > $total_session_file
 }
 
 function calculate_seconds() {
@@ -66,12 +72,18 @@ function play_file() {
 # Script
 
 [[ ! -e $session_file ]] && write_state 0 0 0 paused 0
+[[ ! -e $total_session_file ]] && echo "0" > $total_session_file
 
 if [[ $1 == "reset" ]]; then
-    kill_mplayer
+    if [[ $is_mplayer_active ]]; then
+        kill_mplayer
+    fi
     echo "Resetting session. Current time: $(show-time 0)."
+    write_add_total $seconds
     write_state 0 0 0 paused 0
     exit 0
+elif [[ $1 == "total" ]]; then
+    echo "Total session: $(show-time $total)"
 elif [[ $1 == "time" && $state == "started" ]]; then
     log_time $(calculate_seconds $seconds $(date '+%s') $continue_ts)
 elif [[ $1 == "time" && $state == "paused" ]]; then
