@@ -77,8 +77,10 @@ else
 fi
 
 if [[ $1 == "--nocommit" || $1 == "-n" ]]; then
-    echo  "git push -u origin $current_branch_name"
-    git push -u origin $current_branch_name
+    if [[ $(try-connect -c 3) ]]; then
+        echo  "git push -u origin $current_branch_name"
+        git push -u origin $current_branch_name
+    fi
 else
     if [[ ! $msg ]]; then
         vared -p "> $commit_tag" -c msg
@@ -88,8 +90,10 @@ else
         if [[ $(git diff origin/$diffbranch) != "" ]]; then
             echo "Empty commit message but a commit is yet to be pushed."
             echo "Pushing now."
-            echo  "git push -u origin $current_branch_name"
-            git push -u origin $current_branch_name
+            if [[ $(try-connect -c 3) ]]; then
+                echo  "git push -u origin $current_branch_name"
+                git push -u origin $current_branch_name
+            fi
         else
             echo "Empty commit message and no commit to be pushed. Exiting."
             echo "Exiting due to empty commit message"
@@ -98,8 +102,10 @@ else
     else
         echo "git commit -m $commit_message"
         git commit -m $commit_message
-        echo  "git push -u origin $current_branch_name"
-        git push -u origin $current_branch_name
+        if [[ $(try-connect -c 3) ]]; then
+            echo  "git push -u origin $current_branch_name"
+            git push -u origin $current_branch_name
+        fi
     fi
 fi
 
