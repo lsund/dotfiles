@@ -13,7 +13,7 @@ function check_size () {
     suffix="${size: -1}"
     if [[ $open_with_less == false && $suffix == "G" ]]; then
         is_gb=true;
-    elif [[ $open_with_less == false && $suffix == "M" && $value -gt 10 ]]; then
+    elif [[ $open_with_less == false && $suffix == "M" && $value -gt 4 ]]; then
         is_large_mb=true;
     fi
     if [[ $is_large_mb || $is_gb ]]; then

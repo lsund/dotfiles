@@ -21,10 +21,6 @@ continue_ts=$(cat $session_file | head -3 | tail -1)
 state=$(cat $session_file | head -4 | tail -1)
 seconds=$(cat $session_file | tail -5 | tail -1)
 
-rand_file="$music_path/$(/usr/bin/ls -1 $music_path | shuf | head -1)"
-
-[[ $rand_file == "" ]] && echo "No music files" && exit 1
-
 is_mplayer_active=$(pgrep -u lsund mplayer)
 
 # ############################################################################
@@ -49,30 +45,41 @@ function toggle_mplayer() {
     echo "pause" > $fifofile
 }
 
+function random_file() {
+    rand_file="$music_path/$(/usr/bin/ls -1 $music_path | shuf | head -1)"
+    [[ $rand_file == "" ]] && echo "No music files" && exit 1
+    echo $rand_file
+}
+
+function kill_mplayer() {
+    if [[ $is_mplayer_active ]]; then
+        echo "quit" > $fifofile
+    fi
+}
+
+function play_file() {
+    echo "Playing file $1"
+    mplayer -quiet -slave $1 > /dev/null &
+}
+
 # ############################################################################
 # Script
 
 [[ ! -e $session_file ]] && write_state 0 0 0 paused 0
 
 if [[ $1 == "reset" ]]; then
+    kill_mplayer
     echo "Resetting session. Current time: $(show-time 0)."
     write_state 0 0 0 paused 0
-    if [[ $is_mplayer_active ]]; then
-        echo "quit" > $fifofile
-    fi
     exit 0
 elif [[ $1 == "time" && $state == "started" ]]; then
     log_time $(calculate_seconds $seconds $(date '+%s') $continue_ts)
 elif [[ $1 == "time" && $state == "paused" ]]; then
     log_time $seconds
+elif [[ $1 == "new-music" ]]; then
+    kill_mplayer
+    play_file $(random_file)
 elif [[ $# == 0 || $1 == "toggle" ]]; then
-    files=$(/usr/bin/ls -1 $music_path)
-    play_file=$rand_file
-    for file in $(echo $files | xargs); do
-        if [[ $file == "$1.mp3" ]]; then
-            play_file=$music_path/$file
-        fi
-    done
     if [[ $state == "paused" ]]; then
         continue_ts=$(date '+%s')
         if [[ $seconds == "0" ]]; then
@@ -87,8 +94,14 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
         if [[ $is_mplayer_active ]]; then
             toggle_mplayer
         else
-            echo "Playing file $play_file"
-            mplayer -quiet -slave $play_file > /dev/null &
+            file_to_play=$(random_file)
+            files=$(/usr/bin/ls -1 $music_path)
+            for file in $(echo $files | xargs); do
+                if [[ $file == "$1.mp3" ]]; then
+                    file_to_play=$music_path/$file
+                fi
+            done
+            play_file $file_to_play
         fi
     else
         pause_ts=$(date '+%s')
