@@ -16,9 +16,9 @@ do
     echo -n "."
     ping -c 1 $host > /dev/null 2>&1
     if [[ "$?" == "0" ]]; then
-        echo "Connected" && exit
+        echo "Connected" && exit 0
     elif [[ "$i" == "$seconds" ]]; then
-        break
+        exit 1
     else
         i=$((i + 1))
         sleep 1
