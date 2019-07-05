@@ -17,7 +17,7 @@ else
 fi
 
 function push() {
-    try-connect -c 1
+    try-connect -c 3
     if [[ $? == "0" ]]; then
         echo  "git push -u origin $current_branch_name"
         git push -u origin $current_branch_name
