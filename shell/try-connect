@@ -4,6 +4,7 @@ seconds=30
 if [[ "$#" == 0 ]]; then
     host="www.google.com"
 elif [[ $1 == -c ]]; then
+    host="www.google.com"
     seconds=$2
 else
     host="$1"
