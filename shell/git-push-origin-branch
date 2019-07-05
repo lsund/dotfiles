@@ -16,11 +16,16 @@ else
     msg=$1
 fi
 
-connected=false
-try-connect -c 3
-if [[ $? == "0" ]]; then
-    connected=true
-fi
+function push() {
+    try-connect -c 1
+    if [[ $? == "0" ]]; then
+        echo  "git push -u origin $current_branch_name"
+        git push -u origin $current_branch_name
+    else
+        echo "Not connected to the internet. Not pushing failed"
+    fi
+}
+
 
 basedir=$(git rev-parse --show-toplevel)
 
@@ -81,10 +86,7 @@ else
 fi
 
 if [[ $1 == "--nocommit" || $1 == "-n" ]]; then
-    if [[ $connected == "true" ]]; then
-        echo  "git push -u origin $current_branch_name"
-        git push -u origin $current_branch_name
-    fi
+    push
 else
     if [[ ! $msg ]]; then
         vared -p "> $commit_tag" -c msg
@@ -94,10 +96,7 @@ else
         if [[ $(git diff origin/$diffbranch) != "" ]]; then
             echo "Empty commit message but a commit is yet to be pushed."
             echo "Pushing now."
-            if [[ $connected == "true" ]]; then
-                echo  "git push -u origin $current_branch_name"
-                git push -u origin $current_branch_name
-            fi
+            push
         else
             echo "Empty commit message and no commit to be pushed. Exiting."
             echo "Exiting due to empty commit message"
@@ -106,10 +105,7 @@ else
     else
         echo "git commit -m $commit_message"
         git commit -m $commit_message
-        if [[ $connected == "true" ]]; then
-            echo  "git push -u origin $current_branch_name"
-            git push -u origin $current_branch_name
-        fi
+        push
     fi
 fi
 
