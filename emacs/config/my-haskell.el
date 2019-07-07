@@ -108,7 +108,7 @@
             ;; Load file into ghci
             (define-key haskell-leader-map "rr" 'haskell-process-load-file)
 
-            (define-key my-leader-map "bd" 'hindent-reformat-buffer)
+            (define-key haskell-leader-map "bd" 'hindent-reformat-buffer)
 
             ;; Launch repl
             (evil-define-key 'normal haskell-mode-map (kbd "C-c j") 'haskell-process-load-or-reload)

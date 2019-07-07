@@ -104,8 +104,12 @@ if [[ $1 == "reset" ]]; then
     write_add_total $seconds
     write_state 0 0 0 paused 0 $play_music
     exit 0
-elif [[ $1 == "status" ]]; then
-    log_time $seconds
+elif [[ $1 == "status" || $1 == "state" ]]; then
+    if [[ $state == "paused" ]]; then
+        log_time $seconds
+    else
+        log_time $(calculate_seconds $seconds $(date '+%s') $continue_ts)
+    fi
     echo "Session: $state"
     echo "Mplayer active: $mplayer_active"
     echo "Currently playing music: $play_music"
@@ -178,4 +182,6 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
         fi
         echo "Pausing session"
     fi
+else
+    echo "Unknown command: $@"
 fi

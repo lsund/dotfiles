@@ -228,7 +228,7 @@
  'default nil
  :family "Hack"
  ;; :family "Source Code Pro"
- :height 120
+ :height 140
  :weight 'normal
  :width 'normal)
 
@@ -334,6 +334,7 @@
 (require 'my-projectile)
 (require 'my-ivy)
 (require 'my-neotree)
+(require 'my-rust)
 
 (provide 'my-config)
 
