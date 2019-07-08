@@ -78,6 +78,13 @@
 (diminish 'haskell-mode)
 (diminish 'interactive-haskell-mode)
 
+(defun slurp (f)
+  (with-temp-buffer
+    (insert-file-contents f)
+    (buffer-substring-no-properties
+       (point-min)
+       (point-max))))
+
 ;; (load-theme 'blackboard t)
 (load-theme 'badwolf t)
 ;; (load-theme 'solarized t)
@@ -222,6 +229,17 @@
         (space-mark ?\xA0 [?. ])
         (tab-mark ?\t [?\▸ ?\t])))
 
+(set-face-attribute
+     'default nil
+     :family "Hack"
+     ;; :family "Source Code Pro"
+     :height (if (string= (car (split-string
+                                (slurp "/etc/hostname") "\n" t))
+                          "pedro")
+                 120
+               140)
+     :weight 'normal
+     :width 'normal)
 
 ;; Font
 (set-face-attribute
