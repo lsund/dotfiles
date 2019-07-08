@@ -1,6 +1,8 @@
 #!/bin/zsh
 
 # Aliases
+alias find='/usr/bin/fd'
+alias old-find='/usr/bin/find/'
 alias pwd="$SCRIPTS/pwd"
 alias sess="session"
 alias gco='git-fuzzy-checkout'
