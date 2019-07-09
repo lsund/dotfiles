@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+git merge --abort
+
+export HISTFILE=~/.zsh_history
+fc -R
+merge_command=$(fc -l -20 | tail -2 | head -1 | cut -d' ' -f2- | xargs)
+
+files=$(sh -c $merge_command | grep CONFLICT)
+
+all=""
+while read -r file; do
+    all="$all $(echo $file | cut -d' ' -f6)"
+done <<< "$files"
+
+nvim $(echo "$all" | xargs)
