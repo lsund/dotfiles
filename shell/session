@@ -112,7 +112,7 @@ elif [[ $1 == "status" || $1 == "state" ]]; then
     fi
     echo "Session: $state"
     echo "Mplayer active: $mplayer_active"
-    echo "Currently playing music: $play_music"
+    echo "Music playing enabled: $play_music"
 elif [[ $1 == "add-time" && $# == 2 ]]; then
     write_add $(serialize-time $2)
 elif [[ $1 == "total" ]]; then
