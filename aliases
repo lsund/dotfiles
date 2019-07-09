@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 # Aliases
+alias pcd='p cd'
 alias find='/usr/bin/fd'
 alias old-find='/usr/bin/find/'
 alias pwd="$SCRIPTS/pwd"
@@ -38,44 +39,30 @@ alias deploy-clj-snapshot='release-snapshot-clj --push && git push heroku master
 
 
 # cd override
-function cd() {
+function my-cd() {
     builtin cd "$@" && ls --color=auto -lrth;
 }
 
 # Fuzzy CD. Start an interactive search under directory.
-function fcd () {
-
+function cd () {
     fuzzy_prog=fzf
-
-    if [[ $# == 0 || $# == 1 ]]; then
-
-        if [[ $# == 0 ]]; then
-            file=$(/usr/bin/ls -p | grep '/' | $fuzzy_prog)
-        elif [[ $# == 1 && -e $1 ]]; then
-            file=$1
-        fi
-
-        echo $file
-
+    if [[ $# == 1 ]]; then
+        eval "my-cd $1" > $temp_file
+    elif [[ $# == 0 ]]; then
+        file=$(/usr/bin/ls -p | grep '/' | $fuzzy_prog)
+        search_path="./"
         if [[ -d $file ]]; then
-
-            search_path="."
             dir=$file
-            while [[ -d $search_path/$dir ]]; do
+            while [[ -d $search_path$dir ]]; do
                 search_path=$search_path/$dir
                 dir=$(/usr/bin/ls -p $search_path | grep '/' | $fuzzy_prog)
                 [[ $dir == "" ]] && break
             done
         fi
-
         if [[ -d $search_path ]]; then
-            temp_file=$(mktemp)
-            echo "#!/bin/zsh\ncd $search_path" > $temp_file
-            source $temp_file
-            /usr/bin/rm $temp_file
+            eval "my-cd $search_path"
         fi
 
     fi
 }
-
 
