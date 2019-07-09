@@ -1,6 +1,10 @@
 #!/bin/zsh
 
-diffbranch=integration
+if [[ $(basename $(pwd)) == "heron" ]]; then
+    diffbranch=integration
+else
+    diffbranch=master
+fi
 
 [[ ! $(git status 2> /dev/null) ]] && echo "Error: Not a git repository" && exit
 

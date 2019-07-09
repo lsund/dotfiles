@@ -71,10 +71,10 @@
 (diminish 'cider-mode)
 (diminish 'projectile-mode)
 (diminish 'auto-fill-mode)
+(diminish 'refill-mode)
 (diminish 'whitespace-mode)
 (diminish 'dante-mode)
 (diminish 'haskell-indent-mode)
-(diminish 'projectile-mode)
 (diminish 'haskell-mode)
 (diminish 'interactive-haskell-mode)
 
