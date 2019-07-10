@@ -11,7 +11,10 @@ export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/share/perl6/site/b
 export PATH=$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_HOME/tools
 exa_permission_bit_colors="ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0"
 exa_filesize_colors="sn=37:sb=37"
-export EXA_COLORS="ds=0:uu=0:gu=0:da=37:di=1;34:$exa_filesize_colors:$exa_permission_bit_colors"
+exa_file_colors="ex=32;1"
+
+export EXA_COLORS="ds=0:uu=0:gu=0:da=37:di=1;34:$exa_filesize_colors:$exa_permission_bit_colors:$exa_file_colors"
+
 
 # ###########################################################################
 # Custom env variables
@@ -69,48 +72,23 @@ fi
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-# Case sensitive auto completion
-# CASE_SENSITIVE="true"
-
-# _ and - interchangable. Case sensitive must be off
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
 # Uncomment the following line to disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+plugins=(
+    archlinux
+    colored-man-pages
+    colorize
+    cp
+    git
+    fzf
+    lein
+    autojump
+)
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+ [[ -s /home/lsund/.autojump/etc/profile.d/autojump.sh ]] && source /home/lsund/.autojump/etc/profile.d/autojump.sh
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+autoload -U compinit && compinit -u
 
 source $ZSH/oh-my-zsh.sh
 
@@ -123,13 +101,10 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
+  export EDITOR='vim'
 else
   export EDITOR='nvim'
 fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
@@ -154,8 +129,6 @@ function precmd() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 . $HOME/.aliases
-. $HOME/.widgets
-. $HOME/.piggy/scripts/functions
+# . $HOME/.widgets
 
 bindkey '^x^n' fuzzy-git-branch
-
