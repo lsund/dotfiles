@@ -152,5 +152,9 @@ function precmd() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 . $HOME/.aliases
+. $HOME/.widgets
 . $HOME/.piggy/scripts/functions
+
+bindkey '^n^n' fuzzy-git-branch
+
 

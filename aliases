@@ -1,9 +1,9 @@
 #!/bin/zsh
 
 # Aliases
-alias pcd='p cd'
+alias pcd='p fcd'
+alias pr='p r'
 alias find='/usr/bin/fd'
-alias old-find='/usr/bin/find/'
 alias pwd="$SCRIPTS/pwd"
 alias sess="session"
 alias watch-file='watch -n 1 -d cat'
@@ -36,14 +36,15 @@ alias my-ip="curl -s checkip.dyndns.org | \
 alias combine-pdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite \
     -sOutputFile=$3 $1 $2'
 alias redshift='redshift -l 51.2:6.7 -t 5500:3400 -g 0.8 -m randr &'
-alias deploy-clj-snapshot='release-snapshot-clj --push && git push heroku master && bump-clj --push'
 
+alias old-find='/usr/bin/find/'
+alias old-pr='/usr/bin/pr'
 
 # Fuzzy CD. Start an interactive search under directory.
-function cd () {
+function fcd () {
     fuzzy_prog=fzf
     if [[ $# == 1 ]]; then
-        eval "builtin cd $1" > $temp_file
+        eval "builtin cd $1"
     elif [[ $# == 0 ]]; then
         file=$(/usr/bin/ls -p | grep '/' | $fuzzy_prog)
         search_path="./"
@@ -58,7 +59,6 @@ function cd () {
         if [[ -d $search_path ]]; then
             eval "builtin cd $search_path"
         fi
-
     fi
 }
 
