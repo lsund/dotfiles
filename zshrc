@@ -9,7 +9,9 @@ export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/bin
 export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/share/perl6/site/bin
 export PATH=$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_HOME/tools
-
+exa_permission_bit_colors="ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0"
+exa_filesize_colors="sn=37:sb=37"
+export EXA_COLORS="ds=0:uu=0:gu=0:da=37:di=1;34:$exa_filesize_colors:$exa_permission_bit_colors"
 
 # ###########################################################################
 # Custom env variables
@@ -155,6 +157,5 @@ function precmd() {
 . $HOME/.widgets
 . $HOME/.piggy/scripts/functions
 
-bindkey '^n^n' fuzzy-git-branch
-
+bindkey '^x^n' fuzzy-git-branch
 
