@@ -136,7 +136,7 @@ elif [[ $1 == "new-music" ]]; then
             done
             [[ $file_to_play == "" ]] && echo "unknown music: $1" && exit 1
         else
-            file_to_play= $(random_file)
+            file_to_play=$(random_file)
         fi
         play_file $file_to_play
     fi

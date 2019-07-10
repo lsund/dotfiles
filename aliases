@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # Aliases
-alias pcd='p fcd'
+alias pcd='p cd'
 alias pr='p r'
 alias find='/usr/bin/fd'
 alias pwd="$SCRIPTS/pwd"
