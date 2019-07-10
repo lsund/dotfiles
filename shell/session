@@ -127,7 +127,18 @@ elif [[ $1 == "new-music" ]]; then
         echo "Not playing music. call './session toggle-music' first"
         echo "if you want music to play."
     else
-        play_file $(random_file)
+        if [[ $# == 2 ]]; then
+            files=$(/usr/bin/ls -1 $music_path)
+            for file in $(echo $files | xargs); do
+                if [[ $file == "$2.mp3" ]]; then
+                    file_to_play=$music_path/$file
+                fi
+            done
+            [[ $file_to_play == "" ]] && echo "unknown music: $1" && exit 1
+        else
+            file_to_play= $(random_file)
+        fi
+        play_file $file_to_play
     fi
 elif [[ $1 == "toggle-music" ]]; then
     if [[ $play_music == "yes" ]]; then
@@ -136,7 +147,7 @@ elif [[ $1 == "toggle-music" ]]; then
         play_music="yes"
     fi
     write_state $init_ts $pause_ts $continue_ts $state $seconds $play_music
-elif [[ $# == 0 || $1 == "toggle" ]]; then
+else
     if [[ $state == "paused" ]]; then
         continue_ts=$(date '+%s')
         if [[ $seconds == "0" ]]; then
@@ -157,13 +168,18 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
         if [[ $mplayer_active == "yes" ]]; then
             toggle_mplayer
         else
-            file_to_play=$(random_file)
-            files=$(/usr/bin/ls -1 $music_path)
-            for file in $(echo $files | xargs); do
-                if [[ $file == "$1.mp3" ]]; then
-                    file_to_play=$music_path/$file
-                fi
-            done
+            file_to_play=""
+            if [[ $# == 1 ]]; then
+                files=$(/usr/bin/ls -1 $music_path)
+                for file in $(echo $files | xargs); do
+                    if [[ $file == "$1.mp3" ]]; then
+                        file_to_play=$music_path/$file
+                    fi
+                done
+                [[ $file_to_play == "" ]] && echo "unknown command: $1" && exit 1
+            else
+                file_to_play=$(random_file)
+            fi
             play_file $file_to_play
         fi
     else
@@ -182,6 +198,4 @@ elif [[ $# == 0 || $1 == "toggle" ]]; then
         fi
         echo "Pausing session"
     fi
-else
-    echo "Unknown command: $@"
 fi
