@@ -12,9 +12,6 @@ mkdir -p $vim/{after/plugin,colors,plugin}
 mkdir -p $emacsd/config
 mkdir -p $HOME/.config/git
 mkdir -p $HOME/.git_template/hooks
-mkdir -p $HOME/.xmonad/lib
-mkdir -p $HOME/.xmonad/apps
-mkdir -p $HOME/.xmonad/img
 mkdir -p $HOME/.icons/xbm_icons/subtle
 
 ## Sources
@@ -98,7 +95,7 @@ loc_htoprc=$HOME/.config/htop/htoprc
 
 function Link()
 {
-    echo $1 -- $2
+    echo "installing $1 --> $2"
     [[ -e $1 ]] || ln -s $2 $1
 }
 
