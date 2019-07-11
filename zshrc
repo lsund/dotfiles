@@ -78,7 +78,6 @@ DISABLE_AUTO_TITLE="true"
 plugins=(
     archlinux
     colored-man-pages
-    colorize
     cp
     git
     fzf
