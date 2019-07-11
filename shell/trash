@@ -147,23 +147,20 @@ function PrintStats {
     bytes=$(sudo du -s $base_trashdir)
     number=$(echo $bytes | cut -d'/' -f1 | xargs)
 
-    if [[ "$number" -gt warning_kilo_bytes ]]; then
+    n_files=$(fd -H -t f -d 2 . $base_trashdir | wc -l)
 
-        unit="KB"
-        if [[ "$number" -gt "1000" ]]; then
-            unit="MB"
-            number=$(expr $number / 1000)
-        fi
-        if [[ "$number" -gt "1000" ]]; then
-            unit="GB"
-            number=$(expr $number / 1000)
-        fi
-
-        echo "trash dir > $(echo $number | xargs) $unit"
+    unit="KB"
+    if [[ "$number" -gt "1000" ]]; then
+        unit="MB"
+        number=$(expr $number / 1000)
+    fi
+    if [[ "$number" -gt "1000" ]]; then
+        unit="GB"
+        number=$(expr $number / 1000)
     fi
 
-    n_files=$(fd -H -t f -d 2 . $base_trashdir | wc -l)
-    echo "Trash bin currently contains $n_files files"
+    echo "$n_files files of size $(echo $number | xargs) $unit"
+
 }
 
 # ############################################################################
