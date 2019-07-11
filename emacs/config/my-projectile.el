@@ -37,8 +37,8 @@
 (projectile-global-mode)
 
 ;; Projectile
-(define-key my-leader-map "e" 'projectile-find-file)
-(define-key my-leader-map "E" 'projectile-switch-project)
+(define-key my-leader-map "**" 'projectile-find-file)
+(define-key my-leader-map "j" 'projectile-switch-project)
 
 (provide 'my-projectile)
 

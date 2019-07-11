@@ -159,8 +159,7 @@ function PrintStats {
             number=$(expr $number / 1000)
         fi
 
-        echo "Consider emptying trash directory"
-        echo "It currently more than $(echo $number | xargs) $unit"
+        echo "trash dir > $(echo $number | xargs) $unit"
     fi
 
     n_files=$(fd -H -t f -d 2 . $base_trashdir | wc -l)

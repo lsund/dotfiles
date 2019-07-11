@@ -236,7 +236,7 @@
      :height (if (string= (car (split-string
                                 (slurp "/etc/hostname") "\n" t))
                           "pedro")
-                 120
+                 110
                140)
      :weight 'normal
      :width 'normal)
