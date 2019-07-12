@@ -43,6 +43,7 @@ _widgets="$DOTFILES/zsh_widgets"
 tmux=$DOTFILES/tmux.conf
 xinitrc=$DOTFILES/xinitrc
 xresources=$DOTFILES/Xresources
+exa_colors=$DOTFILES/exa-colors
 
 # XMonad
 xmonad=$DOTFILES/xmonad
@@ -78,6 +79,7 @@ loc_widgets="$HOME/.zsh_widgets"
 loc_tmux=$HOME/.tmux.conf
 loc_xinitrc=$HOME/.xinitrc
 loc_xresources=$HOME/.Xresources
+loc_exa_colors=$HOME/.exa-colors
 
 # XMonad
 loc_xmonad=$HOME/.xmonad
@@ -120,6 +122,7 @@ Link $loc_widgets               $_widgets
 Link $loc_tmux                  $tmux
 Link $loc_xinitrc               $xinitrc
 Link $loc_xresources            $xresources
+Link $loc_exa_colors            $exa_colors
 
 # XMonad
 Link $loc_xmonad                $xmonad
@@ -135,4 +138,5 @@ Link $loc_xinitrc               $xinitrc
 Link $loc_htoprc                $htoprc
 
 echo "Done"
-echo "You might need to source $loc_aliases"
+echo "Souring ~/.zshrc"
+. ~/.zshrc
