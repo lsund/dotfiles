@@ -83,6 +83,7 @@ plugins=(
     fzf
     lein
     autojump
+    extract
 )
 
  [[ -s /home/lsund/.autojump/etc/profile.d/autojump.sh ]] && source /home/lsund/.autojump/etc/profile.d/autojump.sh
