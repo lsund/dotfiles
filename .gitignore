@@ -7,3 +7,4 @@ vim/plugged/
 *.o
 *x86_64-linux
 xmonad/xmonad.errors
+xmonad/prompt-history
