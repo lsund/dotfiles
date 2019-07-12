@@ -37,7 +37,7 @@
 (projectile-global-mode)
 
 ;; Projectile
-(define-key my-leader-map "**" 'projectile-find-file)
+(define-key evil-normal-state-map (kbd "*") 'projectile-find-file)
 (define-key my-leader-map "j" 'projectile-switch-project)
 
 (provide 'my-projectile)

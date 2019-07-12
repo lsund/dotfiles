@@ -107,10 +107,6 @@
 (define-key evil-normal-state-map (kbd "/") 'swiper)
 (define-key evil-normal-state-map (kbd "M-n" ) 'highlight-symbol-next)
 (define-key evil-normal-state-map (kbd "M-p" ) 'highlight-symbol-prev)
-(define-key evil-normal-state-map (kbd "*") (lambda ()
-                                              (interactive)
-                                              (remove-highlight)
-                                              (highlight-symbol)))
 
 ;; Drag stuff
 (define-key evil-normal-state-map (kbd "C-S-k") 'drag-stuff-up)
