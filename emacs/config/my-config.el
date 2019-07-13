@@ -18,6 +18,7 @@
                     wrap-region
                     web-mode
                     xquery-mode
+                    multiple-cursors
 
                     ;; Search
                     evil-quickscope
@@ -44,7 +45,6 @@
                     ;; Other
                     flycheck
                     markdown-mode
-
                     diminish
 
                     ))
