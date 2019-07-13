@@ -6,8 +6,6 @@
 ;;; Code:
 
 (require-packages '(
-
-                    company
                     ;; Evil mode adaptation plugins
                     evil-commentary
                     evil-surround
@@ -19,6 +17,7 @@
                     web-mode
                     xquery-mode
                     multiple-cursors
+                    company
 
                     ;; Search
                     evil-quickscope
@@ -44,13 +43,8 @@
 
                     ;; Other
                     flycheck
-                    markdown-mode
                     diminish
-
                     ))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Global Minor Modes
 
 ;; Hide minor modes in mode line
 (diminish 'autospace-mode)
@@ -77,17 +71,11 @@
 (diminish 'haskell-indent-mode)
 (diminish 'haskell-mode)
 (diminish 'interactive-haskell-mode)
+(diminish 'projectile-mode)
 
-(defun slurp (f)
-  (with-temp-buffer
-    (insert-file-contents f)
-    (buffer-substring-no-properties
-       (point-min)
-       (point-max))))
-
-;; (load-theme 'blackboard t)
 (load-theme 'badwolf t)
-;; (load-theme 'solarized t)
+
+(require 'uniquify)
 
 ;; Smex
 (smex-initialize)
@@ -229,6 +217,15 @@
         (space-mark ?\xA0 [?. ])
         (tab-mark ?\t [?\▸ ?\t])))
 
+
+;; Set font style and size depending on host
+(defun slurp (f)
+  (with-temp-buffer
+    (insert-file-contents f)
+    (buffer-substring-no-properties
+       (point-min)
+       (point-max))))
+
 (set-face-attribute
      'default nil
      :family "Hack"
@@ -241,19 +238,9 @@
      :weight 'normal
      :width 'normal)
 
-;; Font
-(set-face-attribute
- 'default nil
- :family "Hack"
- ;; :family "Source Code Pro"
- :height 140
- :weight 'normal
- :width 'normal)
-
 ;; Smooth instead of jumpy scrolling
 (setq scroll-step 1 scroll-conservatively 10000)
 
-(require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)
 (setq inhibit-default-init t)
 (setq-default frame-title-format "%b (%f)")

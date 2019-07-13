@@ -3,6 +3,9 @@
 ;;; Commentary:
 
 ;;; Code:
+
+(require-packages '(markdown-mode))
+
 (add-hook 'markdown-mode-hook
 
 	  (lambda ()
