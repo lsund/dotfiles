@@ -94,7 +94,6 @@ fi
 if [[ ! -e $fifofile ]] ; then
     echo "Creating fifo..."
     mkfifo $fifofile
-    echo "input=file=$fifofile" >> "/home/lsund/.mplayer/config"
 fi
 
 
