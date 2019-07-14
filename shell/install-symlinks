@@ -14,7 +14,7 @@ function Ignore() {
 
 function Link() {
     if [[ -d $1 ]]; then
-        echo "Rec: into $1"
+        echo "Rec: --> $1"
         mkdir -p $1
         for file in $(/usr/bin/ls $2); do
             if [[ $(Ignore $file) == "no" ]]; then
@@ -33,5 +33,5 @@ for file in $(/usr/bin/ls $HOME/Documents/dotfiles); do
     fi
 done
 
+. ~/.zshrc
 echo "Done"
-echo "Souring ~/.zshrc"
