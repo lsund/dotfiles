@@ -13,7 +13,6 @@ alias df='pydf'
 alias vim='fuzzy-vim'
 alias ls='exa -lu --time-style long-iso --color always'
 alias la='exa -lau --time-style long-iso --color always'
-alias ggg='gaa && gc && ggpush'
 alias grep='grep --color'
 alias beep='mplayer /home/lsund/Media/audio/sounds/beep.mp3 1>& /dev/null'
 alias siren='mplayer /home/lsund/Media/audio/sounds/siren.wav 1>& /dev/null'
@@ -43,8 +42,16 @@ function cd() {
     builtin cd $1 && ls
 }
 
+function ggg() {
+    gaa
+    gss
+    vared -p "> " -c msg
+    gcam $msg
+    ggpush
+}
+
 # Fuzzy CD. Start an interactive search under directory.
-function fcd () {
+function fcd() {
     fuzzy_prog=fzf
     if [[ $# == 1 ]]; then
         eval "builtin cd $1"
