@@ -39,13 +39,6 @@
     ('error
      (shrink-window 4))))
 
-(defun my-zoom-window ()
-  "Zoom in or out."
-  (interactive)
-  (if (= (count-windows) 2)
-      (delete-other-windows)
-    (winner-undo)))
-
 (defun kill-other-buffers ()
   "Kill all other buffers."
   (interactive)
@@ -106,7 +99,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key my-leader-map "-" 'split-window-below)
 (define-key my-leader-map "|" 'split-window-right)
 (define-key evil-normal-state-map (kbd "C-s w") 'delete-window)
-(define-key evil-normal-state-map (kbd "C-s z") 'my-zoom-window)
 
 ;; Smex
 (define-key my-leader-map "x" 'smex)

@@ -5,6 +5,17 @@
 
 ;;; Code:
 
+;; IDO - for find file, switch buffer
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+(setq ivy-re-builders-alist
+      '((t . ivy--regex-ignore-order)))
+
 ;; Counsel
 (define-key my-leader-map "o" 'ido-find-file)
 (define-key ido-file-completion-map (kbd "C-w") 'backward-kill-word)

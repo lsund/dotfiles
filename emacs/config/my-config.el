@@ -46,6 +46,55 @@
                     diminish
                     ))
 
+(require 'uniquify)
+
+;; Smex
+(smex-initialize)
+
+;; Drag stuff
+(drag-stuff-global-mode 1)
+(drag-stuff-define-keys)
+
+;; Highlight Symbol
+(highlight-symbol-mode)
+
+;; Evil Commentary (Code comments)
+(evil-commentary-mode)
+
+;; Evil Surround (emulating vim-surround)
+(global-evil-surround-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; General Settings
+
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+(custom-set-variables '(indent-tabs-mode nil))
+
+;; Unicode
+(prefer-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+
+;; Ignore some buffers
+(setq ido-ignore-buffers
+      '("^ " "*Completions*" "*Shell Command Output*"
+        "*Messages*" "Async Shell Command"))
+
+;; Backup dir
+(setq backup-by-copying t)
+
+;; Backup to the below directory
+(setq backup-directory-alist
+      `(("." . , "/home/lsund/.emacs-backup-files/")))
+(setq auto-save-file-name-transforms
+      `((".*" , "/home/lsund/.emacs-backup-files/" t)))
+
+;; Do not create .#fname lockfiles
+(setq create-lockfiles nil)
+
 ;; Hide minor modes in mode line
 (diminish 'autospace-mode)
 (diminish 'whitespace-mode)
@@ -73,43 +122,14 @@
 (diminish 'interactive-haskell-mode)
 (diminish 'projectile-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Visuals
+
+;; Color theme
 (load-theme 'badwolf t)
 
-(require 'uniquify)
-
-;; Smex
-(smex-initialize)
-
-;; Winner
-(winner-mode 1)
-
-;; Show Parens
+;; Show matching parenthesis
 (show-paren-mode 1)
-
-;; Drag stuff
-(drag-stuff-global-mode 1)
-(drag-stuff-define-keys)
-
-;; Highlight Symbol
-(highlight-symbol-mode)
-
-;; Evil Commentary (Code comments)
-(evil-commentary-mode)
-
-;; Scroll bars
-(scroll-bar-mode -1)
-
-;; Evil Surround (emulating vim-surround)
-(global-evil-surround-mode 1)
-
-;; IDO
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Misc
-
 
 ;; Dont show welcome screen
 (setq inhibit-startup-screen t)
@@ -118,23 +138,11 @@
 ;; Highlight current line
 (when window-system (global-hl-line-mode))
 
+;; Highlight characters for f,t,F,T etc
+(global-evil-quickscope-always-mode 1)
+
+;; Do not open new windows
 (setq pop-up-windows nil)
-
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-(custom-set-variables '(indent-tabs-mode nil))
-
-;; Buffer switching
-(setq ido-ignore-buffers
-      '("^ " "*Completions*" "*Shell Command Output*"
-        "*Messages*" "Async Shell Command"))
-
-;; Unicode
-(prefer-coding-system 'utf-8)
-(setq default-file-name-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
 
 ;; Line numbers
 (linum-mode)
@@ -150,35 +158,18 @@
 ;; No menu bar
 (menu-bar-mode 0)
 
-;; Backup dir
-(setq backup-by-copying t)
-
-;; Backup to the below directory
-(setq backup-directory-alist
-      `(("." . , "/home/lsund/.emacs-backup-files/")))
-(setq auto-save-file-name-transforms
-      `((".*" , "/home/lsund/.emacs-backup-files/" t)))
-
-;; Do not create .#fname lockfiles
-(setq create-lockfiles nil)
+;; No scroll bars
+(scroll-bar-mode -1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Plugin Configs
 
-;; Ivy
-
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq enable-recursive-minibuffers t)
-(setq ivy-re-builders-alist
-      '((t . ivy--regex-ignore-order)))
-
-;; Magit
+;; Git plugin
 (evil-magit-init)
 (setq magit-completing-read-function 'ivy-completing-read)
 (setq evil-magit-state 'normal)
 
-;; Company
+;; Autocompletion
 (add-hook 'after-init-hook 'global-company-mode)
 
 (add-to-list 'company-backends 'company-dabbrev-code)
@@ -186,16 +177,13 @@
 (add-to-list 'company-backends 'company-files)
 (add-to-list 'company-backends 'company-elisp)
 
-;; Quick scope
-(global-evil-quickscope-always-mode 1)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Search
 
 ;; Case sensitive
 (setq evil-ex-search-case 'sensitive)
 
-;; Delete trailing whitespace on file save
+;; Do not ask about file save
 (setq compilation-ask-about-save nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
