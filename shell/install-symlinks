@@ -53,10 +53,11 @@ xm_icon3=$DOTFILES/icons/boxleft.xbm
 xm_icon4=$DOTFILES/icons/boxright.xbm
 
 
-# Misc
+# Misc (1)
 lesskey=$DOTFILES/lesskey
 xinitrc=$DOTFILES/xinitrc
 htoprc=$DOTFILES/htoprc
+mplayer=$DOTFILES/mplayer.conf
 
 # Vim
 loc_vim_dir=$HOME/.vim
@@ -88,10 +89,11 @@ loc_xm_icon2=$HOME/.icons/xbm_icons/subtle/boxleft2.xbm
 loc_xm_icon3=$HOME/.icons/xbm_icons/subtle/boxleft.xbm
 loc_xm_icon4=$HOME/.icons/xbm_icons/subtle/boxright.xbm
 
-# Misc
+# Misc (2)
 loc_lesskey=$HOME/.lesskey
 loc_xinitrc=$HOME/.xinitrc
 loc_htoprc=$HOME/.config/htop/htoprc
+loc_mplayer=$HOME/.mplayer/config
 
 ## Insertions
 
@@ -131,11 +133,12 @@ Link $loc_xm_icon2              $xm_icon2
 Link $loc_xm_icon3              $xm_icon3
 Link $loc_xm_icon4              $xm_icon4
 
-# Misc
+# Misc (3)
 
 Link $loc_lesskey               $lesskey
 Link $loc_xinitrc               $xinitrc
 Link $loc_htoprc                $htoprc
+Link $loc_mplayer          $mplayer
 
 echo "Done"
 echo "Souring ~/.zshrc"
