@@ -11,7 +11,7 @@
 (define-key my-leader-map "n" nil)
 (define-key my-leader-map "N" nil)
 
-;; Navigation
+;; Navigate Buffer
 (define-key evil-visual-state-map (kbd "J") 'myevil-next-visual-line)
 (define-key evil-visual-state-map (kbd "K") 'myevil-prev-visual-line)
 (define-key evil-normal-state-map (kbd "J") 'myevil-next-line)
@@ -21,9 +21,33 @@
 (define-key evil-normal-state-map (kbd "C-u") 'scroll-half-page-down)
 (define-key evil-normal-state-map (kbd "C-d") 'scroll-half-page-up)
 
+;; Navigate Project
+(define-key my-leader-map "nn" 'neotree-toggle)
+(define-key my-leader-map "NN" 'neotree-find)
+(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-refresh)
+(evil-define-key 'normal neotree-mode-map (kbd "R") 'neotree-change-root)
+(evil-define-key 'normal neotree-mode-map (kbd "F") 'mkdir)
+(evil-define-key 'normal neotree-mode-map (kbd "d") 'neotree-delete-node)
+(evil-define-key 'normal neotree-mode-map (kbd "f") 'neotree-create-node)
+(evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
+(evil-define-key 'normal neotree-mode-map (kbd "v") 'neotree-quick-look)
+(evil-define-key 'normal neotree-mode-map (kbd "u") 'neotree-select-up-node)
+(define-key evil-normal-state-map (kbd "*") 'projectile-find-file)
+(define-key my-leader-map "j" 'projectile-switch-project)
+(define-key my-leader-map "o" 'ido-find-file)
+
 ;; Editing
 (define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
+(define-key company-active-map (kbd "C-w") 'backward-kill-word)
+(define-key ido-file-completion-map (kbd "C-w") 'backward-kill-word)
+(define-key ivy-minibuffer-map (kbd "C-w") #'backward-kill-word)
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
+(define-key company-active-map (kbd "C-h") 'delete-backward-char)
+(define-key ivy-minibuffer-map (kbd "C-h") #'backward-delete-char)
 (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
 (define-key evil-normal-state-map (kbd "C-j") 'push-line-down)
 (define-key evil-normal-state-map (kbd "C-k") 'push-line-up)
@@ -42,19 +66,20 @@
 (define-key evil-visual-state-map (kbd "C-S-h") 'drag-stuff-left)
 (define-key minibuffer-local-map (kbd "C-p") 'previous-complete-history-element)
 (define-key minibuffer-local-map (kbd "C-n") 'next-complete-history-element)
-(define-key evil-normal-state-map (kbd "*") 'projectile-find-file)
-(define-key my-leader-map "j" 'projectile-switch-project)
-
-;; Autocompletion
+(define-key ido-file-completion-map (kbd "C-n") 'ido-next-match)
+(define-key ido-file-completion-map (kbd "C-p") 'ido-prev-match)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "C-h") 'delete-backward-char)
-(define-key company-active-map (kbd "C-w") 'backward-kill-word)
+
+;; Autocompletion
 (define-key company-active-map (kbd "RET") 'company-abort)
 (define-key evil-insert-state-map (kbd "<backtab>")
   'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+(define-key ivy-minibuffer-map (kbd "<tab>") 'my-ivy)
+(define-key ivy-minibuffer-map (kbd "<backtab>") 'my-ivy-back)
+(define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done)
 
 ;; Window Management
 (define-key evil-normal-state-map (kbd "C-w h") 'windmove-left)
@@ -98,6 +123,13 @@
 (define-key evil-normal-state-map (kbd "/") 'swiper)
 (define-key evil-normal-state-map (kbd "M-n" ) 'highlight-symbol-next)
 (define-key evil-normal-state-map (kbd "M-p" ) 'highlight-symbol-prev)
+(define-key my-leader-map "ar" (lambda ()
+                                 (interactive)
+				 (ivy-resume)))
+(define-key my-leader-map "aa" (lambda ()
+                                (interactive)
+				(counsel-ag "" (locate-dominating-file default-directory "core/src"))))
+
 
 ;; Align after regex
 (define-key evil-visual-state-map (kbd "M-a") 'align-regexp)

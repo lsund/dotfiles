@@ -151,6 +151,18 @@ Repeated invocations toggle between the two most recently open buffers."
   (set-buffer-modified-p t)
   (save-buffer))
 
+(defun my-ivy ()
+  (interactive)
+  (if (ivy-partial)
+      nil
+    (ivy-next-line)))
+
+(defun my-ivy-back ()
+  (interactive)
+  (if (ivy-partial)
+      nil
+    (ivy-previous-line)))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

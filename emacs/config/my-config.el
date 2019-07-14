@@ -32,6 +32,7 @@
                     evil-magit
                     neotree
                     smex
+                    projectile
 
                     ;; Visuals
                     badwolf-theme
@@ -66,8 +67,19 @@
 ;; Evil Surround (emulating vim-surround)
 (global-evil-surround-mode 1)
 
+(ido-mode 1)
+(ivy-mode 1)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General Settings
+
+;; Find files, switch buffers
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+(setq ivy-re-builders-alist
+      '((t . ivy--regex-ignore-order)))
 
 ;; Auto fill
 (set-fill-column 120)
@@ -145,6 +157,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visuals
+
+;; Vim powerline styling
+(setq airline-display-directory "Full")
+(setq airline-cursor-colors "Enabled")
+(setq airline-eshell-colors "Disabled")
+(setq airline-helm-colors "Disabled")
+(load-theme 'airline-badwolf)
 
 ;; Color theme
 (load-theme 'badwolf t)
@@ -247,7 +266,7 @@
 (add-to-list 'company-backends 'company-files)
 (add-to-list 'company-backends 'company-elisp)
 
-;; Navigate project
+;; Project Navigation
 (projectile-global-mode)
 (setq projectile-completion-system 'ivy)
 (setq projectile-enable-caching nil)
@@ -277,18 +296,16 @@
 ;; Require
 
 (require 'my-keybindings)
-(require 'my-powerline)
 (require 'my-clojure)
-(require 'my-xml)
+(require 'my-lisp)
 (require 'my-elisp)
 (require 'my-haskell)
 (require 'my-org)
 (require 'my-python)
 (require 'my-tex)
 (require 'my-markdown)
-(require 'my-ivy)
-(require 'my-neotree)
 (require 'my-rust)
+(require 'my-xml)
 
 (provide 'my-config)
 

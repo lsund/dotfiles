@@ -7,12 +7,6 @@
 
 (require 'my-lisp)
 
-(require-packages '(
-		    evil
-		    evil-cleverparens
-		    flycheck
-		    ))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Syntax checker
 
