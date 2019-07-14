@@ -46,6 +46,8 @@
                     diminish
                     ))
 
+(require 'my-functions)
+
 (require 'uniquify)
 
 ;; Smex
@@ -66,6 +68,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General Settings
+
+;; Auto fill
+(set-fill-column 120)
+(auto-fill-mode)
 
 ;; Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
@@ -94,6 +100,21 @@
 
 ;; Do not create .#fname lockfiles
 (setq create-lockfiles nil)
+
+;; Case sensitive search
+(setq evil-ex-search-case 'sensitive)
+(setq case-fold-search nil)
+
+;; Do not ask about file save
+(setq compilation-ask-about-save nil)
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; For copy/paste from X11 to emacs
+(setq  select-enable-clipboard t)
+(setq select-enable-primary t)
+
+;; Smooth instead of jumpy scrolling
+(setq scroll-step 1 scroll-conservatively 10000)
 
 ;; Hide minor modes in mode line
 (diminish 'autospace-mode)
@@ -161,6 +182,55 @@
 ;; No scroll bars
 (scroll-bar-mode -1)
 
+;; Delete trailing whitespace Whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Highlight excessive whitespace
+(whitespace-mode 1)
+(setq whitespace-line-column 120)
+(setq whitespace-display-mappings
+      '((newline-mark ?\n [?¬ ?\n])
+        (space-mark ?\ [?. ])
+        (space-mark ?\xA0 [?. ])
+        (tab-mark ?\t [?\▸ ?\t])))
+
+;; Font size and style
+(set-face-attribute
+ 'default nil
+ :family "Hack"
+ ;; :family "Source Code Pro"
+ :height (if (string= (car (split-string
+                            (slurp "/etc/hostname") "\n" t))
+                      "pedro")
+             110
+           140)
+ :weight 'normal
+ :width 'normal)
+
+(setq uniquify-buffer-name-style 'reverse)
+(setq inhibit-default-init t)
+(setq-default frame-title-format "%b (%f)")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Spelling
+;;
+;; Use aspell, then hunspell
+(cond
+ ((executable-find "aspell")
+  (setq ispell-program-name "aspell")
+  ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
+  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
+
+ ((executable-find "hunspell")
+  (setq ispell-program-name "hunspell")
+  (setq ispell-local-dictionary "en_US")
+  (setq ispell-local-dictionary-alist
+        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']"
+           nil
+           ("-d" "en_US")
+           nil
+           utf-8)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Plugin Configs
 
@@ -177,144 +247,36 @@
 (add-to-list 'company-backends 'company-files)
 (add-to-list 'company-backends 'company-elisp)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Search
-
-;; Case sensitive
-(setq evil-ex-search-case 'sensitive)
-
-;; Do not ask about file save
-(setq compilation-ask-about-save nil)
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;; For copy/paste from X11 to emacs
-(setq  select-enable-clipboard t)
-(setq select-enable-primary t)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Look & Feel
-
-;; Whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(whitespace-mode 1)
-(setq whitespace-line-column 120)
-(setq whitespace-display-mappings
-      '((newline-mark ?\n [?¬ ?\n])
-        (space-mark ?\ [?. ])
-        (space-mark ?\xA0 [?. ])
-        (tab-mark ?\t [?\▸ ?\t])))
-
-
-;; Set font style and size depending on host
-(defun slurp (f)
-  (with-temp-buffer
-    (insert-file-contents f)
-    (buffer-substring-no-properties
-       (point-min)
-       (point-max))))
-
-(set-face-attribute
-     'default nil
-     :family "Hack"
-     ;; :family "Source Code Pro"
-     :height (if (string= (car (split-string
-                                (slurp "/etc/hostname") "\n" t))
-                          "pedro")
-                 110
-               140)
-     :weight 'normal
-     :width 'normal)
-
-;; Smooth instead of jumpy scrolling
-(setq scroll-step 1 scroll-conservatively 10000)
-
-(setq uniquify-buffer-name-style 'reverse)
-(setq inhibit-default-init t)
-(setq-default frame-title-format "%b (%f)")
-
-(define-key evil-normal-state-map (kbd "C-+") 'text-scale-increase)
-(define-key evil-normal-state-map (kbd "C--") 'text-scale-decrease)
-(define-key evil-normal-state-map (kbd "C-0")
-  (lambda () (interactive) (text-scale-increase 0)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Spelling
-;;
-;; try aspell at first if hunspell does NOT exist, use hunspell
-(cond
- ((executable-find "aspell")
-  (setq ispell-program-name "aspell")
-  ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
-  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
-
- ((executable-find "hunspell")
-  (setq ispell-program-name "hunspell")
-  (setq ispell-local-dictionary "en_US")
-  (setq ispell-local-dictionary-alist
-        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))))
- )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Keybindings
-
-;; New Leader map
-(defvar my-leader-map (make-sparse-keymap))
-(define-key evil-normal-state-map "\\" my-leader-map)
-;; Resets
-(define-key my-leader-map "n" nil)
-(define-key my-leader-map "N" nil)
-
-(defun key-binding-at-point (key)
-  (mapcar (lambda (keymap) (when (keymapp keymap)
-                             (lookup-key keymap key)))
-          (list
-           ;; More likely
-           (get-text-property (point) 'keymap)
-           (mapcar (lambda (overlay)
-                     (overlay-get overlay 'keymap))
-                   (overlays-at (point)))
-           ;; Less likely
-           (get-text-property (point) 'local-map)
-           (mapcar (lambda (overlay)
-                     (overlay-get overlay 'local-map))
-                   (overlays-at (point))))))
-
-(defun locate-key-binding (key)
-  "Determine in which keymap KEY is defined."
-  (interactive "kPress key: ")
-  (let ((ret
-         (list
-          (key-binding-at-point key)
-          (minor-mode-key-binding key)
-          (local-key-binding key)
-          (global-key-binding key))))
-    (when (called-interactively-p 'any)
-      (message "At Point: %s\nMinor-mode: %s\nLocal: %s\nGlobal: %s"
-               (or (nth 0 ret) "")
-               (or (mapconcat (lambda (x) (format "%s: %s" (car x) (cdr x)))
-                              (nth 1 ret) "\n             ")
-                   "")
-               (or (nth 2 ret) "")
-               (or (nth 3 ret) "")))
-    ret))
-
-
-;; Magit magit
-
-(define-key evil-normal-state-map (kbd "gs") 'magit-status)
-
-;; Align
-
-(define-key evil-visual-state-map (kbd "M-a") 'align-regexp)
-
-(setq case-fold-search nil)
+;; Navigate project
+(projectile-global-mode)
+(setq projectile-completion-system 'ivy)
+(setq projectile-enable-caching nil)
+(setq projectile-require-project-root nil)
+(setq projectile-globally-ignored-directories
+      (append
+       '(".git"
+         ".svn"
+         "out"
+         "repl"
+         "target"
+         "venv")
+       projectile-globally-ignored-directories))
+(setq projectile-globally-ignored-files
+      (append
+       '(".DS_Store"
+         "*.gz"
+         "*.pyc"
+         "*.jar"
+         "*.tar.gz"
+         "*.tgz"
+         "*.zip")
+       projectile-globally-ignored-files))
+(projectile-global-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Require
 
-(require 'my-bufferman)
-(require 'my-editing)
+(require 'my-keybindings)
 (require 'my-powerline)
 (require 'my-clojure)
 (require 'my-xml)
@@ -324,7 +286,6 @@
 (require 'my-python)
 (require 'my-tex)
 (require 'my-markdown)
-(require 'my-projectile)
 (require 'my-ivy)
 (require 'my-neotree)
 (require 'my-rust)

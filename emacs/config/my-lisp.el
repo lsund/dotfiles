@@ -57,14 +57,6 @@
     (paredit-backward)
     (point)))
 
-(defun my-clojure-indent-defn ()
-  "Todo."
-  (interactive)
-  (save-excursion
-    (goto-char (my-beginning-of-form))
-    (indent-sexp)
-    (clojure-align (point) (my-end-of-form))))
-
 (defun my-break-sexp ()
   "Break the line after the current sexp and move to the next sexp."
   (interactive)

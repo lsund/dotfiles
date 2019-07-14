@@ -7,13 +7,11 @@
 
 (require-packages '(projectile))
 
-;; Projectile
+;; Navigate project
 (projectile-global-mode)
 (setq projectile-completion-system 'ivy)
-;; Caching could greatly speed up file navigation on big projects
 (setq projectile-enable-caching nil)
 (setq projectile-require-project-root nil)
-
 (setq projectile-globally-ignored-directories
       (append
        '(".git"
@@ -23,7 +21,6 @@
          "target"
          "venv")
        projectile-globally-ignored-directories))
-
 (setq projectile-globally-ignored-files
       (append
        '(".DS_Store"
