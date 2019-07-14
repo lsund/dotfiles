@@ -1,3 +1,9 @@
 # Dotfiles
 
-My dotfiles for Arch Linux and Ubuntu
+My dotfiles used on Arch Linux and Ubuntu, mainly configuration for ...
+
+- Vim
+- Emacs (evil mode)
+- Xmonad
+
+... And more than a few *sh utility scripts
