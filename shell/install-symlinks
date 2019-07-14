@@ -1,145 +1,37 @@
 #!/bin/zsh
 
-vimrc=$HOME/.vimrc
-vim=$HOME/.vim
-VIM=$HOME/.vim
-al=$HOME/.aliases
-git=$HOME/.config/git/config
-emacsd=$HOME/.emacs.d
+declare -a ignore=("fonts" "shell" "plugged" "readme.md")
 
-# Make some directories
-mkdir -p $vim/{after/plugin,colors,plugin}
-mkdir -p $emacsd/config
-mkdir -p $HOME/.config/git
-mkdir -p $HOME/.git_template/hooks
-mkdir -p $HOME/.icons/xbm_icons/subtle
-
-## Sources
-
-# Vim
-vim_dir=$DOTFILES/vim
-
-
-# Emacs
-emacs_dir=$DOTFILES/emacs
-emacs_file=$DOTFILES/emacs/emacs
-
-
-# Git
-git_config=$DOTFILES/git/config
-git_hook=$DOTFILES/git/hooks/prepare-commit-msg
-
-# SSH
-if [[ $(< /etc/hostname) == "keysersoze" ]]; then
-    ssh_config=$DOTFILES/ssh/keysersoze_config
-else
-    ssh_config=$DOTFILES/ssh/pedro_config
-fi
-
-# Shell
-zshrc=$DOTFILES/zshrc
-_aliases="$DOTFILES/aliases"
-_widgets="$DOTFILES/zsh_widgets"
-tmux=$DOTFILES/tmux.conf
-xinitrc=$DOTFILES/xinitrc
-xresources=$DOTFILES/Xresources
-exa_colors=$DOTFILES/exa-colors
-
-# XMonad
-xmonad=$DOTFILES/xmonad
-xm_icon1=$DOTFILES/icons/boxleft2-big.xbm
-xm_icon2=$DOTFILES/icons/boxleft2.xbm
-xm_icon3=$DOTFILES/icons/boxleft.xbm
-xm_icon4=$DOTFILES/icons/boxright.xbm
-
-
-# Misc (1)
-lesskey=$DOTFILES/lesskey
-xinitrc=$DOTFILES/xinitrc
-htoprc=$DOTFILES/htoprc
-mplayer=$DOTFILES/mplayer.conf
-
-# Vim
-loc_vim_dir=$HOME/.vim
-
-# Emacs
-loc_emacs_file=$HOME/.emacs
-loc_emacs_dir=$emacsd
-
-# Git
-loc_git_config=$HOME/.config/git/config
-loc_git_hook=$HOME/.git_template/hooks/prepare-commit-msg
-
-# SSH
-loc_ssh_config=$HOME/.ssh/config
-
-# Shell
-loc_zshrc=$HOME/.zshrc
-loc_aliases="$HOME/.aliases"
-loc_widgets="$HOME/.zsh_widgets"
-loc_tmux=$HOME/.tmux.conf
-loc_xinitrc=$HOME/.xinitrc
-loc_xresources=$HOME/.Xresources
-loc_exa_colors=$HOME/.exa-colors
-
-# XMonad
-loc_xmonad=$HOME/.xmonad
-loc_xm_icon1=$HOME/.icons/xbm_icons/subtle/boxleft2-big.xbm
-loc_xm_icon2=$HOME/.icons/xbm_icons/subtle/boxleft2.xbm
-loc_xm_icon3=$HOME/.icons/xbm_icons/subtle/boxleft.xbm
-loc_xm_icon4=$HOME/.icons/xbm_icons/subtle/boxright.xbm
-
-# Misc (2)
-loc_lesskey=$HOME/.lesskey
-loc_xinitrc=$HOME/.xinitrc
-loc_htoprc=$HOME/.config/htop/htoprc
-loc_mplayer=$HOME/.mplayer/config
-
-## Insertions
-
-function Link()
-{
-    echo "installing $1 --> $2"
-    [[ -e $1 ]] || ln -s $2 $1
+function Ignore() {
+    for e in "${ignore[@]}"; do
+        if [[ $e == $1 ]]; then
+            echo "yes"
+            return
+        fi
+    done
+    echo "no"
 }
 
-# Vim
-Link $loc_vim_dir               $vim_dir
+function Link() {
+    if [[ -d $1 ]]; then
+        echo "Rec: into $1"
+        mkdir -p $1
+        for file in $(/usr/bin/ls $2); do
+            if [[ $(Ignore $file) == "no" ]]; then
+                Link $1/$file $2/$file
+            fi
+        done
+    else
+        echo "Inst: $1 --> $2"
+        [[ -e $1 ]] || ln -s $2 $1
+    fi
+}
 
-# Emacs
-Link $loc_emacs_dir             $emacs_dir
-Link $loc_emacs_file            $emacs_file
-
-# Git
-Link $loc_git_config            $git_config
-Link $loc_git_hook              $git_hook
-
-# SSH
-Link $loc_ssh_config            $ssh_config
-
-# Shell
-Link $loc_zshrc                 $zshrc
-Link $loc_aliases               $_aliases
-Link $loc_widgets               $_widgets
-Link $loc_tmux                  $tmux
-Link $loc_xinitrc               $xinitrc
-Link $loc_xresources            $xresources
-Link $loc_exa_colors            $exa_colors
-
-# XMonad
-Link $loc_xmonad                $xmonad
-Link $loc_xm_icon1              $xm_icon1
-Link $loc_xm_icon2              $xm_icon2
-Link $loc_xm_icon3              $xm_icon3
-Link $loc_xm_icon4              $xm_icon4
-
-# Misc (3)
-
-Link $loc_lesskey               $lesskey
-Link $loc_xinitrc               $xinitrc
-Link $loc_htoprc                $htoprc
-Link $loc_mplayer          $mplayer
+for file in $(/usr/bin/ls $HOME/Documents/dotfiles); do
+    if [[ $(Ignore $file) == "no" ]]; then
+        Link $HOME/.$file $HOME/Documents/dotfiles/$file
+    fi
+done
 
 echo "Done"
 echo "Souring ~/.zshrc"
-. ~/.zshrc

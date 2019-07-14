@@ -84,11 +84,6 @@ if [[ $? != "0" ]]; then
     echo "Done."
 fi
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -97,12 +92,6 @@ else
 fi
 
 # ssh
-
-function precmd() {
-    # Log the time of each executed command
-    export ZSH_ELAPSED_TIME=$(date '+%s')
-}
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 . $HOME/.aliases
