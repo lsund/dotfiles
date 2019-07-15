@@ -48,6 +48,7 @@ function ggg() {
     vared -p "> " -c msg
     gcam $msg
     ggpush
+    msg=""
 }
 
 # Fuzzy CD. Start an interactive search under directory.

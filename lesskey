@@ -1,9 +1,1 @@
 #command
-t forw-line
-n back-line
-j repeat-search
-J reverse-search
-N back-screen
-T forw-screen
-
-

@@ -290,6 +290,7 @@
          "*.tgz"
          "*.zip")
        projectile-globally-ignored-files))
+
 (projectile-global-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
