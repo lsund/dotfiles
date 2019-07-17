@@ -125,10 +125,10 @@
 (define-key evil-normal-state-map (kbd "M-p" ) 'highlight-symbol-prev)
 (define-key my-leader-map "ar" (lambda ()
                                  (interactive)
-				 (ivy-resume)))
+                                 (ivy-resume)))
 (define-key my-leader-map "aa" (lambda ()
-                                (interactive)
-				(counsel-ag "" (locate-dominating-file default-directory "core/src"))))
+                                 (interactive)
+                                 (counsel-ag "")))
 
 
 ;; Align after regex

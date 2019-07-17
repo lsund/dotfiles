@@ -90,6 +90,15 @@
             (diminish 'eldoc-mode)
             (diminish 'evil-commentary-mode)
 
+
+            (define-key my-leader-map "aa" (lambda ()
+                                             (interactive)
+                                             (counsel-ag ""
+                                                         (locate-dominating-file
+                                                          default-directory
+                                                          "project.clj"))))
+
+
             ;; Leader map extension
             (defvar clojure-leader-map
               (let ((map (make-sparse-keymap)))
