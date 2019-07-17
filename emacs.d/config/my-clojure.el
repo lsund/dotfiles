@@ -127,7 +127,6 @@
 
             ;; Lambdawerk
 
-            (lambdawerk-indent)
             (add-hook 'before-save-hook 'lambdawerk-cleanup-buffer t t)
 
             ;; CIDER
@@ -137,13 +136,13 @@
             (define-key clojure-leader-map "cr" 'cider-eval-last-sexp-to-repl)
             (define-key evil-normal-state-map (kbd "C-]") 'cider-find-var)
 
-            (define-key my-leader-map "R"
+            (define-key clojure-leader-map "R"
               (lambda ()
                 (interactive)
                 (cider-interactive-eval
                  "(user/system-restart!)")))
 
-            (define-key my-leader-map "v"
+            (define-key clojure-leader-map "v"
               (lambda ()
                 (interactive)
                 (cider-interactive-eval
