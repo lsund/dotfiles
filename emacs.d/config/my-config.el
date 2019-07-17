@@ -67,8 +67,8 @@
 ;; Evil Surround (emulating vim-surround)
 (global-evil-surround-mode 1)
 
+(ivy-mode)
 (ido-mode 1)
-(ivy-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General Settings
@@ -163,7 +163,8 @@
 (setq airline-cursor-colors "Enabled")
 (setq airline-eshell-colors "Disabled")
 (setq airline-helm-colors "Disabled")
-(load-theme 'airline-badwolf)
+; (load-theme 'airline-base16-shell-dark)
+(load-theme 'airline-distinguished)
 
 ;; Color theme
 (load-theme 'badwolf t)

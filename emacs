@@ -13,21 +13,21 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(cider-lein-parameters "with-profile +pretty repl :headless")
  '(custom-safe-themes
    (quote
-    ("d21135150e22e58f8c656ec04530872831baebf5a1c3688030d119c114233c24" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" default)))
- '(cider-lein-parameters "with-profile +pretty repl :headless")
- '(evil-cleverparens-use-additional-movement-keys nil)
+    ("de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "d61f6c49e5db58533d4543e33203fd1c41a316eddb0b18a44e0ce428da86ef98" "64ca5a1381fa96cb86fd6c6b4d75b66dc9c4e0fc1288ee7d914ab8d2638e23a9" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "1b27e3b3fce73b72725f3f7f040fd03081b576b1ce8bbdfcb0212920aec190ad" "d21135150e22e58f8c656ec04530872831baebf5a1c3688030d119c114233c24" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" default)))
  '(evil-cleverparens-use-additional-bindings nil)
+ '(evil-cleverparens-use-additional-movement-keys nil)
  '(evil-cleverparens-use-regular-insert t)
  '(evil-search-module (quote evil-search))
  '(indent-tabs-mode nil)
- '(tab-always-indent t)
- '(vc-follow-symlinks nil)
  '(package-selected-packages
    (quote
     (rust-mode flycheck-rust hindent yaml-mode web-mode xquery-mode tidy diminish airline-themes cider-repl wrap-region color-theme-solarized blackboard-theme zenburn-theme counsel org-bullets haskell-mode shakespeare-mode paxedit clj-refactor markdown-mode flycheck smex neotree evil-magit swiper flx-ido evil-surround cider evil-cleverparens lispy company evil-mc auto-complete evil-commentary evil-nerd-commenter multiple-cursors highlight-symbol badwolf-theme centered-cursor-mode helm-config drag-stuff evil-quickscope rainbow-delimiters swiper-helm helm-ag helg-ag magit projectile paredit evil-smartparens smartparens tabbar clojure-mode powerline linum-relative helm)))
- '(projectile-current-project-on-switch (quote keep)))
+ '(projectile-current-project-on-switch (quote keep))
+ '(tab-always-indent t)
+ '(vc-follow-symlinks nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
