@@ -1,1 +1,0 @@
-/home/lsund/Documents/dotfiles/vim/plugin/ack.vim

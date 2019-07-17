@@ -1,1 +1,0 @@
-/home/lsund/Documents/dotfiles/vim/after/plugin/zsh.vim

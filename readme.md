@@ -8,5 +8,4 @@ My dotfiles used on Arch Linux and Ubuntu, mainly configuration for ...
 
 ... And more than a few *sh utility scripts.
 
-To install symlinks for all files in this repository, call
-`shell/install-symlinks`.
+To automatically install symlinks, call `shell/install-symlinks`. This will create a `$HOME/.$file -> $DOTFILES/$file` link for every configuration file in this repository.
