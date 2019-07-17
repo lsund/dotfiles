@@ -11,7 +11,7 @@ if [[ $1 == "beep" ]]; then
 elif [[ $1 == "siren" ]]; then
     file=siren.wav
 elif [[ $1 == "bell" ]]; then
-    file=temple-bell.mp3
+    file=bell.mp3
 elif [[ $1 == "tone" ]]; then
     file=tone.wav
 else
