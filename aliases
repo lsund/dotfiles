@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 # Aliases
+alias distro='lsb_release -a'
 alias cp='cpv'
 alias find='/usr/bin/fd'
 alias pwd="$SCRIPTS/pwd"
