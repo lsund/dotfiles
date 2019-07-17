@@ -26,13 +26,12 @@ autoload -U compinit && compinit -u
 
 source $ZSH/oh-my-zsh.sh
 
+export PATH="$PATH:$HOME/.perl-6-install/rakudo-star-2019.03"
 export PATH="$PATH:$HOME/.skim/bin"
 export PATH=$PATH:$HOME/.bin:/usr/local/bin
 export PATH=$PATH:$HOME/Documents/dotfiles/shell
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
-export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/bin
-export PATH=$PATH:$HOME/Downloads/rakudo-star-2018.10/install/share/perl6/site/bin
 export PATH=$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_HOME/tools
 export EXA_COLORS=$(cat $HOME/.exa-colors)
 
