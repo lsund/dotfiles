@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+res="$(/usr/bin/time -f "%e %M" "$@" 2>&1 | tail -1)"
+mb=$(($( echo $res | cut -d' ' -f2) / 1024))
+t=$(echo $res | cut -d' ' -f1)
+echo "time: $t s\nmem: $mb Mb"

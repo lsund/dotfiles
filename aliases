@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 # Aliases
+alias time='$SCRIPTS/time'
 alias distro='lsb_release -a'
 alias cp='cpv'
 alias find='/usr/bin/fd'

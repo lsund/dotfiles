@@ -158,7 +158,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visuals
 
-;; Vim powerline styling
+;; Status bar
 (setq airline-display-directory "Full")
 (setq airline-cursor-colors "Enabled")
 (setq airline-eshell-colors "Disabled")
