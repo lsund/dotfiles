@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(package-refresh-contents)
+; (package-refresh-contents)
 
 (defun require-package (pkg)
   "Install package if it is not already installed.

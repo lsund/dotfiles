@@ -141,9 +141,12 @@ elif [[ $1 == "new-music" ]]; then
     fi
 elif [[ $1 == "toggle-music" ]]; then
     if [[ $play_music == "yes" ]]; then
+        kill_mplayer
         play_music="no"
+    echo "Music is now off"
     else
         play_music="yes"
+    echo "Music is now on"
     fi
     write_state $init_ts $pause_ts $continue_ts $state $seconds $play_music
 else
