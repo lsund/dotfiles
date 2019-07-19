@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+echo $(/usr/bin/df -h | grep nvme0n1p2 | tr -s ' ' | cut -d' ' -f5) > "$HOME/Data/log/store/disk.txt"
