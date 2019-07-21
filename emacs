@@ -26,6 +26,8 @@
    (quote
     (rust-mode flycheck-rust hindent yaml-mode web-mode xquery-mode tidy diminish airline-themes cider-repl wrap-region color-theme-solarized blackboard-theme zenburn-theme counsel org-bullets haskell-mode shakespeare-mode paxedit clj-refactor markdown-mode flycheck smex neotree evil-magit swiper flx-ido evil-surround cider evil-cleverparens lispy company evil-mc auto-complete evil-commentary evil-nerd-commenter multiple-cursors highlight-symbol badwolf-theme centered-cursor-mode helm-config drag-stuff evil-quickscope rainbow-delimiters swiper-helm helm-ag helg-ag magit projectile paredit evil-smartparens smartparens tabbar clojure-mode powerline linum-relative helm)))
  '(projectile-current-project-on-switch (quote keep))
+ '(projectile-git-command "git ls-files -zco --exclude-standard ; echo -n todo.md")
+ '(projectile-git-ignored-command "git ls-files -zcoi --exclude-standard | grep -v todo.md")
  '(tab-always-indent t)
  '(vc-follow-symlinks nil))
 (custom-set-faces
