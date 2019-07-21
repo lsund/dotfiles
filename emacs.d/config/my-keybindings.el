@@ -36,7 +36,7 @@
 (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
 (evil-define-key 'normal neotree-mode-map (kbd "v") 'neotree-quick-look)
 (evil-define-key 'normal neotree-mode-map (kbd "u") 'neotree-select-up-node)
-(define-key evil-normal-state-map (kbd "*") 'projectile-find-file)
+(define-key my-leader-map "e" 'projectile-find-file)
 (define-key my-leader-map "j" 'projectile-switch-project)
 (define-key my-leader-map "o" 'ido-find-file)
 
