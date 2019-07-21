@@ -110,9 +110,9 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} = M.fromList $
     -- Mark mail as read
     , ((modMask                 , xK_F9)        ,   spawn $ scriptpath ++ "mailsync update")
     -- Decrease backlight
-    , ((modMask                 , xK_F11)       ,   spawn "/usr/bin/xbacklight -dec 10")
+    , ((modMask                 , xK_F11)       ,   spawn $ scriptpath ++ "lightcontrol dec")
     -- Raise backlight
-    , ((modMask                 , xK_F12)       ,   spawn "/usr/bin/xbacklight -inc 10")
+    , ((modMask                 , xK_F12)       ,   spawn $ scriptpath ++ "lightcontrol inc")
 
     -- Change keyboard layout
     , ((modMask                 , xK_F5)       ,   spawn "/usr/bin/setxkbmap us")

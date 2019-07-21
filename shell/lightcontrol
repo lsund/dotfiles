@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+if [[ $1 == "dec" ]]; then
+    if [[ $(xbacklight -get | cut -d'.' -f1) -lt 10 ]]; then
+        xbacklight -set 1
+    else
+        xbacklight -dec 10
+    fi
+elif [[ $1 == "inc" ]]; then
+    xbacklight -inc 10
+fi
