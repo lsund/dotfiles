@@ -11,6 +11,7 @@ plugins=(
     extract
     copyfile
     rsync
+    taskwarrior
 )
 
 [[ -e /usr/share/fzf/key-bindings.zsh ]] && . /usr/share/fzf/key-bindings.zsh

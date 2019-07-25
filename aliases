@@ -1,6 +1,8 @@
 #!/bin/zsh
 
 # Aliases
+alias ta='task add'
+alias tm='task modify'
 alias time='$SCRIPTS/time'
 alias distro='lsb_release -a'
 alias cp='cpv'

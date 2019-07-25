@@ -107,7 +107,7 @@ function RemoveDirs () {
         | sed '/^\/home\/lsund\/.trash\/1M$/d' \
         | sed '/^\/home\/lsund\/.trash\/1K$/d' \
     )
-    files=$(echo $all_files | head -7)
+    files=$(echo $all_files | head -3)
     n=$(echo $all_files | wc -l)
     while read -r line; do
         echo $line
