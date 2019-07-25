@@ -126,8 +126,8 @@ every n xs = case drop (n - 1) xs of
 
 myWorkspaces hostname =
     if hostname == "pedro" then
-        let ws = withScreens 2 ["1", "2", "3", "4", "5"]
-        in  every 2 ws ++ (head ws : (every 2 (tail ws)))
+        let ws = withScreens 2 ["1", "2", "3", "4", "5", "6", "7"]
+        in (head ws : (every 2 (tail ws))) ++ every 2 ws
     else
         map show [1..9]
 
