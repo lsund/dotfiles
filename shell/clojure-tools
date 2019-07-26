@@ -23,7 +23,8 @@ if [[ $1 == "release" ]]; then
 
     if [[ $2 == "--push" ]]; then
         git add project.clj
-        git-push-origin-branch "Release version $version"
+        git commit -m "Release version $version"
+        git push
     fi
 elif [[ $1 == "bump" ]]; then
     # Increment minor number
@@ -38,7 +39,8 @@ elif [[ $1 == "bump" ]]; then
 
     if [[ $2 == "--push" ]]; then
         git add project.clj
-        git-push-origin-branch "Bump to $version"
+        git commit -m "Bump to $version"
+        git push
     fi
 else
     usage
