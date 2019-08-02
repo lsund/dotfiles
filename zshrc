@@ -77,10 +77,6 @@ if [[ $? != "0" ]]; then
         echo "Adding id_rsa_gmail..."
         ssh-add ~/.ssh/id_rsa_gmail
     fi
-    if [[ -e ~/.ssh/id_rsa_lw ]]; then
-        echo "Adding id_rsa_lw..."
-        ssh-add ~/.ssh/id_rsa_lw
-    fi
     echo "Done."
 fi
 
