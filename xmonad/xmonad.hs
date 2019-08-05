@@ -48,12 +48,6 @@ import Config
 import KeyBindings (myKeys, myMouseBindings)
 import Util (every, roundN)
 
-data Res =
-  Res
-    { xRes :: Int
-    , yRes :: Int
-    }
-
 main :: IO ()
 main = do
   hostname <- init <$> readFile "/etc/hostname"
@@ -209,69 +203,6 @@ myManageHook nScreens =
       scratchpadManageHook
         (W.RationalRect spLeftDist spTopDist spWidth spHeight)
 
-dzenTopLeftFlags :: Res -> DF
-dzenTopLeftFlags _ =
-  DF
-    { xPosDF = 0
-    , yPosDF = 0
-    , widthDF = topPanelSepPos
-    , heightDF = panelHeight
-    , alignementDF = "l"
-    , fgColorDF = colorWhiteAlt
-    , bgColorDF = colorBlack
-    , fontDF = dzenFont
-    , eventDF = "onstart=lower"
-    , extrasDF = "-p"
-    }
-
--- Dzen top right bar flags
-dzenTopRightFlags :: Res -> DF
-dzenTopRightFlags r =
-  DF
-    { xPosDF = topPanelSepPos
-    , yPosDF = 0
-    , widthDF = xRes r - topPanelSepPos
-    , heightDF = panelHeight
-    , alignementDF = "r"
-    , fgColorDF = colorWhiteAlt
-    , bgColorDF = colorBlack
-    , fontDF = dzenFont
-    , eventDF = "onstart=lower"
-    , extrasDF = "-p"
-    }
-
--- Dzen bottom left bar flags
-dzenBotLeftFlags :: Res -> DF
-dzenBotLeftFlags r =
-  DF
-    { xPosDF = 0
-    , yPosDF = yRes r - panelHeight
-    , widthDF = botPanelSepPos
-    , heightDF = panelHeight
-    , alignementDF = "l"
-    , fgColorDF = colorWhiteAlt
-    , bgColorDF = colorBlack
-    , fontDF = dzenFont
-    , eventDF = "onstart=lower"
-    , extrasDF = "-p"
-    }
-
--- Dzen bottom right bar flags
-dzenBotRightFlags :: Res -> DF
-dzenBotRightFlags r =
-  DF
-    { xPosDF = botPanelSepPos
-    , yPosDF = yRes r - panelHeight
-    , widthDF = xRes r - botPanelSepPos
-    , heightDF = panelHeight
-    , alignementDF = "r"
-    , fgColorDF = colorBlue
-    , bgColorDF = colorBlack
-    , fontDF = dzenFont
-    , eventDF = "onstart=lower"
-    , extrasDF = "-p"
-    }
-
 -- Top left bar logHook
 myTopLeftLogHook h hostname =
   dynamicLogWithPP
@@ -396,25 +327,8 @@ myUptimeL =
 
 myFocusL = dzenBoxStyleL white2BBoxPP (shortenL maxTitleLen logTitle)
 
-----------------------------------------------------------------------------
--- Dzen utils
--- Dzen flags
-data DF =
-  DF
-    { xPosDF :: Int
-    , yPosDF :: Int
-    , widthDF :: Int
-    , heightDF :: Int
-    , alignementDF :: String
-    , fgColorDF :: String
-    , bgColorDF :: String
-    , fontDF :: String
-    , eventDF :: String
-    , extrasDF :: String
-    }
-
 -- Create a dzen string with its flags
-dzenFlagsToStr :: DF -> String
+dzenFlagsToStr :: DzenFlags -> String
 dzenFlagsToStr df =
   " -x '" ++
   show (xPosDF df) ++

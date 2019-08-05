@@ -4,7 +4,7 @@ pi=false
 
 backup_dest_dir=/mnt/mybook/Backup/
 ip=192.168.0.18
-backup_dirs=(Data Documents Mail Media Library Desktop Downloads)
+backup_dirs=(Data Documents Media Desktop Downloads)
 
 if [[ "$1" == "-h" ]]; then
     echo
@@ -107,5 +107,7 @@ else
         sudo rsync -chavzP --stats $dirs_string $dest_dir | tee $logfile
     fi
 fi
+
+systemctl suspend
 
 

@@ -87,3 +87,93 @@ spWidth = 1 :: Rational
 spTopDist = 1 - spHeight
 
 spLeftDist = 1 - spWidth
+
+--------------------------------------------------------------------------------
+-- DZEN
+
+data DzenFlags =
+  DzenFlags
+    { xPosDF :: Int
+    , yPosDF :: Int
+    , widthDF :: Int
+    , heightDF :: Int
+    , alignementDF :: String
+    , fgColorDF :: String
+    , bgColorDF :: String
+    , fontDF :: String
+    , eventDF :: String
+    , extrasDF :: String
+    }
+
+data Res =
+  Res
+    { xRes :: Int
+    , yRes :: Int
+    }
+
+-- data Layout = TL | TR | BL | BR
+
+-- dzenFlags :: Layout -> Res -> DzenFlags
+
+dzenTopLeftFlags :: Res -> DzenFlags
+dzenTopLeftFlags _ =
+  DzenFlags
+    { xPosDF = 0
+    , yPosDF = 0
+    , widthDF = topPanelSepPos
+    , heightDF = panelHeight
+    , alignementDF = "l"
+    , fgColorDF = colorWhiteAlt
+    , bgColorDF = colorBlack
+    , fontDF = dzenFont
+    , eventDF = "onstart=lower"
+    , extrasDF = "-p"
+    }
+
+-- Dzen top right bar flags
+dzenTopRightFlags :: Res -> DzenFlags
+dzenTopRightFlags r =
+  DzenFlags
+    { xPosDF = topPanelSepPos
+    , yPosDF = 0
+    , widthDF = xRes r - topPanelSepPos
+    , heightDF = panelHeight
+    , alignementDF = "r"
+    , fgColorDF = colorWhiteAlt
+    , bgColorDF = colorBlack
+    , fontDF = dzenFont
+    , eventDF = "onstart=lower"
+    , extrasDF = "-p"
+    }
+
+-- Dzen bottom left bar flags
+dzenBotLeftFlags :: Res -> DzenFlags
+dzenBotLeftFlags r =
+  DzenFlags
+    { xPosDF = 0
+    , yPosDF = yRes r - panelHeight
+    , widthDF = botPanelSepPos
+    , heightDF = panelHeight
+    , alignementDF = "l"
+    , fgColorDF = colorWhiteAlt
+    , bgColorDF = colorBlack
+    , fontDF = dzenFont
+    , eventDF = "onstart=lower"
+    , extrasDF = "-p"
+    }
+
+-- Dzen bottom right bar flags
+dzenBotRightFlags :: Res -> DzenFlags
+dzenBotRightFlags r =
+  DzenFlags
+    { xPosDF = botPanelSepPos
+    , yPosDF = yRes r - panelHeight
+    , widthDF = xRes r - botPanelSepPos
+    , heightDF = panelHeight
+    , alignementDF = "r"
+    , fgColorDF = colorBlue
+    , bgColorDF = colorBlack
+    , fontDF = dzenFont
+    , eventDF = "onstart=lower"
+    , extrasDF = "-p"
+    }
