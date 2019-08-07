@@ -2,7 +2,9 @@
 
 function usage() {
     echo "Bump or release a clojure project. Optionally also git push"
-    echo "Usage: ./clojure-tools release|bump [--push]"
+    echo "Usage: ./clojure-tools release [--push]"
+    echo "Usage: ./clojure-tools bump [--push]"
+    echo "Usage: ./clojure-tools heroku [--push]"
 }
 
 if [[ $# != 1 && $# != 2 ]]; then
@@ -42,6 +44,13 @@ elif [[ $1 == "bump" ]]; then
         git commit -m "Bump to $version"
         git push
     fi
+elif [[ $1 == "heroku" ]]; then
+    echo "clojure-tools release"
+    clojure-tools release --push
+    echo "git push heroku master"
+    git push heroku master
+    echo "clojure-tools bump --push"
+    clojure-tools bump --push
 else
     usage
 fi
