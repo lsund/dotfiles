@@ -13,6 +13,7 @@
 
 (require-packages '(paredit
                     paxedit
+                    flycheck-clj-kondo
                     clojure-mode
                     clj-refactor
                     cider))
