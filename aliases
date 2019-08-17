@@ -1,7 +1,8 @@
 #!/bin/zsh
 
-# Aliases
-alias upgrade='upgarde && echo 0 > /home/lsund/Data/log/pacman/pacsynccount.txt'
+alias sudo='sudo '
+
+alias upgrade='upgrade && echo 0 > /home/lsund/Data/log/pacman/pacsynccount.txt'
 alias weather='curl wttr.in'
 alias ta='task add'
 alias tm='task modify'
