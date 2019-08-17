@@ -16,9 +16,6 @@ host github.com
     IdentityFile ~/.ssh/id_rsa_gmail
     IdentitiesOnly yes
 
-host *.lambdawerk.com
-    IdentityFile ~/.ssh/id_rsa_lw
-    user ludvig
-
-host poliwag*
-    user ludvig
+host *.innoq.com
+    IdentityFile ~/.ssh/id_rsa_innoq
+    user lsund
