@@ -8,3 +8,4 @@ vim/plugged/
 *x86_64-linux
 xmonad/xmonad.errors
 xmonad/prompt-history
+clj-kondo/.cache
