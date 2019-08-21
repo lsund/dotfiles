@@ -99,7 +99,7 @@ myFloaName = "Float"
 
 myStartupHook =
   setDefaultCursor xC_left_ptr <+>
-  spawn ("feh --bg-max" <> backgroundImage <> " &") <+>
+  spawn ("feh --bg-max " <> backgroundImage <> " &") <+>
   spawn ("/usr/bin/killall" <> (last . splitOn "/") cpuUsagePath) <+>
   liftIO (threadDelay 1000000) <+>
   spawn "xrandr --output DVI-I-1 --right-of HDMI-0 --output HDMI-0 --primary" <+>
