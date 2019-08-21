@@ -54,6 +54,10 @@ xsetroot -solid grey
 # Unset beep
 xset b off
 
+xscreensaver &
+
+rshift &
+
 source ~/.bash_profile
 
 ### XMONAD
