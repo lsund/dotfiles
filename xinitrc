@@ -56,7 +56,7 @@ xset b off
 
 xscreensaver &
 
-rshift &
+redshift -l 51.2:6.7 -t 5500:3400 -g 0.8 -m randr &
 
 source ~/.bash_profile
 
