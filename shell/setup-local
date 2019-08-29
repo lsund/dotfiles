@@ -2,6 +2,8 @@
 
 # Script to automate the setup of my preferred environment on arch-linux or ubuntu.
 
+set -e
+
 # ############################################################################
 # Funcitons
 
@@ -11,35 +13,20 @@ function PrintSeparator() {
 }
 
 PrintSeparator "Starting Script"
-
-PrintSeparator "Establishing internet connection"
-ping -c 3 www.archlinux.org > /dev/null 2>&1
-if [[ $? != "0" ]]; then
-    echo "This script needs an active connection. Exiting."
-    exit
-fi
+try-connect
 
 if [[ -z "${DOTFILES}" ]]; then
     echo "DOTFILES is not set."
-    echo "Set it or source ./env.sh"
     exit
 else
-    echo "DOTFILES is set to $DOTFILES"
+    echo "DOTFILES is set: $DOTFILES"
 fi
 if [[ -z "${SCRIPTS}" ]]; then
     echo "SCRIPTS is not set."
-    echo "Set it or source ./env.sh"
     exit
 else
-    echo "SCRIPTS is set to $SCRIPTS"
+    echo "SCRIPTS is set: $SCRIPTS"
 fi
-
-vimrc=$HOME/.vimrc
-vim=$HOME/.vim
-VIM=$HOME/.vim
-al=$HOME/.aliases
-git=$HOME/.config/git/config
-emacsd=$HOME/.emacs.d
 
 # ############################################################################
 # Create directories
@@ -50,35 +37,9 @@ mkdir -p /home/lsund/{Data/log/pacman,Temp,Downloads,Documents,Shared,Media}
 mkdir -p /home/lsund/.bin
 
 touch "/home/lsund/Data/log/pacman/need_sysup.txt"
+touch "/home/lsund/Data/log/pacman/pacsynccount.txt"
 
-# ############################################################################
-# Determine distro (in a hacky way)
-
-PrintSeparator "Determining Distro"
-
-distro="unknown"
-
-which apt-get > /dev/null 2>&1
-if [[ $? == "0" ]]; then
-    distro="ubuntu"
-    fontdir=$HOME/.fonts
-    PrintSeparator "Ubuntu detected"
-fi
-
-which pacman > /dev/null 2>&1
-if [[ $? == "0" ]]; then
-    distro="arch"
-    fontdir=$HOME/.local/share/fonts
-    PrintSeparator "Arch Linux detected"
-fi
-
-vared -p "Continue? [Y/n]? " -c choice
-
-[[ "$choice" == "n" ]] && exit 0
-
-if [[ $distro == "unknown" ]]; then
-    echo "Unknown distro" && exit 1
-fi
+fontdir=$HOME/.local/share/fonts
 
 # ############################################################################
 # Install Fonts
@@ -97,30 +58,6 @@ PrintSeparator "Updating package base and installing packages"
 
 ./install-packages $distro
 
-# ############################################################################
-# Setup stack and pandoc
-
-which stack > /dev/null 2>&1
-if [[ $? == "1" ]]; then
-    curl -sSL https://get.haskellstack.org/ | sh
-fi
-
-PrintSeparator "Setting up haskell"
-stack update
-
-# Pandoc
-
-# which pandoc > /dev/null 2>&1
-# if [[ $? == "1" ]]; then
-# git clone https://github.com/jgm/pandoc
-# cd pandoc
-# stack setup
-# stack install --test --flag pandoc:-embed_data_files
-# cd ..
-# SCRIPTS/trash pandoc
-# fi
-# stack install pandoc-include-code
-
 # ###########################################################################
 # Fetch repos
 
@@ -131,15 +68,14 @@ if [[ ! -e $evil ]]; then
     git clone https://github.com/emacs-evil/evil.git $evil
 fi
 
-vim_plug=$VIM/autoload/plug.vim
-if [[ ! -e $vim_plug ]]; then
+if [[ ! -e $HOME/.vim/autoload/plug.vim ]]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-ycm_core=$VIM/plugged/YouCompleteMe/third_party/ycmd/ycm_core.so
+ycm_core=$HOME/.vim/plugged/YouCompleteMe/third_party/ycmd/ycm_core.so
 if [[ ! -e $ycm_core ]]; then
-    $vim/plugged/YouCompleteMe/install.py
+    $HOME/.vim/plugged/YouCompleteMe/install.py
 fi
 
 # ###########################################################################
@@ -151,7 +87,6 @@ PrintSeparator "Configuring git"
 git config --global init.templatedir '~/.git_template'
 git config --global core.autocrlf false
 git config --global user.name "Ludvig Sundström"
-git config --global user.email lud.sund@gmail.com
 git config --global push.default simple
 
 # #############################################################################
@@ -162,20 +97,20 @@ PrintSeparator "Installing Soft Links"
 ./install-symlinks
 
 # ############################################################################
-# Other configs
-
-PrintSeparator "Last bits of config"
-
-setxkbmap dvorak -option compose:caps
-
-# ############################################################################
 # Shell
 
 PrintSeparator "Setting up shell"
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-PrintSeparator "Done. Remember to do the following:"
+# ############################################################################
+# Other configs
+
+PrintSeparator "Last bits of config"
+
+setxkbmap dvorak -option compose:caps
+
+PrintSeparator "Done. Manual steps:"
 echo "open vim and type :PlugInstall"
 echo "Set your cronjobs"
 
