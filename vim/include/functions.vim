@@ -53,9 +53,9 @@ let g:rtd = "unset"
 
 function! CompileLatex()
     if search("begin{document}", "n")
-        execute '! pdflatex %'
+        execute '! lualatex %'
     elseif match(g:rtd, "unset") != 0
-        execute '! pdflatex' g:rtd
+        execute '! lualatex' g:rtd
     else
         echo "This file is probably not the root tex file. I just set it to 'report.tex' for you"
         let g:rtd = 'report.tex'
