@@ -1,15 +1,17 @@
 #!/bin/zsh
 
+alias s='session'
+alias sess="session"
+alias sstat="session status"
+alias 1hsess='sess && countdown 1h && beep && sess'
 alias upgrade='upgrade && echo 0 > /home/lsund/Data/log/pacman/pacsynccount.txt'
 alias weather='curl wttr.in'
 alias ta='task add'
 alias tm='task modify'
 alias time='$SCRIPTS/time'
 alias distro='lsb_release -a'
-alias cp='cpv'
 alias find='/usr/bin/fd'
 alias pwd="$SCRIPTS/pwd"
-alias sess="session"
 alias watch-file='watch -n 1 -d cat'
 alias ports="sudo lsof -Pnl +M -i4"
 alias duh="sudo du -h -d 1 2> /dev/null"
@@ -18,8 +20,8 @@ alias vim='fuzzy-vim'
 alias ls='exa -lu --time-style long-iso --color always'
 alias la='exa -lau --time-style long-iso --color always'
 alias grep='grep --color'
-alias beep='mplayer /home/lsund/Media/audio/sounds/beep.mp3 1>& /dev/null'
-alias siren='mplayer /home/lsund/Media/audio/sounds/siren.wav 1>& /dev/null'
+alias beep='sound beep'
+alias siren='sound siren'
 alias untargz='tar -xvzf'
 alias gphm='git push heroku master'
 alias glogc='git log --graph --simplify-by-decoration --oneline --topo-order --branches'
