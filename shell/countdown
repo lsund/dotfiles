@@ -29,3 +29,8 @@ else
     echo "Invalid argument to countdown()"
 fi
 
+if [[ $# == 2 ]]; then
+    sound $2
+fi
+
+
