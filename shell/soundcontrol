@@ -50,10 +50,10 @@ function SetPerc() {
 # Script
 
 if [[ "$1" == "raise" ]]; then
-     pactl -- set-sink-volume $sink_name +5%
+     pactl -- set-sink-volume $sink_name +2%
      SetPerc
 elif [[ "$1" == "lower" ]]; then
-     pactl -- set-sink-volume $sink_name -5%
+     pactl -- set-sink-volume $sink_name -2%
      SetPerc
  elif [[ "$1" == "toggle" ]]; then
         pactl -- set-sink-mute $sink_name toggle
