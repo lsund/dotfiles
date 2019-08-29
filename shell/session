@@ -70,6 +70,26 @@ function play_file() {
     fi
 }
 
+function toggle_state() {
+    if [[ $state == "paused" ]]; then
+        write_state \
+            $init_ts \
+            $pause_ts \
+            $continue_ts \
+            started \
+            $seconds \
+            $play_music
+    else
+        write_state \
+            $init_ts \
+            $pause_ts \
+            $continue_ts \
+            paused \
+            $seconds \
+            $play_music
+    fi
+}
+
 # ############################################################################
 # Script
 
@@ -103,7 +123,7 @@ if [[ $1 == "reset" ]]; then
     write_add_total $seconds
     write_state 0 0 0 paused 0 $play_music
     exit 0
-elif [[ $1 == "status" || $1 == "state" ]]; then
+elif [[ $1 == "status" || $1 == "state" || $1 == "stat" ]]; then
     if [[ $state == "paused" ]]; then
         log_time $seconds
     else
@@ -121,6 +141,9 @@ elif [[ $1 == "time" && $state == "started" ]]; then
 elif [[ $1 == "time" && $state == "paused" ]]; then
     log_time $seconds
 elif [[ $1 == "new-music" ]]; then
+    if [[ $state == "paused" ]]; then
+        toggle_state
+    fi
     kill_mplayer
     if [[ $play_music == "no" ]]; then
         echo "Not playing music. call './session toggle-music' first"
@@ -157,13 +180,7 @@ else
             log_time 0
             echo "Starting session"
         else
-            write_state \
-                $init_ts \
-                $pause_ts \
-                $continue_ts \
-                started \
-                $seconds \
-                $play_music
+            toggle_state
             log_time $seconds
             echo "Continuing session"
         fi
@@ -187,13 +204,7 @@ else
     else
         pause_ts=$(date '+%s')
         seconds=$(calculate_seconds $seconds $pause_ts $continue_ts)
-        write_state \
-            $init_ts \
-            $pause_ts \
-            $continue_ts \
-            paused \
-            $seconds \
-            $play_music
+        toggle_state
         log_time $seconds
         if [[ $mplayer_active == "yes" ]]; then
             toggle_mplayer
