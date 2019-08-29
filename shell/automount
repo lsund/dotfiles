@@ -2,7 +2,7 @@
 
 # Automatically mount a device
 
-if [[ $# != 1 && $# != 0 ]]; then
+if [[ $# != 1 && $# != 0 && $# != 2 ]]; then
     echo "Usage: ./automount usb|mybook"
     echo "Usage: ./automount"
     exit 1
@@ -12,6 +12,10 @@ if [[ $# == 0 || ($# == 1 && $1 == "-u")  ]]; then
     physical=mybook
 else
     physical=$1
+fi
+
+if [[ $# == 2 && $1 == "-u" ]]; then
+    physical=$2
 fi
 
 
