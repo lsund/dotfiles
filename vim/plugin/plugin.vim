@@ -144,16 +144,16 @@ Plug 'lambdatoast/elm.vim'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " markdown
-Plug 'plasticboy/vim-markdown'
+" Plug 'plasticboy/vim-markdown'
+" Plug 'nelstrom/vim-markdown-folding'
+
+Plug 'tpope/vim-markdown'
 
 " XQuery
 Plug 'jeroenp/vim-xquery-syntax'
 
 " XML editing
 Plug 'sukima/xmledit'
-
-" markdown folding
-" Plug 'nelstrom/vim-markdown-folding'
 
 " call vundle#end()
 call plug#end()
