@@ -73,19 +73,16 @@ declare -a packages=("htop"
 
 for package in "${packages[@]}"
 do
-    echo "*** Installing $package"
+    echo -n  "$package..."
     pacman -Ss ^$package$ > /dev/null 2>&1
 
     if [[ $? == "1" ]]; then
-    echo "Package $package does not exist" && exit
+        echo "Package $package does not exist" && exit
     fi
-
-    pacman -Qi $package > /dev/null 2>&1
-    if [[ $? == "1" ]]; then
-        sudo pacman -S $package
-    fi
-
+    echo "exists"
 done
+
+sudo pacman -S $packages
 
 # Neovim
 if [[ ! -f "$HOME/.config/nvim/init.vim" ]]; then
