@@ -79,7 +79,7 @@ do
     if [[ $? == "1" ]]; then
         echo "Package $package does not exist" && exit
     fi
-    echo "exists"
+    echo "available"
 done
 
 sudo pacman -S $packages
