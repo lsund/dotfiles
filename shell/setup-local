@@ -56,7 +56,7 @@ fc-cache -f -v
 
 PrintSeparator "Updating package base and installing packages"
 
-./install-packages $distro
+./install-lsund-base $distro
 
 # ###########################################################################
 # Fetch repos
