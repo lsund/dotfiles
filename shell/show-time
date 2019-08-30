@@ -26,6 +26,8 @@ if [[ $2 == d ]]; then
     echo "$day"d
 elif [[ $2 == h ]]; then
     echo "$hour"h
+elif [[ $2 == hm ]]; then
+    echo "$hour"h "$min"m
 else
     echo "$day"d "$hour"h "$min"m "$sec"s
 fi

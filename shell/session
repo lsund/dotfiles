@@ -16,6 +16,7 @@ session_time_file="$HOME/Data/log/sess_time"
 
 function log_time() {
     echo "Current time: $(show-time "$1")"
+    echo $(show-time $1 hm) > $session_time_file
 }
 
 # $1 = init_ts
@@ -25,8 +26,8 @@ function log_time() {
 # $5 = seconds
 # $6 = music
 function write_state() {
+    log_time $5
     echo $4 > $session_status_file
-    echo $(show-time $5 h) > $session_time_file
     echo "$1\n$2\n$3\n$4\n$5\n$6" > $session_file
 }
 
@@ -36,9 +37,18 @@ function write_add() {
         $pause_ts \
         $continue_ts \
         started \
-        $(($1 + $seconds)) \
+        $(($seconds + $1)) \
         $play_music
-    log_time $(($1 + $seconds))
+}
+
+function write_sub() {
+    write_state \
+        $init_ts \
+        $pause_ts \
+        $continue_ts \
+        started \
+        $(($seconds - $1)) \
+        $play_music
 }
 
 function write_add_total() {
@@ -139,6 +149,10 @@ elif [[ $1 == "status" || $1 == "state" || $1 == "stat" ]]; then
     echo "Music playing enabled: $play_music"
 elif [[ $1 == "add-time" && $# == 2 ]]; then
     write_add $(serialize-time $2)
+elif [[ $1 == "sub-time" && $# == 2 ]]; then
+    write_sub $(serialize-time $2)
+elif [[ $1 == "log-time" ]]; then
+    log_time $seconds
 elif [[ $1 == "total" ]]; then
     echo "Total session: $(show-time $total)"
 elif [[ $1 == "time" && $state == "started" ]]; then
@@ -186,7 +200,6 @@ else
             echo "Starting session"
         else
             toggle_state
-            log_time $seconds
             echo "Continuing session"
         fi
         if [[ $mplayer_active == "yes" ]]; then
@@ -210,7 +223,6 @@ else
         pause_ts=$(date '+%s')
         seconds=$(calculate_seconds $seconds $pause_ts $continue_ts)
         toggle_state
-        log_time $seconds
         if [[ $mplayer_active == "yes" ]]; then
             toggle_mplayer
         fi
