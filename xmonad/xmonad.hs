@@ -252,7 +252,7 @@ myBotRightLogHook h hostname =
       , ppExtras =
           if hostname == "pedro"
             then [mySoundL]
-            else [myWifiL, myBrightL, mySoundL, myBatL hostname]
+            else [myWifiL, myBrightL hostname, mySoundL, myBatL hostname]
       }
 
 ----------------------------------------------------------------------------
@@ -294,9 +294,10 @@ myWifiL =
   dzenBoxStyleL blue2BoxPP (labelL "wifi") ++!
   dzenBoxStyleL white2BBoxPP wifiStr
 
-myBrightL =
+myBrightL hostname =
   dzenBoxStyleL blue2BoxPP (labelL "bright") ++!
-  dzenBoxStyleL white2BBoxPP (brightPerc 937)
+  dzenBoxStyleL white2BBoxPP (brightPerc maxVal)
+  where maxVal = if hostname == "keysersoze" then 937 else 120000
 
 mySoundL =
   dzenBoxStyleL blue2BoxPP (labelL "sound") ++!

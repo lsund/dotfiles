@@ -84,10 +84,6 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} =
   , ((modMask .|. shiftMask, xK_f), fullFloatFocused)
     -- Float
   , ((modMask .|. controlMask, xK_f), rectFloatFocused)
-    -- Minimize
-    -- , ((modMask                 , xK_m)         ,   withFocused minimizeWindow)
-    -- Maximize
-    -- , ((modMask .|. shiftMask   , xK_m)         ,   sendMessage RestoreNextMinimizedWin)
     -- Use next window layout
   , ((modMask, xK_space), sendMessage NextLayout)
     -- Scratchpad terminal
@@ -104,16 +100,23 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} =
   , ((modMask, xK_F8), spawn $ scriptpath ++ "toggle-touchpad")
     -- Mark mail as read
   , ((modMask, xK_F9), spawn $ scriptpath ++ "mailsync update")
-    -- Decrease backlight
-  , ((modMask, xK_F11), spawn $ scriptpath ++ "lightcontrol dec")
-    -- Raise backlight
-  , ((modMask, xK_F12), spawn $ scriptpath ++ "lightcontrol inc")
     -- Change keyboard layout
   , ((modMask, xK_F5), spawn "/usr/bin/setxkbmap us")
   , ((modMask, xK_F6), spawn "/usr/bin/setxkbmap dvorak")
   , ((modMask .|. controlMask, xK_h), windows $ viewOnScreen 0 "x")
   , ((modMask .|. controlMask, xK_l), windows $ viewOnScreen 1 "x")
   ] ++
+  (if hostname == "yunglean" then
+  [ -- Decrease backlight
+    ((modMask, xK_Down), spawn $ scriptpath ++ "lightcontrol dec")
+    -- Increase backlight
+  , ((modMask, xK_Up), spawn $ scriptpath ++ "lightcontrol inc")]
+  else
+  [ -- Decrease backlight
+    ((modMask, xK_F11), spawn $ scriptpath ++ "lightcontrol dec")
+    -- Increase backlight
+  , ((modMask, xK_F12), spawn $ scriptpath ++ "lightcontrol inc")])
+  ++
   if hostname == "pedro"
     then [ ((m .|. modMask, k), windows $ onCurrentScreen f i)
          | (i, k) <- zip (workspaces' conf) ([xK_1 .. xK_9] ++ [xK_0])
