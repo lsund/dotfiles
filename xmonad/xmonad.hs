@@ -469,7 +469,7 @@ nSess = do
                 then colorGreen
                 else colorWhite
         format x = "^fg(" ++ color status ++ ")" ++ x ++ "^fg()"
-    fileToLogger format "N/A" $ logpath ++ "sess_status"
+    fileToLogger format "N/A" $ logpath ++ "sess_time"
 
 nmailSync :: String -> Logger
 nmailSync c = fileToLogger format "N/A" $ logpath ++ "mail/mailsynccount.txt"

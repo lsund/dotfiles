@@ -21,4 +21,11 @@ if [[ $((num>59)) ]]; then
 else
     ((sec=num))
 fi
-echo "$day"d "$hour"h "$min"m "$sec"s
+
+if [[ $2 == d ]]; then
+    echo "$day"d
+elif [[ $2 == h ]]; then
+    echo "$hour"h
+else
+    echo "$day"d "$hour"h "$min"m "$sec"s
+fi
