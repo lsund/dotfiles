@@ -60,6 +60,7 @@ declare -a packages=(
                      "go"
                      "scala"
                      "exa"
+                     "task"
                      "xscreensaver"
                      "jdk8-openjdk"
                      "cabal-install"
