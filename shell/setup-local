@@ -109,6 +109,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 PrintSeparator "Last bits of config"
 
 setxkbmap dvorak -option compose:caps
+# Default tty keymap
+sudo echo "KEYMAP=dvorak" > "/etc/vconsole.conf"
 
 PrintSeparator "Done. Manual steps:"
 echo "open vim and type :PlugInstall"

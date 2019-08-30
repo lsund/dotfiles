@@ -14,10 +14,12 @@ declare -a packages=("htop"
                      "go"
                      "scala"
                      "exa"
+                     "xscreensaver"
                      "jdk8-openjdk"
                      "cabal-install"
                      "texlive-core"
                      "fzf"
+                     "net-tools"
                      "pulseaudio"
                      "pulseaudio-alsa"
                      "pavucontrol"
@@ -89,6 +91,8 @@ done
 sudo pacman -S $packages
 
 # Neovim
+# install with python support
+sudo pip install neovim
 if [[ ! -f "$HOME/.config/nvim/init.vim" ]]; then
     mkdir -p $HOME/.config/nvim
     nvim=$HOME/.config/nvim/init.vim
