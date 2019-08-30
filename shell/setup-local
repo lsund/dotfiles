@@ -33,7 +33,8 @@ fi
 
 PrintSeparator "Creating some directories under $HOME"
 
-mkdir -p /home/lsund/{Data/log/pacman,Temp,Downloads,Documents,Shared,Media}
+mkdir -p $HOME/{Data/log/pacman,Temp,Downloads,Shared}
+mkdir -p $HOME/{Media/audio/music,Documents/tech/repos}
 mkdir -p /home/lsund/.bin
 
 touch "/home/lsund/Data/log/pacman/need_sysup.txt"
