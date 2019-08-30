@@ -8,6 +8,8 @@ session_file="$HOME/.${USER}_session"
 total_session_file="$HOME/.${USER}_session_total"
 music_path=$HOME/Media/audio/music
 
+session_status_file="$HOME/Data/log/sess_status"
+
 # ############################################################################
 # Helpers
 
@@ -22,6 +24,7 @@ function log_time() {
 # $5 = seconds
 # $6 = music
 function write_state() {
+    echo $4 > $session_status_file
     echo "$1\n$2\n$3\n$4\n$5\n$6" > $session_file
 }
 

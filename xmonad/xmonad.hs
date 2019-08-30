@@ -238,7 +238,7 @@ myBotLeftLogHook h hostname =
     { ppOutput = hPutStrLn h
     , ppOrder = \(_:_:_:x) -> x
     , ppSep = " "
-    , ppExtras = [myMemL, myRamL, myCpuL, myPacSyncL]
+    , ppExtras = [myMemL, myRamL, myCpuL, myPacSyncL, mySessL]
     }
 
 -- Bottom right bar logHook
@@ -306,6 +306,10 @@ mySoundL =
 myPacSyncL =
   dzenBoxStyleL blue2BoxPP (labelL "sync ") ++!
   dzenBoxStyleL white2BBoxPP npacSync
+
+mySessL =
+  dzenBoxStyleL blue2BoxPP (labelL "sess ") ++!
+  dzenBoxStyleL white2BBoxPP nSess
 
 -- TopRight Loggers
 myDateL =
@@ -457,6 +461,16 @@ getScreenRes d n = do
 npacSync :: Logger
 npacSync = fileToLogger id "N/A" $ logpath ++ "pacman/pacsynccount.txt"
 
+nSess :: Logger
+nSess = do
+    status <- fileToLogger id "N/A" $ logpath ++ "sess_status"
+    let color s =
+            if s == Just "started"
+                then colorGreen
+                else colorWhite
+        format x = "^fg(" ++ color status ++ ")" ++ x ++ "^fg()"
+    fileToLogger format "N/A" $ logpath ++ "sess_status"
+
 nmailSync :: String -> Logger
 nmailSync c = fileToLogger format "N/A" $ logpath ++ "mail/mailsynccount.txt"
   where
@@ -493,7 +507,7 @@ soundPerc = do
   fileToLogger format "N/A" $ logpath ++ "sound/soundperc.txt"
 
 batPercent :: String -> Int -> Logger
-batPercent "keysersoze" v = do
+batPercent hostname v = do
   status <- fileToLogger id "N/A" "/sys/class/power_supply/BAT0/status"
   let color (Just "Charging") x = colorBlue
       color (Just "Discharging") x
