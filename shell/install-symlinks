@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-declare -a ignore=("fonts" "shell" "plugged" "readme.md")
+declare -a ignore=("fonts" "shell" "plugged" "readme.md" "xorg")
 
 function Ignore() {
     for e in "${ignore[@]}"; do
