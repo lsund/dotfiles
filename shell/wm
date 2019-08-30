@@ -1,26 +1,27 @@
 #!/bin/zsh
 
-field_3=$(ip link show wlp58s0 | head -1 | cut -d' ' -f3 | cut -d',' -f3)
-field_4=$(ip link show wlp58s0 | head -1 | cut -d' ' -f3 | cut -d',' -f4)
+interface=$(ip link | grep wlp | cut -d' ' -f2 | cut -d':' -f1)
 
-[[ $field_3 != "UP" || $field_4 == "UP>" ]] && echo "Warning: wlp58s0 is not up"
+field_3=$(ip link show $interface | head -1 | cut -d' ' -f3 | cut -d',' -f3)
+field_4=$(ip link show $interface | head -1 | cut -d' ' -f3 | cut -d',' -f4)
+
+[[ $field_3 != "UP" || $field_4 == "UP>" ]] && echo "Warning: $interface is not up"
 
 sudo wifi-menu
 if [[ "$?" == "0" ]]; then
     try-connect && exit 0
 else
     echo "Could not connect"
-    vared -p "Try fix by set link down [Y/n]? " -c choice
+    vared -p "Set link down [Y/n]? " -c choice
     [[ "$choice" == "n" ]] && exit 0
-    sudo ip link set wlp58s0 down
+    sudo ip link set $interface down
 fi
 
 sudo wifi-menu
 if [[ "$?" == "0" ]]; then
     try-connect && exit 0
 else
-    echo "Could still not connect"
-    vared -p "Try fix by sudo dhcpd [Y/n]? " -c choice
+    vared -p "sudo dhcpd [Y/n]? " -c choice
     [[ "$choice" == "n" ]] && exit 0
     sudo dhcpcd
 fi
@@ -30,9 +31,9 @@ if [[ "$?" == "0" ]]; then
     try-connect && exit 0
 else
     echo "Could still not connect"
-    vared -p "Try fix by set link up [Y/n]? " -c choice
+    vared -p "set link up [Y/n]? " -c choice
     [[ "$choice" == "n" ]] && exit 0
-    sudo ip link set wlp58s0 up
+    sudo ip link set $interface up
     sudo wifi-menu
 fi
 

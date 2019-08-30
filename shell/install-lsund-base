@@ -7,7 +7,53 @@
 
 sudo pacman -Suy
 
-declare -a packages=("htop"
+declare -a packages=(
+                     "xorg-bdftopcf"
+                     "xorg-iceauth"
+                     "xorg-luit"
+                     "xorg-mkfontscale"
+                     "xorg-sessreg"
+                     "xorg-setxkbmap"
+                     "xorg-smproxy"
+                     "xorg-x11perf"
+                     "xorg-xauth"
+                     "xorg-xbacklight"
+                     "xorg-xcmsdb"
+                     "xorg-xcursorgen"
+                     "xorg-xdpyinfo"
+                     "xorg-xdriinfo"
+                     "xorg-xev"
+                     "xorg-xgamma"
+                     "xorg-xhost"
+                     "xorg-xinput"
+                     "xorg-xkbcomp"
+                     "xorg-xkbevd"
+                     "xorg-xkbutils"
+                     "xorg-xkill"
+                     "xorg-xlsatoms"
+                     "xorg-xlsclients"
+                     "xorg-xmodmap"
+                     "xorg-xpr"
+                     "xorg-xprop"
+                     "xorg-xrandr"
+                     "xorg-xrdb"
+                     "xorg-xrefresh"
+                     "xorg-xset"
+                     "xorg-xsetroot"
+                     "xorg-xvinfo"
+                     "xorg-xwd"
+                     "xorg-xwininfo"
+                     "xorg-xwud"
+                     "xorg-server"
+                     "xorg-xinit"
+                     "xorg-fonts-100dpi"
+                     "xorg-fonts-75dpi"
+                     "xorg-fonts-alias"
+                     "xorg-fonts-cyrillic"
+                     "xorg-fonts-encodings"
+                     "xorg-fonts-misc"
+                     "xorg-fonts-type1"
+                     "htop"
                      "git"
                      "ghc"
                      "ruby"
@@ -31,17 +77,13 @@ declare -a packages=("htop"
                      "rxvt-unicode-terminfo"
                      "xmonad"
                      "xmonad-contrib"
-                     "xorg-server"
-                     "xorg-apps"
-                     "xorg-init"
-                     "xorg-fonts-100dpi"
-                     "xorg-fonts-75dpi"
-                     "xorg-fonts-alias"
-                     "xorg-fonts-cyrillic"
-                     "xorg-fonts-encodings"
-                     "xorg-fonts-misc"
-                     "xorg-fonts-type1"
+                     "ttf-indic-otf"
+                     "ttf-dejavu"
+                     "sdl2_ttf"
+                     "ttf-liberation"
+                     "ttf-droid"
                      "firefox"
+                     "thunderbird"
                      "unzip"
                      "tmux"
                      "openssh"
@@ -78,18 +120,18 @@ declare -a packages=("htop"
                      "zathura"
                      "zathura-pdf-poppler")
 
+all_packages=""
 for package in "${packages[@]}"
 do
-    echo -n  "$package..."
-    pacman -Ss ^$package$ > /dev/null 2>&1
-
+    pacman -Qi $package > /dev/null
     if [[ $? == "1" ]]; then
-        echo "Package $package does not exist" && exit
+        all_packages="$all_packages $package"
     fi
-    echo "available"
 done
 
-sudo pacman -S $packages
+if [[ $all_packages != "" ]]; then
+    sudo pacman -S $(echo "$all_packages" | xargs)
+fi
 
 # Neovim
 # install with python support

@@ -3,7 +3,7 @@ module Config where
 import XMonad.Layout.Tabbed
 
 -- Looks
-backgroundImage = "/home/lsund/Data/img/matrix.jpg"
+backgroundImage = "/home/lsund/Data/img/wallpaper.jpg"
 
 cpuUsagePath = "/home/lsund/.xmonad/apps/haskell-cpu-usage.out"
 

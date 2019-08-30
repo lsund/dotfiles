@@ -25,8 +25,6 @@ plugins=(
 
 autoload -U compinit && compinit -u
 
-source $ZSH/oh-my-zsh.sh
-
 export PATH="$PATH:$HOME/.perl-6-install/rakudo-star-2019.03"
 export PATH="$PATH:$HOME/.skim/bin"
 export PATH=$PATH:$HOME/.bin:/usr/local/bin
@@ -58,6 +56,8 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 export NNN_USE_EDITOR=1
 
+source $ZSH/oh-my-zsh.sh
+
 # Start ssh-agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent > ~/.ssh-agent-thing
@@ -77,7 +77,10 @@ if [[ $? != "0" ]]; then
         echo "Adding id_rsa_gmail..."
         ssh-add ~/.ssh/id_rsa_gmail
     fi
-    echo "Done."
+    if [[ -e ~/.ssh/id_rsa_innoq ]]; then
+        echo "Adding id_rsa_innoq..."
+        ssh-add ~/.ssh/id_rsa_innoq
+    fi
 fi
 
 # Preferred editor for local and remote sessions
