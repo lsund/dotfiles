@@ -59,6 +59,9 @@ PrintSeparator "Updating package base and installing packages"
 
 ./install-lsund-base $distro
 
+sudo systemctl start cronie
+sudo systemctl enable cronie
+
 # ###########################################################################
 # Fetch repos
 
