@@ -16,7 +16,7 @@ session_time_file="$HOME/Data/log/sess_time"
 
 function log_time() {
     echo "Current time: $(show-time "$1")"
-    echo $(show-time $1 hm) > $session_time_file
+    echo $(/home/lsund/Documents/dotfiles/shell/show-time $1 hm) > $session_time_file
 }
 
 # $1 = init_ts
@@ -152,7 +152,7 @@ elif [[ $1 == "add-time" && $# == 2 ]]; then
 elif [[ $1 == "sub-time" && $# == 2 ]]; then
     write_sub $(serialize-time $2)
 elif [[ $1 == "log-time" ]]; then
-    log_time $seconds
+    log_time $(calculate_seconds $seconds $(date '+%s') $continue_ts)
 elif [[ $1 == "total" ]]; then
     echo "Total session: $(show-time $total)"
 elif [[ $1 == "time" && $state == "started" ]]; then
@@ -196,7 +196,6 @@ else
         continue_ts=$(date '+%s')
         if [[ $seconds == "0" ]]; then
             write_state $continue_ts 0 $continue_ts started 0 $play_music
-            log_time 0
             echo "Starting session"
         else
             toggle_state
