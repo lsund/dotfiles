@@ -36,6 +36,7 @@ PrintSeparator "Creating some directories under $HOME"
 mkdir -p $HOME/{Data/log/pacman,Temp,Downloads,Shared}
 mkdir -p $HOME/{Media/audio/music,Documents/tech/repos}
 mkdir -p /home/lsund/.bin
+mkdir -p /home/lsund/.emacs-backup-files
 
 touch "/home/lsund/Data/log/pacman/need_sysup.txt"
 touch "/home/lsund/Data/log/pacman/pacsynccount.txt"
@@ -61,6 +62,8 @@ PrintSeparator "Updating package base and installing packages"
 
 sudo systemctl start cronie
 sudo systemctl enable cronie
+sudo systemctl start sshd
+sudo systemctl enable sshd
 
 # ###########################################################################
 # Fetch repos

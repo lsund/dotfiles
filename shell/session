@@ -15,8 +15,22 @@ session_time_file="$HOME/Data/log/sess_time"
 # Helpers
 
 function log_time() {
-    echo "Current time: $(show-time "$1")"
-    echo $(/home/lsund/Documents/dotfiles/shell/show-time $1 hm) > $session_time_file
+    echo $(show-time $1)
+}
+
+
+function log_working_time() {
+    if [[ $state == "paused" ]]; then
+        secs=$seconds
+    else
+        secs=$(calculate_seconds $seconds $(date '+%s') $continue_ts)
+    fi
+    log_time $secs
+    echo $(/home/lsund/Documents/dotfiles/shell/show-time $secs hm) > $session_time_file
+}
+
+function log_total_time() {
+    echo $(show-time $(( $(date '+%s') - $init_ts )))
 }
 
 # $1 = init_ts
@@ -26,9 +40,28 @@ function log_time() {
 # $5 = seconds
 # $6 = music
 function write_state() {
-    log_time $5
     echo $4 > $session_status_file
     echo "$1\n$2\n$3\n$4\n$5\n$6" > $session_file
+}
+
+function toggle_state() {
+    if [[ $state == "paused" ]]; then
+        write_state \
+            $init_ts \
+            $pause_ts \
+            $continue_ts \
+            started \
+            $seconds \
+            $play_music
+    else
+        write_state \
+            $init_ts \
+            $pause_ts \
+            $continue_ts \
+            paused \
+            $seconds \
+            $play_music
+    fi
 }
 
 function write_add() {
@@ -85,26 +118,6 @@ function play_file() {
     fi
 }
 
-function toggle_state() {
-    if [[ $state == "paused" ]]; then
-        write_state \
-            $init_ts \
-            $pause_ts \
-            $continue_ts \
-            started \
-            $seconds \
-            $play_music
-    else
-        write_state \
-            $init_ts \
-            $pause_ts \
-            $continue_ts \
-            paused \
-            $seconds \
-            $play_music
-    fi
-}
-
 # ############################################################################
 # Script
 
@@ -139,11 +152,10 @@ if [[ $1 == "reset" ]]; then
     write_state 0 0 0 paused 0 $play_music
     exit 0
 elif [[ $1 == "status" || $1 == "state" || $1 == "stat" ]]; then
-    if [[ $state == "paused" ]]; then
-        log_time $seconds
-    else
-        log_time $(calculate_seconds $seconds $(date '+%s') $continue_ts)
-    fi
+    echo -n "Working time: "
+    log_working_time
+    echo -n "Total time: "
+    log_total_time
     echo "Session: $state"
     echo "Mplayer active: $mplayer_active"
     echo "Music playing enabled: $play_music"
@@ -152,14 +164,14 @@ elif [[ $1 == "add-time" && $# == 2 ]]; then
 elif [[ $1 == "sub-time" && $# == 2 ]]; then
     write_sub $(serialize-time $2)
 elif [[ $1 == "log-time" ]]; then
-    log_time $(calculate_seconds $seconds $(date '+%s') $continue_ts)
+    log_working_time
 elif [[ $1 == "total" ]]; then
     echo "Total session: $(show-time $total)"
-elif [[ $1 == "time" && $state == "started" ]]; then
-    log_time $(calculate_seconds $seconds $(date '+%s') $continue_ts)
-elif [[ $1 == "time" && $state == "paused" ]]; then
-    log_time $seconds
-elif [[ $1 == "new-music" ]]; then
+elif [[ $1 == "time" ]]; then
+    log_working_time
+elif [[ $1 == "total-time" ]]; then
+    log_total_time
+elif [[ $1 == "new-music" || $1 == "nm" ]]; then
     if [[ $state == "paused" ]]; then
         toggle_state
     fi
@@ -181,7 +193,7 @@ elif [[ $1 == "new-music" ]]; then
         fi
         play_file $file_to_play
     fi
-elif [[ $1 == "toggle-music" ]]; then
+elif [[ $1 == "toggle-music" || $1 == "tm" ]]; then
     if [[ $play_music == "yes" ]]; then
         kill_mplayer
         play_music="no"
@@ -194,12 +206,13 @@ elif [[ $1 == "toggle-music" ]]; then
 else
     if [[ $state == "paused" ]]; then
         continue_ts=$(date '+%s')
+        log_working_time
         if [[ $seconds == "0" ]]; then
-            write_state $continue_ts 0 $continue_ts started 0 $play_music
             echo "Starting session"
+            write_state $continue_ts 0 $continue_ts started 0 $play_music
         else
-            toggle_state
             echo "Continuing session"
+            toggle_state
         fi
         if [[ $mplayer_active == "yes" ]]; then
             toggle_mplayer
@@ -219,12 +232,13 @@ else
             play_file $file_to_play
         fi
     else
+        echo "Pausing session"
         pause_ts=$(date '+%s')
+        log_working_time
         seconds=$(calculate_seconds $seconds $pause_ts $continue_ts)
         toggle_state
         if [[ $mplayer_active == "yes" ]]; then
             toggle_mplayer
         fi
-        echo "Pausing session"
     fi
 fi
