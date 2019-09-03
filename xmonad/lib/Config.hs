@@ -59,10 +59,11 @@ maxTitleLen = 200 :: Int
 
 gnomeTerm = "/usr/bin/alacritty"
 
--- gnomeTerm = "/usr/bin/gnome-terminal"
 urxvtTerm = "/usr/bin/urxvt"
 
 logpath = "/home/lsund/Data/log/"
+
+syncPath = logpath ++ "pacman/pacsynccount.txt"
 
 scriptpath = "/home/lsund/Documents/dotfiles/shell/"
 

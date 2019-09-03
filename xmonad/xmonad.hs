@@ -87,7 +87,7 @@ main = do
 
 myWorkspaces 2 =
   let ws = withScreens 2 ["1", "2", "3", "4", "5", "6", "7"]
-   in (head ws : (every 2 (tail ws))) ++ every 2 ws
+   in (head ws : every 2 (tail ws)) ++ every 2 ws
 myWorkspaces _ = map show [1 .. 9]
 
 -- Layout names
@@ -459,7 +459,7 @@ getScreenRes d n = do
       }
 
 npacSync :: Logger
-npacSync = fileToLogger id "N/A" $ logpath ++ "pacman/pacsynccount.txt"
+npacSync = fileToLogger id "N/A" $ logpath ++ syncPath
 
 nSess :: Logger
 nSess = do
