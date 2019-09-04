@@ -9,7 +9,7 @@ total_session_file="$HOME/.${USER}_session_total"
 music_path=$HOME/Media/audio/music
 
 session_status_file="$HOME/Data/log/sess_status"
-session_time_file="$HOME/Data/log/sess_time"
+timelog_file="$HOME/Data/log/sess_time"
 
 # ############################################################################
 # Helpers
@@ -26,7 +26,7 @@ function log_working_time() {
         secs=$(calculate_seconds $seconds $(date '+%s') $continue_ts)
     fi
     log_time $secs
-    echo $(/home/lsund/Documents/dotfiles/shell/show-time $secs hm) > $session_time_file
+    echo $(/home/lsund/Documents/dotfiles/shell/show-time $secs hm) > $timelog_file
 }
 
 function log_total_time() {
@@ -150,6 +150,7 @@ if [[ $1 == "reset" ]]; then
     echo "Resetting session. Current time: $(show-time 0)."
     write_add_total $seconds
     write_state 0 0 0 paused 0 $play_music
+    echo 0 > $timelog_file
     exit 0
 elif [[ $1 == "status" || $1 == "state" || $1 == "stat" ]]; then
     echo -n "Working time: "
