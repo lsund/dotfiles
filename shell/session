@@ -69,7 +69,7 @@ function write_add() {
         $init_ts \
         $pause_ts \
         $continue_ts \
-        started \
+        $state \
         $(($seconds + $1)) \
         $play_music
 }
@@ -79,7 +79,7 @@ function write_sub() {
         $init_ts \
         $pause_ts \
         $continue_ts \
-        started \
+        $state \
         $(($seconds - $1)) \
         $play_music
 }

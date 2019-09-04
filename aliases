@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+alias td='trans :de'
 alias s='session'
 alias sess="session"
 alias sstat="session status"
