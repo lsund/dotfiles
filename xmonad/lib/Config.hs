@@ -81,12 +81,10 @@ myTitleTheme =
     , decoHeight = 24
     }
 
-spHeight = 0.5 :: Rational
-
+-- ScratchPad
+spHeight = 0.4 :: Rational
 spWidth = 1 :: Rational
-
 spTopDist = 1 - spHeight
-
 spLeftDist = 1 - spWidth
 
 --------------------------------------------------------------------------------
