@@ -1,13 +1,10 @@
-#!/bin/bash
+#!/bin/zsh
 
-if [[ $# == 0 ]]; then
-    xrandr
-elif [[ "$1" == "standard" || "$1" == "normal" ]]; then
-    xrandr --output eDP1 --auto --output DP1 --off
-elif [[ "$1" == "hdmi" ]]; then
-    xrandr --output eDP1 --off --output DP1 --auto
-elif [[ "$1" == "both" ]]; then
-    xrandr --output eDP1 --auto --output DP1 --auto
-else
-    xrandr --output eDP1 --off --output $1 --auto
-fi
+echo "Available screens:\n"
+while read -r line; do
+    echo $line
+done <<< "$(xrandr | grep connected | cut -d' ' -f1,2)"
+
+echo "\nExamples:"
+echo "xrandr --output SCREEN --auto"
+echo "xrandr --output SCREEN --off"
