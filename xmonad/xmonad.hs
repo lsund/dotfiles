@@ -459,7 +459,7 @@ getScreenRes d n = do
       }
 
 npacSync :: Logger
-npacSync = fileToLogger id "N/A" $ logpath ++ syncPath
+npacSync = fileToLogger id "N/A" syncPath
 
 nSess :: Logger
 nSess = do
