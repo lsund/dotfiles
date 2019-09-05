@@ -1,3 +1,0 @@
-#!/bin/zsh
-
-xmllint --format $1 | less

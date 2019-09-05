@@ -2,4 +2,3 @@
 
 filename=$(basename "$1")
 echo "${filename%.*}"
-
