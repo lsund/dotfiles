@@ -11,8 +11,21 @@ music_path=$HOME/Media/audio/music
 session_status_file="$HOME/Data/log/sess_status"
 timelog_file="$HOME/Data/log/sess_time"
 
+
 # ############################################################################
 # Helpers
+
+function read_state() {
+    init_ts=$(cat $session_file | head -1)
+    pause_ts=$(cat $session_file | head -2 | tail -1)
+    continue_ts=$(cat $session_file | head -3 | tail -1)
+    state=$(cat $session_file | head -4 | tail -1)
+    seconds=$(cat $session_file | head -5 | tail -1)
+    play_music=$(cat $session_file | head -6 | tail -1)
+    total=$(cat $total_session_file)
+    mplayer_pid=$(pgrep -u lsund mplayer)
+}
+
 
 function log_time() {
     echo $(show-time $1)
@@ -72,6 +85,7 @@ function write_add() {
         $state \
         $(($seconds + $1)) \
         $play_music
+    read_state
 }
 
 function write_sub() {
@@ -82,6 +96,7 @@ function write_sub() {
         $state \
         $(($seconds - $1)) \
         $play_music
+    read_state
 }
 
 function write_add_total() {
@@ -121,17 +136,10 @@ function play_file() {
 # ############################################################################
 # Script
 
+read_state
+
 [[ ! -e $session_file ]] && write_state 0 0 0 paused 0 yes
 [[ ! -e $total_session_file ]] && echo "0" > $total_session_file
-
-init_ts=$(cat $session_file | head -1)
-pause_ts=$(cat $session_file | head -2 | tail -1)
-continue_ts=$(cat $session_file | head -3 | tail -1)
-state=$(cat $session_file | head -4 | tail -1)
-seconds=$(cat $session_file | head -5 | tail -1)
-play_music=$(cat $session_file | head -6 | tail -1)
-total=$(cat $total_session_file)
-mplayer_pid=$(pgrep -u lsund mplayer)
 
 if [[ ! $mplayer_pid ]]; then
     mplayer_active="no"
@@ -162,8 +170,10 @@ elif [[ $1 == "status" || $1 == "state" || $1 == "stat" ]]; then
     echo "Music playing enabled: $play_music"
 elif [[ $1 == "add-time" && $# == 2 ]]; then
     write_add $(serialize-time $2)
+    log_working_time
 elif [[ $1 == "sub-time" && $# == 2 ]]; then
     write_sub $(serialize-time $2)
+    log_working_time
 elif [[ $1 == "log-time" ]]; then
     log_working_time
 elif [[ $1 == "total" ]]; then
