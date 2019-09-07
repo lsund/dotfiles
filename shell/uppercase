@@ -1,6 +1,8 @@
 #!/bin/bash
 
-for var in "$@"
+for file in "$@"
 do
-    mv $var ${var^^}
+    base=$(without-extension $file)
+    ext=$(extension $file)
+    mv $file ${base^^}.$ext
 done
