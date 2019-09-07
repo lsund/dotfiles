@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+base_dir=$HOME/Documents/dotfiles
+
 declare -a ignore=("fonts" "shell" "plugged" "readme.md" "xorg")
 
 function Ignore() {
@@ -27,9 +29,9 @@ function Link() {
     fi
 }
 
-for file in $(/usr/bin/ls $HOME/Documents/dotfiles); do
+for file in $(/usr/bin/ls $base_dir); do
     if [[ $(Ignore $file) == "no" ]]; then
-        Link $HOME/.$file $HOME/Documents/dotfiles/$file
+        Link $HOME/.$file $base_dir/$file
     fi
 done
 
