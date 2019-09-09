@@ -120,6 +120,21 @@ function random_file() {
     echo $rand_file
 }
 
+function find_file_to_play() {
+    file_to_play=""
+    if [[ $# == 1 ]]; then
+        files=$(/usr/bin/ls -1 $music_path)
+        for file in $(echo $files | xargs); do
+            if [[ $file == "$1.mp3" ]]; then
+                file_to_play=$music_path/$file
+            fi
+        done
+        [[ $file_to_play == "" ]] && echo "unknown command: $1" && exit 1
+    else
+        file_to_play=$(random_file)
+    fi
+}
+
 function kill_mplayer() {
     if [[ $mplayer_active == "yes" ]]; then
         echo "quit" > $fifofile
@@ -212,6 +227,10 @@ elif [[ $1 == "toggle-music" || $1 == "tm" ]]; then
     else
         play_music="yes"
     echo "Music is now on"
+    if [[ $state == "started" ]]; then
+        find_file_to_play
+        play_file $file_to_play
+    fi
     fi
     write_state $init_ts $pause_ts $continue_ts $state $seconds $play_music
 else
@@ -228,18 +247,7 @@ else
         if [[ $mplayer_active == "yes" ]]; then
             toggle_mplayer
         else
-            file_to_play=""
-            if [[ $# == 1 ]]; then
-                files=$(/usr/bin/ls -1 $music_path)
-                for file in $(echo $files | xargs); do
-                    if [[ $file == "$1.mp3" ]]; then
-                        file_to_play=$music_path/$file
-                    fi
-                done
-                [[ $file_to_play == "" ]] && echo "unknown command: $1" && exit 1
-            else
-                file_to_play=$(random_file)
-            fi
+            find_file_to_play
             play_file $file_to_play
         fi
     else
