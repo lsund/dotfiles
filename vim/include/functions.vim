@@ -1,10 +1,8 @@
-
 function! StyleHaskell(...)
     :execute "normal ma"
     :%!stylish-haskell
     :execute "normal `a"
 endfunction
-
 
 function! FormatParagraph(...)
     if g:format_paragraph
@@ -14,7 +12,6 @@ function! FormatParagraph(...)
         :execute "normal `a"
     endif
 endfunction
-
 
 " Prettify JSON
 command JSONprettify %!python -m json.tool
@@ -83,6 +80,9 @@ function! Toggle(setting)
         else
             set list
         end
+    elseif a:setting == 'whitespace'
+        let g:delete_trailing_witespace = !get(g:, 'delete_trailing_witespace', 1)
+        echo "Deleting whitespace:" g:delete_trailing_witespace
     endif
 endfunction
 
