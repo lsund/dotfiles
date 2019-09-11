@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+for var in $@ ; do
+    echo $var >> .gitignore
+done
