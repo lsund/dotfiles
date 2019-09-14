@@ -1,10 +1,15 @@
 #!/bin/zsh
 
-echo "Available screens:\n"
-while read -r line; do
-    echo $line
-done <<< "$(xrandr | grep connected | cut -d' ' -f1,2)"
+if [[ $# == 0 ]]; then
+    echo "Available screens:\n"
+    while read -r line; do
+        echo $line
+    done <<< "$(xrandr | grep connected | cut -d' ' -f1,2)"
 
-echo "\nExamples:"
-echo "xrandr --output SCREEN --auto"
-echo "xrandr --output SCREEN --off"
+    echo "\nExamples:"
+    echo "xrandr --output SCREEN --auto"
+    echo "xrandr --output SCREEN --off"
+elif [[ $# == 1 ]]; then
+    xrandr --output $1 --auto
+fi
+
