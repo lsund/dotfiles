@@ -34,5 +34,6 @@ map n scroll up
 map t scroll down
 map s scroll right
 
-
+map <Right> navigate next
+map <Left> navigate previous
 
