@@ -53,6 +53,7 @@ declare -a packages=(
                      "xorg-fonts-encodings"
                      "xorg-fonts-misc"
                      "xorg-fonts-type1"
+                     "postgresql"
                      "docker"
                      "docker-compose"
                      "cronie"
