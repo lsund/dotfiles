@@ -7,8 +7,8 @@ fc -R
 last=$(fc -l -20 | grep -v $scriptname | tail -1)
 
 if [[ $1 ]]; then
-    echo $last | cut -d' ' -f2- | xargs | cut -d' ' -f$1
+    echo $last | xargs | cut -d' ' -f2- | cut -d' ' -f$1
 else
-    echo $last | cut -d' ' -f2- | xargs
+    echo $last | xargs | cut -d' ' -f2-
 fi
 
