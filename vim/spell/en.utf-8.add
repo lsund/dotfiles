@@ -94,3 +94,6 @@ toolchain
 transpiler
 transpilers
 transpilation
+programmatically
+effectful
+Purescript

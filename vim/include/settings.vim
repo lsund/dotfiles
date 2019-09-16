@@ -40,11 +40,13 @@ set wrap
 
 syntax enable
 set t_Co=256
-let g:solarized_termcolors=16
-set background=dark
+let g:solarized_termcolors=256
+" set background=dark
+set background=light
 " set termguicolors           " enable true colors support
 " colorscheme monokain
-colorscheme badwolf
+" colorscheme badwolf
+colorscheme solarized
 " colorscheme solarized
 " colorscheme railscasts
 " colorscheme blackboard

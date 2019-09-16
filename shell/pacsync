@@ -12,5 +12,5 @@ if [[ $? -eq 0 ]];
         count="$(pacman -Qu | wc -l)"
         echo "$count" > $file
     else
-        echo "ERR" > $file
+        echo "!conn" > $file
 fi
