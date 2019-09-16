@@ -163,7 +163,7 @@
 (setq airline-cursor-colors "Enabled")
 (setq airline-eshell-colors "Disabled")
 (setq airline-helm-colors "Disabled")
-(load-theme 'airline-base16-shell-dark)
+(load-theme 'airline-distinguished)
 
 ;; Color theme
 (load-theme 'badwolf t)
