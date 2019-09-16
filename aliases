@@ -58,7 +58,7 @@ function ggg() {
     ggp
 }
 
-function gg() {
+function ggm() {
     gss
     vared -p "> " -c msg
     gcmsg $msg
