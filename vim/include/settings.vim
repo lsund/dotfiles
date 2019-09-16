@@ -41,19 +41,9 @@ set wrap
 syntax enable
 set t_Co=256
 let g:solarized_termcolors=256
-" set background=dark
-set background=light
-" set termguicolors           " enable true colors support
-" colorscheme monokain
-" colorscheme badwolf
-colorscheme solarized
-" colorscheme solarized
-" colorscheme railscasts
-" colorscheme blackboard
-" let ayucolor="light"  " for light version of theme
-" let ayucolor="mirage" " for mirage version of theme
-" let ayucolor="dark"   " for dark version of theme
-" colorscheme ayu
+set termguicolors
+set background=dark
+colorscheme badwolf
 set number
 set list
 set relativenumber

@@ -54,7 +54,14 @@ function ggg() {
     gss
     vared -p "> " -c msg
     gcam $msg
-    ggpush
+    msg=""
+    ggp
+}
+
+function gg() {
+    gss
+    vared -p "> " -c msg
+    gcam $msg
     msg=""
 }
 

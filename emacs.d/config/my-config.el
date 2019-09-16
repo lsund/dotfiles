@@ -37,7 +37,7 @@
                     ;; Visuals
                     badwolf-theme
                     blackboard-theme
-                    color-theme-solarized
+                    solarized-theme
                     linum-relative
                     powerline
                     airline-themes
@@ -163,11 +163,12 @@
 (setq airline-cursor-colors "Enabled")
 (setq airline-eshell-colors "Disabled")
 (setq airline-helm-colors "Disabled")
-; (load-theme 'airline-base16-shell-dark)
-(load-theme 'airline-distinguished)
+(load-theme 'airline-solarized-gui)
+
 
 ;; Color theme
 (load-theme 'badwolf t)
+;; (load-theme 'solarized-dark t)
 
 ;; Show matching parenthesis
 (show-paren-mode 1)

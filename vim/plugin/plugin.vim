@@ -13,7 +13,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'flazz/vim-colorschemes'
 
 Plug 'ayu-theme/ayu-vim'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'frankier/neovim-colors-solarized-truecolor-only'
+Plug 'lifepillar/vim-solarized8'
 "
 " Syntax highlightning for shakespeare templates
 Plug 'pbrisbin/vim-syntax-shakespeare'
