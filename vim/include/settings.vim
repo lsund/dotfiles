@@ -82,3 +82,9 @@ set completeopt+=longest
 " Folding =====================================================================
 
 set foldenable
+
+" Custom variable settings ====================================================
+
+let g:delete_trailing_witespace = 1
+let g:format_paragraph = 0
+

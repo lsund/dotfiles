@@ -83,6 +83,9 @@ function! Toggle(setting)
     elseif a:setting == 'whitespace'
         let g:delete_trailing_witespace = !get(g:, 'delete_trailing_witespace', 1)
         echo "Deleting whitespace:" g:delete_trailing_witespace
+    elseif a:setting == 'paragraph'
+        let g:format_paragraph = !get(g:, 'format_paragraph', 1)
+        echo "Format Paragraph:" g:format_paragraph
     endif
 endfunction
 

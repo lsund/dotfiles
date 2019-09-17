@@ -43,6 +43,7 @@ nmap <silent> <leader>ss :call Toggle('spell')<CR>
 nmap <silent> <leader>sp :call Toggle('paste')<CR>
 nmap <silent> <leader>sl :call Toggle('list')<CR>
 nmap <silent> <leader>sw :call Toggle('whitespace')<CR>
+nmap <silent> <leader>sf :call Toggle('paragraph')<CR>
 
 " Write root file as non-root
 cmap w!! w !sudo tee > /dev/null %
@@ -60,8 +61,6 @@ nmap <leader>" :BufOnly<CR>
 
 " Remove whitespace at end of line on write.
 " (Also remember position and jump back)
-
-let g:delete_trailing_witespace = 1
 
 au BufWrite * if g:delete_trailing_witespace == 1 |  execute "normal ma" | silent! %s/\s\+$// | execute "normal `a" | endif
 
