@@ -3,7 +3,8 @@
 try-connect
 
 declare -a syncdirs=("$HOME/Documents/dotfiles"
-                     "$HOME/.password-store")
+                     "$HOME/.password-store"
+                     "$HOME/.task")
 
 function PrintSeparator() {
     case $1 in
