@@ -37,7 +37,6 @@
                     ;; Visuals
                     badwolf-theme
                     blackboard-theme
-                    solarized-theme
                     linum-relative
                     powerline
                     airline-themes
@@ -167,7 +166,6 @@
 
 ;; Color theme
 (load-theme 'badwolf t)
-;; (load-theme 'solarized-dark t)
 
 ;; Show matching parenthesis
 (show-paren-mode 1)
