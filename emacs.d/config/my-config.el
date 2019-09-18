@@ -37,7 +37,6 @@
                     ;; Visuals
                     badwolf-theme
                     blackboard-theme
-                    solarized-theme
                     linum-relative
                     powerline
                     airline-themes
