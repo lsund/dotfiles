@@ -167,7 +167,6 @@
 
 ;; Color theme
 (load-theme 'badwolf t)
-;; (load-theme 'solarized-dark t)
 
 ;; Show matching parenthesis
 (show-paren-mode 1)
