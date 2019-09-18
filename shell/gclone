@@ -1,4 +1,9 @@
 #!/bin/zsh
 
-git clone git@github.com:/$1/$2
+if [[ $1 == "--gitlab" ]]; then
+    git clone git@gitlab.com:/$2/$3
+else
+    git clone git@github.com:/$1/$2
+fi
+
 
