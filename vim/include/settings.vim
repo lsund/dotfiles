@@ -34,7 +34,6 @@ set fileencoding=utf-8
 set visualbell t_vb=".
 set tw=79
 set wrap
-" set nowrap
 
 " Visuals =====================================================================
 
@@ -87,4 +86,3 @@ set foldenable
 
 let g:delete_trailing_witespace = 1
 let g:format_paragraph = 0
-

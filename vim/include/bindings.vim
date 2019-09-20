@@ -98,4 +98,3 @@ nnoremap <leader>Ag :Ack -l <cword> <CR>
 autocmd FileType qf nnoremap <buffer> O <Enter> :call DeleteEmptyBuffers()<CR>
 
 autocmd FileType qf nnoremap <buffer> <leader>\| <C-w><Enter><C-w>L :call DeleteEmptyBuffers()<CR>
-

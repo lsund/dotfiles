@@ -1,2 +1,47 @@
+let mapleader = "\"
 set commentary
 set surround
+set hlsearch
+set incsearch
+set tw=79
+set wrap
+set relativenumber
+
+" Make Y behave as D, C etc
+noremap Y y$
+
+inoremap <C-[> <Esc>
+nnoremap <C-[> <Esc>
+inoremap <C-G> <Esc>
+nnoremap <C-G> <Esc>
+vnoremap <C-G> <Esc>
+nooremap <C-h> <Backspace>
+
+nnoremap <leader>nh :nohlsearch<CR>
+nnoremap <leader>o :action OpenFile<CR>
+nnoremap <leader>, :w<CR>
+nnoremap <leader>' :close<CR>
+nnoremap ZZ :wq<CR>
+
+nnoremap <leader>\| :vsplit<CR>
+nnoremap <leader>- :hsplit<CR>
+
+nnoremap <leader>y :action RecentFiles<CR>
+nnoremap <leader>e :action GotoFile<CR>
+nnoremap <leader><S-y> :action VimFilePrevious<CR>
+nnoremap <leader>aa :action FindInPath<CR>
+
+nooremap <leader>[ :action EditorCodeBlockStart<CR>
+nooremap <leader>] :action EditorCodeBlockEnd<CR>
+"Fixed scroll
+nnoremap <S-j> M4jzz''4j
+nnoremap <S-k> M4kzz''4k
+" Push line up/down
+nnoremap <C-j> 0i<CR><ESC>
+nnoremap <C-k> 0i<BS><ESC>
+
+nnoremap <leader>bd :action ReformatCode<CR>
+nnoremap <leader>rr :action Run<CR>
+nnoremap gq V
+vnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
+
