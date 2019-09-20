@@ -9,7 +9,7 @@ field_4=$(ip link show $interface | head -1 | cut -d' ' -f3 | cut -d',' -f4)
 
 sudo wifi-menu
 if [[ "$?" == "0" ]]; then
-    try-connect && exit 0
+    try-connect && exit
 else
     echo "Could not connect"
     vared -p "Set link down [Y/n]? " -c choice
@@ -19,7 +19,7 @@ fi
 
 sudo wifi-menu
 if [[ "$?" == "0" ]]; then
-    try-connect && exit 0
+    try-connect && exit
 else
     vared -p "sudo dhcpd [Y/n]? " -c choice
     [[ "$choice" == "n" ]] && exit 0
@@ -28,7 +28,7 @@ fi
 
 sudo wifi-menu
 if [[ "$?" == "0" ]]; then
-    try-connect && exit 0
+    try-connect && exit
 else
     echo "Could still not connect"
     vared -p "set link up [Y/n]? " -c choice
@@ -36,4 +36,3 @@ else
     sudo ip link set $interface up
     sudo wifi-menu
 fi
-

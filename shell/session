@@ -28,7 +28,7 @@ function read_state() {
 
 
 function log_time() {
-    echo $(show-time $1)
+    echo $(/home/lsund/Documents/dotfiles/shell/show-time $1)
 }
 
 
