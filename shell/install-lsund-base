@@ -53,6 +53,8 @@ declare -a packages=(
                      "xorg-fonts-encodings"
                      "xorg-fonts-misc"
                      "xorg-fonts-type1"
+                     "lsb-release"
+                     "lsof"
                      "postgresql"
                      "docker"
                      "docker-compose"
