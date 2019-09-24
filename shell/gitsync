@@ -3,8 +3,8 @@
 try-connect
 
 declare -a syncdirs=("$HOME/Documents/dotfiles"
-                     "$HOME/.password-store"
-                     "$HOME/.task")
+"$HOME/.password-store"
+"$HOME/.task")
 
 function PrintSeparator() {
     case $1 in
@@ -34,7 +34,7 @@ case $# in
                         echo "Nothing to Push!"
                     else
                         git -C $dir add .
-                        git -C $dir ci -m "$msg"
+                        git -C $dir commit -m "$msg"
                         git -C $dir "push"
                     fi
                 done
@@ -59,7 +59,7 @@ case $# in
                 do
                     PrintSeparator $action $dir
                     git -C $dir add .
-                    git -C $dir ci -m "$msg"
+                    git -C $dir commit -m "$msg"
                     git -C $dir "push"
                 done
                 ;;
