@@ -33,7 +33,7 @@ case $# in
                     if [[ $(git -C $dir status | head -4 | tail -1) == "nothing to commit, working tree clean" ]]; then
                         echo "Nothing to Push!"
                     else
-                        git -C $dir a
+                        git -C $dir add .
                         git -C $dir ci -m "$msg"
                         git -C $dir "push"
                     fi
@@ -58,7 +58,7 @@ case $# in
                 for dir in "${syncdirs[@]}"
                 do
                     PrintSeparator $action $dir
-                    git -C $dir a
+                    git -C $dir add .
                     git -C $dir ci -m "$msg"
                     git -C $dir "push"
                 done
