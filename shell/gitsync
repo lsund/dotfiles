@@ -24,7 +24,6 @@ function PrintSeparator() {
 case $# in
     "1")
         action=$1
-        msg="Update: "$(date)
         case $action in
             "push")
                 for dir in "${syncdirs[@]}"
@@ -34,7 +33,7 @@ case $# in
                         echo "Nothing to Push!"
                     else
                         git -C $dir add .
-                        git -C $dir commit -m "$msg"
+                        git -C $dir commit
                         git -C $dir "push"
                     fi
                 done
