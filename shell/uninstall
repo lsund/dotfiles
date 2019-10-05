@@ -2,7 +2,7 @@
 
 if [[ $# == 0 ]]; then
     package=$(pacman -Q | fzf | cut -d' ' -f1)
-    sudo pacman -R $package
+    sudo pacman -Rns $package
 else
     all="";
     for var in "$@"
