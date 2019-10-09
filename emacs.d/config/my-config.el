@@ -33,6 +33,7 @@
                     neotree
                     smex
                     projectile
+                    ggtags
 
                     ;; Visuals
                     badwolf-theme
@@ -43,6 +44,7 @@
 
                     ;; Other
                     flycheck
+                    flymake
                     diminish
                     ))
 

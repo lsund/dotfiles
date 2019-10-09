@@ -1,3 +1,5 @@
+[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
+
 ZSH_THEME="robbyrussell"
 
 plugins=(
