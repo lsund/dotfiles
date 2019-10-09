@@ -1,4 +1,3 @@
-
 set adjust-open "best-fit"
 
 set pages-per-row 1
@@ -27,12 +26,14 @@ map <C-t> navigate next
 unmap <C-n>
 map <C-n> navigate previous
 
-unmap n
 unmap t
 unmap s
-map n scroll up
 map t scroll down
 map s scroll right
+
+unmap n
+map n search forward
+map N search backward
 
 map <Right> navigate next
 map <Left> navigate previous
