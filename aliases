@@ -8,6 +8,7 @@ alias shutdown='sudo shutdown now -P'
 alias restart='sudo shutdown now -r'
 alias df='pydf'
 alias find='/usr/bin/fd'
+alias keys='setxkbmap dvorak -option compose:caps'
 
 alias td='trans :de'
 alias upgrade='upgrade && echo 0 > /home/lsund/Data/log/pacman/pacsynccount.txt'
