@@ -61,6 +61,7 @@ redshift -l 51.2:6.7 -t 5500:3400 -g 0.8 -m randr &
 # Turn on tapping for touchpad
 xinput set-prop 11 286 1
 xinput set-prop 14 286 1
+xinput set-prop 13 304 1
 
 source ~/.bash_profile
 

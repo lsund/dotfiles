@@ -1,4 +1,4 @@
-[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
+[ -z "$TMUX"  ] && [ -n "$DISPLAY" ] && { exec tmux new-session && exit;}
 
 ZSH_THEME="robbyrussell"
 

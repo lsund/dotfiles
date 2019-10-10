@@ -308,6 +308,7 @@
 (require 'my-markdown)
 (require 'my-rust)
 (require 'my-xml)
+(require 'my-scala)
 
 (provide 'my-config)
 
