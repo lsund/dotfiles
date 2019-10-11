@@ -22,6 +22,7 @@
  '(evil-cleverparens-use-regular-insert t)
  '(evil-search-module (quote evil-search))
  '(indent-tabs-mode nil)
+ '(lsp-ui-doc-enable nil)
  '(package-selected-packages
    (quote
     (company-lsp lsp-ui lsp-mode use-package meghanada meghanada-mode flycheck-meghanada flycheck-java ggtags solarized-theme solarized-emacs flycheck-clj-kondo rust-mode flycheck-rust hindent yaml-mode web-mode xquery-mode tidy diminish airline-themes cider-repl wrap-region color-theme-solarized blackboard-theme zenburn-theme counsel org-bullets haskell-mode shakespeare-mode paxedit clj-refactor markdown-mode flycheck smex neotree evil-magit swiper flx-ido evil-surround cider evil-cleverparens lispy company evil-mc auto-complete evil-commentary evil-nerd-commenter multiple-cursors highlight-symbol badwolf-theme centered-cursor-mode helm-config drag-stuff evil-quickscope rainbow-delimiters swiper-helm helm-ag helg-ag magit projectile paredit evil-smartparens smartparens tabbar clojure-mode powerline linum-relative helm)))

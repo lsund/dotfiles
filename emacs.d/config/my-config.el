@@ -155,6 +155,7 @@
 (diminish 'haskell-mode)
 (diminish 'interactive-haskell-mode)
 (diminish 'projectile-mode)
+(diminish 'lsp-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visuals
