@@ -42,6 +42,8 @@
 (add-hook 'scala-mode-hook
           (lambda ()
             (interactive)
+            (diminish 'lsp-mode)
+            (diminish 'yas-global-mode)
             ;; Keybindings
             (defvar scala-leader-map
               (let ((map (make-sparse-keymap)))
@@ -51,7 +53,5 @@
             (define-key scala-leader-map "bd" 'lsp-format-buffer)
             (evil-define-key 'normal scala-mode-map (kbd "C-c C-d C-d") 'lsp-ui-doc-show)
             ))
-
-(diminish 'lsp-mode)
 
 ;;; my-scala.el ends here

@@ -12,6 +12,10 @@ if [[ $# == 0 ]]; then
 elif [[ $# == 1 ]]; then
     xrandr --output $1 --auto
 elif [[ $# == 2 ]]; then
-    xrandr --output $1 $2
+    if [[ $2 == off ]]; then
+        xrandr --output $1 --off
+    else
+        xrandr --output $1 $2
+    fi
 fi
 

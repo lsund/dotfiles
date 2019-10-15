@@ -13,27 +13,6 @@
      (point-min)
      (point-max))))
 
-(defun push-line-down()
-  "Insert a new line and move one line down."
-  (interactive)
-  (back-to-indentation)
-  (newline)
-  (indent-for-tab-command))
-
-(defun push-line-up()
-  "Insert a new line and move one line up."
-  (interactive)
-  (back-to-indentation)
-  (forward-line -1)
-  (kill-whole-line 1)
-  (evil-forward-word-begin))
-
-(defun remove-highlight()
-  "Disable all kinds of code highlightning."
-  (interactive)
-  (highlight-symbol-remove-all)
-  (evil-ex-nohighlight))
-
 (defun iwb ()
   "Indent the whole buffer."
   (interactive)
@@ -41,6 +20,29 @@
     (delete-trailing-whitespace)
     (indent-region (point-min) (point-max) nil)
     (untabify (point-min) (point-max))))
+
+(defun push-line-down()
+  "Insert a new line and move one line down."
+  (interactive)
+  (progn
+    (back-to-indentation)
+    (newline)
+    (indent-for-tab-command)))
+
+(defun push-line-up()
+  "Insert a new line and move one line up."
+  (interactive)
+  (progn
+    (back-to-indentation)
+    (forward-line -1)
+    (kill-whole-line 1)
+    (evil-forward-word-begin)))
+
+(defun remove-highlight()
+  "Disable all kinds of code highlightning."
+  (interactive)
+  (highlight-symbol-remove-all)
+  (evil-ex-nohighlight))
 
 (evil-define-motion myevil-next-line (count)
   :type exclusive
