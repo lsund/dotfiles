@@ -223,10 +223,10 @@ elif [[ $1 == "toggle-music" || $1 == "tm" ]]; then
     if [[ $play_music == "yes" ]]; then
         kill_mplayer
         play_music="no"
-    echo "Music is now off"
+    echo "Music is now [OFF]"
     else
         play_music="yes"
-    echo "Music is now on"
+    echo "Music is now [ON]"
     if [[ $state == "started" ]]; then
         find_file_to_play
         play_file $file_to_play
