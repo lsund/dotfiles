@@ -8,8 +8,8 @@
 # imgprogram=mirage
 # imgprogram=feh
 imgprogram=ristretto
-
 officeprogram=libreoffice
+pdfprogram=zathura
 
 case $1 in
     "eclipse")
@@ -63,12 +63,12 @@ done
 
 case $ext in
     "pdf")
-        program=$(which zathura)
-        [[ $? == "1" ]] && echo "zathura is not installed" && exit 1
+        program=$(which $pdfprogram)
+        [[ $? == "1" ]] && echo "$pdfprogramis not installed" && exit 1
         ;;
     "PDF")
-        program=$(which zathura)
-        [[ $? == "1" ]] && echo "zathura is not installed" && exit 1
+        program=$(which $pdfprogram)
+        [[ $? == "1" ]] && echo "$pdfprogramis not installed" && exit 1
         ;;
     "png")
         program=$(which $imgprogram)
@@ -99,6 +99,10 @@ case $ext in
         [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
         ;;
     "odp")
+        program=$(which $officeprogram)
+        [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
+    "doc")
         program=$(which $officeprogram)
         [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
         ;;
