@@ -39,8 +39,6 @@ set wrap
 
 syntax enable
 set t_Co=256
-let g:solarized_termcolors=256
-set termguicolors
 set background=dark
 colorscheme badwolf
 set number
