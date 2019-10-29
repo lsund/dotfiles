@@ -20,11 +20,7 @@ if [[ "$1" == "-h" ]]; then
     exit
 fi
 
-verbose=false
-
-if [[ "$1" == "-v" ]]; then
-    verbose=true
-fi
+verbose=true
 
 if $pi ; then
     if ping -c 1 ${ip} &> /dev/null
@@ -52,12 +48,8 @@ fi
 
 dirs_string=""
 
-timestamp="$(date +%s)/"
-if [[ "$#" == "2" ]]; then
-    dest_dir=$backup_dest_dir$2
-else
-    dest_dir=$backup_dest_dir$timestamp
-fi
+timestamp="$(date +%Y-%M-%d)/"
+dest_dir=$backup_dest_dir$timestamp
 
 homepath=/home/lsund/
 for dir in ${backup_dirs[*]}
@@ -73,7 +65,7 @@ do
     dirs_string="$dirs_string $homepath$dir"
 done
 
-if [[ "$1" == "-v" ]]; then
+if [[ $verbose == "true" ]]; then
     echo
     echo "The directories on this machine that will be backed up are:"
     echo
