@@ -39,7 +39,8 @@
 
 	    (define-key elisp-leader-map "rr" 'eval-defun)
 	    (define-key elisp-leader-map "ii" 'insert-lisp-comment-separator)
-	    (define-key elisp-leader-map (kbd "bk") 'my-join-sexp)))
+	    (define-key elisp-leader-map (kbd "bk") 'my-join-sexp)
+            (define-key elisp-leader-map (kbd "bb") 'my-break-sexp)))
 
 (provide 'my-elisp)
 ;;; my-elisp ends here

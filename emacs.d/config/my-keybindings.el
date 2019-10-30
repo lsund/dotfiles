@@ -22,23 +22,10 @@
 (define-key evil-normal-state-map (kbd "C-d") 'scroll-half-page-up)
 
 ;; Navigate Project
-(define-key my-leader-map "nn" 'neotree-toggle)
-(define-key my-leader-map "NN" 'neotree-find)
-(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
-(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
-(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
-(evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-refresh)
-(evil-define-key 'normal neotree-mode-map (kbd "R") 'neotree-change-root)
-(evil-define-key 'normal neotree-mode-map (kbd "F") 'mkdir)
-(evil-define-key 'normal neotree-mode-map (kbd "d") 'neotree-delete-node)
-(evil-define-key 'normal neotree-mode-map (kbd "f") 'neotree-create-node)
-(evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
-(evil-define-key 'normal neotree-mode-map (kbd "v") 'neotree-quick-look)
-(evil-define-key 'normal neotree-mode-map (kbd "u") 'neotree-select-up-node)
 (define-key my-leader-map "e" 'projectile-find-file)
 (define-key my-leader-map "j" 'projectile-switch-project)
 (define-key my-leader-map "o" 'ido-find-file)
+(define-key my-leader-map "nn" 'treemacs)
 
 ;; Editing
 (define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
@@ -146,6 +133,7 @@
 (define-key evil-normal-state-map (kbd "C--") 'text-scale-decrease)
 (define-key evil-normal-state-map (kbd "C-0")
   (lambda () (interactive) (text-scale-increase 0)))
+
 
 (provide 'my-keybindings)
 

@@ -30,7 +30,7 @@
                     ivy
                     magit
                     evil-magit
-                    neotree
+                    treemacs
                     smex
                     projectile
                     ggtags
@@ -310,6 +310,7 @@
 (require 'my-rust)
 (require 'my-xml)
 (require 'my-scala)
+(require 'my-java)
 
 (provide 'my-config)
 

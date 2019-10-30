@@ -1,7 +1,11 @@
 #!/bin/zsh
 
 if [[ $1 == "--gitlab" ]]; then
-    git clone git@gitlab.com:/$2/$3
+    if [[ $2 == "--metro" ]]; then
+        git clone git@git.metrosystems.net:/$3/$4
+    else
+        git clone git@gitlab.com:/$2/$3
+    fi
 else
     git clone git@github.com:/$1/$2
 fi
