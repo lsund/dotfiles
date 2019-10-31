@@ -31,6 +31,10 @@
                     magit
                     evil-magit
                     treemacs
+                    treemacs-evil
+                    treemacs-projectile
+                    treemacs-magit
+                    treemacs-icons-dired
                     smex
                     projectile
                     ggtags
@@ -294,6 +298,7 @@
        projectile-globally-ignored-files))
 
 (projectile-global-mode)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Require

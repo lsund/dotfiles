@@ -11,7 +11,9 @@
 (require-packages '(lsp-java
                     use-package
                     company-lsp
+                    editorconfig
                     lsp-ui
+                    lsp-treemacs
                     lsp-mode
                     cc-mode))
 
@@ -20,8 +22,11 @@
 (add-hook 'java-mode-hook
           (lambda ()
             (interactive)
+            (setq lsp-java-format-settings-url "/home/lsund/.eclipse-formatspec.xml")
             (diminish 'yas-global-mode)
             (push 'company-lsp company-backends)
+            (editorconfig-mode 1)
+            (setq-default tab-width 4)
             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             ;; Keys
             (defvar java-leader-map
@@ -41,27 +46,4 @@
 
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
-;; (use-package yasnippet :ensure t)
-;; (use-package company-lsp :ensure t)
-
-;; (use-package dap-mode
-;;   :ensure t :after lsp-mode
-;;   :config
-;;   (dap-mode t)
-;;   (dap-ui-mode t))
-;; (use-package dap-java :after (lsp-java))
-
-;; (add-hook 'java-mode-hook
-;;           (lambda ()
-;;             ;; meghanada-mode on
-;;             (meghanada-mode t)
-;;             ;; enable telemetry
-;;             (meghanada-telemetry-enable t)
-;;             (flycheck-mode +1)
-;;             (setq c-basic-offset 2)
-;;             ;; use code format
-;;             (add-hook 'before-save-hook 'meghanada-code-beautify-before-save)
-;;             (ggtags-mode 1)))
-
-;; (setq meghanada-java-path "/usr/bin/java")
-;; (setq meghanada-maven-path "/usr/bin/maven")
+(add-hook 'lsp-mode-hook 'lsp-treemacs-mode)
