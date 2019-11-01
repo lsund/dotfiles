@@ -22,6 +22,7 @@
 (add-hook 'java-mode-hook
           (lambda ()
             (interactive)
+            (setq lsp-java-autobuild-enabled nil)
             (setq lsp-java-format-settings-url "/home/lsund/.eclipse-formatspec.xml")
             (diminish 'yas-global-mode)
             (push 'company-lsp company-backends)
@@ -35,6 +36,7 @@
                 map))
             (define-key evil-normal-state-map "\\" java-leader-map)
             (define-key java-leader-map "c" 'lsp-rename)
+            (define-key java-leader-map "rr" 'lsp-java-build-project)
             (define-key java-leader-map "bd" 'lsp-format-buffer)
             (evil-define-key
               'normal
