@@ -141,6 +141,7 @@
 (define-key evil-magit-toggle-text-minor-mode-map "\\" my-leader-map)
 (evil-define-key evil-magit-state magit-mode-map
   "\\" my-leader-map)
+(define-key evil-normal-state-map (kbd "gbl") 'magit-blame-addition)
 
 ;; Change font size
 (define-key evil-normal-state-map (kbd "C-+") 'text-scale-increase)
