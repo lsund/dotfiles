@@ -26,7 +26,21 @@
 (define-key my-leader-map "j" 'projectile-switch-project)
 (define-key my-leader-map "o" 'ido-find-file)
 (define-key my-leader-map "nn" 'treemacs)
+(define-key treemacs-mode-map (kbd "M-l") 'windmove-right)
+(define-key treemacs-mode-map (kbd "M-h") 'windmove-left)
+(define-key treemacs-mode-map (kbd "M-h") 'windmove-left)
+(define-key evil-motion-state-map (kbd "\\") nil)
+(add-hook 'treemacs-mode-hook
+          (lambda ()
+            (interactive)
+            (defvar treemacs-leader-map
+              (let ((map (make-sparse-keymap)))
+                (set-keymap-parent map my-leader-map)
+                map))
+            (define-key treemacs-mode-map "\\" treemacs-leader-map)
 
+            ;; Insert separator
+            (define-key treemacs-leader-map "e" 'projectile-find-file)))
 ;; Editing
 (define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
 (define-key company-active-map (kbd "C-w") 'backward-kill-word)

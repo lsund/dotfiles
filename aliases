@@ -85,3 +85,11 @@ function fcd() {
     fi
 }
 
+function metro-vpn() {
+    if [[ $(pgrep -u root snx > /dev/null) ]] then
+        echo "SNX in session, disconnecting..."
+        /usr/bin/snx -d
+    fi
+    /usr/bin/snx
+}
+
