@@ -16,11 +16,7 @@ hostname=$(< /etc/hostname)
 # Functions
 
 function SetMuted() {
-    if [[ $hostname == "pedro" ]]; then
-        muted=$(pactl list sinks | grep Mute | cut -d: -f2 | head -n 1 | xargs)
-    else
-        muted=$(pactl list sinks | grep Mute | cut -d: -f2 | tail -n 1 | xargs)
-    fi
+    muted=$(pactl list sinks | grep Mute | cut -d: -f2 | tail -n 1 | xargs)
     if [[ $muted == "no" ]]; then
         on_off="on"
     else
@@ -31,13 +27,8 @@ function SetMuted() {
 
 # Sets the sink depending on the host
 function SetSink() {
-    is_bt=$(pactl list sinks | grep bluez)
-    if [[ $hostname == "pedro" ]]; then
-        # sink_name=alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1
-        sink_name=alsa_output.pci-0000_01_00.1.hdmi-stereo
-    else
-        sink_name=alsa_output.pci-0000_00_1f.3.analog-stereo
-    fi
+    # sink_name=alsa_output.pci-0000_00_1f.3.analog-stereo
+    sink_name=alsa_output.usb-Lenovo_X1_000000000000-00.analog-stereo
 }
 
 SetSink
