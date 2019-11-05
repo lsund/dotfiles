@@ -131,7 +131,6 @@
                                  (interactive)
                                  (counsel-ag "")))
 
-
 ;; Align after regex
 (define-key evil-visual-state-map (kbd "M-a") 'align-regexp)
 

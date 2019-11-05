@@ -24,6 +24,7 @@
                     highlight-symbol
                     swiper
                     counsel
+                    rg
 
                     ;; Project navigation/management
                     flx-ido
