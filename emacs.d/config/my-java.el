@@ -15,7 +15,9 @@
                     lsp-ui
                     lsp-treemacs
                     lsp-mode
-                    cc-mode))
+                    cc-mode
+                    flycheck
+                    ))
 
 (add-hook 'java-mode-hook #'lsp)
 
@@ -28,6 +30,18 @@
             (push 'company-lsp company-backends)
             (editorconfig-mode 1)
             (setq-default tab-width 4)
+
+            ;; TODO
+
+            (flycheck-define-checker checkstyle
+              "Checkstyle checker"
+              :command ("checkstyle" source-original)
+              :standard-input t
+              :error-parser flycheck-parse-checkstyle
+              :modes (java-mode))
+
+            (add-to-list 'flycheck-checkers 'checkstyle 'append)
+
             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             ;; Keys
             (defvar java-leader-map
@@ -47,5 +61,3 @@
 (add-hook 'java-mode-hook 'flycheck-mode)
 
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-
-(add-hook 'lsp-mode-hook 'lsp-treemacs-mode)
