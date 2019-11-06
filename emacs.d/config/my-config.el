@@ -300,6 +300,8 @@
 
 (projectile-global-mode)
 
+(setq treemacs-recenter-after-file-follow 'always)
+(setq treemacs-recenter-after-project-jump 'always)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Require

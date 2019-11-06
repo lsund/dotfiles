@@ -26,6 +26,8 @@
 (define-key my-leader-map "j" 'projectile-switch-project)
 (define-key my-leader-map "o" 'ido-find-file)
 (define-key my-leader-map "nn" 'treemacs)
+(define-key my-leader-map "na" 'treemacs-add-and-display-current-project)
+(define-key my-leader-map "nr" 'treemacs-remove-project-from-workspace)
 (define-key treemacs-mode-map (kbd "M-l") 'windmove-right)
 (define-key treemacs-mode-map (kbd "M-h") 'windmove-left)
 (define-key treemacs-mode-map (kbd "M-h") 'windmove-left)
