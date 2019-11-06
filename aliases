@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-alias cat='bat'
+alias cat='bat --theme zenburn'
 alias ls='exa -lu --time-style long-iso --color always'
 alias la='exa -lau --time-style long-iso --color always'
 alias grep='grep --color'
