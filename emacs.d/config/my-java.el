@@ -37,6 +37,7 @@
               "Checkstyle checker"
               :command ("checkstyle" source-original)
               :standard-input t
+              ;; flycheck-parse-checkstyle not to be confused with checkstyle itself
               :error-parser flycheck-parse-checkstyle
               :modes (java-mode))
 
