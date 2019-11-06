@@ -1,1 +1,0 @@
-/home/lsund/.vim/plugged/ultisnips/ftdetect/snippets.vim
