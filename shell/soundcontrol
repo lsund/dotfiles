@@ -12,6 +12,9 @@ touch $statfile $percfile
 
 hostname=$(< /etc/hostname)
 
+sink_name=alsa_output.pci-0000_00_1f.3.analog-stereo
+# sink_name=alsa_output.usb-Lenovo_X1_000000000000-00.analog-stereo
+
 # ############################################################################
 # Functions
 
@@ -24,14 +27,6 @@ function SetMuted() {
     fi
     echo $on_off > $statfile
 }
-
-# Sets the sink depending on the host
-function SetSink() {
-    # sink_name=alsa_output.pci-0000_00_1f.3.analog-stereo
-    sink_name=alsa_output.usb-Lenovo_X1_000000000000-00.analog-stereo
-}
-
-SetSink
 
 function SetPerc() {
     echo $(pactl list sinks | grep -A 8 $sink_name | grep Volume | xargs | cut -d' ' -f5) > $percfile

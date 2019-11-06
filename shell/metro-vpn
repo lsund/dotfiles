@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+if [[ $(pgrep -u root snx > /dev/null) ]]; then
+    echo "disconnectiong..."
+    snx -d
+fi
+
+snx
