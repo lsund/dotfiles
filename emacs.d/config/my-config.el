@@ -237,6 +237,9 @@
 (setq inhibit-default-init t)
 (setq-default frame-title-format "%b (%f)")
 
+;; Do not wrap long lines by default
+(set-default 'truncate-lines nil)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Spelling
 ;;
@@ -300,6 +303,7 @@
 
 (projectile-global-mode)
 
+;; Recenter treemacs view after file and project change
 (setq treemacs-recenter-after-file-follow 'always)
 (setq treemacs-recenter-after-project-jump 'always)
 
