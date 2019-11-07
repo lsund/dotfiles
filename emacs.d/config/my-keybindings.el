@@ -31,6 +31,7 @@
 (define-key treemacs-mode-map (kbd "M-l") 'windmove-right)
 (define-key treemacs-mode-map (kbd "M-h") 'windmove-left)
 (define-key treemacs-mode-map (kbd "M-h") 'windmove-left)
+(define-key evil-treemacs-state-map  (kbd "v") 'treemacs-peek)
 (define-key evil-motion-state-map (kbd "\\") nil)
 (add-hook 'treemacs-mode-hook
           (lambda ()
