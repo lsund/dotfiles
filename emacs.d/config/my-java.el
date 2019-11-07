@@ -50,7 +50,10 @@
                 (set-keymap-parent map my-leader-map)
                 map))
             (define-key evil-normal-state-map "\\" java-leader-map)
-            (define-key java-leader-map "c" 'lsp-rename)
+            (evil-define-key 'normal java-mode-map
+              (kbd "C-c r") 'lsp-rename)
+            (evil-define-key 'normal java-mode-map
+              (kbd "C-c i") 'lsp-java-add-import)
             (define-key java-leader-map "rr" 'lsp-java-build-project)
             (define-key java-leader-map "bd" 'lsp-format-buffer)
             (evil-define-key
