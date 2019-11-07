@@ -3,5 +3,5 @@
 while true
 do
     countdown $1
-    mplayer /home/lsund/Media/audio/sounds/beep.mp3 1>& /dev/null
+    mplayer $HOME/Media/audio/sounds/beep.mp3 1>& /dev/null
 done

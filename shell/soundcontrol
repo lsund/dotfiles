@@ -3,7 +3,7 @@
 # ############################################################################
 # Config
 
-dir=/home/lsund/Data/log/sound
+dir=$HOME/Data/log/sound
 statfile=$dir/soundstat.txt
 percfile=$dir/soundperc.txt
 

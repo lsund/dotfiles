@@ -3,7 +3,7 @@
 # ############################################################################
 # Setup
 
-fifofile=/home/lsund/.mplayer/fifo
+fifofile=$HOME/.mplayer/fifo
 session_file="$HOME/.${USER}_session"
 total_session_file="$HOME/.${USER}_session_total"
 music_path=$HOME/Media/audio/music
@@ -23,12 +23,12 @@ function read_state() {
     seconds=$(cat $session_file | head -5 | tail -1)
     play_music=$(cat $session_file | head -6 | tail -1)
     total=$(cat $total_session_file)
-    mplayer_pid=$(pgrep -u lsund mplayer)
+    mplayer_pid=$(pgrep -u $USER mplayer)
 }
 
 
 function log_time() {
-    echo $(/home/lsund/Documents/dotfiles/shell/show-time $1)
+    echo $($HOME/Documents/dotfiles/shell/show-time $1)
 }
 
 
@@ -39,7 +39,7 @@ function log_working_time() {
         secs=$(calculate_seconds $seconds $(date '+%s') $continue_ts)
     fi
     log_time $secs
-    echo $(/home/lsund/Documents/dotfiles/shell/show-time $secs hm) > $timelog_file
+    echo $($HOME/Documents/dotfiles/shell/show-time $secs hm) > $timelog_file
 }
 
 function log_total_time() {

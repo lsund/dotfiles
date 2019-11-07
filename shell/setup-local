@@ -35,11 +35,11 @@ PrintSeparator "Creating some directories under $HOME"
 
 mkdir -p $HOME/{Data/log/pacman,Temp,Downloads,Shared}
 mkdir -p $HOME/{Media/audio/music,Documents/tech/repos}
-mkdir -p /home/lsund/.bin
-mkdir -p /home/lsund/.emacs-backup-files
+mkdir -p $HOME/.bin
+mkdir -p $HOME/.emacs-backup-files
 
-touch "/home/lsund/Data/log/pacman/need_sysup.txt"
-touch "/home/lsund/Data/log/pacman/pacsynccount.txt"
+touch "$HOME/Data/log/pacman/need_sysup.txt"
+touch "$HOME/Data/log/pacman/pacsynccount.txt"
 
 fontdir=$HOME/.local/share/fonts
 
@@ -122,4 +122,3 @@ sudo echo "KEYMAP=dvorak" > "/etc/vconsole.conf"
 PrintSeparator "Done. Manual steps:"
 echo "open vim and type :PlugInstall"
 echo "Set your cronjobs"
-

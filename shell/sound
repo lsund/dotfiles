@@ -1,6 +1,6 @@
 #!/bin/bash
 
-audiopath=/home/lsund/Media/audio/sounds/
+audiopath=$HOME/Media/audio/sounds/
 
 if [[ $# == 2 ]]; then
     countdown $2

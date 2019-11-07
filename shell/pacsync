@@ -2,9 +2,9 @@
 
 # Get how many available updates via pacman, store them in $file
 
-file=/home/lsund/Data/log/pacman/pacsynccount.txt
+file=$HOME/Data/log/pacman/pacsynccount.txt
 
-/home/lsund/Documents/dotfiles/shell/try-connect
+$HOME/Documents/dotfiles/shell/try-connect
 
 if [[ $? -eq 0 ]];
     then
