@@ -226,15 +226,16 @@ elif [[ $1 == "toggle-music" || $1 == "tm" ]]; then
     echo "Music is now [OFF]"
     else
         play_music="yes"
-    echo "Music is now [ON]"
-    if [[ $state == "started" ]]; then
-        find_file_to_play
-        play_file $file_to_play
-    fi
+        echo "Music is now [ON]"
+        if [[ $state == "started" ]]; then
+            find_file_to_play
+            play_file $file_to_play
+        fi
     fi
     write_state $init_ts $pause_ts $continue_ts $state $seconds $play_music
 elif [[ $1 == "lunch" ]]; then
     write_state $(($init_ts + $(serialize-time $2))) $pause_ts $continue_ts $state $seconds $play_music
+    read_state
     echo -n "Ate lunch. Total time: "
     log_total_time
 else
