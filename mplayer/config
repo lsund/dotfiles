@@ -8,4 +8,4 @@
 # hue[=hue:saturation]
 # default:0.0:1.0
 vf=hue=0.0:1.0,eq2=1.0:1.0:0.1:1.0:1.0:1.0:1.0:1.0
-input=file=$HOME.mplayer/fifo
+input=file=/home/lsund/.mplayer/fifo
