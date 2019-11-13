@@ -11,12 +11,6 @@
 
 ;;; Code:
 
-(defun push-line-down()
-  "Inserts a new line and moves one line down"
-  (interactive)
-  (back-to-indentation)
-  (newline))
-
 (defun insert-rust-comment-separator ()
   "Insert a comment separator."
   (interactive)

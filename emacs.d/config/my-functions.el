@@ -26,8 +26,10 @@
   (interactive)
   (progn
     (back-to-indentation)
-    (newline)
-    (indent-for-tab-command)))
+    (evil-insert-state)
+    (evil-ret-and-indent)
+    (indent-for-tab-command)
+    (evil-normal-state)))
 
 (defun push-line-up()
   "Insert a new line and move one line up."

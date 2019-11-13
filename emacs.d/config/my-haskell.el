@@ -17,12 +17,6 @@
 
 ;;; Code:
 
-(defun push-line-down()
-  "Inserts a new line and moves one line down"
-  (interactive)
-  (back-to-indentation)
-  (newline))
-
 ;; rainbow parenthesis
 (rainbow-delimiters-mode)
 
