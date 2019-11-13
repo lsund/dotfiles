@@ -236,7 +236,7 @@ elif [[ $1 == "toggle-music" || $1 == "tm" ]]; then
 elif [[ $1 == "lunch" ]]; then
     write_state $(($init_ts + $(serialize-time $2))) $pause_ts $continue_ts $state $seconds $play_music
     read_state
-    echo -n "Ate lunch. Total time: "
+    echo -n "Ate lunch. New total time: "
     log_total_time
 else
     if [[ $state == "paused" ]]; then
