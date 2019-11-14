@@ -1,6 +1,0 @@
-#!/bin/zsh
-
-[[ $# == 0 ]] && echo "usage: ./git-delete-branch BRANCH" && exit 1
-
-git branch -D $1
-git push --delete origin $1

@@ -36,6 +36,7 @@ alias gphm='git push heroku master'
 alias glogc='git log --graph --simplify-by-decoration --oneline --topo-order --branches'
 alias gco='git-fuzzy-checkout'
 alias gsb='git-sync-base'
+alias gdrb='git-delete-remote-branch'
 alias csvdiff='git diff --color-words="[^[:space:],]+"'
 
 function cd() {
