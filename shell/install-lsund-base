@@ -149,6 +149,8 @@ if [[ $all_packages != "" ]]; then
     sudo pacman -S $(echo "$all_packages" | xargs)
 fi
 
+## Pip installs
+sudo pip install pgcli
 # Neovim
 # install with python support
 sudo pip install neovim
