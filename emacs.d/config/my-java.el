@@ -17,6 +17,7 @@
                     lsp-mode
                     cc-mode
                     flycheck
+                    yasnippet
                     ))
 
 (add-hook 'java-mode-hook #'lsp)
@@ -56,6 +57,7 @@
               (kbd "C-c i") 'lsp-java-add-import)
             (define-key java-leader-map "rr" 'lsp-java-build-project)
             (define-key java-leader-map "bd" 'lsp-format-buffer)
+            (define-key java-leader-map "nm" 'lsp-ui-imenu)
             (evil-define-key
               'normal
               java-mode-map

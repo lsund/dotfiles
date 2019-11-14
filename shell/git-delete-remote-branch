@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+[[ $# != 1 ]] && echo "usage: ./git-delete-branch BRANCH" && exit 1
+
+vared -p "Delete branch $1 on remote server? [Y/n] " -c yn
+
+case $yn in
+    [Nn]*)
+        exit;;
+    *)
+        git push --delete origin $1;;
+esac
