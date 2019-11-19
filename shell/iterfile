@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-
 function usage () {
     echo "usage: ./iterfile FILE"
     echo "usage: ./iterfile COMMAND FILE"
@@ -8,7 +7,6 @@ function usage () {
 
 
 [[ $# != 1 && $# != 2 ]] && usage && exit
-
 
 if [[ $# == 1 ]]; then
     cmd=echo
@@ -19,5 +17,5 @@ elif [[ $# == 2 ]]; then
 fi
 
 while read p; do
-    $cmd $p
+    exec -c "$cmd $p"
 done < $file
