@@ -58,6 +58,8 @@ xscreensaver &
 
 redshift -l 51.2:6.7 -t 5500:3400 -g 0.8 -m randr &
 
+xinput --set-prop "DELL08AF:00 06CB:76AF Touchpad" "libinput Tapping Enabled" 1
+
 source ~/.bash_profile
 
 ### XMONAD
