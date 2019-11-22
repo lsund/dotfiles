@@ -1,7 +1,9 @@
 #!/bin/zsh
 
 for dir in $(ls) ; do ;
-    echo ">>> Pulling from $dir master"
+    echo
+    echo ">>> [$dir] Pulling from $dir master"
+    echo
     git -C $dir checkout master
     git -C $dir pull
 done

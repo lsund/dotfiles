@@ -3,7 +3,8 @@
 	name = Ludvig Sundström
 [core]
 	pager = less -
-	editor = /usr/bin/vim
+    editor = /usr/bin/vim
+    autocrlf = true
 [alias]
 	co = checkout
 	ci = commit

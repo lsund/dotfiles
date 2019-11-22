@@ -27,6 +27,15 @@ plugins=(
 
 autoload -U compinit && compinit -u
 
+# ###########################################################################
+# ENV
+
+export ZSH=$HOME/.oh-my-zsh
+export EDITOR='vim'
+export VISUAL='vim'
+export EXA_COLORS=$(cat $HOME/.exa-colors)
+export JAVA_HOME=/usr/lib/jvm/default
+
 export PATH="$PATH:$HOME/.perl-6-install/rakudo-star-2019.03"
 export PATH="$PATH:$HOME/.skim/bin"
 export PATH=$PATH:$HOME/.bin:/usr/local/bin
@@ -34,11 +43,6 @@ export PATH=$PATH:$HOME/Documents/dotfiles/shell
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_HOME/tools
-export EXA_COLORS=$(cat $HOME/.exa-colors)
-
-
-# ###########################################################################
-# Custom env variables
 
 export ANDROID_HOME="/opt/android-sdk"
 export ANDROID_SKD_ROOT="/opt/android-sdk"
@@ -50,14 +54,9 @@ export XML_CATALOG_FILES="${HOME}/Data/xml/catalog /etc/xml/catalog"
 export DOTFILES=$HOME/Documents/dotfiles
 export SCRIPTS=$HOME/Documents/dotfiles/shell
 
-export JAVA_HOME=/usr/lib/jvm/default
-
-export ZSH=$HOME/.oh-my-zsh
 export FZF_DEFAULT_COMMAND='fd --type f'
 
 export SSH_KEY_PATH="~/.ssh/rsa_id"
-export NNN_USE_EDITOR=1
-
 source $ZSH/oh-my-zsh.sh
 
 # Start ssh-agent
@@ -85,12 +84,6 @@ if [[ $? != "0" ]]; then
     fi
 fi
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
 
 # ssh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
