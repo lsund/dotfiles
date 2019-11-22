@@ -167,9 +167,32 @@ Repeated invocations toggle between the two most recently open buffers."
       nil
     (ivy-previous-line)))
 
+(setq frame-title-format
+      (list (format "%s %%S: %%j " (system-name))
+            '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+
+(defun show-file-name ()
+  "Show the full path file name in the minibuffer."
+  (interactive)
+  (message (buffer-file-name)))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
+
+(setq imenu-active nil)
+
+(defun my-imenu()
+  (interactive)
+  (if imenu-active
+      (progn
+        (windmove-right)
+        (kill-this-buffer)
+        (setq imenu-active nil))
+    (progn
+      (setq imenu-active t)
+      (lsp-ui-imenu)
+      (windmove-left))))
 
 (provide 'my-functions)
 ;;; my-functions.el ends here

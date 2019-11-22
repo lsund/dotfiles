@@ -11,6 +11,9 @@
 (define-key my-leader-map "n" nil)
 (define-key my-leader-map "N" nil)
 
+(global-set-key [C-f1] 'show-file-name)
+(global-set-key [C-f2] 'test)
+
 ;; Navigate Buffer
 (define-key evil-visual-state-map (kbd "J") 'myevil-next-visual-line)
 (define-key evil-visual-state-map (kbd "K") 'myevil-prev-visual-line)
@@ -27,7 +30,7 @@
 (define-key my-leader-map "o" 'ido-find-file)
 (define-key my-leader-map "nn" 'treemacs)
 (define-key my-leader-map "na" 'treemacs-add-and-display-current-project)
-(define-key my-leader-map "nt" 'lsp-ui-imenu)
+(define-key my-leader-map "nt" 'my-imenu)
 (define-key my-leader-map "nr" 'treemacs-remove-project-from-workspace)
 (define-key treemacs-mode-map (kbd "M-l") 'windmove-right)
 (define-key treemacs-mode-map (kbd "M-h") 'windmove-left)
