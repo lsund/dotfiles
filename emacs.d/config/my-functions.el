@@ -180,17 +180,18 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
 
-(setq imenu-active nil)
-
-(defun my-imenu()
+(defun my-imenu-refresh()
   (interactive)
-  (if imenu-active
+  (lsp-ui-imenu)
+  (windmove-left))
+
+(defun my-imenu-toggle()
+  (interactive)
+  (if (get-buffer "*lsp-ui-imenu*")
       (progn
         (windmove-right)
-        (kill-this-buffer)
-        (setq imenu-active nil))
+        (kill-this-buffer))
     (progn
-      (setq imenu-active t)
       (lsp-ui-imenu)
       (windmove-left))))
 

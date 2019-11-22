@@ -46,6 +46,7 @@
                     linum-relative
                     powerline
                     airline-themes
+                    origami
 
                     ;; Other
                     flycheck
