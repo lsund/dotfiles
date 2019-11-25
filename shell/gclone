@@ -1,11 +1,15 @@
 #!/bin/zsh
 
-if [[ $1 == "--gitlab" ]]; then
-    git clone git@gitlab.com:/$2/$3
-elif [[ $1 == "--metro" ]]; then
-    git clone git@git.metrosystems.net:/$2/$3
-else
+if [[ $# == 1 ]]; then
+    user=$(echo $1 | cut -d'/' -f4)
+    repo=$(echo $1 | cut -d'/' -f5)
+    git clone git@github.com:/$user/$repo
+elif [[ $# == 2 ]]; then
     git clone git@github.com:/$1/$2
+elif [[ $# == 3 ]]; then
+    if [[ $1 == "--gitlab" ]]; then
+        git clone git@gitlab.com:/$2/$3
+    elif [[ $1 == "--metro" ]]; then
+        git clone git@git.metrosystems.net:/$2/$3
+    fi
 fi
-
-
