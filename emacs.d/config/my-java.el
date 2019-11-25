@@ -27,6 +27,17 @@
             (interactive)
             (setq lsp-java-autobuild-enabled nil)
             (setq lsp-java-format-settings-url "/home/lsund/.eclipse-formatspec.xml")
+            (setq path-to-lombok "/home/lsund/.m2/repository/org/projectlombok/lombok/1.18.10/lombok-1.18.10.jar")
+            (setq lsp-java-vmargs
+                  `("-noverify"
+                    "-Xmx1G"
+                    "-XX:+UseG1GC"
+                    "-XX:+UseStringDeduplication"
+                    ,(concat "-javaagent:" path-to-lombok)
+                    ;; ,(concat "-Xbootclasspath/a:" path-to-lombok)
+                    )
+                  )
+
             (diminish 'yas-global-mode)
             (push 'company-lsp company-backends)
             (editorconfig-mode 1)
