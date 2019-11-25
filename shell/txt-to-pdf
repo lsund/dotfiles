@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+woext=$(without-extension $1)
+
+enscript --header='' -p $woext.ps $1
+ps2pdf $woext.ps $woext.pdf
+trash $woext.ps
