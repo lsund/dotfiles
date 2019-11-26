@@ -1,12 +1,11 @@
 #!/bin/zsh
 
-branch=master
-
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 WHITE='\033[0m'
 unclean_repos=""
 for dir in $(ls) ; do
+    branch=$(git -C $dir branch | grep \* | cut -d ' ' -f2)
     echo
     echo "[$dir] Trying to pull from $branch"
     echo
