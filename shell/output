@@ -15,7 +15,7 @@ elif [[ $# == 2 ]]; then
     if [[ $2 == off ]]; then
         xrandr --output $1 --off
     else
-        xrandr --output $1 $2
+        xrandr --output $1 --mode $2
     fi
 fi
 

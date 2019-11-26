@@ -8,5 +8,5 @@ mode=$(echo $modeline | cut -d'"' -f2)
 
 echo "Adding mode: $mode to $3"
 
-xrandr --newmode $modeline
+xrandr --newmode $(echo $modeline | xargs)
 xrandr --addmode $3 $mode
