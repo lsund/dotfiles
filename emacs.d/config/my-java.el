@@ -38,7 +38,12 @@
                     )
                   )
 
-            (diminish 'yas-global-mode)
+            (diminish 'yas-minor-mode)
+            (diminish 'lsp-mode)
+            (diminish 'lsp-ui-mode)
+            (diminish 'editorconfig-mode)
+            (diminish 'editorconfig-conf-mode)
+            (diminish 'abbrev-mode)
             (push 'company-lsp company-backends)
             (editorconfig-mode 1)
             (setq-default tab-width 4)

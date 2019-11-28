@@ -10,7 +10,6 @@ for dir in $(ls) ; do
     echo "[$dir] Trying to pull from $branch"
     echo
     if [ -z "$(git -C $dir status --porcelain)" ]; then
-        git -C $dir checkout $branch
         git -C $dir pull
         echo
         echo "${GREEN}OK${WHITE}"
