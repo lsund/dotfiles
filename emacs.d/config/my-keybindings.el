@@ -138,7 +138,15 @@
 (define-key my-leader-map "aa" (lambda ()
                                  (interactive)
                                  (counsel-ag "")))
-
+(define-key my-leader-map "aw" (lambda ()
+                                 (interactive)
+                                 (counsel-ag "" nil "-w")))
+(define-key my-leader-map "ak" (lambda ()
+                                 (interactive)
+                                 (counsel-ag (thing-at-point 'symbol))))
+(define-key my-leader-map "aK" (lambda ()
+                                 (interactive)
+                                 (counsel-ag (thing-at-point 'symbol) nil "-w")))
 ;; Align after regex
 (define-key evil-visual-state-map (kbd "M-a") 'align-regexp)
 
