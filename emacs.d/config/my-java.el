@@ -12,6 +12,7 @@
                     use-package
                     company-lsp
                     editorconfig
+                    dap-mode
                     lsp-ui
                     lsp-treemacs
                     lsp-mode
@@ -19,6 +20,8 @@
                     flycheck
                     yasnippet
                     ))
+
+(require 'dap-java)
 
 (add-hook 'java-mode-hook #'lsp)
 
@@ -83,3 +86,9 @@
 (add-hook 'java-mode-hook 'flycheck-mode)
 
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+(add-hook 'lsp-mode-hook 'dap-mode)
+
+(add-hook 'dap-mode-hook 'dap-ui-mode)
+
+
+;; (use-package dap-java :after (lsp-java))
