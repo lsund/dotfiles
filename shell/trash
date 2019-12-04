@@ -25,6 +25,8 @@ fi
 
 mkdir -p $base_trashdir/{1K,1M,100M,200M,1G}
 
+removed=true
+
 # ############################################################################
 # Functions
 
@@ -136,7 +138,6 @@ function RemoveDirs () {
 
 
 function PrintStats {
-    warning_kilo_bytes=5000
 
     bytes=$(sudo du -s $base_trashdir)
     number=$(echo $bytes | cut -d'/' -f1 | xargs)
@@ -153,7 +154,7 @@ function PrintStats {
         number=$(expr $number / 1000)
     fi
 
-    echo "$n_files files ~ $(echo $number | xargs) $unit"
+    echo ">>> $n_files files ~ $(echo $number | xargs) $unit"
 
 }
 
@@ -173,43 +174,44 @@ elif [[ $1 == "--help" || $1 == "-h" ]]; then
 fi
 
 
-removed=true
-for var in "$@"
-    do
-        basevar=$(basename "$var")
-        if [[ ${basevar:0:1} == "." ]]; then
-            len=${#basevar}
-            basevar=${basevar:1:$len}
-        fi
-        removed=true
-        if [[ -e "$var" ]]; then
-
-            SetTrashdir $var
-
-            # Counts the already existing copies of files/directories named
-            # $var in the below directories
-            max=0
-            CountIdentical $trashdir $var
-
-            sudo mv $var $trashdir/$basevar-trashed-$(( $max + 1 ))
-
-            if [[ $? == 1 ]]; then
-                echo "Error. Please fix it"
-                exit 1
+if [[ $# > 0 ]]; then
+    for var in "$@"
+        do
+            basevar=$(basename "$var")
+            if [[ ${basevar:0:1} == "." ]]; then
+                len=${#basevar}
+                basevar=${basevar:1:$len}
             fi
-            echo "trash: $var --> $trashdir"
-        elif
-            [[ -L "$var" ]]; then
-            $real_remove $var
-            echo "Removed symbolic link."
-        else
-            removed=false
-            echo "trash: no such file or directory: $var"
-        fi
-done
+            removed=true
+            if [[ -e "$var" ]]; then
 
-[[ $removed == false ]] && exit 0;
+                SetTrashdir $var
 
-echo
+                # Counts the already existing copies of files/directories named
+                # $var in the below directories
+                max=0
+                CountIdentical $trashdir $var
+
+                sudo mv $var $trashdir/$basevar-trashed-$(( $max + 1 ))
+
+                if [[ $? == 1 ]]; then
+                    echo "Error. Please fix it"
+                    exit 1
+                fi
+                echo "$var --> $trashdir"
+            elif
+                [[ -L "$var" ]]; then
+                $real_remove $var
+                echo "Removed symbolic link."
+            else
+                removed=false
+                echo "trash: no such file or directory: $var"
+            fi
+    done
+
+    [[ $removed == false ]] && exit 0;
+
+    echo
+fi
 
 PrintStats
