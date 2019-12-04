@@ -157,5 +157,8 @@ Plug 'jeroenp/vim-xquery-syntax'
 " XML editing
 Plug 'sukima/xmledit'
 
+" Dhall editing
+Plug 'vmchale/dhall-vim'
+
 " call vundle#end()
 call plug#end()

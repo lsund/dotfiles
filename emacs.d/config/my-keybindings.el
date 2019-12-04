@@ -140,7 +140,7 @@
 (define-key my-leader-map "aa" (lambda ()
                                  (interactive)
                                  (counsel-ag "")))
-(define-key my-leader-map "aw" (lambda ()
+(define-key my-leader-map "aA" (lambda ()
                                  (interactive)
                                  (counsel-ag "" nil "-w")))
 (define-key my-leader-map "ak" (lambda ()
