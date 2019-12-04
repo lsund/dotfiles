@@ -87,10 +87,7 @@ function RemoveFiles () {
     fi
     echo
     echo
-    left=$(( n - 7 ))
-    if [[ $left -lt 0 ]]; then
-        left=0
-    fi
+    left=$(fd -H -t f . $base_trashdir | wc -l)
     echo "Done. $left files left"
     echo
     echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "
@@ -100,7 +97,7 @@ function RemoveFiles () {
 }
 
 function RemoveDirs () {
-    all_files=$(fd -H -d 3 . $base_trashdir \
+    all_files=$(fd -H -d 2 . $base_trashdir \
         | sed '/^\/home\/lsund\/.trash\/200M$/d' \
         | sed '/^\/home\/lsund\/.trash\/100M$/d' \
         | sed '/^\/home\/lsund\/.trash\/1G$/d' \
@@ -128,10 +125,7 @@ function RemoveDirs () {
     fi
     echo
     echo
-    left=$(( n - 7 ))
-    if [[ $left -lt 0 ]]; then
-        left=0
-    fi
+    left=$(fd -H -t f . $base_trashdir | wc -l)
     echo "Done. $left files left"
     echo
     echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "
@@ -147,7 +141,7 @@ function PrintStats {
     bytes=$(sudo du -s $base_trashdir)
     number=$(echo $bytes | cut -d'/' -f1 | xargs)
 
-    n_files=$(fd -H -t f -d 2 . $base_trashdir | wc -l)
+    n_files=$(fd -H -t f . $base_trashdir | wc -l)
 
     unit="KB"
     if [[ "$number" -gt "1000" ]]; then
@@ -218,7 +212,4 @@ done
 
 echo
 
-
 PrintStats
-
-
