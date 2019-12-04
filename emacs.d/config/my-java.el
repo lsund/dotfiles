@@ -74,6 +74,8 @@
               (kbd "C-c r") 'lsp-rename)
             (evil-define-key 'normal java-mode-map
               (kbd "C-c i") 'lsp-java-add-import)
+            (evil-define-key 'normal java-mode-map
+              (kbd "C-c c") 'lsp-execute-code-action)
             (define-key java-leader-map "rr" 'lsp-java-build-project)
             (define-key java-leader-map "bd" 'lsp-format-buffer)
             (define-key java-leader-map "nm" 'lsp-ui-imenu)
