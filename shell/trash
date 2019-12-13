@@ -139,22 +139,11 @@ function RemoveDirs () {
 
 function PrintStats {
 
-    bytes=$(sudo du -s $base_trashdir)
-    number=$(echo $bytes | cut -d'/' -f1 | xargs)
-
     n_files=$(fd -H -t f . $base_trashdir | wc -l)
 
     unit="KB"
-    if [[ "$number" -gt "1000" ]]; then
-        unit="MB"
-        number=$(expr $number / 1000)
-    fi
-    if [[ "$number" -gt "1000" ]]; then
-        unit="GB"
-        number=$(expr $number / 1000)
-    fi
 
-    echo ">>> $n_files files ~ $(echo $number | xargs) $unit"
+    echo ">>> $n_files files"
 
 }
 
