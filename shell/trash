@@ -156,15 +156,16 @@ if [[ $1 == "--remove" ]]; then
     RemoveFiles
     RemoveDirs
     exit 0
+elif [[ $1 == "--stats" ]]; then
+    PrintStats
+    exit 0
 elif [[ $1 == "--help" || $1 == "-h" ]]; then
     echo "Usage: ./trash [FILES]"
     echo "Usage: ./trash --remove"
     exit 0
-fi
-
-
-if [[ $# > 0 ]]; then
-    for var in "$@"
+else
+    if [[ $# > 0 ]]; then
+        for var in "$@"
         do
             basevar=$(basename "$var")
             if [[ ${basevar:0:1} == "." ]]; then
@@ -196,11 +197,13 @@ if [[ $# > 0 ]]; then
                 removed=false
                 echo "trash: no such file or directory: $var"
             fi
-    done
+        done
 
-    [[ $removed == false ]] && exit 0;
+        [[ $removed == false ]] && exit 0;
 
-    echo
+        echo
+    fi
+    echo "Done."
 fi
 
-PrintStats
+
