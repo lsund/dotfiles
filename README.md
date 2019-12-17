@@ -2,8 +2,9 @@
 
 My dotfiles used on Arch Linux. Highlights:
 
-* Sensible vim and Emacs (evil mode) configuration
-* More than a few utility scripts
-* Xmonad configuration
+* Configuration for Vim, Emacs and Xmonad
+* Utility scripts in `./shell`
 
-Each file (not the shell scripts) in this directory becomes a dotfile in your home directory by calling `shell/install-symlinks`.
+## Install
+
+`./shell/install-symlinks` links each configuration file in this directory to a dotfile in your home directory.
