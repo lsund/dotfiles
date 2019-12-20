@@ -200,10 +200,7 @@ else
         done
 
         [[ $removed == false ]] && exit 0;
-
-        echo
     fi
-    echo "Done."
 fi
 
 
