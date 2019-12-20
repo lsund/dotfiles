@@ -37,6 +37,8 @@ PKGS: The list of packages."
 (add-to-list 'load-path "/home/lsund/Documents/dotfiles/emacs/config")
 (add-to-list 'load-path "/home/lsund/Documents/dotfiles/emacs")
 
+(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
+
 (require 'my-config)
 
 ;; Local Variables

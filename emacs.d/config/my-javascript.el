@@ -14,8 +14,6 @@
                     rjsx-mode
                     ))
 
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
@@ -23,6 +21,8 @@
 (add-hook 'js2-mode-hook
           (lambda ()
             (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+(add-hook 'rjsx-mode-hook #'origami-mode)
 
 ;; (js2r-add-keybindings-with-prefix "C-c C-r")
 

@@ -195,5 +195,11 @@ Repeated invocations toggle between the two most recently open buffers."
       (lsp-ui-imenu)
       (windmove-left))))
 
+(defun json-format ()
+  (interactive)
+  (save-excursion
+    (mark-whole-buffer)
+    (shell-command-on-region (mark) (point) "python -m json.tool" (buffer-name) t)))
+
 (provide 'my-functions)
 ;;; my-functions.el ends here
