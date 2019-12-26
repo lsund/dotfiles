@@ -12,6 +12,10 @@ call plug#begin('~/.vim/plugged')
 "  Colors
 Plug 'flazz/vim-colorschemes'
 
+"
+" Yanked highlightning
+Plug 'machakann/vim-highlightedyank'
+
 Plug 'ayu-theme/ayu-vim'
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'frankier/neovim-colors-solarized-truecolor-only'

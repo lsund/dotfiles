@@ -28,6 +28,9 @@
 	    (sp-pair "'" nil :actions :rem)
 	    (smartparens-mode)
 
+            (define-key smartparens-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+            (define-key smartparens-mode-map (kbd "M-r") 'sp-raise-sexp)
+
             (defvar elisp-leader-map
 	      (let ((map (make-sparse-keymap)))
 

@@ -47,6 +47,7 @@
                     powerline
                     airline-themes
                     origami
+                    evil-goggles
 
                     ;; Other
                     flycheck
@@ -77,6 +78,11 @@
 (ivy-mode)
 (ido-mode 1)
 
+(evil-goggles-mode 1)
+(evil-goggles-use-diff-faces)
+
+(setq evil-goggles-blocking-duration 0.100) ;; "before" overlays
+(setq evil-goggles-async-duration 2.00) ;; "after" overlays
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General Settings
 

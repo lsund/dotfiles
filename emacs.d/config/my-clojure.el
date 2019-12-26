@@ -16,6 +16,7 @@
                     flycheck-clj-kondo
                     clojure-mode
                     clj-refactor
+                    evil-cleverparens
                     cider))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
