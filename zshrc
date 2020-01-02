@@ -36,6 +36,7 @@ export VISUAL='vim'
 export EXA_COLORS=$(cat $HOME/.exa-colors)
 export JAVA_HOME=/usr/lib/jvm/default
 
+export PATH="$PATH:/usr/local/lib/node/bin"
 export PATH="$PATH:$HOME/.perl-6-install/rakudo-star-2019.03"
 export PATH="$PATH:$HOME/.skim/bin"
 export PATH=$PATH:$HOME/.bin:/usr/local/bin
