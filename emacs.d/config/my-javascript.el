@@ -24,6 +24,17 @@
 
 (add-hook 'rjsx-mode-hook #'origami-mode)
 
+(add-hook 'rjsx-mode-hook
+          (lambda ()
+            (interactive)
+            (defvar javascript-leader-map
+              (let ((map (make-sparse-keymap)))
+                (set-keymap-parent map my-leader-map)
+                map))
+            (define-key evil-normal-state-map "\\" javascript-leader-map)
+            (define-key javascript-leader-map "bd" 'iwb)))
+
+
 ;; (js2r-add-keybindings-with-prefix "C-c C-r")
 
 ;; (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
