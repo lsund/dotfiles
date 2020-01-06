@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(provide 'my-java)
+(provide 'my-javascript)
 
 (require-packages '(js2-mode
                     js2-refactor

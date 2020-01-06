@@ -330,6 +330,7 @@
 (require 'my-xml)
 (require 'my-scala)
 (require 'my-java)
+(require 'my-javascript)
 
 (provide 'my-config)
 
