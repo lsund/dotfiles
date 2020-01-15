@@ -83,6 +83,8 @@
 
 (setq evil-goggles-blocking-duration 0.100) ;; "before" overlays
 (setq evil-goggles-async-duration 2.00) ;; "after" overlays
+
+(origami-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General Settings
 

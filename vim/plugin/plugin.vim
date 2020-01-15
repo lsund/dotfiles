@@ -34,6 +34,7 @@ Plug 'Valloric/YouCompleteMe'
 "
 "  Syntax checker
 Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 "
 " Fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -163,6 +164,13 @@ Plug 'sukima/xmledit'
 
 " Dhall editing
 Plug 'vmchale/dhall-vim'
+
+" Javascript
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'mattn/emmet-vim'
+
+Plug 'skywind3000/asyncrun.vim'
 
 " call vundle#end()
 call plug#end()

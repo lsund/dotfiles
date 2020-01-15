@@ -23,23 +23,6 @@ au FileType clojure nmap <leader>B <Plug>BreakLineAndIndent
 au FileType clojure nmap gce :call CommentElement()<CR>
 au FileType clojure nmap gcl :call CommentList()<CR>
 
-"  Make sure CljFmt does not f**k up cursor position
-" au FileType clojure autocmd BufWritePost * call ClojureWrite()
-" nnoremap u :call ClojureUndo()<CR>
-" au FileType clojure nmap <C-R> :call ClojureRedo()<CR>
-
-" let g:saved_cursor_pos = getpos('.')
-
-" function! ClojureWrite()
-"     silent! undojoin | :Cljfmt
-"     let g:saved_cursor_pos = getpos('.')
-" endfunction
-
-" function! ClojureRedo()
-"     redo
-"     call setpos('.', g:saved_cursor_pos)
-" endfunction
-
 function! CommentElement()
     normal B
     let l:symb = matchstr(getline('.'), '\%' . col('.') . 'c.')
