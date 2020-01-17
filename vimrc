@@ -11,3 +11,9 @@ au BufRead /tmp/mutt-* set tw=72
 au BufRead /tmp/mutt-* call clearmatches()
 
 let g:user_emmet_leader_key='<Tab>'
+
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}

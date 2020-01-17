@@ -1,9 +1,3 @@
-"  -----------------------------------------------------------------------------
-"  Vundle
-" set rtp+=~/.vim/bundle/Vundle.vim
-" call vundle#begin()
-" Plug 'VundleVim/Vundle.vim'
-"
 filetype off
 
 " Vim-plug
@@ -12,7 +6,6 @@ call plug#begin('~/.vim/plugged')
 "  Colors
 Plug 'flazz/vim-colorschemes'
 
-"
 " Yanked highlightning
 Plug 'machakann/vim-highlightedyank'
 
@@ -101,43 +94,18 @@ Plug 'mpickering/hlint-refactor-vim'
 "
 "  Syntax highlightning for haskell
 Plug 'neovimhaskell/haskell-vim'
-"
+
 "  Syntax hightlightning for purescript
 Plug 'michaelficarra/purescript-vim'
-"
-"  Automatic Indentation
 
-" Plug 'owickstrom/neovim-ghci'
-
+" Intero
 Plug 'parsonsmatt/intero-neovim'
 
 " Live repl, dynamic expression evaluation
 Plug 'tpope/vim-fireplace'
-"
-" Static vim support for Leiningen (and boot)
-" Plug 'tpope/vim-salve'
-"
-" Needed by vim-salve
-Plug 'tpope/vim-dispatch'
-"
+
 Plug 'tpope/vim-projectionist'
-"
-" Editing S-expressions (Forked)
-" Plug 'lsund/vim-sexp'
-" Plug 'guns/vim-sexp'
-"
-" Linter (Not clojurescript)
-" Plug 'venantius/vim-eastwood'
-"
-" Runtime files
-" Plug 'guns/vim-clojure-static'
-"
-" Syntax highlighting
-" Plug 'guns/vim-clojure-highlight'
-"
-" Formatting
-" Plug 'venantius/vim-cljfmt'
-"
+
 " Error checking, formatting, integration
 Plug 'rust-lang/rust.vim'
 

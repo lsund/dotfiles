@@ -92,8 +92,7 @@ nnoremap <leader>nh :nohlsearch<CR>
 vmap <leader>icn :I<CR>
 vmap <leader>ica :IA<CR>
 
-nnoremap <leader>ag :Ack <cword> <CR>
-nnoremap <leader>Ag :Ack -l <cword> <CR>
+nnoremap <leader>aa :Rg<CR>
 
 autocmd FileType qf nnoremap <buffer> O <Enter> :call DeleteEmptyBuffers()<CR>
 
