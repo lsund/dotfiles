@@ -16,3 +16,13 @@ function fuzzy-git-branch
     fi
 }
 zle -N fuzzy-git-branch
+
+
+function fuzzy-file
+{
+    local file
+
+    file=$(find | fzf)
+    LBUFFER="${LBUFFER}$file"
+}
+zle -N fuzzy-file

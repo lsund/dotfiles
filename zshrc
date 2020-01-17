@@ -93,3 +93,4 @@ fi
 . $HOME/.zsh_widgets
 
 bindkey '^o^o' fuzzy-git-branch
+bindkey '^z^z' fuzzy-file
