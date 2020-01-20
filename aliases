@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+alias pbcopy='xsel --clipboard --input'
 alias cat='bat --theme zenburn'
 alias ls='exa -lu --time-style long-iso --color always'
 alias la='exa -lau --time-style long-iso --color always'

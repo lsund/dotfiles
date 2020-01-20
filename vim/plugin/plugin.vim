@@ -26,8 +26,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Valloric/YouCompleteMe'
 "
 "  Syntax checker
-Plug 'scrooloose/syntastic'
-Plug 'w0rp/ale'
+" Plug 'scrooloose/syntastic'
+Plug 'dense-analysis/ale'
 "
 " Fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
