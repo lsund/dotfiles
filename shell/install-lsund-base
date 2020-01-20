@@ -54,6 +54,7 @@ declare -a packages=(
                      "xorg-fonts-misc"
                      "xorg-fonts-type1"
                      "dos2unix"
+                     "light-git"
                      "lsb-release"
                      "lsof"
                      "postgresql"
@@ -142,6 +143,8 @@ do
     pacman -Qi $package > /dev/null
     if [[ $? == "1" ]]; then
         all_packages="$all_packages $package"
+    else
+        echo "Warning: could not find package $package"
     fi
 done
 
