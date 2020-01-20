@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+
+if [[ $# == 2 ]]; then
+    git diff $1 -- . ":(exclude)./$2"
+elif [[ $# == 1 ]]; then
+    git diff $1
+elif [[ $# == 0 ]]; then
+    git diff
+else
+    echo 'usage: ./git-diff [HASH] [IGNORE_FILE]'
+fi

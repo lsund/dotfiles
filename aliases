@@ -32,11 +32,15 @@ alias my-ip="curl -s checkip.dyndns.org | \
 alias rshift='redshift -l 51.2:6.7 -t 5500:3400 -g 0.8 -m randr &'
 
 # Git
+
+unalias gd
+
 alias cdgr='source $HOME/Documents/dotfiles/shell/cd-git-root'
 alias gphm='git push heroku master'
 alias glogc='git log --graph --simplify-by-decoration --oneline --topo-order --branches'
 alias gsb='git-sync-base'
 alias gdrb='git-delete-remote-branch'
+alias gd='git-diff'
 alias gsst='git status -s'
 alias csvdiff='git diff --color-words="[^[:space:],]+"'
 

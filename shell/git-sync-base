@@ -6,7 +6,7 @@ if [[ $# != 0 && $# != 1 ]]; then
     exit
 fi
 
-base="integration"
+base="master"
 head=$(git rev-parse --abbrev-ref HEAD)
 
 echo ">> git checkout $base <<"
