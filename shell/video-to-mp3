@@ -11,6 +11,7 @@
 youtube=false
 outfile=false
 inffile=false
+keep_video=false
 
 
 # ############################################################################
@@ -21,7 +22,7 @@ function usage() {
 cat << EOF
 USAGE:
 
-   video-to-mp3 [ -hiou ]
+   video-to-mp3 [ -hiouk ]
 
 OPTIONS:
 
@@ -29,6 +30,7 @@ OPTIONS:
    -i : specify input file
    -o : specify output file
    -u : specify youtube-url to download and convert
+   -k : keep video file
 
 EOF
 }
@@ -38,7 +40,7 @@ EOF
 # Get flag options
 
 nflags=0
-while getopts "hu:o:i:" opt; do
+while getopts "khu:o:i:" opt; do
     nflags=$(( $nflags + 1 ))
     case "$opt" in
         u)
@@ -52,6 +54,9 @@ while getopts "hu:o:i:" opt; do
         i)
             infile_name="$OPTARG"
             infile=true
+            ;;
+        k)
+            keep_video=true
             ;;
         h)
             usage && exit 0
@@ -72,7 +77,9 @@ if [[ $youtube == true && $outfile == true ]]; then
     noext_name=$(without-extension $outfile_name)
     videofile=$(ls $outfile_name*)
     ffmpeg -i $outfile_name* -vn -ar 44100 -ac 2 -ab 192k -f mp3 $noext_name.mp3
-    trash $videofile
+    if [[ ! keep_video ]]; then
+        trash $videofile
+    fi
 
 elif [[ $youtube == true && $outfile == false ]]; then
 
@@ -83,6 +90,8 @@ elif [[ $youtube == true && $outfile == false ]]; then
 
 elif [[ $youtube == false && $outfile == true ]]; then
 
+    noext_name=$(without-extension $outfile_name)
+    videofile=$(ls $outfile_name*)
     [[ $infile == false ]] && echo "Must provide an infile with -i" && exit 1
     ffmpeg -i $infile_name -vn -ar 44100 -ac 2 -ab 192k -f mp3 $noext_name.mp3
 
