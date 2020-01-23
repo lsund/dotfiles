@@ -2,9 +2,7 @@
 au Filetype tex nnoremap <leader>rr :w \| :call CompileLatex()<CR>
 au Filetype plaintex nnoremap <leader>rr :w \| :call CompileLatex()<CR>
 
-" Disable syntastic on startup
-au Filetype plaintex :SyntasticToggleMode
-au Filetype tex :SyntasticToggleMode
+let b:ale_linters = {'tex': [''], 'plaintex': ['']}
 
 autocmd FileType plaintex :let g:format_paragraph=0
 autocmd FileType tex :let g:format_paragraph=0
