@@ -97,3 +97,5 @@ nnoremap <leader>aa :Rg<CR>
 autocmd FileType qf nnoremap <buffer> O <Enter> :call DeleteEmptyBuffers()<CR>
 
 autocmd FileType qf nnoremap <buffer> <leader>\| <C-w><Enter><C-w>L :call DeleteEmptyBuffers()<CR>
+
+nmap gbl :Gblame<CR>
