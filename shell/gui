@@ -10,6 +10,7 @@
 imgprogram=ristretto
 officeprogram=libreoffice
 pdfprogram=zathura
+mediaprogram=mplayer
 
 case $1 in
     "eclipse")
@@ -105,6 +106,10 @@ case $ext in
     "doc")
         program=$(which $officeprogram)
         [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
+    "mkv")
+        program=$(which $mediaprogram)
+        [[ $? == "1" ]] && echo "$mediaprogram is not installed" && exit 1
         ;;
     *)
         echo "Unknown extension: $ext" && exit 1
