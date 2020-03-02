@@ -5,7 +5,7 @@
 import Control.Applicative
 import Control.Concurrent
 import Control.Exception as E
-import Data.List.Split (splitOn)
+-- import Data.List.Split (splitOn)
 import Data.Monoid
 import Graphics.X11.Xinerama
 import System.IO
@@ -100,7 +100,7 @@ myFloaName = "Float"
 myStartupHook =
   setDefaultCursor xC_left_ptr <+>
   spawn ("feh --bg-max " <> backgroundImage <> " &") <+>
-  spawn ("/usr/bin/killall" <> (last . splitOn "/") cpuUsagePath) <+>
+  -- spawn ("/usr/bin/killall" <> (last . splitOn "/") cpuUsagePath) <+>
   liftIO (threadDelay 1000000) <+>
   spawn "xrandr --output DVI-I-1 --right-of HDMI-0 --output HDMI-0 --primary" <+>
   spawn (cpuUsagePath <> " 5") <+> (startTimer 1 >>= XS.put . TID)
