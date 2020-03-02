@@ -38,3 +38,5 @@ map N search backward
 map <Right> navigate next
 map <Left> navigate previous
 
+map <Up> navigate next
+map <Down> navigate previous
