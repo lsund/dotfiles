@@ -77,7 +77,7 @@ if [[ $youtube == true && $outfile == true ]]; then
     noext_name=$(without-extension $outfile_name)
     videofile=$(ls $outfile_name*)
     ffmpeg -i $outfile_name* -vn -ar 44100 -ac 2 -ab 192k -f mp3 $noext_name.mp3
-    if [[ ! keep_video ]]; then
+    if [[ keep_video == "false" ]]; then
         trash $videofile
     fi
 
