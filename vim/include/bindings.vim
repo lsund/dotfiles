@@ -73,6 +73,7 @@ nmap <leader>< :wall<CR>
 " Open file
 nmap <leader>o :args<space>
 nmap <leader>e <C-p>
+nmap <leader>E :Files<space>
 
 " Edit history
 map <leader>c q:

@@ -89,9 +89,6 @@ Plug 'neomake/neomake'
 " Bindings for hlint automatic application
 Plug 'mpickering/hlint-refactor-vim'
 "
-"  Direct access to hoogle
-" Plug 'Twinside/vim-hoogle'
-"
 "  Syntax highlightning for haskell
 Plug 'neovimhaskell/haskell-vim'
 
@@ -109,19 +106,14 @@ Plug 'tpope/vim-projectionist'
 " Error checking, formatting, integration
 Plug 'rust-lang/rust.vim'
 
-" Syntax highlightning, indentation, completion etc
+" Elm elm
 Plug 'ElmCast/elm-vim'
-"
-" For compilation, evaluation, repl
 Plug 'lambdatoast/elm.vim'
 
 " background compilation, completion, indentation, highlightning...
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 
-" markdown
-" Plug 'plasticboy/vim-markdown'
-" Plug 'nelstrom/vim-markdown-folding'
-
+" Markdown markdown
 Plug 'tpope/vim-markdown'
 
 " XQuery
@@ -136,6 +128,8 @@ Plug 'vmchale/dhall-vim'
 " Javascript
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+
+" Html
 Plug 'mattn/emmet-vim'
 
 Plug 'skywind3000/asyncrun.vim'
