@@ -273,14 +273,20 @@ _totMemKb x = read (words x !! 1) :: Int
 
 myRamL =
   dzenBoxStyleL blue2BoxPP (labelL "mem") ++!
-  dzenBoxStyleL white2BBoxPP (ramUsage [freeBMemUsage])
+  dzenBoxStyleL white2BBoxPP (ramUsage freeBMemUsage)
   where
     freeBMemUsage x =
       let free = fromIntegral $ _availMemKb x
           tot = fromIntegral $ _totMemKb x
           left = tot - free
-          percLeft = (left / tot) * 100
-       in show (roundN percLeft 1) ++ "%"
+          percUsed = (left / tot) * 100
+          res = show (roundN percUsed 1) ++ "%"
+       in
+         if roundN percUsed 1 > 90 then
+            (res, "red")
+         else
+            (res, "white")
+
 
 myMemL =
   dzenBoxStyleL blue2BoxPP (labelL "disk") ++!
@@ -418,10 +424,25 @@ wifiPerc = fileToLogger format "N/A" "/proc/net/wireless"
         then initNotNull (words (lines x !! 2) !! 2) ++ "%"
         else "Off"
 
-ramUsage :: [String -> String] -> Logger
-ramUsage xs = initL $ concatWithSpaceL $ map funct xs
+ramUsage :: (String -> (String, String)) -> Logger
+ramUsage f = initL $ concatWithSpaceL [funct f]
   where
-    funct x = fileToLogger x "N/A" "/proc/meminfo"
+    funct g =
+      let color "red" = colorRed
+          color _ = colorWhite
+          format x =
+                let (res, c) = g x
+                in "^fg(" ++ color c ++ ")" ++ res ++ "^fg()"
+      in fileToLogger format "N/A" "/proc/meminfo"
+
+-- batPercent hostname v = do
+--   status <- fileToLogger id "N/A" "/sys/class/power_supply/BAT0/status"
+--   let color (Just "Charging") x = colorBlue
+--       color (Just "Discharging") x
+--         | (read x :: Int) < v = colorRed
+--       color _ _ = colorWhite
+--       format x = "^fg(" ++ color status x ++ ")" ++ x ++ "%^fg()"
+--   fileToLogger format "N/A" "/sys/class/power_supply/BAT0/capacity"
 
 memUsage :: Logger
 memUsage = fileToLogger id "N/A" (logpath ++ "store/disk.txt")
