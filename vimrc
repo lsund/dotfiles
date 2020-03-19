@@ -17,3 +17,7 @@ let g:user_emmet_settings = {
     \      'extends' : 'jsx',
     \  },
   \}
+
+let g:ale_linters = {
+            \ 'haskell': [''],
+            \ }
