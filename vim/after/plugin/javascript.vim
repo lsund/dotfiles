@@ -15,3 +15,5 @@ let g:ale_fixers = {
  \ 'javascript.jsx': ['prettier'],
  \ 'jsx': ['prettier']
  \ }
+
+au FileType javascript map <leader>ii i///////////////////////////////////////////////////////////////////////////////<CR><space>

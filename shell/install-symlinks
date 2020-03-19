@@ -2,7 +2,7 @@
 
 base_dir=$HOME/Documents/dotfiles
 
-declare -a ignore=("fonts" "shell" "plugged" "readme.md" "xorg")
+declare -a ignore=("fonts" "shell" "readme.md" "xorg")
 
 function Ignore() {
     for e in "${ignore[@]}"; do
@@ -40,6 +40,11 @@ for file in $(/usr/bin/ls $base_dir); do
         Link $HOME/.$file $base_dir/$file
     fi
 done
+
+if [[ $HOST = "yunglean" ]]; then
+    rm $HOME/.git/config
+    ln -s $base_dir/git/innoq_config $HOME/.git/config
+fi
 
 . ~/.zshrc
 echo "Done"
