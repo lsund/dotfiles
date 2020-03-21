@@ -19,3 +19,5 @@ tnoremap <A-k> <C-\><C-n><C-w>k
 tnoremap <A-l> <C-\><C-n><C-w>l
 "
 setlocal formatprg=hindent
+
+" stack install hlint hindent apply-refact
