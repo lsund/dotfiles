@@ -19,5 +19,5 @@ let g:user_emmet_settings = {
   \}
 
 let g:ale_linters = {
-            \ 'haskell': [''],
-            \ }
+        \ 'haskell': ['hlint', 'stack_build'],
+        \ }

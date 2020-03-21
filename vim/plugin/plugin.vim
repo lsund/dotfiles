@@ -92,11 +92,15 @@ Plug 'mpickering/hlint-refactor-vim'
 "  Syntax highlightning for haskell
 Plug 'neovimhaskell/haskell-vim'
 
+Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+
+Plug 'alx741/vim-hindent'
+
 "  Syntax hightlightning for purescript
 Plug 'michaelficarra/purescript-vim'
 
 " Intero
-Plug 'parsonsmatt/intero-neovim'
+" Plug 'parsonsmatt/intero-neovim'
 
 " Live repl, dynamic expression evaluation
 Plug 'tpope/vim-fireplace'
