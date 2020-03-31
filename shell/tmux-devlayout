@@ -1,0 +1,42 @@
+#!/bin/zsh
+
+service=$1
+
+basedir="$HOME/Documents/work/metro/git/$1"
+
+if [[ -d $basedir ]]; then
+
+    tmux setw remain-on-exit on
+
+    tmux new-window -c $basedir
+
+    tmux setw remain-on-exit on
+
+    tmux new-window $basedir
+
+    tmux setw remain-on-exit on
+
+    tmux split-window -v -c $basedir "mvn spring-boot:run"
+
+    tmux setw remain-on-exit on
+
+    tmux resize-pane -D 30
+
+    tmux split-window -h -c $basedir "npm start"
+
+    tmux setw remain-on-exit on
+
+    tmux split-window -v -c $basedir 'pager="LESS -S" psql -U postgres -d postgres'
+
+    tmux setw remain-on-exit on
+
+    tmux select-pane -L
+
+    tmux setw remain-on-exit on
+
+    tmux split-window -v -c $basedir
+
+    tmux setw remain-on-exit on
+else
+    echo "$basedir does not exist"
+fi

@@ -99,6 +99,10 @@ case $ext in
         program=$(which $officeprogram)
         [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
         ;;
+    "pptx")
+        program=$(which $officeprogram)
+        [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
     "odp")
         program=$(which $officeprogram)
         [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1

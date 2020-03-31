@@ -20,6 +20,6 @@ if [[ $# == 1 ]]; then
 else
     echo ">> git checkout $head <<"
     git checkout $head
-    echo ">> git merge $base <<"
-    git merge $base
+    echo ">> git rebase $base <<"
+    git rebase $base
 fi

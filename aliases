@@ -43,6 +43,10 @@ alias gdrb='git-delete-remote-branch'
 alias gsst='git status -s'
 alias csvdiff='git diff --color-words="[^[:space:],]+"'
 
+# Tmux
+
+alias dl='tmux-devlayout'
+
 function cd() {
     builtin cd $1 && ls
 }
