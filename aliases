@@ -42,6 +42,9 @@ alias gsb='git-sync-base'
 alias gdrb='git-delete-remote-branch'
 alias gsst='git status -s'
 alias csvdiff='git diff --color-words="[^[:space:],]+"'
+alias squash='git reset --soft HEAD~2 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"'
+alias squash2='git rebase --interactive HEAD~2'
+alias squash3='git rebase --interactive HEAD~3'
 
 # Tmux
 
@@ -54,16 +57,13 @@ function cd() {
 function ggg() {
     gaa
     gss
+    branch=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-2)
     vared -p "> " -c msg
-    gcmsg $msg
-    msg=""
-    ggp
-}
-
-function ggc() {
-    gss
-    vared -p "> " -c msg
-    gcmsg $msg
+    if [[ $branch != "master" ]]; then
+        gcmsg "$branch: $msg"
+    else
+        gcmsg "$msg"
+    fi
     msg=""
 }
 
