@@ -8,11 +8,11 @@ if [[ -d $basedir ]]; then
 
     tmux setw remain-on-exit on
 
-    tmux new-window -c $basedir
+    tmux new-window -c $basedir -n $service
 
     tmux setw remain-on-exit on
 
-    tmux new-window $basedir
+    tmux new-window $basedir -n $service
 
     tmux setw remain-on-exit on
 
