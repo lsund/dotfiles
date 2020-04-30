@@ -57,10 +57,11 @@ function cd() {
 function ggg() {
     gaa
     gss
-    branch=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-2)
+    tag=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1)
+    issue=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-2)
     vared -p "> " -c msg
-    if [[ $branch != "master" ]]; then
-        gcmsg "$branch: $msg"
+    if [[ $tag == "MRC" ]]; then
+        gcmsg "$issue: $msg"
     else
         gcmsg "$msg"
     fi
