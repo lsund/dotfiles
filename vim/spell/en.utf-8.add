@@ -102,3 +102,7 @@ clojure
 erlang
 scala
 javascript
+frontend
+backend
+sensical
+linting
