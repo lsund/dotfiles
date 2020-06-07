@@ -13,7 +13,8 @@ let g:ale_fix_on_save = 1
 let g:ale_fixers = {
  \ 'javascript': ['prettier'],
  \ 'javascript.jsx': ['prettier'],
- \ 'jsx': ['prettier']
+ \ 'jsx': ['prettier'],
+ \ 'typescript': ['eslint'],
  \ }
 
 au FileType javascript map <leader>ii i///////////////////////////////////////////////////////////////////////////////<CR><space>

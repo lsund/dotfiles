@@ -120,20 +120,42 @@ Plug 'tpope/vim-markdown'
 " XQuery
 Plug 'jeroenp/vim-xquery-syntax'
 
-" XML editing
+" XML
 Plug 'sukima/xmledit'
 
-" Dhall editing
+" Dhall
 Plug 'vmchale/dhall-vim'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
-" Html
+" Html HTML
 Plug 'mattn/emmet-vim'
 
 Plug 'skywind3000/asyncrun.vim'
+
+" ReasonML reason
+" Plug 'jordwalke/vim-reasonml'
+Plug 'reasonml-editor/vim-reason-plus'
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+" Typescript typescript
+" Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
+" Unison unison
+Plug 'unisonweb/unison', { 'rtp': 'editor-support/vim' }
+
+" Helpers
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " call vundle#end()
 call plug#end()

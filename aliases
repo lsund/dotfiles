@@ -45,6 +45,7 @@ alias csvdiff='git diff --color-words="[^[:space:],]+"'
 alias squash='git reset --soft HEAD~2 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"'
 alias squash2='git rebase --interactive HEAD~2'
 alias squash3='git rebase --interactive HEAD~3'
+alias ggsq='ggg &&& squash'
 
 # Tmux
 

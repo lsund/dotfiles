@@ -111,6 +111,10 @@ case $ext in
         program=$(which $officeprogram)
         [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
         ;;
+    "xlsx")
+        program=$(which $officeprogram)
+        [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
     "mkv")
         program=$(which $mediaprogram)
         [[ $? == "1" ]] && echo "$mediaprogram is not installed" && exit 1
