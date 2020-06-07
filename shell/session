@@ -115,7 +115,7 @@ function toggle_mplayer() {
 }
 
 function random_file() {
-    rand_file="$music_path/$(/usr/bin/ls -1 $music_path | shuf | head -1)"
+    rand_file="$music_path/$(/usr/bin/ls -1 -p $music_path | grep -v / | shuf | head -1)"
     [[ $rand_file == "" ]] && echo "No music files" && exit 1
     echo $rand_file
 }
