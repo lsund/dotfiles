@@ -61,6 +61,7 @@ function ggg() {
     tag=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1)
     issue=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-2)
     vared -p "> " -c msg
+    echo "Commit message: $msg"
     if [[ $tag == "MRC" ]]; then
         gcmsg "$issue: $msg"
     else
