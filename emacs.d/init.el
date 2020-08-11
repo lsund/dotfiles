@@ -8,6 +8,8 @@
 
 ; (package-refresh-contents)
 
+(setq lsp-java-java-path (substitute-in-file-name "$JAVA_HOME/bin/java"))
+
 (defun require-package (pkg)
   "Install package if it is not already installed.
 PKG: the package"

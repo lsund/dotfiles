@@ -63,10 +63,6 @@ Plug 'tpope/vim-repeat'
 " Automatic table creation
 Plug 'dhruvasagar/vim-table-mode'
 "
-" Snippets
-" Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-"
 " Align lines according to symbol
 Plug 'godlygeek/tabular'
 "

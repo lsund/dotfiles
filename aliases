@@ -18,7 +18,6 @@ alias upgrade='upgrade && echo 0 > $HOME/Data/log/pacman/pacsynccount.txt'
 alias weather='curl wttr.in'
 alias ta='task add'
 alias tm='task modify'
-alias time='$SCRIPTS/time'
 alias distro='lsb_release -a'
 alias pwd="$SCRIPTS/pwd"
 alias watch-file='watch -n 1 -d cat'
@@ -60,12 +59,16 @@ function ggg() {
     gss
     tag=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1)
     issue=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-2)
-    vared -p "> " -c msg
-    echo "Commit message: $msg"
-    if [[ $tag == "MRC" ]]; then
-        gcmsg "$issue: $msg"
+    if [[ $# == 1 ]]; then
+        gcmsg "$issue: $1"
     else
-        gcmsg "$msg"
+        vared -p "> " -c msg
+        echo "Commit message: $msg"
+        if [[ $tag == "MRC" ]]; then
+            gcmsg "$issue: $msg"
+        else
+            gcmsg "$msg"
+        fi
     fi
     msg=""
 }

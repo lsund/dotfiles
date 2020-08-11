@@ -87,7 +87,7 @@
 
 (add-hook 'java-mode-hook 'flycheck-mode)
 
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 (add-hook 'lsp-mode-hook 'dap-mode)
 
 (add-hook 'dap-mode-hook 'dap-ui-mode)

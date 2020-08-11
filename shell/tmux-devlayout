@@ -2,7 +2,11 @@
 
 service=$1
 
-basedir="$HOME/Documents/work/metro/git/$1"
+if [[ $2 == "personal" ]]; then
+    basedir="$HOME/Documents/git/$1"
+else
+    basedir="$HOME/Documents/work/metro/git/$1"
+fi
 
 if [[ -d $basedir ]]; then
 
