@@ -28,7 +28,8 @@ PKGS: The list of packages."
 
   (add-to-list 'package-archives source t))
 
-(package-initialize)
+;; Unesseracy since v 27
+;; (package-initialize)
 
 (when (not package-archive-contents)
   (package-refresh-contents))

@@ -31,8 +31,8 @@ autoload -U compinit && compinit -u
 # ENV
 
 export ZSH=$HOME/.oh-my-zsh
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export EXA_COLORS=$(cat $HOME/.exa-colors)
 export JAVA_HOME=/usr/lib/jvm/default
 
