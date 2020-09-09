@@ -64,11 +64,11 @@ function ggg() {
     else
         vared -p "> " -c msg
         echo "Commit message: $msg"
-        if [[ $tag == "MRC" ]]; then
-            gcmsg "$issue: $msg"
-        else
-            gcmsg "$msg"
-        fi
+        # if [[ $tag == "MRC" ]]; then
+        #     gcmsg "$issue: $msg"
+        # else
+        gcmsg "$msg"
+        # fi
     fi
     msg=""
 }
