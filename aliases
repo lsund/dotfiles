@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+alias autoumount='automount -u'
 alias pbcopy='xsel --clipboard --input'
 alias cat='bat --theme zenburn'
 alias ls='exa -lu --time-style long-iso --color always'
