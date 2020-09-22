@@ -19,7 +19,6 @@ alias upgrade='upgrade && echo 0 > $HOME/Data/log/pacman/pacsynccount.txt'
 alias weather='curl wttr.in'
 alias ta='task add'
 alias tm='task modify'
-alias time='$SCRIPTS/time'
 alias distro='lsb_release -a'
 alias pwd="$SCRIPTS/pwd"
 alias watch-file='watch -n 1 -d cat'
@@ -43,6 +42,10 @@ alias gsb='git-sync-base'
 alias gdrb='git-delete-remote-branch'
 alias gsst='git status -s'
 alias csvdiff='git diff --color-words="[^[:space:],]+"'
+alias squash='git reset --soft HEAD~2 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"'
+alias squash2='git rebase --interactive HEAD~2'
+alias squash3='git rebase --interactive HEAD~3'
+alias ggsq='ggg &&& squash'
 
 # Tmux
 
@@ -55,16 +58,19 @@ function cd() {
 function ggg() {
     gaa
     gss
-    vared -p "> " -c msg
-    gcmsg $msg
-    msg=""
-    ggp
-}
-
-function ggc() {
-    gss
-    vared -p "> " -c msg
-    gcmsg $msg
+    tag=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1)
+    issue=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-2)
+    if [[ $# == 1 ]]; then
+        gcmsg "$issue: $1"
+    else
+        vared -p "> " -c msg
+        echo "Commit message: $msg"
+        # if [[ $tag == "MRC" ]]; then
+        #     gcmsg "$issue: $msg"
+        # else
+        gcmsg "$msg"
+        # fi
+    fi
     msg=""
 }
 

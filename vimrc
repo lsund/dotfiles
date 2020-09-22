@@ -21,3 +21,12 @@ let g:user_emmet_settings = {
 let g:ale_linters = {
         \ 'haskell': ['hlint', 'stack_build'],
         \ }
+
+let g:ale_fix_on_save = 1
+let g:deoplete#enable_at_startup = 1
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'reason': ['/home/lsund/.bin/reason-language-server']
+    \ }
+

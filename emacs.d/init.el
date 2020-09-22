@@ -8,6 +8,8 @@
 
 ; (package-refresh-contents)
 
+(setq lsp-java-java-path (substitute-in-file-name "$JAVA_HOME/bin/java"))
+
 (defun require-package (pkg)
   "Install package if it is not already installed.
 PKG: the package"
@@ -26,7 +28,8 @@ PKGS: The list of packages."
 
   (add-to-list 'package-archives source t))
 
-(package-initialize)
+;; Unesseracy since v 27
+;; (package-initialize)
 
 (when (not package-archive-contents)
   (package-refresh-contents))
