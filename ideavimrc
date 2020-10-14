@@ -15,7 +15,7 @@ nnoremap <C-[> <Esc>
 inoremap <C-G> <Esc>
 nnoremap <C-G> <Esc>
 vnoremap <C-G> <Esc>
-nooremap <C-h> <Backspace>
+nnoremap <C-h> <Backspace>
 
 nnoremap <leader>nh :nohlsearch<CR>
 nnoremap <leader>o :action OpenFile<CR>
@@ -45,3 +45,5 @@ nnoremap <leader>rr :action Run<CR>
 nnoremap gq V
 vnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
 
+map <A-h> <C-w>h
+map <A-l> <C-w>l
