@@ -5,7 +5,11 @@ set hlsearch
 set incsearch
 set tw=79
 set wrap
+
+set number
+set list
 set relativenumber
+set cursorline
 
 " Make Y behave as D, C etc
 noremap Y y$
@@ -16,6 +20,8 @@ inoremap <C-G> <Esc>
 nnoremap <C-G> <Esc>
 vnoremap <C-G> <Esc>
 nnoremap <C-h> <Backspace>
+
+nnoremap gbl :action Annotate<CR>
 
 nnoremap <leader>nh :nohlsearch<CR>
 nnoremap <leader>o :action OpenFile<CR>
