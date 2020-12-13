@@ -35,6 +35,11 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export EXA_COLORS=$(cat $HOME/.exa-colors)
 export JAVA_HOME=/usr/lib/jvm/default
+export NEO4J_HOME=$HOME/.local/lib/neo4j-archlinux/neo4j-community-4.2.1
+export ANDROID_HOME="/opt/android-sdk"
+export ANDROID_SKD_ROOT="/opt/android-sdk"
+export ANDROID_SDK_HOME="/opt/android-sdk"
+export ANDROID_AVD_HOME="/home/lsund/.android/avd"
 
 export PATH="$PATH:/home/lsund/.yarn/bin"
 export PATH="$PATH:/usr/local/lib/node/bin"
@@ -47,11 +52,6 @@ export PATH=$PATH:$HOME/.local/bin
 export PATH="$PATH:$HOME/.local/usr/bin"
 export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_HOME/tools
-
-export ANDROID_HOME="/opt/android-sdk"
-export ANDROID_SKD_ROOT="/opt/android-sdk"
-export ANDROID_SDK_HOME="/opt/android-sdk"
-export ANDROID_AVD_HOME="/home/lsund/.android/avd"
 
 export XML_CATALOG_FILES="${HOME}/Data/xml/catalog /etc/xml/catalog"
 
