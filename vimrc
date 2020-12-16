@@ -19,7 +19,7 @@ let g:user_emmet_settings = {
   \}
 
 let g:ale_linters = {
-        \ 'haskell': ['hlint', 'stack_build'],
+        \ 'haskell': ['hlint'],
         \ }
 
 let g:ale_fix_on_save = 1

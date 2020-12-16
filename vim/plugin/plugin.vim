@@ -153,8 +153,5 @@ Plug 'unisonweb/unison', { 'rtp': 'editor-support/vim' }
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-" Wiki
-Plug 'vimwiki/vimwiki'
-
 " call vundle#end()
 call plug#end()
