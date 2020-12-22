@@ -53,7 +53,7 @@ set cmdheight=1
 set previewheight=30
 set listchars=tab:▸\ ,eol:¬
 set ttyfast
-set colorcolumn=80
+" set colorcolumn=80
 " Show count when searching
 set shortmess-=S
 " Red highlight for lines longer than 80 chars

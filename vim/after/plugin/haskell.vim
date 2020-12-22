@@ -8,7 +8,7 @@ au FileType haskell map <silent> ,hiv :call HaskellImport('vector')<CR>
 au FileType haskell map <silent> ,him :call HaskellImport('map')<CR>
 au FileType haskell map <silent> ,hiM :call HaskellImport('matrix')<CR>
 
-au FileType haskell map <leader>p :call StyleHaskell()<CR>
+au FileType haskell map <leader>bd :call StyleHaskell()<CR>
 au FileType haskell map <leader>ii i-------------------------------------------------------------------------------<CR><C-w><C-w>--<space>
 
 tnoremap <ESC> <C-\><C-n><C-w><C-p>

@@ -127,7 +127,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
 " Html HTML
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 
 Plug 'skywind3000/asyncrun.vim'
 
