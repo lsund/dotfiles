@@ -238,7 +238,7 @@ myBotLeftLogHook h hostname =
     { ppOutput = hPutStrLn h
     , ppOrder = \(_:_:_:x) -> x
     , ppSep = " "
-    , ppExtras = [myMemL, myRamL, myCpuL, myPacSyncL, mySessL]
+    , ppExtras = [myMemL, myRamL, myCpuL, myPacSyncL]
     }
 
 -- Bottom right bar logHook
@@ -312,10 +312,6 @@ mySoundL =
 myPacSyncL =
   dzenBoxStyleL blue2BoxPP (labelL "sync ") ++!
   dzenBoxStyleL white2BBoxPP npacSync
-
-mySessL =
-  dzenBoxStyleL blue2BoxPP (labelL "time ") ++!
-  dzenBoxStyleL white2BBoxPP nSess
 
 -- TopRight Loggers
 myDateL =
@@ -481,16 +477,6 @@ getScreenRes d n = do
 
 npacSync :: Logger
 npacSync = fileToLogger id "N/A" syncPath
-
-nSess :: Logger
-nSess = do
-    status <- fileToLogger id "N/A" $ logpath ++ "sess_status"
-    let color s =
-            if s == Just "started"
-                then colorGreen
-                else colorWhite
-        format x = "^fg(" ++ color status ++ ")" ++ x ++ "^fg()"
-    fileToLogger format "N/A" $ logpath ++ "today.txt"
 
 nmailSync :: String -> Logger
 nmailSync c = fileToLogger format "N/A" $ logpath ++ "mail/mailsynccount.txt"
