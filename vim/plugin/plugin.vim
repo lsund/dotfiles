@@ -122,14 +122,22 @@ Plug 'sukima/xmledit'
 " Dhall
 Plug 'vmchale/dhall-vim'
 
+" Html HTML
+Plug 'mattn/emmet-vim'
+Plug 'skywind3000/asyncrun.vim'
+
 " Javascript
 Plug 'pangloss/vim-javascript'
+
+" Typescript typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+" Cannot seem to get prettier working with yats
+" Plug 'HerringtonDarkholme/yats'
+
+" JSX jsx
+" Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mxw/vim-jsx'
-
-" Html HTML
-" Plug 'mattn/emmet-vim'
-
-Plug 'skywind3000/asyncrun.vim'
 
 " ReasonML reason
 " Plug 'jordwalke/vim-reasonml'
@@ -139,13 +147,6 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-
-" Typescript typescript
-" Plug 'HerringtonDarkholme/yats.vim'
-" Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-
 " Unison unison
 Plug 'unisonweb/unison', { 'rtp': 'editor-support/vim' }
 

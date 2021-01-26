@@ -4,9 +4,9 @@ let g:user_emmet_settings = {
     \  },
   \}
 
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
-let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+let g:ale_lint_on_enter = 0
 
 let g:ale_fix_on_save = 1
 
@@ -16,6 +16,11 @@ let g:ale_fixers = {
  \ 'jsx': ['prettier'],
  \ 'typescript': ['prettier'],
  \ 'typescript.tsx': ['prettier'],
+ \ 'json': ['prettier'],
  \ }
 
 au FileType javascript map <leader>ii i///////////////////////////////////////////////////////////////////////////////<CR><space>
+
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
