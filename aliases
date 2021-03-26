@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+alias xrec='xmonad --recompile'
 alias autoumount='automount -u'
 alias pbcopy='xsel --clipboard --input'
 alias cat='bat --theme zenburn'
@@ -63,15 +64,11 @@ function ggg() {
     if [[ $# == 1 ]]; then
         gcmsg "$issue: $1"
     else
-        vared -p "> " -c msg
-        echo "Commit message: $msg"
-        # if [[ $tag == "MRC" ]]; then
-        #     gcmsg "$issue: $msg"
-        # else
-        gcmsg "$msg"
-        # fi
+        vared -p "> " -c msg_12341234
+        echo "Commit message: $msg_12341234"
+        gcmsg "$msg_12341234"
     fi
-    msg=""
+    msg_12341234=""
 }
 
 # Session

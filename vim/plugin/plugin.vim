@@ -3,50 +3,50 @@ filetype off
 " Vim-plug
 call plug#begin('~/.vim/plugged')
 "
-"  Colors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Color, Appearance
 Plug 'flazz/vim-colorschemes'
-
 Plug 'ayu-theme/ayu-vim'
-" Plug 'altercation/vim-colors-solarized'
-" Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'lifepillar/vim-solarized8'
-"
-" Syntax highlightning for shakespeare templates
 Plug 'pbrisbin/vim-syntax-shakespeare'
 "
-" Good looking status/tabline
-"
+" Status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" Rainbow-colored brackets
+Plug 'kien/rainbow_parentheses.vim'
 "
-" Omnicomplete for a bunch of languages
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Linting, tooltips
+"
+" Autocomplete
 Plug 'Valloric/YouCompleteMe'
 "
-"  Syntax checker
-" Plug 'scrooloose/syntastic'
+"  Syntax checker, linter
 Plug 'dense-analysis/ale'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Utility
 "
 " Fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "
-" Keyword search with ag
+" Fuzzy keyword search
 Plug 'mileszs/ack.vim'
 "
-" Tree view over directory
+" Directory overview
 Plug 'scrooloose/nerdtree'
 "
-" Class outline viewer
+" Outline viewer :TagbarToggle
 Plug 'majutsushi/tagbar'
 "
-" Move anywhere on the screen
+" Move anywhere on the screen (<leader><leader>w)
 Plug 'easymotion/vim-easymotion'
 "
 " Easier use of f and F hotkey
 Plug 'unblevable/quick-scope'
-"
-" Rainbow-colored paranthesis
-Plug 'kien/rainbow_parentheses.vim'
 "
 " Navigate through vim and tmux seamlessly
 Plug 'christoomey/vim-tmux-navigator'
@@ -60,25 +60,27 @@ Plug 'tpope/vim-surround'
 " Repeat a mapping eg surround.vim
 Plug 'tpope/vim-repeat'
 "
-" Automatic table creation
+" Ascii tables
 Plug 'dhruvasagar/vim-table-mode'
 "
-" Align lines according to symbol
+" Align lines according to symbol (<leader>a<symbol>)
 Plug 'godlygeek/tabular'
+" More powerful align
+" Plug 'junegunn/vim-easy-align'
 "
-" Easy align
-Plug 'junegunn/vim-easy-align'
-"
-" Git
+" Git plugin
 Plug 'tpope/vim-fugitive'
 "
-" Asyncronous execution, used by ghcmod
-Plug 'Shougo/vimproc.vim'
-
 " Asyncronous execution, used by neovim-ghci
 Plug 'neomake/neomake'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Haskell
+
 " Plug 'eagletmt/ghcmod-vim'
+" Asyncronous execution, used by ghcmod
+" Plug 'Shougo/vimproc.vim'
+
 " Bindings for hlint automatic application
 Plug 'mpickering/hlint-refactor-vim'
 "
@@ -89,29 +91,54 @@ Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 
 Plug 'alx741/vim-hindent'
 
-"  Syntax hightlightning for purescript
-Plug 'michaelficarra/purescript-vim'
-
 " Intero
 " Plug 'parsonsmatt/intero-neovim'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clojure
 
 " Live repl, dynamic expression evaluation
 Plug 'tpope/vim-fireplace'
 
 Plug 'tpope/vim-projectionist'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rust
+
 " Error checking, formatting, integration
 Plug 'rust-lang/rust.vim'
 
-" Elm elm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Elm, Typescript, Purescript
+
 Plug 'ElmCast/elm-vim'
 Plug 'lambdatoast/elm.vim'
+" Typescript typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+" Cannot seem to get prettier working with yats
+" Plug 'HerringtonDarkholme/yats'
+"  Syntax hightlightning for purescript
+Plug 'michaelficarra/purescript-vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Latex
 
 " background compilation, completion, indentation, highlightning...
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 
-" Markdown markdown
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Markdown
+
 Plug 'tpope/vim-markdown'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" HTML, XML
+
+" Html HTML
+Plug 'mattn/emmet-vim'
+Plug 'skywind3000/asyncrun.vim'
 
 " XQuery
 Plug 'jeroenp/vim-xquery-syntax'
@@ -122,27 +149,16 @@ Plug 'sukima/xmledit'
 " Dhall
 Plug 'vmchale/dhall-vim'
 
-" Html HTML
-Plug 'mattn/emmet-vim'
-Plug 'skywind3000/asyncrun.vim'
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Javascript
-Plug 'pangloss/vim-javascript'
 
-" Typescript typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-" Cannot seem to get prettier working with yats
-" Plug 'HerringtonDarkholme/yats'
+Plug 'pangloss/vim-javascript'
 
 " JSX jsx
 " Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mxw/vim-jsx'
 
-" ReasonML reason
-" Plug 'jordwalke/vim-reasonml'
-Plug 'reasonml-editor/vim-reason-plus'
-
+" Language server protocol
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
