@@ -68,6 +68,12 @@ match ExtraWhitespace /\s\+$/
 autocmd! InsertEnter * call clearmatches()
 autocmd! InsertLeave * match ExtraWhitespace /\s\+$/
 
+autocmd bufread,bufnewfile *.elm set ft=elm
+autocmd bufread,bufnewfile *.pl set ft=prolog
+
+au BufRead /tmp/mutt-* set tw=72
+au BufRead /tmp/mutt-* call clearmatches()
+
 " Search and matching =========================================================
 
 set re=1
@@ -86,3 +92,29 @@ set foldenable
 
 let g:delete_trailing_witespace = 1
 let g:format_paragraph = 0
+
+let g:ycm_filetype_specific_completion_to_disable = {
+      \ 'java': 1
+      \}
+
+let g:user_emmet_leader_key='<Tab>'
+
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
+
+let g:ale_linters = {
+        \ 'haskell': ['hlint'],
+        \ 'java': [''],
+        \ }
+
+let g:ale_fix_on_save = 1
+let g:deoplete#enable_at_startup = 1
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'reason': ['/home/lsund/.bin/reason-language-server']
+    \ }
+
