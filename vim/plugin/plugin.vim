@@ -154,6 +154,8 @@ Plug 'vmchale/dhall-vim'
 
 Plug 'pangloss/vim-javascript'
 
+Plug 'ruanyl/vim-sort-imports'
+
 " JSX jsx
 " Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mxw/vim-jsx'

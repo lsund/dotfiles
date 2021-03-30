@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+alias week='date +%V'
 alias xrec='xmonad --recompile'
 alias autoumount='automount -u'
 alias pbcopy='xsel --clipboard --input'
