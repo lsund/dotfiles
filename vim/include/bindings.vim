@@ -93,7 +93,13 @@ nnoremap <leader>nh :nohlsearch<CR>
 vmap <leader>icn :I<CR>
 vmap <leader>ica :IA<CR>
 
+function SearchKeywordUnderCursor()
+  let l:wordUnderCursor = expand("<cword>")
+  :execute "Rg" l:wordUnderCursor
+endfunction
+
 nnoremap <leader>aa :Rg<CR>
+nnoremap <leader>ak :call SearchKeywordUnderCursor()<CR>
 
 autocmd FileType qf nnoremap <buffer> O <Enter> :call DeleteEmptyBuffers()<CR>
 

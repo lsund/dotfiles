@@ -35,6 +35,7 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export EXA_COLORS=$(cat $HOME/.exa-colors)
 export JAVA_HOME=/usr/lib/jvm/default
+export JDK_HOME=/usr/lib/jvm/default
 export NEO4J_HOME=$HOME/.local/lib/neo4j-archlinux/neo4j-community-4.2.1
 export ANDROID_HOME="/opt/android-sdk"
 export ANDROID_SKD_ROOT="/opt/android-sdk"
@@ -97,3 +98,5 @@ fi
 
 bindkey '^o^o' fuzzy-git-branch
 bindkey '^z^z' fuzzy-file
+
+fortune | cowsay

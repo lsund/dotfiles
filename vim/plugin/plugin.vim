@@ -8,7 +8,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'flazz/vim-colorschemes'
 Plug 'ayu-theme/ayu-vim'
 Plug 'lifepillar/vim-solarized8'
-Plug 'pbrisbin/vim-syntax-shakespeare'
 "
 " Status line
 Plug 'vim-airline/vim-airline'
@@ -18,13 +17,20 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/rainbow_parentheses.vim'
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Linting, tooltips
+" Complete
 "
 " Autocomplete
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 "
 "  Syntax checker, linter
 Plug 'dense-analysis/ale'
+
+
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Utility
@@ -160,17 +166,17 @@ Plug 'ruanyl/vim-sort-imports'
 " Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mxw/vim-jsx'
 
-" Language server protocol
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 " Unison unison
 Plug 'unisonweb/unison', { 'rtp': 'editor-support/vim' }
 
 " Helpers
 Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Java
+
+Plug 'uiiaoo/java-syntax.vim'
 
 " call vundle#end()
 call plug#end()

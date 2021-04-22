@@ -198,9 +198,10 @@ else
                 echo "trash: no such file or directory: $var"
             fi
         done
-
         [[ $removed == false ]] && exit 0;
     fi
 fi
+
+exit 0
 
 

@@ -17,7 +17,7 @@ alias keys='setxkbmap dvorak -option compose:caps'
 
 alias td='trans :de'
 alias te='trans de:'
-alias upgrade='upgrade && echo 0 > $HOME/Data/log/pacman/pacsynccount.txt'
+alias upgrade='upgrade && xrec && echo 0 > $HOME/Data/log/pacman/pacsynccount.txt'
 alias weather='curl wttr.in'
 alias ta='task add'
 alias tm='task modify'
