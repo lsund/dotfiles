@@ -40,6 +40,12 @@ if [[ $HOST == "Ludvigs-MacBook-Pro.local" ]]; then
 else
     export JAVA_HOME=/usr/lib/jvm/default
 fi
+export JDK_HOME=/usr/lib/jvm/default
+export NEO4J_HOME=$HOME/.local/lib/neo4j-archlinux/neo4j-community-4.2.1
+export ANDROID_HOME="/opt/android-sdk"
+export ANDROID_SKD_ROOT="/opt/android-sdk"
+export ANDROID_SDK_HOME="/opt/android-sdk"
+export ANDROID_AVD_HOME="/home/lsund/.android/avd"
 
 export PATH="$PATH:/home/lsund/.yarn/bin"
 export PATH="$PATH:/usr/local/lib/node/bin"
@@ -101,9 +107,14 @@ fi
 
 bindkey '^o^o' fuzzy-git-branch
 bindkey '^z^z' fuzzy-file
+<<<<<<< HEAD
 export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/lsund/.sdkman"
 [[ -s "/Users/lsund/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lsund/.sdkman/bin/sdkman-init.sh"
+=======
+
+fortune | cowsay
+>>>>>>> b81d32c1c0ec43be3eb69d7e7e93a4efb51bc40b

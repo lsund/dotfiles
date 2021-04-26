@@ -53,7 +53,7 @@ set cmdheight=1
 set previewheight=30
 set listchars=tab:▸\ ,eol:¬
 set ttyfast
-set colorcolumn=80
+" set colorcolumn=80
 " Show count when searching
 set shortmess-=S
 " Red highlight for lines longer than 80 chars
@@ -67,6 +67,12 @@ match ExtraWhitespace /\s\+$/
 " Only when in normal mode
 autocmd! InsertEnter * call clearmatches()
 autocmd! InsertLeave * match ExtraWhitespace /\s\+$/
+
+autocmd bufread,bufnewfile *.elm set ft=elm
+autocmd bufread,bufnewfile *.pl set ft=prolog
+
+au BufRead /tmp/mutt-* set tw=72
+au BufRead /tmp/mutt-* call clearmatches()
 
 " Search and matching =========================================================
 
@@ -86,3 +92,31 @@ set foldenable
 
 let g:delete_trailing_witespace = 1
 let g:format_paragraph = 0
+
+let g:ycm_filetype_specific_completion_to_disable = {
+      \ 'java': 1
+      \}
+
+let g:user_emmet_leader_key='<Tab>'
+
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
+
+let g:ale_linters = {
+        \ 'haskell': ['hlint'],
+        \ 'java': [''],
+        \ }
+
+let g:ale_fix_on_save = 1
+let g:deoplete#enable_at_startup = 1
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'reason': ['/home/lsund/.bin/reason-language-server'],
+    \ 'java': ['/usr/bin/java-language-server']
+    \ }
+
+let g:LanguageClient_useVirtualText = 'No'

@@ -7,8 +7,9 @@ function fuzzy-git-branch
     if git rev-parse --is-inside-work-tree >& /dev/null; then
         picked=$(
             (
-                git tag;
-                git branch --all --format='%(refname:lstrip=2)'
+                # git tag;
+                # git branch --all --format='%(refname:lstrip=2)'
+                git branch  --format='%(refname:lstrip=2)'
             ) | ${NOMAD_PICKER:-fzf}
         )
 

@@ -5,6 +5,8 @@ if [[ $HOST == "Ludvigs-MacBook-Pro.local" ]]; then
     alias python='/usr/local/bin/python3'
 fi
 
+alias week='date +%V'
+alias xrec='xmonad --recompile'
 alias autoumount='automount -u'
 alias pbcopy='xsel --clipboard --input'
 alias cat='bat --theme zenburn'
@@ -19,7 +21,7 @@ alias keys='setxkbmap dvorak -option compose:caps'
 
 alias td='trans :de'
 alias te='trans de:'
-alias upgrade='upgrade && echo 0 > $HOME/Data/log/pacman/pacsynccount.txt'
+alias upgrade='upgrade && xrec && echo 0 > $HOME/Data/log/pacman/pacsynccount.txt'
 alias weather='curl wttr.in'
 alias ta='task add'
 alias tm='task modify'
@@ -67,15 +69,11 @@ function ggg() {
     if [[ $# == 1 ]]; then
         gcmsg "$issue: $1"
     else
-        vared -p "> " -c msg
-        echo "Commit message: $msg"
-        # if [[ $tag == "MRC" ]]; then
-        #     gcmsg "$issue: $msg"
-        # else
-        gcmsg "$msg"
-        # fi
+        vared -p "> " -c msg_12341234
+        echo "Commit message: $msg_12341234"
+        gcmsg "$msg_12341234"
     fi
-    msg=""
+    msg_12341234=""
 }
 
 # Session

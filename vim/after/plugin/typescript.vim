@@ -10,7 +10,10 @@ let g:ale_fixers = {
  \ 'jsx': ['prettier'],
  \ 'typescript': ['prettier'],
  \ 'typescript.tsx': ['prettier'],
+ \ 'json': ['prettier'],
  \ }
 
 au FileType typescript map <leader>ii i///////////////////////////////////////////////////////////////////////////////<CR><space>
 au FileType typescript.tsx map <leader>ii i///////////////////////////////////////////////////////////////////////////////<CR><space>
+
+set re=0
