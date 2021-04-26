@@ -22,7 +22,7 @@ function fuzzy-file
 {
     local file
 
-    file=$(find | fzf)
+    file=$(fd | fzf)
     LBUFFER="${LBUFFER}$file"
 }
 zle -N fuzzy-file

@@ -20,7 +20,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "
 " Omnicomplete for a bunch of languages
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 "
 "  Syntax checker
 " Plug 'scrooloose/syntastic'
@@ -151,7 +151,7 @@ Plug 'unisonweb/unison', { 'rtp': 'editor-support/vim' }
 
 " Helpers
 Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " call vundle#end()
 call plug#end()

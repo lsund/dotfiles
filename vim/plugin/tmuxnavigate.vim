@@ -12,4 +12,3 @@ inoremap <A-j> <C-o>:TmuxNavigateDown<cr>
 inoremap <A-k> <C-o>:TmuxNavigateUp<cr>
 inoremap <A-l> <C-o>:TmuxNavigateRight<cr>
 inoremap <A-y> <C-o>:TmuxNavigatePrevious<cr>
-

@@ -8,7 +8,12 @@
 # Config
 
 
-base_trashdir="$HOME/.trash"
+if [[ $HOST == "Ludvigs-MacBook-Pro.local" ]]; then
+    base_trashdir="$HOME/.Trash"
+else
+    base_trashdir="$HOME/.trash"
+fi
+
 
 
 # ############################################################################

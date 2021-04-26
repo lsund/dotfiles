@@ -1,5 +1,10 @@
 #!/bin/zsh
 
+if [[ $HOST == "Ludvigs-MacBook-Pro.local" ]]; then
+    alias pip='pip3'
+    alias python='/usr/local/bin/python3'
+fi
+
 alias autoumount='automount -u'
 alias pbcopy='xsel --clipboard --input'
 alias cat='bat --theme zenburn'
@@ -10,7 +15,6 @@ alias vim='nvim'
 alias shutdown='sudo shutdown now -P'
 alias restart='sudo shutdown now -r'
 alias df='pydf'
-alias find='/usr/bin/fd'
 alias keys='setxkbmap dvorak -option compose:caps'
 
 alias td='trans :de'

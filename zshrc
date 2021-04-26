@@ -34,7 +34,12 @@ export ZSH=$HOME/.oh-my-zsh
 export EDITOR='nvim'
 export VISUAL='nvim'
 export EXA_COLORS=$(cat $HOME/.exa-colors)
-export JAVA_HOME=/usr/lib/jvm/default
+
+if [[ $HOST == "Ludvigs-MacBook-Pro.local" ]]; then
+    # export JAVA_HOME=$(/usr/libexec/java_home)
+else
+    export JAVA_HOME=/usr/lib/jvm/default
+fi
 
 export PATH="$PATH:/home/lsund/.yarn/bin"
 export PATH="$PATH:/usr/local/lib/node/bin"
@@ -46,12 +51,11 @@ export PATH=$PATH:$HOME/Documents/dotfiles/shell
 export PATH=$PATH:$HOME/.local/bin
 export PATH="$PATH:$HOME/.local/usr/bin"
 export PATH=$PATH:$HOME/.cabal/bin
-export PATH=$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_HOME/tools
 
-export ANDROID_HOME="/opt/android-sdk"
-export ANDROID_SKD_ROOT="/opt/android-sdk"
-export ANDROID_SDK_HOME="/opt/android-sdk"
-export ANDROID_AVD_HOME="/home/lsund/.android/avd"
+if [[ $HOST == "Ludvigs-MBP" ]]; then
+    export PATH=$PATH:$HOME/Library/Python/3.8/bin
+fi
+
 
 export XML_CATALOG_FILES="${HOME}/Data/xml/catalog /etc/xml/catalog"
 
@@ -97,3 +101,9 @@ fi
 
 bindkey '^o^o' fuzzy-git-branch
 bindkey '^z^z' fuzzy-file
+export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/lsund/.sdkman"
+[[ -s "/Users/lsund/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lsund/.sdkman/bin/sdkman-init.sh"
