@@ -60,6 +60,8 @@ export PATH=$PATH:$HOME/.cabal/bin
 
 if [[ $HOST == "Ludvigs-MBP" ]]; then
     export PATH=$PATH:$HOME/Library/Python/3.8/bin
+    export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+    export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
 fi
 
 
@@ -107,14 +109,9 @@ fi
 
 bindkey '^o^o' fuzzy-git-branch
 bindkey '^z^z' fuzzy-file
-<<<<<<< HEAD
-export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
-export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/lsund/.sdkman"
-[[ -s "/Users/lsund/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lsund/.sdkman/bin/sdkman-init.sh"
-=======
 
 fortune | cowsay
->>>>>>> b81d32c1c0ec43be3eb69d7e7e93a4efb51bc40b
+
+export SDKMAN_DIR="/Users/lsund/.sdkman"
+[[ -s "/Users/lsund/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lsund/.sdkman/bin/sdkman-init.sh"
+
