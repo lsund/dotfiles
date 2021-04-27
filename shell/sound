@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [[ $HOSTNAME == "Ludvigs-MBP" ]]; then
+  tput bel
+  sleep 0.2
+  tput bel
+  sleep 0.2
+  tput bel
+  exit 0
+fi
+
 audiopath=$HOME/Media/audio/sounds/
 
 if [[ $# == 2 ]]; then
