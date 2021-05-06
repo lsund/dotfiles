@@ -20,7 +20,7 @@ Plug 'kien/rainbow_parentheses.vim'
 " Complete
 "
 " Autocomplete
-" Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 "
 "  Syntax checker, linter
 Plug 'dense-analysis/ale'
@@ -30,7 +30,7 @@ Plug 'dense-analysis/ale'
 "     \ 'branch': 'next',
 "     \ 'do': 'bash install.sh',
 "     \ }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Utility

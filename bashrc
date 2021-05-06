@@ -25,3 +25,4 @@ PS1=$blue'[\u@\h:\w]'$white' $ '
 stty -ixon
 
 
+source "$HOME/.cargo/env"

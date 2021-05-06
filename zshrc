@@ -35,12 +35,12 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export EXA_COLORS=$(cat $HOME/.exa-colors)
 
-if [[ $HOST == "Ludvigs-MacBook-Pro.local" ]]; then
-    # export JAVA_HOME=$(/usr/libexec/java_home)
+if [[ $HOST == "Ludvigs-MBP" ]]; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 16.0.1)
 else
     export JAVA_HOME=/usr/lib/jvm/default
 fi
-export JDK_HOME=/usr/lib/jvm/default
+# export JDK_HOME=/usr/lib/jvm/default
 export NEO4J_HOME=$HOME/.local/lib/neo4j-archlinux/neo4j-community-4.2.1
 export ANDROID_HOME="/opt/android-sdk"
 export ANDROID_SKD_ROOT="/opt/android-sdk"
@@ -73,7 +73,9 @@ export SCRIPTS=$HOME/Documents/dotfiles/shell
 export FZF_DEFAULT_COMMAND='fd --type f'
 
 export SSH_KEY_PATH="~/.ssh/rsa_id"
+
 source $ZSH/oh-my-zsh.sh
+source $HOME/.cargo/env
 
 # Start ssh-agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
