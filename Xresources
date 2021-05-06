@@ -1,4 +1,4 @@
-#define FONTSIZE 18
+#define FONTSIZE 16
 
 term*utf8*: 1
 Xcursor.theme: Vanilla-DMZ-AA
@@ -10,7 +10,7 @@ URxvt.secondaryScroll: 0
 
 URxvt.intensityStyles: false
 
-URxvt.font: xft:Hack:Regular:pixelsize=FONTSIZE,\
+URxvt.font: xft:Hack Nerd Font Mono:pixelsize=FONTSIZE,\
             xft:Source Code Pro:pixelsize=FONTSIZE:style=medium:antialias=true\
             xft:Ubuntu Mono:pixelsize=FONTSIZE:antialias=true:hinting=true,\
             -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*

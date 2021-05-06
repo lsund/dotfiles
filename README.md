@@ -7,4 +7,7 @@ My dotfiles used on Arch Linux and OSX. Highlights:
 
 ## Install
 
-`./shell/install-symlinks` links each configuration file in this directory to a dotfile in your home directory.
+Prerequisites: zsh
+
+`./shell/install-lsund-base` installs my base packages (with sudo)
+`./shell/install-symlinks` links each configuration file in directory ~/Documents/dotfiles to ~

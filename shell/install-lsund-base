@@ -1,62 +1,33 @@
 #!/bin/zsh
 
-# A specific list of packages is specified for both ubuntu and arch linux.
+# The lsund base packages for arch linux
 # This script goes through each of these, checks if they exist in the
 # official repositories, if they exist on the local computer and installs
 # accordingly.
+#
+# Dependencies: zsh, pkgfile
+#
+# install:
+#
+# sudo pacman -S zsh
 
 sudo pacman -Suy
 
 declare -a packages=(
-                     "xorg-bdftopcf"
-                     "xorg-iceauth"
-                     "xorg-luit"
-                     "xorg-mkfontscale"
-                     "xorg-sessreg"
-                     "xorg-setxkbmap"
-                     "xorg-smproxy"
-                     "xorg-x11perf"
-                     "xorg-xauth"
-                     "xorg-xbacklight"
-                     "xorg-xcmsdb"
-                     "xorg-xcursorgen"
-                     "xorg-xdpyinfo"
-                     "xorg-xdriinfo"
-                     "xorg-xev"
-                     "xorg-xgamma"
-                     "xorg-xhost"
-                     "xorg-xinput"
-                     "xorg-xkbcomp"
-                     "xorg-xkbevd"
-                     "xorg-xkbutils"
-                     "xorg-xkill"
-                     "xorg-xlsatoms"
-                     "xorg-xlsclients"
-                     "xorg-xmodmap"
-                     "xorg-xpr"
-                     "xorg-xprop"
-                     "xorg-xrandr"
-                     "xorg-xrdb"
-                     "xorg-xrefresh"
-                     "xorg-xset"
-                     "xorg-xsetroot"
-                     "xorg-xvinfo"
-                     "xorg-xwd"
-                     "xorg-xwininfo"
-                     "xorg-xwud"
                      "xorg-server"
-                     "xorg-xinit"
-                     "xorg-fonts-100dpi"
-                     "xorg-fonts-75dpi"
-                     "xorg-fonts-alias"
-                     "xorg-fonts-cyrillic"
-                     "xorg-fonts-encodings"
-                     "xorg-fonts-misc"
-                     "xorg-fonts-type1"
+                     "xorg-apps"
+                     "gtest"
+                     "gmock"
+                     "fakeroot"
+                     "meson"
+                     "perl"
+                     "nlohman-json"
+                     "fmt"
+                     "pkg-config"
                      "dos2unix"
-                     "light-git"
                      "lsb-release"
                      "lsof"
+                     "autorandr"
                      "postgresql"
                      "docker"
                      "docker-compose"
@@ -64,14 +35,12 @@ declare -a packages=(
                      "htop"
                      "git"
                      "ghc"
-                     "ruby"
-                     "go"
-                     "scala"
+                     "ghc-static"
                      "exa"
                      "task"
                      "youtube-dl"
                      "xscreensaver"
-                     "jdk8-openjdk"
+                     "jdk11-openjdk"
                      "cabal-install"
                      "texlive-fontsextra"
                      "texlive-core"
@@ -125,23 +94,26 @@ declare -a packages=(
                      "ristretto"
                      "scrot"
                      "pass"
-                     "zsh"
                      "jq"
                      "meson"
                      "gtest"
                      "gmock"
                      "curl"
+                     "dbeaver"
+                     "fortune-mod"
+                     "cowsay"
                      "emacs"
                      "screenfetch"
                      "cronie"
+                     "neovim"
                      "zathura"
                      "zathura-pdf-poppler")
 
 all_packages=""
 for package in "${packages[@]}"
 do
-    pacman -Qi $package > /dev/null
-    if [[ $? == "1" ]]; then
+    pacman -Q $package > /dev/null
+    if [[ $? == "0" ]]; then
         all_packages="$all_packages $package"
     else
         echo "Warning: could not find package $package"
@@ -149,11 +121,14 @@ do
 done
 
 if [[ $all_packages != "" ]]; then
+    echo "Installing packages"
     sudo pacman -S $(echo "$all_packages" | xargs)
+else
+    echo "No packages to install"
 fi
 
+
 ## Pip installs
-sudo pip install pgcli
 # Neovim
 # install with python support
 sudo pip install neovim
@@ -191,4 +166,8 @@ fi
 
 PrintSeparator "Setting up haskell"
 stack update
+
+if [[ ! -e $HOME/.oh-my-zsh ]]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
