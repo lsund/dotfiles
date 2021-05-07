@@ -16,6 +16,10 @@ host github.com
     IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
 
+host gitlab.com
+  UpdateHostKeys no
+
 host *.innoq.com
     IdentityFile ~/.ssh/id_rsa_innoq
     user lsund
+

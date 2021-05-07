@@ -5,23 +5,39 @@
 # official repositories, if they exist on the local computer and installs
 # accordingly.
 #
-# Dependencies: zsh, pkgfile
-#
-# install:
-#
-# sudo pacman -S zsh
+# Dependencies: zsh, pacaur
+
+LOCAL_BIN=$HOME/.local/bin
+NEOVIM_INIT=$HOME/.config/nvim/init.vim
+mkdir -p $HOME/.config/nvim
+mkdir -p $LOCAL_BIN
+
+pacman -Q pacaur
+
+if [[ $? == "1" ]]; then
+  echo "Need pacaur installed"
+  exit 1
+fi
+
+pacman -Q zsh
+
+if [[ $? == "1" ]]; then
+  echo "Need zsh installed"
+  exit 1
+fi
 
 sudo pacman -Suy
 
 declare -a packages=(
                      "xorg-server"
-                     "xorg-apps"
+                     # "xorg"
+                     # "xorg-apps"
                      "gtest"
                      "gmock"
                      "fakeroot"
                      "meson"
                      "perl"
-                     "nlohman-json"
+                     "nlohmann-json"
                      "fmt"
                      "pkg-config"
                      "dos2unix"
@@ -45,7 +61,7 @@ declare -a packages=(
                      "texlive-fontsextra"
                      "texlive-core"
                      "texlive-bin"
-                     "texlive-lang"
+                     # "texlive-lang"
                      "fzf"
                      "net-tools"
                      "dzen2"
@@ -92,6 +108,7 @@ declare -a packages=(
                      "redshift"
                      "gimp"
                      "ristretto"
+                     "tumbler"
                      "scrot"
                      "pass"
                      "jq"
@@ -112,62 +129,74 @@ declare -a packages=(
 all_packages=""
 for package in "${packages[@]}"
 do
-    pacman -Q $package > /dev/null
+    pacaur -Q $package > /dev/null
     if [[ $? == "0" ]]; then
-        all_packages="$all_packages $package"
+        echo "$package already installed"
     else
-        echo "Warning: could not find package $package"
+        echo "==> Queueing $package for install"
+        all_packages="$all_packages $package"
     fi
 done
 
 if [[ $all_packages != "" ]]; then
     echo "Installing packages"
-    sudo pacman -S $(echo "$all_packages" | xargs)
+    pacaur -S $(echo "$all_packages" | xargs)
 else
     echo "No packages to install"
 fi
 
-
 ## Pip installs
 # Neovim
 # install with python support
-sudo pip install neovim
-if [[ ! -f "$HOME/.config/nvim/init.vim" ]]; then
-    mkdir -p $HOME/.config/nvim
-    nvim=$HOME/.config/nvim/init.vim
-    touch $nvim
-    echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > $nvim
-    echo "let &packpath = &runtimepath" >> $nvim
-    echo "source ~/.vimrc" >> $nvim
+if [[ ! -e /usr/bin/nvim ]]; then
+  sudo pip install neovim
+else
+  echo /usr/bin/nvim already installed
+fi
+if [[ ! -e $NEOVIM_INIT ]]; then
+    touch $NEOVIM_INIT
+    echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" > $NEOVIM_INIT
+    echo "let &packpath = &runtimepath" >> $NEOVIM_INIT
+    echo "source ~/.vimrc" >> $NEOVIM_INIT
+  else
+    echo "$NEOVIM_INIT already exists"
 fi
 
 # trans
 which trans > /dev/null 2>&1
-if [[ $? == "1" ]]; then
+if [[ ! -e $LOCAL_BIN/trans ]]; then
     wget git.io/trans
     chmod +x ./trans
-    mv trans $HOME/.bin
+    mv trans $LOCAL_BIN
+  else
+    echo "$LOCAL_BIN/trans already installed"
 fi
 
 # lein
 which lein > /dev/null 2>&1
-if [[ $? == "1" ]]; then
+if [[ ! -e $HOME/.local/bin/lein ]]; then
     wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
     chmod +x ./lein
-    mv lein $HOME/.bin
+    mv lein $LOCAL_BIN
+  else
+    echo "$LOCAL_BIN/lein already installed"
 fi
 
 
 # stack and pandoc
 which stack > /dev/null 2>&1
-if [[ $? == "1" ]]; then
+if [[ ! -e /usr/local/bin/stack ]]; then
     curl -sSL https://get.haskellstack.org/ | sh
+    mv stack $LOCAL_BIN
+    stack update
+  else
+    echo "/usr/local/bin/stack already installed"
 fi
 
-PrintSeparator "Setting up haskell"
-stack update
 
 if [[ ! -e $HOME/.oh-my-zsh ]]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  else
+    echo "$HOME/.oh-my-zsh already installed"
 fi
 
