@@ -32,6 +32,7 @@ declare -a packages=(
                      "xorg-server"
                      # "xorg"
                      # "xorg-apps"
+                     "rsync"
                      "gtest"
                      "gmock"
                      "fakeroot"
@@ -39,6 +40,9 @@ declare -a packages=(
                      "perl"
                      "nlohmann-json"
                      "fmt"
+                     "patch"
+                     "yarn"
+                     "npm"
                      "pkg-config"
                      "dos2unix"
                      "lsb-release"
@@ -50,6 +54,7 @@ declare -a packages=(
                      "cronie"
                      "htop"
                      "git"
+                     "git-delta"
                      "ghc"
                      "ghc-static"
                      "exa"
@@ -90,6 +95,7 @@ declare -a packages=(
                      "feh"
                      "vim"
                      "graphviz"
+                     "ripgrep"
                      "the_silver_searcher"
                      "pwgen"
                      "fd"
@@ -133,7 +139,7 @@ do
     if [[ $? == "0" ]]; then
         echo "$package already installed"
     else
-        echo "==> Queueing $package for install"
+        echo "\n==> Queueing $package for install\n"
         all_packages="$all_packages $package"
     fi
 done
@@ -199,4 +205,3 @@ if [[ ! -e $HOME/.oh-my-zsh ]]; then
   else
     echo "$HOME/.oh-my-zsh already installed"
 fi
-
