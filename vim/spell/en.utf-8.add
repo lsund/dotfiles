@@ -98,10 +98,10 @@ programmatically
 effectful
 Purescript
 losely
-clojure
-erlang
-scala
-javascript
+Clojure
+Erlang
+Scala
+Javascript
 frontend
 backend
 sensical
@@ -112,3 +112,6 @@ Descructuring
 namespace
 cacheable
 Vattenfall
+Blumenkorb
+https
+Nutzungshandbuch

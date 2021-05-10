@@ -32,6 +32,7 @@ declare -a packages=(
                      "xorg-server"
                      # "xorg"
                      # "xorg-apps"
+                     "xsel"
                      "rsync"
                      "gtest"
                      "gmock"
@@ -128,7 +129,6 @@ declare -a packages=(
                      "emacs"
                      "screenfetch"
                      "cronie"
-                     "neovim"
                      "zathura"
                      "zathura-pdf-poppler")
 
@@ -166,6 +166,12 @@ if [[ ! -e $NEOVIM_INIT ]]; then
     echo "source ~/.vimrc" >> $NEOVIM_INIT
   else
     echo "$NEOVIM_INIT already exists"
+fi
+
+if [[ ! -e /usr/bin/grip ]]; then
+  sudo pip install grip
+else
+  echo "/usr/bin/grip already installed"
 fi
 
 # trans

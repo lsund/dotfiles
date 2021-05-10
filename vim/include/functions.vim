@@ -59,8 +59,6 @@ function! CompileLatex()
     endif
 endfunction
 
-" Toggle
-
 function! Toggle(setting)
     if a:setting == 'spell'
         if &spell
