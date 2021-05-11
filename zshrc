@@ -75,7 +75,6 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.cargo/env
 
 # Start ssh-agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
@@ -99,6 +98,10 @@ if [[ $? != "0" ]]; then
     if [[ -e ~/.ssh/id_rsa_innoq ]]; then
         echo "Adding id_rsa_innoq..."
         ssh-add ~/.ssh/id_rsa_innoq
+    fi
+    if [[ -e ~/.ssh/id_ed25519 ]]; then
+        echo "Adding id_ed25519..."
+        ssh-add ~/.ssh/id_ed25519
     fi
 fi
 
