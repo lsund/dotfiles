@@ -16,6 +16,8 @@ inoremap <C-f> <C-o>l
 
 vnoremap <C-G> <C-C>
 
+nnoremap <F1> <ESC>
+
 " Make Y behave as D, C etc
 noremap Y y$
 
