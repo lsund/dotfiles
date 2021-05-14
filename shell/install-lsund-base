@@ -39,6 +39,7 @@ declare -a packages=(
                      "rsync"
                      "gtest"
                      "gmock"
+                     "cmatrix"
                      "fakeroot"
                      "meson"
                      "perl"
