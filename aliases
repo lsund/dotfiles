@@ -16,7 +16,7 @@ function cd() {
 
 # Shortcuts
 
-alias upgrade='pacaur -Syu && xrec && echo 0 > $HOME/Data/log/pacman/pacsynccount.txt'
+alias upgrade='pacaur -Syu ; xrec ; echo 0 > $HOME/Data/log/pacman/pacsynccount.txt'
 alias shutdown='sudo shutdown now -P'
 alias restart='sudo shutdown now -r'
 alias xrec='xmonad --recompile'
