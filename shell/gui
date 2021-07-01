@@ -9,8 +9,12 @@
 # imgprogram=feh
 imgprogram=ristretto
 officeprogram=libreoffice
-pdfprogram=zathura
 mediaprogram=mplayer
+if [[ $(which scutil) &&  $(scutil --get HostName) == "renewise" ]]; then
+  pdfprogram='open -a Preview'
+else
+  pdfprogram=/usr/bin/zathura
+fi
 
 case $1 in
     "eclipse")
@@ -57,19 +61,21 @@ do
     if [[ ! -e $file ]]; then
         echo "File does not exist: $file" && exit 1
     fi
-    files="$files $file"
+    if [[ $file != "-a" && $file != "Preview" ]]; then
+      files="$files $file"
+    fi
 
 
 done
 
 case $ext in
     "pdf")
-        program=$(which $pdfprogram)
-        [[ $? == "1" ]] && echo "$pdfprogramis not installed" && exit 1
+        program=$pdfprogram
+        [[ $? == "1" ]] && echo "$pdfprogram not installed" && exit 1
         ;;
     "PDF")
-        program=$(which $pdfprogram)
-        [[ $? == "1" ]] && echo "$pdfprogramis not installed" && exit 1
+        program=$pdfprogram
+        [[ $? == "1" ]] && echo "$pdfprogram not installed" && exit 1
         ;;
     "png")
         program=$(which $imgprogram)
@@ -127,39 +133,4 @@ case $ext in
         echo "Unknown extension: $ext" && exit 1
 esac
 
-# ############################################################################
-# Launch program with arguments
-
-# exit
-files=$(echo $files | xargs)
-words=$(echo $files | wc -w)
-
-case $words in
-    0)
-        $program $file > /dev/null 2>&1 &
-        ;;
-    1)
-        $program $files > /dev/null 2>&1 &
-        ;;
-    *)
-        # Opening many files can cause some gui programs to spawn multiple
-        # times. Thus, query user here.
-        msg1="You've chosen to spawn $(basename $program) "
-        msg2="on $(( $words )) files. Proceed? [y/n] "
-        vared -p "$msg1$msg2" -c yn
-        case $yn in
-            [Yy]*)
-                for file in $(echo $files); do
-                    if [[ -f $file ]]; then
-                        $program $file  > /dev/null 2>&1 &
-                    else
-                        echo "Can't open file: $file " && exit 1
-                    fi
-                done
-                ;;
-            [Nn]*)
-                echo "O-kay"
-                ;;
-            *) echo "yes or no mate"
-        esac
-esac
+$(echo $program $file ) > /dev/null 2>&1 &

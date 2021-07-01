@@ -82,6 +82,8 @@ if ! pgrep -u "$USER" ssh-agent > /dev/null; then
 fi
 if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent-thing)"
+else
+  ssh-agent zsh
 fi
 
 # Check if identity not already added. In that case, add the identity

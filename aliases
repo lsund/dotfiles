@@ -7,7 +7,7 @@ alias ls='exa -lu --time-style long-iso --color always'
 alias la='exa -lau --time-style long-iso --color always'
 alias grep='grep --color'
 alias vim='nvim'
-alias df='pydf'
+# alias df='pydf'
 alias pwd="$SCRIPTS/pwd"
 
 function cd() {
