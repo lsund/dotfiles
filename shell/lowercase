@@ -1,8 +1,12 @@
 #!/bin/zsh
 
+
 for var in "$@"
 do
-    lc=$(echo "$var" | sed -e 's/\(.*\)/\L\1/')
+    # lc=$(echo "$var" | sed -e 's/\(.*\)/\L\1/')
+    #
+    # tested for osx
+    lc=$(echo "$var" | sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/')
     mv "$var" "$lc"
     echo "$var" "->" "$lc"
 done

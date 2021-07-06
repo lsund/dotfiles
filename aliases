@@ -27,7 +27,10 @@ alias te='trans de:'
 alias weather='curl wttr.in'
 alias distro='lsb_release -a'
 alias autoumount='automount -u'
-alias pbcopy='xsel --clipboard --input'
+
+if [[ $HOST != "renewise" ]]; then
+  alias pbcopy='xsel --clipboard --input'
+fi
 alias watch-file='watch -n 1 -d cat'
 alias list-ports="sudo netstat -ltpn"
 alias duh="sudo du -h -d 1 2> /dev/null"
@@ -63,7 +66,7 @@ function ggg() {
     msg_12341234=""
 }
 
-if [[ $HOST == "Ludvigs-MacBook-Pro.local" ]]; then
+if [[ $HOST ==  "renewise" ]]; then
     alias pip='pip3'
     alias python='/usr/local/bin/python3'
 fi
