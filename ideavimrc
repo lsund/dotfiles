@@ -36,6 +36,7 @@ nnoremap <leader>y :action RecentFiles<CR>
 nnoremap <leader>e :action GotoFile<CR>
 nnoremap <leader><S-y> :action VimFilePrevious<CR>
 nnoremap <leader>aa :action FindInPath<CR>
+nnoremap <leader>ak :action FindUsages<CR>
 
 nooremap <leader>[ :action EditorCodeBlockStart<CR>
 nooremap <leader>] :action EditorCodeBlockEnd<CR>
@@ -48,8 +49,23 @@ nnoremap <C-k> 0i<BS><ESC>
 
 nnoremap <leader>bd :action ReformatCode<CR>
 nnoremap <leader>rr :action Run<CR>
+nnoremap <leader>RR :action RunConfiguration<CR>
 nnoremap gq V
 vnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
 
 map <A-h> <C-w>h
 map <A-l> <C-w>l
+map <A-j> <C-w>j
+map <A-k> <C-w>k
+
+nnoremap <leader>jgg :aciton GenereteGetter<CR>
+nnoremap <leader>jgs :aciton GenereteSetter<CR>
+nnoremap <leader>jgc :aciton GenerateConstructor<CR>
+nnoremap <leader>jcc :aciton NewClass<CR>
+nnoremap <leader>jcd :aciton RenameElement<CR>
+nnoremap <leader>jdd :aciton QuickJavaDoc<CR>
+
+nnoremap <leader>jtb :action ToggleLineBreakPoint<CR>
+
+nnoremap <Tab>, :action EmmetEverywhere<CR>
+vnoremap <Tab>, :action SurroundWithEmmet<CR>

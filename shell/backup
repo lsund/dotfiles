@@ -48,12 +48,12 @@ fi
 
 dirs_string=""
 
-timestamp="$(date +%Y-%M-%d)/"
+timestamp="$(date +%Y-%m-%d)/"
 dest_dir=$backup_dest_dir$timestamp
 
 for dir in ${backup_dirs[*]}
 do
-    if [[ ! -e $HOME${dir} ]]; then
+    if [[ ! -e $HOME/${dir} ]]; then
         echo "Dir to be backed up: $HOME$dir does not exist"
         exit
     fi
@@ -61,7 +61,7 @@ done
 
 for dir in ${backup_dirs[*]}
 do
-    dirs_string="$dirs_string $HOME$dir"
+    dirs_string="$dirs_string $HOME/$dir"
 done
 
 if [[ $verbose == "true" ]]; then

@@ -122,3 +122,4 @@ fortune | cowsay
 export SDKMAN_DIR="/Users/lsund/.sdkman"
 [[ -s "/Users/lsund/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lsund/.sdkman/bin/sdkman-init.sh"
 
+[[ -s "/Users/lsund/Documents/work/vattenfall/dotfiles/aliases.sh" ]] && source "/Users/lsund/Documents/work/vattenfall/dotfiles/aliases.sh"

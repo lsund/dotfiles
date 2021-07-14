@@ -10,3 +10,5 @@ xmonad/xmonad.errors
 xmonad/prompt-history
 clj-kondo/.cache
 xmonad/img
+config/yarn
+config/gtk-2.0

@@ -173,6 +173,9 @@ Plug 'unisonweb/unison', { 'rtp': 'editor-support/vim' }
 Plug 'Shougo/denite.nvim'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" Vue JS
+Plug 'posva/vim-vue'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Java
 
