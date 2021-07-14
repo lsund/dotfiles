@@ -5,6 +5,7 @@ ZSH_THEME="robbyrussell"
 plugins=(
     archlinux
     colored-man-pages
+    kubectl
     cp
     git
     fzf
@@ -13,7 +14,6 @@ plugins=(
     extract
     copyfile
     rsync
-    taskwarrior
 )
 
 [[ -e /usr/share/fzf/key-bindings.zsh ]] && . /usr/share/fzf/key-bindings.zsh
