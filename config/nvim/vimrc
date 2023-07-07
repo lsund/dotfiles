@@ -1,0 +1,9 @@
+
+function! RunningOn(hostname)
+  return match(hostname(), a:hostname) >= 0
+endfunction
+
+source ~/dotfiles/vim/plugin/plugin.vim
+source ~/dotfiles/vim/include/bindings.vim
+source ~/dotfiles/vim/include/functions.vim
+source ~/dotfiles/vim/include/settings.vim

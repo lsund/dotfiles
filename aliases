@@ -1,0 +1,104 @@
+#!/bin/zsh
+
+# alias dev-windows='erl -sname etp_user_test -setcookie etp_test -remsh etp_user_test@DUSWVERL001T -hidden'
+alias fedora-office='ssh u57182@150.106.52.74'
+
+## Bash utilities
+alias ls='exa -lu --time-style long-iso --color always'
+alias la='exa -lau --time-style long-iso --color always'
+alias grep='grep --color'
+alias vim='nvim'
+alias duh="sudo du -h -d 1 2> /dev/null"
+alias pingg='ping -c 3 google.com'
+alias upd='sudo apt-get update -y; sudo apt-get upgrade -y'
+alias ghci='stack ghci'
+alias agl='ag -l'
+
+if [[ $HOST == "N52930" ]]; then
+  alias cat='batcat --theme zenburn'
+  alias fd='fdfind'
+else
+  alias cat='bat --theme zenburn'
+fi
+
+
+alias pwd="$SCRIPTS/pwd"
+
+function cd() {
+    builtin cd $1 && ls
+}
+
+## Linux
+alias distro='lsb_release -a'
+alias autoumount='automount -u'
+
+## OSX
+if [[ $HOST != "renewise" ]]; then
+  alias pbcopy='xsel --clipboard --input'
+fi
+
+## Trans
+alias td='trans en: :de'
+alias te='trans de:'
+
+## APIS
+alias weather='curl wttr.in'
+alias public-ip='curl https://ipinfo.io/ip'
+
+alias beep='echo -ne "\\007"'
+alias bell='echo -ne "\\007"'
+
+# alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security --user-data-dir=$TMPDIR"
+
+# Git git
+alias gdl='git diff --name-status';
+alias gdc='git show --decorate'
+alias cdgr='source $DOTFILES/shell/cd-git-root'
+alias glogc='git log --graph --simplify-by-decoration --oneline --topo-order --branches'
+alias gsst='git status -s'
+alias csvdiff='git diff --color-words="[^[:space:],]+"'
+alias squash='git reset --soft HEAD~2 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"'
+alias git-delete-all-merged-branches='git branch --merged | grep -v "\*" | grep -v master | grep -v main | xargs -n 1 git branch -d'
+
+function ggg() {
+    gaa
+    gss
+    tag=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1)
+    issue=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-2)
+    if [[ $# == 1 ]]; then
+        gcmsg "$issue: $1"
+    else
+        vared -p "> " -c msg_12341234
+        echo "Commit message: $msg_12341234"
+        gcmsg "$msg_12341234"
+    fi
+    msg_12341234=""
+}
+
+if [[ $HOST ==  "renewise" ]]; then
+    alias pip='pip3'
+    alias python='/usr/local/bin/python3'
+fi
+
+# Fuzzy CD. Start an interactive search under directory.
+function fcd() {
+    fuzzy_prog=fzf
+    if [[ $# == 1 ]]; then
+        eval "builtin cd $1"
+    elif [[ $# == 0 ]]; then
+        file=$(/usr/bin/ls -p | grep '/' | $fuzzy_prog)
+        search_path="./"
+        if [[ -d $file ]]; then
+            dir=$file
+            while [[ -d $search_path$dir ]]; do
+                search_path=$search_path/$dir
+                dir=$(/usr/bin/ls -p $search_path | grep '/' | $fuzzy_prog)
+                [[ $dir == "" ]] && break
+            done
+        fi
+        if [[ -d $search_path ]]; then
+            eval "builtin cd $search_path"
+        fi
+    fi
+}
+

@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+cmd=""
+
+function usage () {
+    echo "./gclone git@github.com/ORG/REPO"
+    echo "./gclone ORG REPO"
+    echo "./gclone --statkraft ORG REPO"
+}
+
+if [[ $# == 1 ]]; then
+  git clone $1
+elif [[ $1 == "--statkraft" ]]; then
+    if [[ $# == 3 ]]; then
+        cmd="git clone git@gitlab.com:statkraft/$2/$3.git"
+    else
+        usage && exit
+    fi
+else
+    if [[ $# == 1 ]]; then
+        user=$(echo $1 | cut -d'/' -f4)
+        repo=$(echo $1 | cut -d'/' -f5)
+        cmd="git clone git@github.com:/$user/$repo"
+    elif [[ $# == 2 ]]; then
+        cmd="git clone git@github.com:/$1/$2"
+    else
+        usage && exit
+    fi
+fi
+
+echo $cmd
+exec $(echo $cmd)

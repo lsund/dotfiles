@@ -1,0 +1,42 @@
+set adjust-open "best-fit"
+
+set pages-per-row 1
+
+#stop at page boundries
+set scroll-page-aware "true"
+set smooth-scroll "true"
+set scroll-full-overlap 0.01
+set scroll-step 100
+
+#zoom settings
+set zoom-min 10
+set guioptions ""
+
+#set render-loading "false"
+set scroll-step 50
+unmap <C-f>
+map <C-f> toggle_fullscreen
+map [fullscreen] <C-f> toggle_fullscreen
+
+unmap f
+map f adjust_window best-fit
+
+unmap <C-t>
+map <C-t> navigate next
+unmap <C-n>
+map <C-n> navigate previous
+
+unmap t
+unmap s
+map t scroll down
+map s scroll right
+
+unmap n
+map n search forward
+map N search backward
+
+map <Right> navigate next
+map <Left> navigate previous
+
+map <Up> navigate next
+map <Down> navigate previous

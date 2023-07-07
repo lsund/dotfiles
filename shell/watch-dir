@@ -1,0 +1,42 @@
+#!/bin/zsh
+
+# Dependencies: inotify-tools
+
+function usage() {
+cat << EOF
+USAGE:
+
+   watch-dir [ -hdc ]
+
+OPTIONS:
+
+   -h : display this help
+   -d : specify directory to watch
+   -c : specify command to execute on change
+
+EOF
+}
+
+dir="."
+command="ls --color=auto"
+
+while getopts "hd:c:" opt; do
+    case "$opt" in
+        d)
+            dir="$OPTARG"
+            ;;
+        c)
+            command="$OPTARG"
+            ;;
+        h)
+            usage && exit 0
+            ;;
+        *) echo "Invalid flag." && exit 1
+    esac
+done 2>/dev/null
+
+while true; do
+    inotifywait -qe modify,create,delete -r $dir > /dev/null && \
+        eval $command
+done
+

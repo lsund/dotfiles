@@ -1,0 +1,135 @@
+#!/bin/zsh
+
+# For gui programs intended to be run in shell background
+
+# ############################################################################
+# Find out which program to use
+
+officeprogram=libreoffice
+mediaprogram=mplayer
+if [[ $(which scutil) &&  $(scutil --get HostName) == "renewise" ]]; then
+  pdfprogram='open -a Preview'
+  imgprogram='qlmanage -p'
+else
+  pdfprogram=/usr/bin/zathura
+  imgprogram=ristretto
+fi
+
+case $1 in
+    "eclipse")
+        which eclipse > /dev/null
+        [[ $? == "1" ]] && echo "eclipse is not installed" && exit 1
+        program="$(SWT_GTK3=0 /usr/bin/eclipse >/dev/null 2>&1 &)"
+        ;;
+    "emacs")
+        program=/usr/local/bin/emacs
+        [[ $? == "1" ]] && echo "emacs is not installed" && exit 1
+        ;;
+    "gimp")
+        program=$(which gimp)
+        [[ $? == "1" ]] && echo "gimp is not installed" && exit 1
+        ;;
+esac
+
+# ############################################################################
+# Get Extension
+if [[ "$#" == "0" ]]; then
+    file=$(ls | head -1)
+else
+    file=$1
+fi
+
+ext=$(extension $file)
+
+# Check if the file has no extension
+if [[ $ext == $file ]]; then
+    vared -p "No Extension. Open with vim [Y/n]? " -c yn
+    case $yn in
+        [Nn]*)
+            exit
+            ;;
+        *) vim $file
+            ;;
+    esac
+fi
+
+
+# Count arguments and expect wildcards. Check so all files exist
+for file in "$@"
+do
+    if [[ ! -e $file ]]; then
+        echo "File does not exist: $file" && exit 1
+    fi
+    if [[ $file != "-a" && $file != "Preview" ]]; then
+      files="$files $file"
+    fi
+
+
+done
+
+case $ext in
+    "pdf")
+        program=$pdfprogram
+        [[ $? == "1" ]] && echo "$pdfprogram not installed" && exit 1
+        ;;
+    "PDF")
+        program=$pdfprogram
+        [[ $? == "1" ]] && echo "$pdfprogram not installed" && exit 1
+        ;;
+    "png")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "svg")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "SVG")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "jpg")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "JPG")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "jpeg")
+        program=$(which $imgprogram)
+        [[ $? == "1" ]] && echo "$imgprogram is not installed" && exit 1
+        ;;
+    "ppx")
+        program=$(which $officeprogram)
+        [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
+    "pptx")
+        program=$(which $officeprogram)
+        [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
+    "odp")
+        program=$(which $officeprogram)
+        [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
+    "doc")
+        program=$(which $officeprogram)
+        [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
+    "docx")
+        program=$(which $officeprogram)
+        [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
+    "xlsx")
+        program=$(which $officeprogram)
+        [[ $? == "1" ]] && echo "$officeprogram is not installed" && exit 1
+        ;;
+    "mkv")
+        program=$(which $mediaprogram)
+        [[ $? == "1" ]] && echo "$mediaprogram is not installed" && exit 1
+        ;;
+    *)
+        echo "Unknown extension: $ext" && exit 1
+esac
+
+$(echo $program $file ) > /dev/null 2>&1 &

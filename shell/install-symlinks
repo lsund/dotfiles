@@ -1,0 +1,45 @@
+#!/bin/zsh
+
+base_dir=$HOME/dotfiles
+
+declare -a ignore=("fonts" "shell" "readme.md" "xorg" "YouCompleteMe")
+
+function Ignore() {
+    for e in "${ignore[@]}"; do
+        if [[ $e == $1 ]]; then
+            echo "yes"
+            return
+        fi
+    done
+    echo "no"
+}
+
+indent=""
+
+function Link() {
+    if [[ -d $1 ]]; then
+        echo "$3$1"
+        mkdir -p $1
+        for file in $(ls $2); do
+            if [[ $(Ignore $file) == "no" ]]; then
+                Link $1/$file $2/$file "$indent  "
+            fi
+        done
+    else
+        if [[ -e $1 ]]; then
+            echo "$3$2"
+        else
+            ln -s $2 $1
+            echo "$3$1 --> $2 [NEW]"
+        fi
+    fi
+}
+
+for file in $(ls $base_dir); do
+    if [[ $(Ignore $file) == "no" ]]; then
+        Link $HOME/.$file $base_dir/$file
+    fi
+done
+
+. ~/.zshrc
+echo "Done"

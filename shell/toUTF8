@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+for file in "$@"; do
+    iconv -f ascii -t utf-8 "$file" -o "${file%}.utf8.txt"
+done

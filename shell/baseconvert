@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ "$1" == "hex2dec" ]]; then
+    echo $((0x$2))
+elif [[ "$1" == "dec2hex" ]]; then
+    echo "obase=16;$2" | bc
+elif [[ "$1" == "bin2dec" ]]; then
+    echo "$((2#$2))"
+elif [[ "$1" == "dec2bin" ]]; then
+    echo "obase=2;$2" | bc
+else
+    echo "Allowed conversions are: {hex2dec, dec2hex, bin2dec, dec2bin}"
+fi

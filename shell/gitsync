@@ -1,0 +1,84 @@
+#!/bin/zsh
+
+try-connect
+
+declare -a syncdirs=("$HOME/Documents/dotfiles"
+"$HOME/.password-store"
+"$HOME/.task")
+
+function PrintSeparator() {
+    case $1 in
+        "push")
+            echo "##################################################################"
+            echo "## Pushing to $2"
+            ;;
+        "pull")
+            echo "##################################################################"
+            echo "## Pulling from $2"
+            ;;
+        *)
+            echo "PrintSeparator: unknown command" && exit
+    esac
+}
+
+case $# in
+    "1")
+        action=$1
+        case $action in
+            "push")
+                for dir in "${syncdirs[@]}"
+                do
+                    PrintSeparator $action $dir
+                    if [[ $(git -C $dir status | head -4 | tail -1) == "nothing to commit, working tree clean" ]]; then
+                        echo "Nothing to Push!"
+                    else
+                        git -C $dir add .
+                        git -C $dir commit
+                        git -C $dir "push"
+                    fi
+                done
+                ;;
+            "pull")
+                for dir in "${syncdirs[@]}"
+                do
+                    PrintSeparator $action $dir
+                    git -C $dir "pull"
+                done
+                ;;
+            *)
+                echo "Unknown command: $action" && exit
+        esac
+        ;;
+    "2")
+        action=$1
+        msg=$2
+        case $action in
+            "push")
+                for dir in "${syncdirs[@]}"
+                do
+                    PrintSeparator $action $dir
+                    git -C $dir add .
+                    git -C $dir commit -m "$msg"
+                    git -C $dir "push"
+                done
+                ;;
+            "pull")
+                for dir in "${syncdirs[@]}"
+                do
+                    PrintSeparator $action $dir
+                    git -C $dir "pull"
+                done
+                ;;
+            *)
+            echo "Unknown command: $action" && exit
+            ;;
+        esac
+        ;;
+    "3")
+        action=$1
+        filter=$2
+        dir=$3
+        # TODO
+        ;;
+    *) echo "Usage: gitsync push|pull [MESSAGE]" && exit
+esac

@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+touchpad_id=$(xinput | grep Touchpad | xargs | cut -d' ' -f6 | cut -d'=' -f2)
+
+tapping_id=$(xinput list-props $touchpad_id | grep 'Tapping Enabled' | head -1 | xargs | cut -d' ' -f4 | cut -d'(' -f2 | cut -d')' -f1)
+
+echo xinput set-prop $touchpad_id $tapping_id 1
+
+xinput set-prop $touchpad_id $tapping_id 1
+

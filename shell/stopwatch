@@ -1,0 +1,12 @@
+#!/bin/bash
+
+date0=`date +%s`
+while true; do
+    date_now=`date +%s`
+    date_diff=$(($date_now - $date0))
+    result=$(date -jf "%s" $date_diff +"%H:%M:%S")
+    echo -ne "$result\r"
+    sleep 0.1
+done
+
+

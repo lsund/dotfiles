@@ -1,0 +1,26 @@
+#!/bin/bash
+
+t2s() {
+   sed 's/d/*24*3600 +/g; s/h/*3600 +/g; s/m/*60 +/g; s/s/\+/g; s/+[ ]*$//g' <<< "$1 $2 $3" | bc
+}
+
+cli_input=`t2s $1 $2 $3`
+n_seconds=$cli_input
+
+date0=`date +%s`
+while true; do
+    date_now=`date +%s`
+    elapsed=$(($date_now - $date0))
+    if [[ $n_seconds -gt $elapsed ]]; then
+      left=$(($n_seconds - $elapsed))
+      left_formatted=$(date -jf "%s" $left +"%H:%M:%S")
+      echo -ne "$left_formatted\r"
+    else
+      break
+    fi
+    sleep 0.1
+done
+
+sound
+
+

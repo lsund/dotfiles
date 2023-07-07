@@ -1,0 +1,120 @@
+#!/bin/zsh
+
+# Convert a webm/mp4/mkv to mp3 using ffmpeg. Can also specify a youtube-url,
+# which will be attempted to be downloaded using youtube-dl, and then
+# converted.
+
+
+# ############################################################################
+# Initial Settings
+
+youtube=false
+outfile=false
+inffile=false
+keep_video=false
+
+YOUTUBE_DL_PROG=/Users/lsund/youtube-dl/youtube-dl
+
+# ############################################################################
+# Functions
+
+
+function usage() {
+cat << EOF
+USAGE:
+
+   video-to-mp3 [ -hiouk ]
+
+OPTIONS:
+
+   -h : display this help
+   -i : specify input file
+   -o : specify output file
+   -u : specify youtube-url to download and convert
+   -k : keep video file
+
+EOF
+}
+
+
+# ############################################################################
+# Get flag options
+
+nflags=0
+while getopts "khu:o:i:" opt; do
+    nflags=$(( $nflags + 1 ))
+    case "$opt" in
+        u)
+            url="$OPTARG"
+            youtube=true
+            ;;
+        o)
+            outfile_name="$OPTARG"
+            outfile=true
+            ;;
+        i)
+            infile_name="$OPTARG"
+            infile=true
+            ;;
+        k)
+            keep_video=true
+            ;;
+        h)
+            usage && exit 0
+            ;;
+        *) echo "Invalid flag." && exit 1
+    esac
+done 2>/dev/null
+
+[[ $nflags == "0" ]] && usage && exit
+
+# ############################################################################
+# Youtube and outfile: Standard for single downloads
+
+if [[ $youtube == true && $outfile == true ]]; then
+
+    $YOUTUBE_DL_PROG $url -o $outfile_name
+    noext_name=$(without-extension $outfile_name)
+    videofile=$(ls $outfile_name*)
+    ffmpeg -i $outfile_name* -vn -ar 44100 -ac 2 -ab 192k -f mp3 $noext_name.mp3
+    if [[ $keep_video == false ]]; then
+        echo "trash $videofile"
+        trash $videofile
+    else
+        echo "Keeping video file"
+    fi
+
+# ############################################################################
+# Youtube but no outfile: Standard for multi-download
+
+elif [[ $youtube == true && $outfile == false ]]; then
+    $YOUTUBE_DL_PROG $url
+    exit 0
+
+# ############################################################################
+# No youtube but outfile: use same name as out.put
+
+elif [[ $youtube == false && $outfile == true ]]; then
+
+    noext_name=$(without-extension $outfile_name)
+    videofile=$(ls $outfile_name*)
+    [[ $infile == false ]] && echo "Must provide an infile with -i" && exit 1
+    ffmpeg -i $infile_name -vn -ar 44100 -ac 2 -ab 192k -f mp3 $noext_name.mp3
+    if [[ $keep_video == false ]]; then
+        echo "trash $videofile"
+        trash $videofile
+    else
+        echo "Keeping video file"
+    fi
+
+# ############################################################################
+# No youtube, no outfile: use infile name
+
+elif [[ $youtube == false && $outfile == false ]]; then
+
+    [[ $infile == false ]] && echo "Must provide an infile with -i" && exit 1
+    noext_name=$(without-extension $infile_name)
+    ffmpeg -i $infile_name -vn -ar 44100 -ac 2 -ab 192k -f mp3 $noext_name.mp3
+fi
+
+exit 0

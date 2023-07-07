@@ -1,0 +1,28 @@
+#!/bin/zsh
+
+basedir="$HOME/git/$1"
+
+if [[ -d $basedir ]]; then
+
+    tmux setw remain-on-exit on
+
+    tmux new-window -c $basedir -n $service
+
+    tmux setw remain-on-exit on
+
+    tmux new-window $basedir -n $service
+
+    tmux setw remain-on-exit on
+
+    tmux split-window -v -c $basedir
+
+    tmux setw remain-on-exit on
+
+    tmux resize-pane -D 30
+
+    tmux split-window -h -c $basedir
+
+    tmux setw remain-on-exit on
+else
+    echo "$basedir does not exist"
+fi

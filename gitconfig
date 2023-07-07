@@ -1,0 +1,21 @@
+[user]
+	email = lud.sund@gmail.com
+  name = Ludvig Sundström
+[core]
+  pager = delta
+  editor = /usr/bin/nvim
+  autocrlf = false
+	excludesFile = ~/.gitignore
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+    features = line-numbers decorations
+    whitespace-error-style = 22 reverse
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+[init]
+	defaultBranch = master
+[safe]
+	directory = %(prefix)///wsl.localhost/Ubuntu/home/lsund/git/statkraft

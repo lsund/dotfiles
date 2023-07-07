@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+# Tests every 60 sec if if $1 is running. If not, shuts down the computer
+
+if [[ "$#" != 1 ]]; then
+    echo "Need one argument for the program"
+    exit
+fi
+
+program=$1
+
+while true
+do
+    ps cax | grep $program > /dev/null
+    if [ $? -eq 0 ]; then
+    echo "Process is running." > log.txt
+    else
+    echo "Process is not running." > log.txt
+    sudo shutdown now -P
+    fi
+    sleep 60
+done

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Get how many available updates via pacman, store them in $file
+
+file=$HOME/Data/log/pacman/pacsynccount.txt
+
+$HOME/Documents/dotfiles/shell/try-connect
+
+if [[ $? -eq 0 ]];
+    then
+        sudo pacman -Sy
+        count="$(pacman -Qu | wc -l)"
+        echo "$count" > $file
+    else
+        echo "!conn" > $file
+fi

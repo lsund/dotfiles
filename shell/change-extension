@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+file=$(without-extension $1)
+echo "$1 --> $file.$2"
+mv $1 $file.$2

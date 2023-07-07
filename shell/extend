@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+[[ $# != 2 ]] && echo "usage: ./add-extension FILE EXT" && exit
+
+echo "$1 --> $1.$2"
+
+mv $1 "$1.$2"

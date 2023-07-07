@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+# Start mplayer with file $1 at time $2
+
+mplayer -slave -quiet $1 &
+
+echo "seek $(serialize-time $2)" > ~/.mplayer/fifo

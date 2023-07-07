@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Get "unread" emails, or set unread emails to 0
+
+mailcountfile="$HOME/Data/log/mail//mailcount.txt"
+mailsynccountfile="$HOME/Data/log/mail/mailsynccount.txt"
+
+current_count=$(cat $mailcountfile)
+curs=$(ls $HOME/Mail/Gmail/INBOX/cur | wc -l)
+news=$(ls $HOME/Mail/Gmail/INBOX/new | wc -l)
+actual_count=$((curs + news))
+unread=$((actual_count - current_count))
+echo $unread > $mailsynccountfile
+
+if [[ "$1" == "update" ]]; then
+    echo $actual_count > $mailcountfile
+    #todo should refactor this
+    current_count=$(cat $mailcountfile)
+    curs=$(ls $HOME/Mail/Gmail/INBOX/cur | wc -l)
+    news=$(ls $HOME/Mail/Gmail/INBOX/new | wc -l)
+    actual_count=$((curs + news))
+    unread=$((actual_count - current_count))
+    if [[ "$unread" > 0 ]]; then
+        mplayer $HOME/Media/audio/sounds/beep.mp3
+    fi
+    echo $unread > $mailsynccountfile
+fi

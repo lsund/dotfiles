@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+if [[ $HOST == "keysersoze" ]]; then
+    if [[ $1 == "dec" ]]; then
+        xbacklight -dec 10
+    elif [[ $1 == "inc" ]]; then
+        xbacklight -inc 10
+    fi
+else
+    if [[ $1 == "dec" ]]; then
+        if [[ $(light | cut -d'.' -f1) -lt 10 ]]; then
+            light -S 1
+        else
+            light -U 10
+        fi
+    elif [[ $1 == "inc" ]]; then
+        light -A 10
+    fi
+fi
+

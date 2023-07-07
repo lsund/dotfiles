@@ -1,0 +1,27 @@
+#!/bin/zsh
+
+seconds=30
+if [[ "$#" == 0 ]]; then
+    host="www.google.com"
+elif [[ $1 == -c ]]; then
+    host="www.google.com"
+    seconds=$2
+else
+    host="$1"
+fi
+
+i=0
+echo -n "Checking connection..."
+while true
+do
+    echo -n "."
+    ping -c 1 $host > /dev/null 2>&1
+    if [[ "$?" == "0" ]]; then
+        echo "Connected" && exit 0
+    elif [[ "$i" == "$seconds" ]]; then
+        exit 1
+    else
+        i=$((i + 1))
+        sleep 1
+    fi
+done

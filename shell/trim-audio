@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+function usage() {
+    echo "Trims an audio file between STARTTIME and ENDTIME"
+    echo "Timestamps should be of form 'hh:mm:ss'"
+    echo "Usage: ./trim-audio FILE STARTTIME ENDTIME OUTFILE"
+}
+
+
+if [[ $# != 4 ]]; then
+    usage
+    exit 1
+fi
+
+ffmpeg -i $1 -acodec copy -ss $2  -to $3 $4

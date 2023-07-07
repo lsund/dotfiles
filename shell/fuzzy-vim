@@ -1,0 +1,72 @@
+#!/bin/zsh
+
+# Fuzzy finds the way to a file if the input argument(s) is either a directory
+# or empty.
+
+fuzzy_prog=fzf
+open_with_less=false
+all_arguments=""
+
+function check_size () {
+    size=$(du -h $1 | xargs | cut -d' ' -f1)
+    value="${size:0:${#size}-1}"
+    suffix="${size: -1}"
+    if [[ $open_with_less == false && $suffix == "G" ]]; then
+        is_gb=true;
+    elif [[ $open_with_less == false && $suffix == "M" && $value -gt 4 ]]; then
+        is_large_mb=true;
+    fi
+    if [[ $is_large_mb || $is_gb ]]; then
+        vared -p "File $1 is large: ($size $suffix). Open with less? [Y/n] " -c choice
+        if [[ $choice != "n" ]]; then
+            open_with_less=true
+        fi
+    fi
+}
+
+function recurse_into_dir () {
+    search_path="."
+    dir=$1
+    while [[ -d $search_path/$dir ]]; do
+        search_path=$search_path/$dir
+        dir=$(/usr/bin/ls $search_path | $fuzzy_prog)
+        [[ $dir == "" ]] && exit
+    done
+
+    all_arguments="$all_arguments $search_path/$dir "
+}
+
+# Assemble arguments
+if [[ $# == 0 ]]; then
+    file=$(/usr/bin/ls | $fuzzy_prog)
+    if [[ -d $file ]]; then
+        recurse_into_dir $file
+    else
+        all_arguments="$all_arguments $file"
+    fi
+else
+    for file in $@; do
+        if [[ -d $file ]]; then
+            recurse_into_dir $file
+        else
+            all_arguments="$all_arguments $file"
+        fi
+    done
+fi
+
+for file in $(echo $all_arguments | xargs); do;
+    if [[ ! -e $file ]]; then
+        continue
+    fi
+    check_size $file
+done
+
+
+if [[ $open_with_less == true ]]; then
+    less $(echo $all_arguments | xargs)
+else
+    nvim $(echo $all_arguments | xargs)
+fi
+
+
+
