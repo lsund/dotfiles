@@ -1,0 +1,45 @@
+#!/bin/zsh
+
+if [[ $1 == "high" ]]; then
+    xrandr --output DP-1 --mode 3840x2160
+    exit
+fi
+
+if [[ $1 == "laptop" ]]; then
+  xrandr --output DP-1 --off
+  xrandr --output eDP-1 --auto
+  exit
+fi
+
+if [[ $1 == "desktop" ]]; then
+  xrandr --output eDP-1 --off
+  xrandr --output DP-1 --mode 3840x2160
+  exit
+fi
+
+if [[ $1 == "double" ]]; then
+  xrandr --output eDP-1 --off
+  xrandr --auto --output DP-1 --mode 1920x1200 --above eDP-1
+  exit
+fi
+
+
+if [[ $# == 0 ]]; then
+    echo "Available screens:\n"
+    while read -r line; do
+        echo $line
+    done <<< "$(xrandr | grep connected | cut -d' ' -f1,2)"
+
+    echo "\nExamples:"
+    echo "output SCREEN"
+    echo "output SCREEN off"
+elif [[ $# == 1 ]]; then
+    xrandr --output $1 --auto
+elif [[ $# == 2 ]]; then
+    if [[ $2 == off ]]; then
+        xrandr --output $1 --off
+    else
+        xrandr --output $1 --mode $2
+    fi
+fi
+

@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+if [[ -z $2 ]]; then
+  l_replicas=1
+else
+  l_replicas=$2
+fi
+
+deployment=$1
+
+kubectl scale deployment $deployment --replicas=0 && kubectl scale deployment $deployment --replicas $l_replicas

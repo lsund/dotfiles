@@ -1,0 +1,17 @@
+#!/bin/zsh
+next=$(git log --reverse \
+       --ancestry-path HEAD^..master \
+       --pretty=oneline \
+       --abbrev-commit \
+       | cut -d' ' -f1 \
+       | head -2 \
+       | tail -1)
+
+current=$(take 7 $(git rev-parse HEAD))
+
+if [[ $current == $next ]]; then
+    echo "No more commits"
+    exit 0
+fi
+
+git checkout $next

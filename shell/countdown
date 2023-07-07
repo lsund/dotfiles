@@ -1,0 +1,12 @@
+#!/bin/zsh
+if [[ $# == 1 ]]; then
+  seconds=$((60 * $1))
+else
+  seconds=%$((60 * 5))
+fi
+
+start="$(($(date +%s) + $seconds))"
+while [ "$start" -ge `date +%s` ]; do
+    time="$(( $start - `date +%s` ))"
+    printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+done

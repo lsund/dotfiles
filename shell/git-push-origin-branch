@@ -1,0 +1,116 @@
+#!/bin/zsh
+
+if [[ $(basename $(pwd)) == "heron" ]]; then
+    diffbranch=integration
+else
+    diffbranch=master
+fi
+
+[[ ! $(git status 2> /dev/null) ]] && echo "Error: Not a git repository" && exit
+
+current_branch_name=$(git branch | grep \* | cut -d ' ' -f2)
+
+# Jira branches
+project_name=$(echo $current_branch_name | cut -d '-' -f1)
+issue_number=$(echo $current_branch_name | cut -d '-' -f2)
+
+if [[ $1 == "-n" ]]; then
+    nocommit=true
+else
+    msg=$1
+fi
+
+function push() {
+    try-connect -c 3
+    if [[ $? == "0" ]]; then
+        echo  "git push -u origin $current_branch_name"
+        git push -u origin $current_branch_name
+    else
+        echo "Not connected to the internet. Not pushing."
+    fi
+}
+
+
+basedir=$(git rev-parse --show-toplevel)
+
+real_modified_file=false
+files=$(git ls-files -m $basedir ; git ls-files . --exclude-standard --others)
+while read -r file; do
+    if [[ $file != *"common-schemas"* && $file != *"marklogic-common"* ]]; then
+        real_modified_file=true
+    fi
+done <<< $files
+
+if [[ $1 == "a" ]]; then
+    while read -r file; do
+        if [[ $file == *"common-schemas"* || $file == *"marklogic-common"* ]]; then
+            echo "Not including $file"
+            git reset $file > /dev/null
+        else
+            echo "Adding $file"
+            git add $file
+        fi
+    done <<< $files
+    exit 0
+fi
+
+changes_description=$(git status | tail -1 | cut -d' ' -f1-5)
+if [[ $changes_description == "no changes added to commit" ||
+      $changes_description == "nothing added to commit but" ]]; then
+  no_commit_status=true
+fi
+
+[[ $real_modified_file == "true" ]] || echo "Only ignore files modified. Commit:"
+
+if [[ $real_modified_file == "true" &&
+      $no_commit_status == "true" &&
+      $nocommit != "true" ]]; then
+    git status
+    vared -p  "Some stuff not yet added. Add everything? [Y/n] " -c choice
+    if [[ "$choice" == "n" ]]; then
+        echo "OK."
+    else
+        while read -r file; do
+            if [[ $file == *"common-schemas"* || $file == *"marklogic-common"* ]]; then
+                echo "Not including $file"
+                git reset $file > /dev/null
+            else
+                echo "Adding $file"
+                git add $file
+            fi
+        done <<< $files
+    fi
+fi
+
+
+if [[ $project_name == "HER" || $project_name == "DI" ]]; then
+    commit_tag="$project_name-$issue_number: "
+else
+    commit_tag=""
+fi
+
+if [[ $1 == "--nocommit" || $1 == "-n" ]]; then
+    push
+else
+    if [[ ! $msg ]]; then
+        vared -p "> $commit_tag" -c msg
+    fi
+    commit_message=$commit_tag$msg
+    if [[ $msg == ""  ]]; then
+        if [[ $(git diff origin/$diffbranch) != "" ]]; then
+            echo "Empty commit message but a commit is yet to be pushed."
+            echo "Pushing now."
+            push
+        else
+            echo "Empty commit message and no commit to be pushed. Exiting."
+            echo "Exiting due to empty commit message"
+            exit 1
+        fi
+    else
+        echo "git commit -m $commit_message"
+        git commit -m $commit_message
+        push
+    fi
+fi
+
+exit 0

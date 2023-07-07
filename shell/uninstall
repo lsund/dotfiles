@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ $# == 0 ]]; then
+    package=$(pacman -Q | fzf | cut -d' ' -f1)
+    sudo pacman -Rns $package
+else
+    all="";
+    for var in "$@"
+        do
+            all+=$var
+            all+=" "
+        done
+    sudo pacman -R $all
+fi

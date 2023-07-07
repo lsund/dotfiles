@@ -1,0 +1,21 @@
+#!/bin/zsh
+
+function usage () {
+    echo "usage: ./iterfile FILE"
+    echo "usage: ./iterfile COMMAND FILE"
+}
+
+
+[[ $# != 1 && $# != 2 ]] && usage && exit
+
+if [[ $# == 1 ]]; then
+    cmd=echo
+    file=$1
+elif [[ $# == 2 ]]; then
+    cmd=$1
+    file=$2
+fi
+
+while read p; do
+    exec -c "$cmd $p"
+done < $file

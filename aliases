@@ -1,0 +1,71 @@
+#!/bin/zsh
+
+# ############################################################################
+# Util
+
+alias ls='eza -lu --time-style long-iso --color always -snew'
+alias lrath='eza -lrath -sold -t modified'
+alias la='eza -la'
+alias grep='grep --color'
+alias vim='nvim'
+alias duh="sudo du -h -d 1 2> /dev/null"
+alias pingg='ping -c 3 google.com'
+alias ghci='stack ghci'
+alias agl='ag -l'
+alias upd='brew update && brew upgrade && brew upgrade --cask'
+
+alias cat='bat --theme zenburn'
+
+alias beep='echo -ne "\\007"'
+alias bell='echo -ne "\\007"'
+
+alias pwd="$SCRIPTS/pwd"
+
+function cd() {
+    builtin cd $1 && ls
+}
+
+## APIS
+
+alias td='trans en: :de'
+
+alias te='trans de:'
+
+alias public-ip='curl https://ipinfo.io/ip'
+alias weather='curl wttr.in'
+
+# ############################################################################
+# Git
+
+alias gdl='git diff --name-status';
+
+alias gdc='git show --decorate'
+
+alias gsst='git status -s'
+
+alias cdgr='source $DOTFILES/shell/cd-git-root'
+
+alias glogc='git log --graph --simplify-by-decoration --oneline --topo-order --branches'
+
+alias squash='git reset --soft HEAD~2 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"'
+
+alias git-delete-all-merged-branches='git branch --merged | grep -v "\*" | grep -v master | grep -v main | xargs -n 1 git branch -d'
+
+alias csvdiff='git diff --color-words="[^[:space:],]+"'
+
+function ggg() {
+    gaa
+    gss
+    vared -p "> " -c msg_12341234
+    echo "Commit message: $msg_12341234"
+    gcmsg "$msg_12341234"
+    msg_12341234=""
+}
+
+function ggc() {
+    gss
+    vared -p "> " -c msg_12341234
+    echo "Commit message: $msg_12341234"
+    gcmsg "$msg_12341234"
+    msg_12341234=""
+}

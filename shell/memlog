@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+if [[ $(cat /etc/hostname) == "yunglean" ]]; then
+    device=nvme0n1p2
+    echo $(/usr/bin/df -h | grep $device | tr -s ' ' | cut -d' ' -f5) > "$HOME/Data/log/store/disk.txt"
+fi
+

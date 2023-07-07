@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Usage: ./extension FILENAME [POSITION]
+# Returns the extension of a file. if POSITION is given, returns the n'th
+# last extension.
+# Example: ./extension test.xml.gz      => gz
+#          ./extension test.xml.gz 2    => xml
+
+if [[ $# == 1 ]]; then
+    n=1
+else
+    n=$2
+fi
+
+echo $(basename $1) | rev | cut -d'.' -f$n | rev

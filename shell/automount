@@ -1,0 +1,56 @@
+#!/bin/env bash
+
+# Automatically mount a device
+
+if [[ $# != 1 && $# != 0 && $# != 2 ]]; then
+    echo "Usage: ./automount usb|mybook"
+    echo "Usage: ./automount"
+    exit 1
+fi
+
+if [[ $# == 0 || ($# == 1 && $1 == "-u")  ]]; then
+    physical=mybook
+else
+    physical=$1
+fi
+
+if [[ $# == 2 && $1 == "-u" ]]; then
+    physical=$2
+fi
+
+
+if [[ "$physical" == "mybook" ]]; then
+    path="/mnt/mybook"
+elif [[ "$physical" == "usb" ]]; then
+    path="/mnt/usb"
+else
+    echo "unknown media" && exit
+fi
+
+if [[ $1 == "-u" ]]; then
+    sudo umount $path
+    exit
+fi
+
+if [[ ! -d "/mnt/$physical" ]]; then
+    read -p "Create directory /mnt/$physical? [Y/n] " ans
+    if [[ $ans != "n" ]]; then
+        sudo mkdir "/mnt/$physical"
+    else
+        echo "Cannot mount. Exiting."
+        exit 1
+    fi
+fi
+
+
+lsblk
+read -p "device name? please enter >> sdx(x) << " device
+
+sudo mount /dev/$device $path
+
+if [[ "$?" == 0 ]]; then
+    echo "$physical mounted on $path"
+    cd $path
+else
+    echo "Something went wrong..." && exit
+fi

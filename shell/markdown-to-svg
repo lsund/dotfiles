@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+DIR=$PWD
+DOCKER_IMAGE=minlag/mermaid-cli
+
+if [[ "$(sudo docker images -q $DOCKER_IMAGE 2> /dev/null)" == "" ]]; then
+  echo "Please first start docker and docker pull $DOCKER_IMAGE"
+else
+    sudo docker run --rm -u `id -u`:`id -g` -v $DIR:/data $DOCKER_IMAGE -i $1
+fi
+

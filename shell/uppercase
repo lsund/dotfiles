@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for file in "$@"
+do
+    base=$(without-extension $file)
+    ext=$(extension $file)
+    mv $file ${base^^}.$ext
+done

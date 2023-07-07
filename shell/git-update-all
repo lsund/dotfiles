@@ -1,0 +1,29 @@
+#!/bin/zsh
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+WHITE='\033[0m'
+unclean_repos=""
+for dir in $(ls) ; do
+    branch=$(git -C $dir branch | grep \* | cut -d ' ' -f2)
+    echo
+    echo "[$dir] Trying to pull from $branch"
+    echo
+    if [ -z "$(git -C $dir status --porcelain)" ]; then
+        git -C $dir pull
+        echo
+        echo "${GREEN}OK${WHITE}"
+    else
+        echo "${RED}$dir is not clean. Please stash or commit your changes.${WHITE}"
+        unclean_repos="$unclean_repos $dir"
+    fi
+done
+
+echo
+echo "Unclean repos:"
+echo
+for dir in $(echo $unclean_repos) ; do
+    echo "- $RED$dir$WHITE"
+done
+
+

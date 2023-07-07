@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+if [ -p /dev/stdin ]; then
+  while IFS= read line; do
+    echo "${line}" | sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'
+  done
+else
+  for var in "$@"
+  do
+    # lc=$(echo "$var" | sed -e 's/\(.*\)/\L\1/')
+    #
+    # tested for osx
+    lc=$(echo "$var" | sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/')
+    mv "$var" "$lc"
+    echo "$var" "->" "$lc"
+  done
+fi
+

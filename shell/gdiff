@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+
+if [[ $# == 0 ]]; then
+    branch=$(git rev-parse --abbrev-ref HEAD)
+else
+    branch=$1
+fi
+
+git diff $branch

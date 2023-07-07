@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+echo "usage    ./custom-resolution WIDTH HEIGHT SCREEN"
+echo "example: ./custom-resolution 2560  1440 DP-1"
+
+modeline=$(cvt $1 $2 | tail -1 | cut -d' ' -f2-)
+mode=$(echo $modeline | cut -d'"' -f2)
+
+echo "Adding mode: $mode to $3"
+
+xrandr --newmode $(echo $modeline | xargs)
+xrandr --addmode $3 $mode

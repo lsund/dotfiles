@@ -1,0 +1,124 @@
+#!/bin/zsh
+
+# Script to automate the setup of my preferred environment on arch-linux or ubuntu.
+
+set -e
+
+# ############################################################################
+# Funcitons
+
+function PrintSeparator() {
+    echo "####################################################################"
+    echo $1
+}
+
+PrintSeparator "Starting Script"
+./try-connect
+
+if [[ -z "${DOTFILES}" ]]; then
+    echo "DOTFILES is not set."
+    exit
+else
+    echo "DOTFILES is set: $DOTFILES"
+fi
+if [[ -z "${SCRIPTS}" ]]; then
+    echo "SCRIPTS is not set."
+    exit
+else
+    echo "SCRIPTS is set: $SCRIPTS"
+fi
+
+# ############################################################################
+# Create directories
+
+PrintSeparator "Creating some directories under $HOME"
+
+mkdir -p $HOME/{Data/log/pacman,Temp,Downloads,Shared}
+mkdir -p $HOME/{Media/audio/music,Documents/tech/repos}
+mkdir -p $HOME/.bin
+mkdir -p $HOME/.emacs-backup-files
+
+touch "$HOME/Data/log/pacman/need_sysup.txt"
+touch "$HOME/Data/log/pacman/pacsynccount.txt"
+
+fontdir=$HOME/.local/share/fonts
+
+# ############################################################################
+# Install Fonts
+
+PrintSeparator "Installing Fonts"
+
+mkdir -p $fontdir
+cp $DOTFILES/fonts/hack/* $fontdir
+cp $DOTFILES/fonts/adobe-source-code-pro/* $fontdir
+fc-cache -f -v
+
+# ############################################################################
+# Install Packages/Scripts/Programs
+
+PrintSeparator "Updating package base and installing packages"
+
+./install-lsund-base $distro
+
+sudo systemctl start cronie
+sudo systemctl enable cronie
+sudo systemctl start sshd
+sudo systemctl enable sshd
+
+# ###########################################################################
+# Fetch repos
+
+PrintSeparator "Cloning some git repos"
+
+evil=$HOME/.emacs.d/evil
+if [[ ! -e $evil ]]; then
+    git clone https://github.com/emacs-evil/evil.git $evil
+fi
+
+if [[ ! -e $HOME/.vim/autoload/plug.vim ]]; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+ycm_core=$HOME/.vim/plugged/YouCompleteMe/third_party/ycmd/ycm_core.so
+if [[ ! -e $ycm_core ]]; then
+    $HOME/.vim/plugged/YouCompleteMe/install.py
+fi
+
+# ###########################################################################
+# Git Config
+
+PrintSeparator "Configuring git"
+
+[[ -e "~/.git_template" ]] && mkdir "~/.git_template"
+git config --global init.templatedir '~/.git_template'
+git config --global core.autocrlf false
+git config --global user.name "Ludvig Sundström"
+git config --global push.default simple
+
+# #############################################################################
+# Install soft links
+
+PrintSeparator "Installing Soft Links"
+
+./install-symlinks
+
+# ############################################################################
+# Shell
+
+PrintSeparator "Setting up shell"
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# ############################################################################
+# Other configs
+
+PrintSeparator "Last bits of config"
+
+setxkbmap dvorak -option compose:caps
+# Default tty keymap
+sudo echo "KEYMAP=dvorak" > "/etc/vconsole.conf"
+
+PrintSeparator "Done. Manual steps:"
+echo "open vim and type :PlugInstall"
+echo "Set your cronjobs"

@@ -1,0 +1,268 @@
+#!/bin/zsh
+
+# ############################################################################
+# Setup
+
+fifofile=$HOME/.mplayer/fifo
+session_file="$HOME/.${USER}_session"
+total_session_file="$HOME/.${USER}_session_total"
+music_path=$HOME/Media/audio/music
+
+session_status_file="$HOME/Data/log/sess_status"
+timelog_file="$HOME/Data/log/sess_time"
+
+
+# ############################################################################
+# Helpers
+
+function read_state() {
+    init_ts=$(cat $session_file | head -1)
+    pause_ts=$(cat $session_file | head -2 | tail -1)
+    continue_ts=$(cat $session_file | head -3 | tail -1)
+    state=$(cat $session_file | head -4 | tail -1)
+    seconds=$(cat $session_file | head -5 | tail -1)
+    play_music=$(cat $session_file | head -6 | tail -1)
+    total=$(cat $total_session_file)
+    mplayer_pid=$(pgrep -u $USER mplayer)
+}
+
+
+function log_time() {
+    echo $($HOME/Documents/dotfiles/shell/show-time $1)
+}
+
+
+function log_working_time() {
+    if [[ $state == "paused" ]]; then
+        secs=$seconds
+    else
+        secs=$(calculate_seconds $seconds $(date '+%s') $continue_ts)
+    fi
+    log_time $secs
+    echo $($HOME/Documents/dotfiles/shell/show-time $secs hm) > $timelog_file
+}
+
+function log_total_time() {
+    echo $(show-time $(( $(date '+%s') - $init_ts )))
+}
+
+# $1 = init_ts
+# $2 = pause_ts
+# $3 = continue_ts
+# $4 = state
+# $5 = seconds
+# $6 = music
+function write_state() {
+    echo $4 > $session_status_file
+    echo "$1\n$2\n$3\n$4\n$5\n$6" > $session_file
+}
+
+function toggle_state() {
+    if [[ $state == "paused" ]]; then
+        write_state \
+            $init_ts \
+            $pause_ts \
+            $continue_ts \
+            started \
+            $seconds \
+            $play_music
+    else
+        write_state \
+            $init_ts \
+            $pause_ts \
+            $continue_ts \
+            paused \
+            $seconds \
+            $play_music
+    fi
+}
+
+function write_add() {
+    write_state \
+        $init_ts \
+        $pause_ts \
+        $continue_ts \
+        $state \
+        $(($seconds + $1)) \
+        $play_music
+    read_state
+}
+
+function write_sub() {
+    write_state \
+        $init_ts \
+        $pause_ts \
+        $continue_ts \
+        $state \
+        $(($seconds - $1)) \
+        $play_music
+    read_state
+}
+
+function write_add_total() {
+    echo $(($1 + $total)) > $total_session_file
+}
+
+function calculate_seconds() {
+    seconds=$1
+    current_ts=$2
+    init_ts=$3
+    echo $((seconds + $current_ts - $init_ts))
+}
+
+function toggle_mplayer() {
+    echo "pause" > $fifofile
+}
+
+function random_file() {
+    rand_file="$music_path/$(/usr/bin/ls -1 -p $music_path | grep -v / | shuf | head -1)"
+    [[ $rand_file == "" ]] && echo "No music files" && exit 1
+    echo $rand_file
+}
+
+function find_file_to_play() {
+    file_to_play=""
+    if [[ $# == 1 ]]; then
+        files=$(/usr/bin/ls -1 $music_path)
+        for file in $(echo $files | xargs); do
+            if [[ $file == "$1.mp3" ]]; then
+                file_to_play=$music_path/$file
+            fi
+        done
+        [[ $file_to_play == "" ]] && echo "unknown command: $1" && exit 1
+    else
+        file_to_play=$(random_file)
+    fi
+}
+
+function kill_mplayer() {
+    if [[ $mplayer_active == "yes" ]]; then
+        echo "quit" > $fifofile
+    fi
+}
+
+function play_file() {
+    if [[ $play_music == "yes" ]]; then
+        echo "Playing file $1"
+        mplayer -quiet -slave $1 > /dev/null &
+    fi
+}
+
+# ############################################################################
+# Script
+
+read_state
+
+[[ ! -e $session_file ]] && write_state 0 0 0 paused 0 yes
+[[ ! -e $total_session_file ]] && echo "0" > $total_session_file
+
+if [[ ! $mplayer_pid ]]; then
+    mplayer_active="no"
+else
+    mplayer_active="yes"
+fi
+
+if [[ ! -e $fifofile ]] ; then
+    echo "Creating fifo..."
+    mkfifo $fifofile
+fi
+
+
+if [[ $1 == "reset" ]]; then
+    kill_mplayer
+    echo "Resetting session. Current time: $(show-time 0)."
+    write_add_total $seconds
+    write_state 0 0 0 paused 0 $play_music
+    echo 0 > $timelog_file
+    exit 0
+elif [[ $1 == "status" || $1 == "state" || $1 == "stat" ]]; then
+    echo -n "Working time: "
+    log_working_time
+    echo -n "Total time: "
+    log_total_time
+    echo "Session: $state"
+    echo "Mplayer active: $mplayer_active"
+    echo "Music playing enabled: $play_music"
+elif [[ $1 == "add-time" && $# == 2 ]]; then
+    write_add $(serialize-time $2)
+    log_working_time
+elif [[ $1 == "sub-time" && $# == 2 ]]; then
+    write_sub $(serialize-time $2)
+    log_working_time
+elif [[ $1 == "log-time" ]]; then
+    log_working_time
+elif [[ $1 == "total" ]]; then
+    echo "Total session: $(show-time $total)"
+elif [[ $1 == "time" ]]; then
+    log_working_time
+elif [[ $1 == "total-time" ]]; then
+    log_total_time
+elif [[ $1 == "new-music" || $1 == "nm" ]]; then
+    if [[ $state == "paused" ]]; then
+        toggle_state
+    fi
+    kill_mplayer
+    if [[ $play_music == "no" ]]; then
+        echo "Not playing music. call './session toggle-music' first"
+        echo "if you want music to play."
+    else
+        if [[ $# == 2 ]]; then
+            files=$(/usr/bin/ls -1 $music_path)
+            for file in $(echo $files | xargs); do
+                if [[ $file == "$2.mp3" ]]; then
+                    file_to_play=$music_path/$file
+                fi
+            done
+            [[ $file_to_play == "" ]] && echo "unknown music: $2" && exit 1
+        else
+            file_to_play=$(random_file)
+        fi
+        play_file $file_to_play
+    fi
+elif [[ $1 == "toggle-music" || $1 == "tm" ]]; then
+    if [[ $play_music == "yes" ]]; then
+        kill_mplayer
+        play_music="no"
+    echo "Music is now [OFF]"
+    else
+        play_music="yes"
+        echo "Music is now [ON]"
+        if [[ $state == "started" ]]; then
+            find_file_to_play
+            play_file $file_to_play
+        fi
+    fi
+    write_state $init_ts $pause_ts $continue_ts $state $seconds $play_music
+elif [[ $1 == "lunch" ]]; then
+    write_state $(($init_ts + $(serialize-time $2))) $pause_ts $continue_ts $state $seconds $play_music
+    read_state
+    echo -n "Ate lunch. New total time: "
+    log_total_time
+else
+    if [[ $state == "paused" ]]; then
+        continue_ts=$(date '+%s')
+        log_working_time
+        if [[ $seconds == "0" ]]; then
+            echo "Starting session"
+            write_state $continue_ts 0 $continue_ts started 0 $play_music
+        else
+            echo "Continuing session"
+            toggle_state
+        fi
+        if [[ $mplayer_active == "yes" ]]; then
+            toggle_mplayer
+        else
+            find_file_to_play
+            play_file $file_to_play
+        fi
+    else
+        echo "Pausing session"
+        pause_ts=$(date '+%s')
+        log_working_time
+        seconds=$(calculate_seconds $seconds $pause_ts $continue_ts)
+        toggle_state
+        if [[ $mplayer_active == "yes" ]]; then
+            toggle_mplayer
+        fi
+    fi
+fi

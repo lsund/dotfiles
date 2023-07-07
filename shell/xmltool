@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+function usage () {
+    echo "usage: xmltool --format XMLFILE"
+    echo "usage: xmltool --view XMLFILE"
+}
+
+if [[ $1 == "--format" ]]; then
+    tempfile=$(mktemp)
+    xmllint --format $1 > $tempfile
+    mv $tempfile $1
+elif [[ $1 == "--view" ]]; then
+    xmllint --format $1 | less
+else
+    usage
+fi
+
+
+

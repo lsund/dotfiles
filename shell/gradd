@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+if [[ $1 == "gitlab" ]]; then
+    git remote add origin git@gitlab.com:/$2/$3.git
+    echo "Added remote: git@gitlab.com:/$2/$3.git"
+elif [[ $1 == "innoq" ]]; then
+    git remote add origin git@gitlab.innoq.com:/$2/$3.git
+    echo "Added remote: git@gitlab.innoq.com:/$2/$3.git"
+else
+    echo "Added remote: git@github.com:/$1/$2.git"
+    git remote add origin git@github.com:/$1/$2.git
+fi
+

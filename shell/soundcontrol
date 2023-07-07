@@ -1,0 +1,49 @@
+#!/bin/zsh
+
+# ############################################################################
+# Config
+
+dir=$HOME/Data/log/sound
+statfile=$dir/soundstat.txt
+percfile=$dir/soundperc.txt
+
+mkdir -p $dir
+touch $statfile $percfile
+
+hostname=$(< /etc/hostname)
+
+sink_name=alsa_output.pci-0000_00_1f.3.analog-stereo
+# sink_name='alsa_output.usb-Pioneer_DJ_Corporation_DDJ-400_------00.analog-surround-40'
+
+# ############################################################################
+# Functions
+
+function SetMuted() {
+    muted=$(pactl list sinks | grep Mute | cut -d: -f2 | tail -n 1 | xargs)
+    if [[ $muted == "no" ]]; then
+        on_off="on"
+    else
+        on_off="off"
+    fi
+    echo $on_off > $statfile
+}
+
+function SetPerc() {
+    echo $(pactl list sinks | grep -A 8 $sink_name | grep Volume | xargs | cut -d' ' -f5) > $percfile
+}
+
+# ############################################################################
+# Script
+
+if [[ "$1" == "raise" ]]; then
+     pactl -- set-sink-volume $sink_name +2%
+     SetPerc
+elif [[ "$1" == "lower" ]]; then
+     pactl -- set-sink-volume $sink_name -2%
+     SetPerc
+ elif [[ "$1" == "toggle" ]]; then
+        pactl -- set-sink-mute $sink_name toggle
+        SetMuted
+else
+    exit 1
+fi
