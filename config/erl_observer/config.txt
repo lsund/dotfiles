@@ -5,7 +5,7 @@
 {pro_panel,#{acc => false,interval => 10}}.
 {port_panel,#{interval => 10}}.
 {sock_panel,#{interval => 10}}.
-{tv_panel,#{interval => 10,sys_hidden => true,type => ets,
+{tv_panel,#{interval => 10,sys_hidden => true,type => mnesia,
             unread_hidden => true}}.
 {trace_panel,#{match_specs =>
                    [{ms,funcs,

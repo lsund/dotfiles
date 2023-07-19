@@ -120,7 +120,7 @@ Plug 'tpope/vim-markdown'
 " HTML, XML
 
 " Html HTML
-" Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 Plug 'skywind3000/asyncrun.vim'
 
 " XQuery
