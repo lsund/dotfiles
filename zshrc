@@ -82,7 +82,7 @@ source $HOME/.ssh-agent.bash
 export SDKMAN_DIR="/Users/lsund/.sdkman"
 [[ -s "/Users/lsund/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lsund/.sdkman/bin/sdkman-init.sh"
 
-[[ -s "/Users/lsund/work/aliases.sh" ]] && source "/Users/lsund/work/aliases.sh"
+[[ -s "/home/lsund/work/aliases.sh" ]] && source "/home/lsund/work/aliases.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

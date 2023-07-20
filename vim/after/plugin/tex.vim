@@ -2,8 +2,6 @@
 au Filetype tex nnoremap <leader>rr :w \| :call CompileLatex()<CR>
 au Filetype plaintex nnoremap <leader>rr :w \| :call CompileLatex()<CR>
 
-let b:ale_linters = {'tex': [''], 'plaintex': ['']}
-
 autocmd FileType plaintex :let g:format_paragraph=0
 autocmd FileType tex :let g:format_paragraph=0
 " autocmd FileType plaintex :let g:format_paragraph=1
