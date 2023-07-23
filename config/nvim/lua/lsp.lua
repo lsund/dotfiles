@@ -13,12 +13,11 @@ local lsp = require("mason-lspconfig")
 lsp.setup {
   ensure_installed = {
     "erlangls",
-    "elixirls",
+    -- "elixirls",
+    "hls",
     "lua_ls",
-    -- "rust_analyzer",
     "bashls",
     "vimls",
-    -- "pyright",
     "omnisharp",
   },
   automatic_installation = true
@@ -46,6 +45,9 @@ lsp.setup_handlers {
         },
       },
     }
+  end,
+  ["hls"] = function ()
+    require'lspconfig'.hls.setup{}
   end,
   ["erlangls"] = function ()
     local lspconfig = require("lspconfig")

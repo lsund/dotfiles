@@ -63,7 +63,6 @@ return require('packer').startup(function(use)
                 stdin = true
               }
             end,
-          -- elixir = require("formatter.filetypes.elixir").mixformat,
           python = require("formatter.filetypes.python").black,
           rust = function()
             return {

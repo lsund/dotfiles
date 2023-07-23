@@ -97,30 +97,34 @@ bindkey '^z^z' fuzzy-file
 
 fortune | cowsay
 
+[ -f "/Users/lsund/.ghcup/env" ] && source "/Users/lsund/.ghcup/env" # ghcup-env
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
+if [[ $HOST != "renewise" ]] ; then
 
-# Load kerl erlang installation
-source ~/kerl/25.3/activate
-source ~/.asdf/asdf.sh
+  # Load Angular CLI autocompletion.
+  source <(ng completion script)
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/lsund/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/lsund/mambaforge/etc/profile.d/conda.sh" ]; then
-        . "/home/lsund/mambaforge/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/lsund/mambaforge/bin:$PATH"
-    fi
+  # Load kerl erlang installation
+  source ~/kerl/25.3/activate
+  source ~/.asdf/asdf.sh
+
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  __conda_setup="$('/home/lsund/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/home/lsund/mambaforge/etc/profile.d/conda.sh" ]; then
+          . "/home/lsund/mambaforge/etc/profile.d/conda.sh"
+      else
+          export PATH="/home/lsund/mambaforge/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
+
+  if [ -f "/home/lsund/mambaforge/etc/profile.d/mamba.sh" ]; then
+      . "/home/lsund/mambaforge/etc/profile.d/mamba.sh"
+  fi
+  # <<< conda initialize <<<
+
 fi
-unset __conda_setup
-
-if [ -f "/home/lsund/mambaforge/etc/profile.d/mamba.sh" ]; then
-    . "/home/lsund/mambaforge/etc/profile.d/mamba.sh"
-fi
-# <<< conda initialize <<<
-
