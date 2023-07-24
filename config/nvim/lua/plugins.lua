@@ -49,7 +49,8 @@ return require('packer').startup(function(use)
                   "fmt",
                   "-",
                 },
-                stdin = true
+                stdin = true,
+                ignore_exitcode = true
               }
             end,
           elixir = function()

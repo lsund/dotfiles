@@ -13,7 +13,7 @@ local lsp = require("mason-lspconfig")
 lsp.setup {
   ensure_installed = {
     "erlangls",
-    -- "elixirls",
+    "elixirls",
     "hls",
     "lua_ls",
     "bashls",
