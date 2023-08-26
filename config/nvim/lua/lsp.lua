@@ -47,7 +47,15 @@ lsp.setup_handlers {
     }
   end,
   ["hls"] = function ()
-    require'lspconfig'.hls.setup{}
+    require('lspconfig').hls.setup{
+      on_attach = on_attach,
+
+      settings = {
+        haskell = {
+          formattingProvider = ''
+        }
+      }
+    }
   end,
   ["erlangls"] = function ()
     local lspconfig = require("lspconfig")

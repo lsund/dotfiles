@@ -59,7 +59,7 @@ set ttyfast
 
 " Search and matching =========================================================
 
-set re=1
+set re=0
 set incsearch
 set hlsearch
 set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
@@ -87,3 +87,9 @@ au BufWrite * if g:delete_trailing_whitespace == 1 |  execute "normal ma" | sile
 autocmd! InsertEnter * call clearmatches()
 autocmd! InsertLeave * match ExtraWhitespace /\s\+$/
 
+set termguicolors
+
+hi DiagnosticError guifg=#ff9933
+hi DiagnosticWarn guifg=#ff99ff
+hi DiagnosticInfo guifg=#ffffff
+hi DiagnosticHint guifg=#66ff66

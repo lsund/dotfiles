@@ -1,5 +1,8 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Haskell Import
+
+augroup FormatAutogroup haskellgroup
+  autocmd!
+  autocmd BufWritePost *.hs FormatWrite
+augroup END
 
 au FileType haskell map <leader>bd :call StyleHaskell()<CR>
 au FileType haskell map <leader>ii i-------------------------------------------------------------------------------<CR><C-w><C-w>--<space>

@@ -36,10 +36,35 @@ return require('packer').startup(function(use)
   use {
     'mhartington/formatter.nvim',
     config = function()
+      local get_current_buffer_file_path = function()
+        return vim.api.nvim_buf_get_name(0)
+      end
+
+      local escape_path = function(arg)
+        return vim.fn.shellescape(arg, true)
+      end
+
       require('formatter').setup {
         logging = true,
         log_level = 2,
         filetype = {
+          ["javascript.jsx"] = function()
+            return {
+              name = "prettier",
+              exe = "prettier",
+              args = {"--stdin-filepath",escape_path(get_current_buffer_file_path())},
+              stdin = true,
+              try_node_modules = false
+          }
+          end,
+          haskell = function()
+            return {
+                name = "fourmolu",
+                exe = "fourmolu",
+                args = {"--stdin-input-file", "-"},
+                stdin = true,
+              }
+            end,
           erlang = function()
             return {
                 name = "erlfmt",
