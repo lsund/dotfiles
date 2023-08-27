@@ -104,8 +104,9 @@ if [[ $HOST != "renewise" ]] ; then
   # Load Angular CLI autocompletion.
   source <(ng completion script)
 
-  # Load kerl erlang installation
-  source ~/kerl/25.3/activate
+  # Load kerl installation
+  . /usr/local/lib/erlang/25.3/activate
+  # Load ASDF
   source ~/.asdf/asdf.sh
 
   # >>> conda initialize >>>
