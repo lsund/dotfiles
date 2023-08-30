@@ -99,13 +99,15 @@ fortune | cowsay
 
 [ -f "/Users/lsund/.ghcup/env" ] && source "/Users/lsund/.ghcup/env" # ghcup-env
 
+## Activate Kerl
+. /usr/local/lib/erlang/25.3/activate
+
 if [[ $HOST != "renewise" ]] ; then
 
   # Load Angular CLI autocompletion.
   source <(ng completion script)
 
   # Load kerl installation
-  . /usr/local/lib/erlang/25.3/activate
   # Load ASDF
   source ~/.asdf/asdf.sh
 
