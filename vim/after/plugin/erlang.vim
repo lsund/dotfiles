@@ -9,3 +9,9 @@ au BufRead rebar.* :set ft=erlang
 
 au FileType erlang map <leader>ii i%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<CR><space>
 
+set tw=100
+
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost *.erl FormatWrite
+augroup END
