@@ -97,10 +97,12 @@ bindkey '^z^z' fuzzy-file
 
 fortune | cowsay
 
-[ -f "/Users/lsund/.ghcup/env" ] && source "/Users/lsund/.ghcup/env" # ghcup-env
-
 ## Activate Kerl
-. /usr/local/lib/erlang/25.3/activate
+if [[ $HOST == "N52930" ]]; then
+  . /home/lsund/kerl/25.3/activate
+else
+  . /usr/local/lib/erlang/25.3/activate
+fi
 
 if [[ $HOST != "renewise" ]] ; then
 
@@ -131,3 +133,5 @@ if [[ $HOST != "renewise" ]] ; then
   # <<< conda initialize <<<
 
 fi
+
+[ -f "/home/lsund/.ghcup/env" ] && source "/home/lsund/.ghcup/env"
