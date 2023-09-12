@@ -13,6 +13,8 @@ alias ghci='stack ghci'
 alias agl='ag -l'
 
 if [[ $HOST == "N52930" ]]; then
+  alias fd='fdfind'
+  alias cat='batcat --theme zenburn'
 else
   alias cat='bat --theme zenburn'
 fi
