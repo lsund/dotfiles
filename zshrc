@@ -21,8 +21,12 @@ plugins=(
 
 export DOTFILES=$HOME/dotfiles
 export SCRIPTS=$HOME/dotfiles/shell
-export SCRIPTS_WORK=$HOME/work
-export PYTHON=/usr/local/bin/python3
+
+if [[ $HOST == "N52930" ]]; then
+  export PYTHON=/usr/bin/python3
+else
+  export PYTHON=/usr/local/bin/python3
+fi
 
 export ZSH=$HOME/.oh-my-zsh
 export EDITOR='nvim'
@@ -49,7 +53,6 @@ export PATH="$PATH:$HOME/.local/usr/bin"
 export PATH="$PATH:$HOME/.cabal/bin"
 export PATH="$PATH:$HOME/.cache/rebar3/bin"
 export PATH="$PATH:$SCRIPTS"
-export PATH="$PATH:$SCRIPTS_WORK"
 
 export FZF_BASE=$DOTFILES/vim/plugged/fzf
 export FZF_DEFAULT_COMMAND='fdfind --type f'
@@ -79,10 +82,10 @@ source $HOME/.ssh-agent.bash
 # ############################################################################
 # Setup sdkman
 
-export SDKMAN_DIR="/Users/lsund/.sdkman"
-[[ -s "/Users/lsund/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lsund/.sdkman/bin/sdkman-init.sh"
-
-[[ -s "/home/lsund/work/aliases.sh" ]] && source "/home/lsund/work/aliases.sh"
+if [[ $HOST == "renewise" ]]; then
+  export SDKMAN_DIR="/Users/lsund/.sdkman"
+  [[ -s "/Users/lsund/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lsund/.sdkman/bin/sdkman-init.sh"
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
