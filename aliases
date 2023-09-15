@@ -15,6 +15,7 @@ alias agl='ag -l'
 if [[ $HOST == "N52930" ]]; then
   alias fd='fdfind'
   alias cat='batcat --theme zenburn'
+  alias upd='sudo apt-get update && sudo apt-get upgrade'
 else
   alias cat='bat --theme zenburn'
 fi
