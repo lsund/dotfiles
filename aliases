@@ -61,14 +61,16 @@ alias git-delete-all-merged-branches='git branch --merged | grep -v "\*" | grep 
 function ggg() {
     gaa
     gss
-    tag=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1)
-    issue=$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-2)
-    if [[ $# == 1 ]]; then
-        gcmsg "$issue: $1"
-    else
-        vared -p "> " -c msg_12341234
-        echo "Commit message: $msg_12341234"
-        gcmsg "$msg_12341234"
-    fi
+    vared -p "> " -c msg_12341234
+    echo "Commit message: $msg_12341234"
+    gcmsg "$msg_12341234"
+    msg_12341234=""
+}
+
+function ggc() {
+    gss
+    vared -p "> " -c msg_12341234
+    echo "Commit message: $msg_12341234"
+    gcmsg "$msg_12341234"
     msg_12341234=""
 }

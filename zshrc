@@ -3,17 +3,14 @@
 ZSH_THEME="robbyrussell"
 
 plugins=(
-    archlinux
-    colored-man-pages
+    # archlinux
     kubectl
     cp
     git
     fzf
-    lein
     autojump
     extract
     copyfile
-    rsync
 )
 
 # ###########################################################################
@@ -138,3 +135,5 @@ if [[ $HOST != "renewise" ]] ; then
 fi
 
 [ -f "/home/lsund/.ghcup/env" ] && source "/home/lsund/.ghcup/env"
+
+[ -f "/Users/lsund/.ghcup/env" ] && source "/Users/lsund/.ghcup/env" # ghcup-env
