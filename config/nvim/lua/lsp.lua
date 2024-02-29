@@ -14,6 +14,7 @@ lsp.setup {
   ensure_installed = {
     "erlangls",
     "elixirls",
+    "elp",
     "hls",
     "lua_ls",
     "bashls",
@@ -61,6 +62,12 @@ lsp.setup_handlers {
     local lspconfig = require("lspconfig")
     lspconfig.erlangls.setup {
       root_dir = lspconfig.util.root_pattern('.git'),
+      on_attach = on_attach,
+    }
+  end,
+  ["elp"] = function ()
+    local lspconfig = require("lspconfig")
+    lspconfig.elp.setup {
       on_attach = on_attach,
     }
   end,

@@ -19,3 +19,4 @@ vattenfall
 config/nvim/plugin/packer_compiled.lua
 statkraft
 shell/statkraft
+vim/spell/*
