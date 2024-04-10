@@ -1,6 +1,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configuration
 
+let g:python3_host_prog = '/usr/bin/python3'
+
 let g:rtd = "unset"
 
 let g:delete_trailing_whitespace = 1

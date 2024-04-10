@@ -65,19 +65,19 @@ return require('packer').startup(function(use)
                 stdin = true,
               }
             end,
-          erlang = function()
-            return {
-                name = "erlfmt",
-                exe = "escript",
-                args = {
-                  "rebar3",
-                  "fmt",
-                  "-",
-                },
-                stdin = true,
-                ignore_exitcode = true
-              }
-            end,
+          -- erlang = function()
+          --   return {
+          --       name = "erlfmt",
+          --       exe = "escript",
+          --       args = {
+          --         "rebar3",
+          --         "fmt",
+          --         "-",
+          --       },
+          --       stdin = true,
+          --       ignore_exitcode = true
+          --     }
+          --   end,
           elixir = function()
             return {
                 name = "mixformat",
@@ -89,7 +89,17 @@ return require('packer').startup(function(use)
                 stdin = true
               }
             end,
-          python = require("formatter.filetypes.python").black,
+          python = function()
+            return {
+              name = "ruff",
+              exe = "ruff",
+              args = {
+                "format",
+                "-",
+              },
+              stdin = true
+            }
+          end,
           rust = function()
             return {
               name = "rustfmt",

@@ -14,12 +14,13 @@ lsp.setup {
   ensure_installed = {
     "erlangls",
     "elixirls",
-    "elp",
+    -- "elp",
     "hls",
     "lua_ls",
     "bashls",
     "vimls",
     "omnisharp",
+    "pyright"
   },
   automatic_installation = true
 }
@@ -61,16 +62,16 @@ lsp.setup_handlers {
   ["erlangls"] = function ()
     local lspconfig = require("lspconfig")
     lspconfig.erlangls.setup {
-      root_dir = lspconfig.util.root_pattern('.git'),
+      root_dir = lspconfig.util.root_pattern('rebar.config', '.git'),
       on_attach = on_attach,
     }
   end,
-  ["elp"] = function ()
-    local lspconfig = require("lspconfig")
-    lspconfig.elp.setup {
-      on_attach = on_attach,
-    }
-  end,
+  -- ["elp"] = function ()
+  --   local lspconfig = require("lspconfig")
+  --   lspconfig.elp.setup {
+  --     on_attach = on_attach,
+  --   }
+  -- end,
   ["elixirls"] = function ()
     local lspconfig = require("lspconfig")
     lspconfig.elixirls.setup {
