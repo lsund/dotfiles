@@ -17,9 +17,9 @@ fi
 # Preconditions
 
 
-if [[ -e "/usr/bin/rm" ]]; then
+if [[ -f "/usr/bin/rm" ]]; then
     real_remove=/usr/bin/rm
-elif [[ -e "/bin/rm" ]]; then
+elif [[ -f "/bin/rm" ]]; then
     real_remove=/bin/rm
 else
     echo "Don't know which rm to use" && exit
@@ -86,7 +86,7 @@ function RemoveFiles () {
     vared -p "Remove the above files? [Y/n] " -c choice
     if [[ "$choice" != "n" ]]; then
         while read -r line; do
-            sudo /usr/bin/rm -rf $line
+            sudo $real_remove -rf $line
         done <<< "$files"
     fi
     echo
@@ -108,7 +108,7 @@ function RemoveDirs () {
         | sed '/^\/home\/lsund\/.trash\/1M$/d' \
         | sed '/^\/home\/lsund\/.trash\/1K$/d' \
     )
-    files=$(echo $all_files | head -3)
+    files=$(echo $all_files | head -5)
     n=$(echo $all_files | wc -l)
     while read -r line; do
         echo $line
@@ -124,7 +124,7 @@ function RemoveDirs () {
     vared -p "Remove the above files? [Y/n] " -c choice
     if [[ "$choice" != "n" ]]; then
         while read -r line; do
-            sudo /usr/bin/rm -rf $line
+            sudo $real_remove -rf $line
         done <<< "$files"
     fi
     echo
@@ -155,6 +155,7 @@ function PrintStats {
 
 
 if [[ $1 == "--remove" ]]; then
+    echo $real_remove
     RemoveFiles
     RemoveDirs
     exit 0

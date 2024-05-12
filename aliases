@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # ############################################################################
-# Util
+# Util / Programs
 
 alias ls='exa -lu --time-style long-iso --color always'
 alias la='exa -lau --time-style long-iso --color always'
@@ -25,6 +25,8 @@ alias pwd="$SCRIPTS/pwd"
 function cd() {
     builtin cd $1 && ls
 }
+
+alias youtube-dl="$HOME/.local/bin/youtube-dl/youtube-dl"
 
 ## APIS
 

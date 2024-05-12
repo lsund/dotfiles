@@ -89,14 +89,6 @@ fi
 # ############################################################################
 # Source Aliases and widgets
 
-. $HOME/.aliases
-. $HOME/.zsh_widgets
-
-bindkey '^o^o' fuzzy-git-branch
-bindkey '^z^z' fuzzy-file
-
-fortune | cowsay
-
 ## Activate Kerl
 if [[ $HOST == "N52930" ]]; then
   . /home/lsund/kerl/25.3/activate
@@ -137,3 +129,12 @@ fi
 [ -f "/home/lsund/.ghcup/env" ] && source "/home/lsund/.ghcup/env"
 
 [ -f "/Users/lsund/.ghcup/env" ] && source "/Users/lsund/.ghcup/env" # ghcup-env
+
+bindkey '^o^o' fuzzy-git-branch
+bindkey '^z^z' fuzzy-file
+
+. $HOME/.aliases
+. $HOME/.zsh_widgets
+
+fortune | cowsay
+

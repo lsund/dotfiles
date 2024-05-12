@@ -13,7 +13,7 @@ outfile=false
 inffile=false
 keep_video=false
 
-YOUTUBE_DL_PROG=/Users/lsund/youtube-dl/youtube-dl
+YOUTUBE_DL_PROG=$HOME/.local/bin/youtube-dl/youtube-dl
 
 # ############################################################################
 # Functions
