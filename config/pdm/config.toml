@@ -1,0 +1,4 @@
+[pypi.energycorp]
+url = "https://artifacts.energycorp.com/artifactory/api/pypi/energycorp-pypi/simple"
+verify_ssl = false
+
