@@ -65,73 +65,16 @@ source $ZSH/oh-my-zsh.sh
 [[ -e /usr/share/fzf/completion.zsh ]]   && . /usr/share/fzf/completion.zsh
 
 # ############################################################################
-# Setup Autojump
-
-[[ -s /home/lsund/.autojump/etc/profile.d/autojump.sh ]] && source /home/lsund/.autojump/etc/profile.d/autojump.sh
-
-autoload -U compinit && compinit -u
-
-# ############################################################################
 # Setup SSH agent
 
 source $HOME/.ssh-agent.bash
-
-# ############################################################################
-# Setup sdkman
-
-if [[ $HOST == "renewise" ]]; then
-  export SDKMAN_DIR="/Users/lsund/.sdkman"
-  [[ -s "/Users/lsund/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/lsund/.sdkman/bin/sdkman-init.sh"
-fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # ############################################################################
 # Source Aliases and widgets
 
-## Activate Kerl
-if [[ $HOST == "N52930" ]]; then
-  . /home/lsund/kerl/25.3/activate
-else
-  . /usr/local/lib/erlang/25.3/activate
-fi
-
-if [[ $HOST != "renewise" ]] ; then
-
-  # Load Angular CLI autocompletion.
-  source <(ng completion script)
-
-  # Load kerl installation
-  # Load ASDF
-  source ~/.asdf/asdf.sh
-
-  # >>> conda initialize >>>
-  # !! Contents within this block are managed by 'conda init' !!
-  __conda_setup="$('/home/lsund/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-  if [ $? -eq 0 ]; then
-      eval "$__conda_setup"
-  else
-      if [ -f "/home/lsund/mambaforge/etc/profile.d/conda.sh" ]; then
-          . "/home/lsund/mambaforge/etc/profile.d/conda.sh"
-      else
-          export PATH="/home/lsund/mambaforge/bin:$PATH"
-      fi
-  fi
-  unset __conda_setup
-
-  if [ -f "/home/lsund/mambaforge/etc/profile.d/mamba.sh" ]; then
-      . "/home/lsund/mambaforge/etc/profile.d/mamba.sh"
-  fi
-  # <<< conda initialize <<<
-
-fi
-
-[ -f "/home/lsund/.ghcup/env" ] && source "/home/lsund/.ghcup/env"
-
-[ -f "/Users/lsund/.ghcup/env" ] && source "/Users/lsund/.ghcup/env" # ghcup-env
-
-bindkey '^o^o' fuzzy-git-branch
-bindkey '^z^z' fuzzy-file
+# . /home/lsund/kerl/25.3/activate
 
 . $HOME/.aliases
 . $HOME/.zsh_widgets
