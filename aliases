@@ -3,8 +3,8 @@
 # ############################################################################
 # Util / Programs
 
-alias ls='exa -lu --time-style long-iso --color always'
-alias la='exa -lau --time-style long-iso --color always'
+alias ls='ls -lG'
+alias la='ls -laG'
 alias grep='grep --color'
 alias vim='nvim'
 alias duh="sudo du -h -d 1 2> /dev/null"
@@ -12,13 +12,7 @@ alias pingg='ping -c 3 google.com'
 alias ghci='stack ghci'
 alias agl='ag -l'
 
-if [[ $HOST == "N52930" ]]; then
-  alias fd='fdfind'
-  alias cat='batcat --theme zenburn'
-  alias upd='sudo apt-get update && sudo apt-get upgrade'
-else
-  alias cat='bat --theme zenburn'
-fi
+alias cat='bat --theme zenburn'
 
 alias pwd="$SCRIPTS/pwd"
 
