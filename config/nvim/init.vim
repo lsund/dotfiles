@@ -4,4 +4,5 @@ source ~/.config/nvim/vimrc
 
 lua require('plugins')
 lua require('lsp')
+lua require('autocmds')
 
