@@ -8,7 +8,6 @@ plugins=(
     cp
     git
     fzf
-    autojump
     extract
     copyfile
 )
@@ -28,7 +27,6 @@ fi
 export ZSH=$HOME/.oh-my-zsh
 export EDITOR='nvim'
 export VISUAL='nvim'
-export EXA_COLORS=$(cat $HOME/.exa-colors)
 
 export KUBECONFIG=$HOME/.kube/config
 
@@ -67,7 +65,7 @@ source $ZSH/oh-my-zsh.sh
 # ############################################################################
 # Setup SSH agent
 
-source $HOME/.ssh-agent.bash
+# source $HOME/.ssh-agent.bash
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
