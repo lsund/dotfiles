@@ -7,13 +7,8 @@
 
 officeprogram=libreoffice
 mediaprogram=mplayer
-if [[ $(which scutil) &&  $(scutil --get HostName) == "renewise" ]]; then
-  pdfprogram='open -a Preview'
-  imgprogram='qlmanage -p'
-else
-  pdfprogram=/usr/bin/zathura
-  imgprogram=ristretto
-fi
+pdfprogram=/usr/bin/zathura
+imgprogram=gwenview
 
 case $1 in
     "eclipse")

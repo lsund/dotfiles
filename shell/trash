@@ -3,13 +3,10 @@
 # ############################################################################
 # Config
 
-FINDPROG=fdfind
+FINDPROG=fd
+RM_BATCH=15
 
-if [[ $HOST == "Ludvigs-MacBook-Pro.local" ]]; then
-    base_trashdir="$HOME/.Trash"
-else
-    base_trashdir="$HOME/.trash"
-fi
+base_trashdir="$HOME/.trash"
 
 
 
@@ -70,7 +67,7 @@ function CountIdentical () {
 
 function RemoveFiles () {
     all_files=$($FINDPROG -H -t f -d 2 . $base_trashdir)
-    files=$(echo $all_files | head -7)
+    files=$(echo $all_files | head -$RM_BATCH)
     n=$(echo $all_files | wc -l)
     while read -r line; do
         echo $line
