@@ -12,6 +12,7 @@ alias duh="sudo du -h -d 1 2> /dev/null"
 alias pingg='ping -c 3 google.com'
 alias ghci='stack ghci'
 alias agl='ag -l'
+alias upd='brew update && brew upgrade && brew upgrade --cask'
 
 alias cat='bat --theme zenburn'
 
@@ -31,6 +32,7 @@ alias td='trans en: :de'
 alias te='trans de:'
 
 alias public-ip='curl https://ipinfo.io/ip'
+alias weather='curl wttr.in'
 
 # ############################################################################
 # Git

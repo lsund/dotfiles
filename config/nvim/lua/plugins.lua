@@ -65,19 +65,19 @@ return require('packer').startup(function(use)
                 stdin = true,
               }
             end,
-          -- erlang = function()
-          --   return {
-          --       name = "erlfmt",
-          --       exe = "escript",
-          --       args = {
-          --         "rebar3",
-          --         "fmt",
-          --         "-",
-          --       },
-          --       stdin = true,
-          --       ignore_exitcode = true
-          --     }
-          --   end,
+          erlang = function()
+            return {
+                name = "erlfmt",
+                exe = "escript",
+                args = {
+                  "rebar3",
+                  "fmt",
+                  "-",
+                },
+                stdin = true,
+                ignore_exitcode = true
+              }
+            end,
           elixir = function()
             return {
                 name = "mixformat",

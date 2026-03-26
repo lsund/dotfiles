@@ -12,9 +12,9 @@ local lsp = require("mason-lspconfig")
 
 lsp.setup {
   ensure_installed = {
-    "erlangls",
+    -- "erlangls",
     "elixirls",
-    -- "elp",
+    "elp",
     "hls",
     "lua_ls",
     "bashls",
@@ -59,19 +59,19 @@ lsp.setup_handlers {
       }
     }
   end,
-  ["erlangls"] = function ()
-    local lspconfig = require("lspconfig")
-    lspconfig.erlangls.setup {
-      root_dir = lspconfig.util.root_pattern('rebar.config', '.git'),
-      on_attach = on_attach,
-    }
-  end,
-  -- ["elp"] = function ()
+  -- ["erlangls"] = function ()
   --   local lspconfig = require("lspconfig")
-  --   lspconfig.elp.setup {
+  --   lspconfig.erlangls.setup {
+  --     root_dir = lspconfig.util.root_pattern('rebar.config', '.git'),
   --     on_attach = on_attach,
   --   }
   -- end,
+  ["elp"] = function ()
+    local lspconfig = require("lspconfig")
+    lspconfig.elp.setup {
+      on_attach = on_attach,
+    }
+  end,
   ["elixirls"] = function ()
     local lspconfig = require("lspconfig")
     lspconfig.elixirls.setup {
